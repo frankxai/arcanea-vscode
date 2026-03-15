@@ -3,8 +3,8 @@ import * as path from "path"
 import fs from "fs/promises"
 
 /**
- * Converts .kilocode/rules file to directory and places old .kilocode/rules file inside directory, renaming it
- * Doesn't do anything if .kilocode/rules dir already exists or doesn't exist
+ * Converts .arcanea/rules file to directory and places old .arcanea/rules file inside directory, renaming it
+ * Doesn't do anything if .arcanea/rules dir already exists or doesn't exist
  * Returns whether there are any uncaught errors
  */
 export async function ensureLocalKilorulesDirExists(

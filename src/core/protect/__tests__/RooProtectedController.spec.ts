@@ -151,9 +151,9 @@ describe("RooProtectedController", () => {
 
 			expect(patterns).toEqual([
 				".kilocodeignore",
-				".kilocodemodes",
+				".arcaneamodes",
 				".kilocoderules",
-				".kilocode/**",
+				".arcanea/**",
 				".kilocodeprotected",
 				".rooignore",
 				".roomodes",

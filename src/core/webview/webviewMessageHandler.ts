@@ -1262,7 +1262,7 @@ export const webviewMessageHandler = async (
 			break
 		// kilocode_change begin
 		case "openGlobalKeybindings":
-			vscode.commands.executeCommand("workbench.action.openGlobalKeybindings", message.text ?? "kilo-code.")
+			vscode.commands.executeCommand("workbench.action.openGlobalKeybindings", message.text ?? "arcanea.")
 			break
 		case "showSystemNotification":
 			const isSystemNotificationsEnabled = getGlobalState("systemNotificationsEnabled") ?? true
@@ -1780,7 +1780,7 @@ export const webviewMessageHandler = async (
 			const ghostServiceSettings = ghostServiceSettingsSchema.parse(message.values)
 			await updateGlobalState("ghostServiceSettings", ghostServiceSettings)
 			await provider.postStateToWebview()
-			vscode.commands.executeCommand("kilo-code.ghost.reload")
+			vscode.commands.executeCommand("arcanea.ghost.reload")
 			break
 		// kilocode_change end
 		case "includeTaskHistoryInEnhance":

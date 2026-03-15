@@ -1849,7 +1849,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			if (needsRulesFileCheck) {
 				await this.say(
 					"error",
-					"Issue with processing the /newrule command. Double check that, if '.kilocode/rules' already exists, it's a directory and not a file. Otherwise there was an issue referencing this file/directory",
+					"Issue with processing the /newrule command. Double check that, if '.arcanea/rules' already exists, it's a directory and not a file. Otherwise there was an issue referencing this file/directory",
 				)
 			}
 			// kilocode_change end

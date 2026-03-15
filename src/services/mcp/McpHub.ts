@@ -352,7 +352,7 @@ export class McpHub {
 		}
 
 		const workspaceFolder = this.providerRef.deref()?.cwd ?? getWorkspacePath()
-		const projectMcpPattern = new vscode.RelativePattern(workspaceFolder, ".kilocode/mcp.json")
+		const projectMcpPattern = new vscode.RelativePattern(workspaceFolder, ".arcanea/mcp.json")
 
 		// Create a file system watcher for the project MCP file pattern
 		this.projectMcpWatcher = vscode.workspace.createFileSystemWatcher(projectMcpPattern)
@@ -561,7 +561,7 @@ export class McpHub {
 			await fs.access(projectMcpPath)
 			return projectMcpPath
 		} catch {
-			// If not found in .kilocode/, fall back to .mcp.json in root directory
+			// If not found in .arcanea/, fall back to .mcp.json in root directory
 			const rootMcpPath = path.join(workspacePath, ".mcp.json")
 			try {
 				await fs.access(rootMcpPath)

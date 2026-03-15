@@ -252,7 +252,7 @@ export class MarketplaceManager {
 			}
 
 			// Check modes in .roomodes
-			const projectModesPath = path.join(workspaceFolder.uri.fsPath, ".kilocodemodes")
+			const projectModesPath = path.join(workspaceFolder.uri.fsPath, ".arcaneamodes")
 			try {
 				const content = await fs.readFile(projectModesPath, "utf-8")
 				const data = yaml.parse(content)

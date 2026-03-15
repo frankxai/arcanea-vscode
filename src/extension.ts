@@ -247,7 +247,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	if (!context.globalState.get("firstInstallCompleted")) {
 		outputChannel.appendLine("First installation detected, opening Arcanea sidebar!")
 		try {
-			await vscode.commands.executeCommand("kilo-code.SidebarProvider.focus")
+			await vscode.commands.executeCommand("arcanea.SidebarProvider.focus")
 
 			outputChannel.appendLine("Opening Arcanea walkthrough")
 

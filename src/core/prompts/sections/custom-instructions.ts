@@ -236,9 +236,9 @@ export async function loadRuleFiles(cwd: string): Promise<string> {
 		const content = await safeReadFile(path.join(cwd, file))
 		if (content) {
 			if (file !== ".kilocoderules" && vscodeAPI && !hasShownNonKilocodeRulesMessage) {
-				// kilocode_change: show message to move to .kilocode/rules/
+				// kilocode_change: show message to move to .arcanea/rules/
 				vscodeAPI.window.showWarningMessage(
-					`Loading non-Kilocode rules from ${file}, consider moving to .kilocode/rules/`,
+					`Loading non-Kilocode rules from ${file}, consider moving to .arcanea/rules/`,
 				)
 				hasShownNonKilocodeRulesMessage = true
 			} // kilocode_change end

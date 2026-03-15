@@ -9,7 +9,7 @@ interface LaunchConfig {
 
 /**
  * Checks for launch configuration and runs the task immediately if found.
- * Reads .kilocode/launchConfig.json from the workspace root.
+ * Reads .arcanea/launchConfig.json from the workspace root.
  */
 export async function checkAndRunAutoLaunchingTask(context: vscode.ExtensionContext): Promise<void> {
 	if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length === 0) {
@@ -26,9 +26,9 @@ export async function checkAndRunAutoLaunchingTask(context: vscode.ExtensionCont
 		console.log(`🚀 Auto-launching task from '${configPath}' with config:\n${JSON.stringify(config)}`)
 
 		await new Promise((resolve) => setTimeout(resolve, 500))
-		await vscode.commands.executeCommand("kilo-code.SidebarProvider.focus")
+		await vscode.commands.executeCommand("arcanea.SidebarProvider.focus")
 
-		vscode.commands.executeCommand("kilo-code.newTask", config) // Pass the full config to newTask
+		vscode.commands.executeCommand("arcanea.newTask", config) // Pass the full config to newTask
 	} catch (error) {
 		if (error instanceof vscode.FileSystemError && error.code === "FileNotFound") {
 			return // No config file found

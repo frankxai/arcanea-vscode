@@ -564,7 +564,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 												e.preventDefault() // Prevent blur
 												vscode.postMessage({
 													type: "openFile",
-													text: "./.kilocodemodes",
+													text: "./.arcaneamodes",
 													values: {
 														create: true,
 														content: JSON.stringify({ customModes: [] }, null, 2),
@@ -1160,7 +1160,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 												// Open or create an empty file
 												vscode.postMessage({
 													type: "openFile",
-													text: `./.kilocode/rules-${currentMode.slug}/rules.md`,
+													text: `./.arcanea/rules-${currentMode.slug}/rules.md`,
 													values: {
 														create: true,
 														content: "",
@@ -1289,7 +1289,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 
 															vscode.postMessage({
 																type: "openFile",
-																text: `./.kilocode/system-prompt-${currentMode.slug}`, // kilocode_change
+																text: `./.arcanea/system-prompt-${currentMode.slug}`, // kilocode_change
 																values: {
 																	create: true,
 																	content: "",
@@ -1358,7 +1358,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 										onClick={() =>
 											vscode.postMessage({
 												type: "openFile",
-												text: "./.kilocode/rules/rules.md",
+												text: "./.arcanea/rules/rules.md",
 												values: {
 													create: true,
 													content: "",

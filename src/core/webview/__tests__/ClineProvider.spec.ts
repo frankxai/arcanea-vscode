@@ -2353,7 +2353,7 @@ describe("Project MCP Settings", () => {
 		expect(safeWriteJson).toHaveBeenCalledWith("/test/workspace/.roo/mcp.json", { mcpServers: {} })
 
 		// Check that openFile was called
-		expect(openFileSpy).toHaveBeenCalledWith("/test/workspace/.kilocode/mcp.json")
+		expect(openFileSpy).toHaveBeenCalledWith("/test/workspace/.arcanea/mcp.json")
 	})
 
 	test("handles openProjectMcpSettings when workspace is not open", async () => {
@@ -2389,7 +2389,7 @@ describe("Project MCP Settings", () => {
 		// Verify error message was shown
 		expect(vscode.window.showErrorMessage).toHaveBeenCalledWith(
 			// kilocode_change
-			expect.stringContaining("Failed to create or open .kilocode/mcp.json"),
+			expect.stringContaining("Failed to create or open .arcanea/mcp.json"),
 		)
 	})
 })

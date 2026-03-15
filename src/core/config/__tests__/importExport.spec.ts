@@ -5,8 +5,8 @@ import * as path from "path"
 
 import * as vscode from "vscode"
 
-import type { ProviderName } from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
+import type { ProviderName } from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { importSettings, importSettingsFromFile, importSettingsWithFeedback, exportSettings } from "../importExport"
 import { ProviderSettingsManager } from "../ProviderSettingsManager"
@@ -459,7 +459,7 @@ describe("importExport", () => {
 
 		it("should export settings to the selected file location", async () => {
 			;(vscode.window.showSaveDialog as Mock).mockResolvedValue({
-				fsPath: "/mock/path/kilo-code-settings.json",
+				fsPath: "/mock/path/arcanea-settings.json",
 			})
 
 			const mockProviderProfiles = {
@@ -486,7 +486,7 @@ describe("importExport", () => {
 			expect(mockContextProxy.export).toHaveBeenCalled()
 			expect(fs.mkdir).toHaveBeenCalledWith("/mock/path", { recursive: true })
 
-			expect(safeWriteJson).toHaveBeenCalledWith("/mock/path/kilo-code-settings.json", {
+			expect(safeWriteJson).toHaveBeenCalledWith("/mock/path/arcanea-settings.json", {
 				providerProfiles: mockProviderProfiles,
 				globalSettings: mockGlobalSettings,
 			})
@@ -494,7 +494,7 @@ describe("importExport", () => {
 
 		it("should include globalSettings when allowedMaxRequests is null", async () => {
 			;(vscode.window.showSaveDialog as Mock).mockResolvedValue({
-				fsPath: "/mock/path/kilo-code-settings.json",
+				fsPath: "/mock/path/arcanea-settings.json",
 			})
 
 			const mockProviderProfiles = {
@@ -518,7 +518,7 @@ describe("importExport", () => {
 				contextProxy: mockContextProxy,
 			})
 
-			expect(safeWriteJson).toHaveBeenCalledWith("/mock/path/kilo-code-settings.json", {
+			expect(safeWriteJson).toHaveBeenCalledWith("/mock/path/arcanea-settings.json", {
 				providerProfiles: mockProviderProfiles,
 				globalSettings: mockGlobalSettings,
 			})
@@ -526,7 +526,7 @@ describe("importExport", () => {
 
 		it("should handle errors during the export process", async () => {
 			;(vscode.window.showSaveDialog as Mock).mockResolvedValue({
-				fsPath: "/mock/path/kilo-code-settings.json",
+				fsPath: "/mock/path/arcanea-settings.json",
 			})
 
 			mockProviderSettingsManager.export.mockResolvedValue({
@@ -556,7 +556,7 @@ describe("importExport", () => {
 
 		it("should handle errors during directory creation", async () => {
 			;(vscode.window.showSaveDialog as Mock).mockResolvedValue({
-				fsPath: "/mock/path/kilo-code-settings.json",
+				fsPath: "/mock/path/arcanea-settings.json",
 			})
 
 			mockProviderSettingsManager.export.mockResolvedValue({
@@ -594,7 +594,7 @@ describe("importExport", () => {
 			})
 
 			expect(vscode.Uri.file).toHaveBeenCalledWith(
-				path.join("/mock/home", "Documents", "kilo-code-settings.json"),
+				path.join("/mock/home", "Documents", "arcanea-settings.json"),
 			)
 		})
 

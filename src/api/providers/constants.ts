@@ -1,9 +1,9 @@
-import { X_KILOCODE_VERSION } from "../../shared/kilocode/headers"
+import { X_ARCANEA_VERSION } from "../../shared/arcanea/headers"
 import { Package } from "../../shared/package"
 
 export const DEFAULT_HEADERS = {
-	"HTTP-Referer": "https://kilocode.ai",
+	"HTTP-Referer": "https://arcanea.ai",
 	"X-Title": "Arcanea",
-	[X_KILOCODE_VERSION]: Package.version,
-	"User-Agent": `Kilo-Code/${Package.version}`,
+	[X_ARCANEA_VERSION]: Package.version,
+	"User-Agent": `Arcanea-Code/${Package.version}`,
 }

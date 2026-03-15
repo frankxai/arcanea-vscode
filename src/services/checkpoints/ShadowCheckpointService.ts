@@ -15,10 +15,10 @@ import { t } from "../../i18n"
 import { CheckpointDiff, CheckpointResult, CheckpointEventMap } from "./types"
 import { getExcludePatterns } from "./excludes"
 
-// kilocode_change start
-import { TelemetryService } from "@roo-code/telemetry"
-import { TelemetryEventName } from "@roo-code/types"
-import { stringifyError } from "../../shared/kilocode/errorUtils"
+// arcanea_change start
+import { TelemetryService } from "@arcanea/telemetry"
+import { TelemetryEventName } from "@arcanea/types"
+import { stringifyError } from "../../shared/arcanea/errorUtils"
 function reportError(callsite: string, error: unknown) {
 	TelemetryService.instance.captureEvent(TelemetryEventName.CHECKPOINT_FAILURE, {
 		callsite,
@@ -29,11 +29,11 @@ function reportError(callsite: string, error: unknown) {
 const warningsShown = new Set<string>()
 function showWarning(message: string) {
 	if (warningsShown.size < 5 && !warningsShown.has(message)) {
-		vscode.window.showWarningMessage(message, t("kilocode:checkpoints.dismissWarning"))
+		vscode.window.showWarningMessage(message, t("arcanea:checkpoints.dismissWarning"))
 		warningsShown.add(message)
 	}
 }
-// kilocode_change end
+// arcanea_change end
 
 export abstract class ShadowCheckpointService extends EventEmitter {
 	public readonly taskId: string
@@ -74,7 +74,7 @@ export abstract class ShadowCheckpointService extends EventEmitter {
 		const protectedPaths = [homedir, desktopPath, documentsPath, downloadsPath]
 
 		if (protectedPaths.includes(workspaceDir)) {
-			showWarning(t("kilocode:checkpoints.protectedPaths", { workspaceDir })) // kilocode_change
+			showWarning(t("arcanea:checkpoints.protectedPaths", { workspaceDir })) // arcanea_change
 			throw new Error(`Cannot use checkpoints in ${workspaceDir}`)
 		}
 
@@ -97,7 +97,7 @@ export abstract class ShadowCheckpointService extends EventEmitter {
 			// Show persistent error message with the offending path
 			const relativePath = path.relative(this.workspaceDir, nestedGitPath)
 
-			showWarning(t("kilocode:checkpoints.nestedGitRepos", { path: relativePath })) // kilocode_change
+			showWarning(t("arcanea:checkpoints.nestedGitRepos", { path: relativePath })) // arcanea_change
 
 			throw new Error(
 				`Checkpoints are disabled because a nested git repository was detected at: ${relativePath}. ` +
@@ -178,7 +178,7 @@ export abstract class ShadowCheckpointService extends EventEmitter {
 			this.log(
 				`[${this.constructor.name}#stageAll] failed to add files to git: ${error instanceof Error ? error.message : String(error)}`,
 			)
-			reportError(`${this.constructor.name}#stageAll`, error) // kilocode_change
+			reportError(`${this.constructor.name}#stageAll`, error) // arcanea_change
 		}
 	}
 
@@ -227,7 +227,7 @@ export abstract class ShadowCheckpointService extends EventEmitter {
 			this.log(
 				`[${this.constructor.name}#getNestedGitRepository] failed to check for nested git repos: ${error instanceof Error ? error.message : String(error)}`,
 			)
-			reportError(`${this.constructor.name}#hasNestedGitRepositories`, error) // kilocode_change
+			reportError(`${this.constructor.name}#hasNestedGitRepositories`, error) // arcanea_change
 
 			// If we can't check, assume there are no nested repos to avoid blocking the feature.
 			return null
@@ -242,7 +242,7 @@ export abstract class ShadowCheckpointService extends EventEmitter {
 				this.log(
 					`[${this.constructor.name}#getShadowGitConfigWorktree] failed to get core.worktree: ${error instanceof Error ? error.message : String(error)}`,
 				)
-				reportError(`${this.constructor.name}#getShadowGitConfigWorktree`, error) // kilocode_change
+				reportError(`${this.constructor.name}#getShadowGitConfigWorktree`, error) // arcanea_change
 			}
 		}
 
@@ -351,17 +351,17 @@ export abstract class ShadowCheckpointService extends EventEmitter {
 			const relPath = file.file
 			const absPath = path.join(cwdPath, relPath)
 			const before = await this.git.show([`${from}:${relPath}`]).catch((err) => {
-				reportError(`[${this.constructor.name}#getDiff:git.show:before`, err) // kilocode_change
+				reportError(`[${this.constructor.name}#getDiff:git.show:before`, err) // arcanea_change
 				return ""
 			})
 
 			const after = to
 				? await this.git.show([`${to}:${relPath}`]).catch((err) => {
-						reportError(`[${this.constructor.name}#getDiff:git.show:after`, err) // kilocode_change
+						reportError(`[${this.constructor.name}#getDiff:git.show:after`, err) // arcanea_change
 						return ""
 					})
 				: await fs.readFile(absPath, "utf8").catch((err) => {
-						reportError(`[${this.constructor.name}#getDiff:readFile`, err) // kilocode_change
+						reportError(`[${this.constructor.name}#getDiff:readFile`, err) // arcanea_change
 						return ""
 					})
 
@@ -468,7 +468,7 @@ export abstract class ShadowCheckpointService extends EventEmitter {
 				console.error(
 					`[${this.constructor.name}#deleteBranch] failed to delete branch ${branchName}: ${error instanceof Error ? error.message : String(error)}`,
 				)
-				reportError(`${this.constructor.name}#deleteBranch`, error) // kilocode_change
+				reportError(`${this.constructor.name}#deleteBranch`, error) // arcanea_change
 
 				return false
 			} finally {

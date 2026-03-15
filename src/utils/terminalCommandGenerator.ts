@@ -1,10 +1,10 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import * as vscode from "vscode"
 import { ContextProxy } from "../core/config/ContextProxy"
 import { ProviderSettingsManager } from "../core/config/ProviderSettingsManager"
 import { supportPrompt } from "../shared/support-prompt"
 import { singleCompletionHandler } from "./single-completion-handler"
-import type { ProviderSettings } from "@roo-code/types"
+import type { ProviderSettings } from "@arcanea/types"
 import { t } from "../i18n"
 import { getLatestTerminalOutput } from "../core/mentions"
 
@@ -29,7 +29,7 @@ export async function generateTerminalCommand(options: TerminalCommandGeneratorO
 
 		const activeTerminal = vscode.window.activeTerminal
 		if (!activeTerminal) {
-			vscode.window.showErrorMessage(t("kilocode:terminalCommandGenerator.noActiveTerminal"))
+			vscode.window.showErrorMessage(t("arcanea:terminalCommandGenerator.noActiveTerminal"))
 			return
 		}
 
@@ -43,13 +43,13 @@ async function showWarningIfNeeded(context: vscode.ExtensionContext): Promise<bo
 	const warningAcknowledged = context.globalState.get<boolean>("terminalCommandWarningAcknowledged") ?? false
 	if (!warningAcknowledged) {
 		const warningChoice = await vscode.window.showInformationMessage(
-			t("kilocode:terminalCommandGenerator.warningDialog.title"),
-			{ modal: true, detail: t("kilocode:terminalCommandGenerator.warningDialog.message") },
-			t("kilocode:terminalCommandGenerator.warningDialog.okButton"),
-			t("kilocode:terminalCommandGenerator.warningDialog.cancelButton"),
+			t("arcanea:terminalCommandGenerator.warningDialog.title"),
+			{ modal: true, detail: t("arcanea:terminalCommandGenerator.warningDialog.message") },
+			t("arcanea:terminalCommandGenerator.warningDialog.okButton"),
+			t("arcanea:terminalCommandGenerator.warningDialog.cancelButton"),
 		)
 
-		if (warningChoice !== t("kilocode:terminalCommandGenerator.warningDialog.okButton")) {
+		if (warningChoice !== t("arcanea:terminalCommandGenerator.warningDialog.okButton")) {
 			return false
 		}
 
@@ -60,8 +60,8 @@ async function showWarningIfNeeded(context: vscode.ExtensionContext): Promise<bo
 
 async function getUserInput(): Promise<string | undefined> {
 	return await vscode.window.showInputBox({
-		prompt: t("kilocode:terminalCommandGenerator.inputPrompt"),
-		placeHolder: t("kilocode:terminalCommandGenerator.inputPlaceholder"),
+		prompt: t("arcanea:terminalCommandGenerator.inputPrompt"),
+		placeHolder: t("arcanea:terminalCommandGenerator.inputPlaceholder"),
 		ignoreFocusOut: true,
 	})
 }
@@ -74,7 +74,7 @@ async function executeCommandGeneration(
 	await vscode.window.withProgress(
 		{
 			location: vscode.ProgressLocation.Notification,
-			title: t("kilocode:terminalCommandGenerator.generatingProgress"),
+			title: t("arcanea:terminalCommandGenerator.generatingProgress"),
 			cancellable: false,
 		},
 		async () => {
@@ -100,7 +100,7 @@ async function executeCommandGeneration(
 			activeTerminal.sendText(cleanCommand, false)
 			activeTerminal.show()
 			vscode.window.showInformationMessage(
-				t("kilocode:terminalCommandGenerator.commandGenerated", { command: cleanCommand }),
+				t("arcanea:terminalCommandGenerator.commandGenerated", { command: cleanCommand }),
 			)
 		},
 	)
@@ -145,7 +145,7 @@ function handleError(error: unknown, outputChannel: vscode.OutputChannel, contex
 	outputChannel.appendLine(`Error in ${context}: ${errorMessage}`)
 
 	if (context === "generateTerminalCommand") {
-		vscode.window.showErrorMessage(t("kilocode:terminalCommandGenerator.generationFailed", { error: errorMessage }))
+		vscode.window.showErrorMessage(t("arcanea:terminalCommandGenerator.generationFailed", { error: errorMessage }))
 	} else {
 		vscode.window.showErrorMessage(`Error: ${errorMessage}`)
 	}

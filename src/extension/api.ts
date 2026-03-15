@@ -18,8 +18,8 @@ import {
 	isSecretStateKey,
 	IpcOrigin,
 	IpcMessageType,
-} from "@roo-code/types"
-import { IpcServer } from "@roo-code/ipc"
+} from "@arcanea/types"
+import { IpcServer } from "@arcanea/ipc"
 
 import { Package } from "../shared/package"
 import { ClineProvider } from "../core/webview/ClineProvider"
@@ -52,7 +52,7 @@ export class API extends EventEmitter<RooCodeEvents> implements RooCodeAPI {
 				console.log(args)
 			}
 
-			this.logfile = path.join(os.tmpdir(), "kilo-code-messages.log")
+			this.logfile = path.join(os.tmpdir(), "arcanea-messages.log")
 		} else {
 			this.log = () => {}
 		}

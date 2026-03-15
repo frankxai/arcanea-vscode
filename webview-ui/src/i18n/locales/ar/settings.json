@@ -32,10 +32,10 @@
 		"prompts": "الموجهات",
 		"experimental": "تجريبي",
 		"language": "اللغة",
-		"about": "عن Kilo Code"
+		"about": "عن Arcanea"
 	},
 	"prompts": {
-		"description": "اضبط الموجهات المساعدة لعمليات مثل تحسين الموجه وشرح الكود وإصلاح المشاكل. هذي الموجهات تساعد Kilo Code يقدّم دعم أفضل للمهام المتكررة."
+		"description": "اضبط الموجهات المساعدة لعمليات مثل تحسين الموجه وشرح الكود وإصلاح المشاكل. هذي الموجهات تساعد Arcanea يقدّم دعم أفضل للمهام المتكررة."
 	},
 	"codeIndex": {
 		"title": "فهرسة قاعدة الكود",
@@ -132,17 +132,17 @@
 	},
 	"autoApproval": {
 		"title": "الموافقة التلقائية",
-		"description": "السماح لـ Kilo Code بتنفيذ العمليات تلقائيًا بدون طلب الموافقة. فعّل هذه الإعدادات فقط إذا كنت تثق بالذكاء الاصطناعي تمامًا وتفهم المخاطر الأمنية المرتبطة."
+		"description": "السماح لـ Arcanea بتنفيذ العمليات تلقائيًا بدون طلب الموافقة. فعّل هذه الإعدادات فقط إذا كنت تثق بالذكاء الاصطناعي تمامًا وتفهم المخاطر الأمنية المرتبطة."
 	},
 	"autoApprove": {
-		"description": "خلّ Kilo Code ينفذ العمليات تلقائيًا بدون موافقة. فعّلها فقط إذا كنت واثق من الأمان.",
+		"description": "خلّ Arcanea ينفذ العمليات تلقائيًا بدون موافقة. فعّلها فقط إذا كنت واثق من الأمان.",
 		"enabled": "الموافقة التلقائية مفعلة",
 		"readOnly": {
 			"label": "قراءة",
-			"description": "يسمح لـ Kilo Code يعرض المجلدات ويقرأ الملفات تلقائي.",
+			"description": "يسمح لـ Arcanea يعرض المجلدات ويقرأ الملفات تلقائي.",
 			"outsideWorkspace": {
 				"label": "تشمل الملفات خارج المشروع",
-				"description": "اسمح لـ Kilo Code يقرأ ملفات برّا مساحة العمل بدون موافقة."
+				"description": "اسمح لـ Arcanea يقرأ ملفات برّا مساحة العمل بدون موافقة."
 			}
 		},
 		"write": {
@@ -151,11 +151,11 @@
 			"delayLabel": "تأخير بعد الكتابة لفحص المشاكل",
 			"outsideWorkspace": {
 				"label": "تشمل الملفات خارج المشروع",
-				"description": "اسمح لـ Kilo Code يعدل ملفات خارج مساحة العمل بدون موافقة."
+				"description": "اسمح لـ Arcanea يعدل ملفات خارج مساحة العمل بدون موافقة."
 			},
 			"protected": {
 				"label": "تشمل الملفات المحمية",
-				"description": "اسمح لـ Kilo Code يعدل ملفات إعدادات محمية بدون موافقة."
+				"description": "اسمح لـ Arcanea يعدل ملفات إعدادات محمية بدون موافقة."
 			}
 		},
 		"browser": {
@@ -398,7 +398,7 @@
 			"apiKeyPlaceholder": "أدخل مفتاح API",
 			"apiKeyInfo": "سيتم إرسال مفتاح API في ترويسة Authorization",
 			"description": "Ollama يشغّل نماذج محليًا. راجع دليلهم.",
-			"warning": "ملاحظة: Kilo Code يعمل أفضل مع Claude. النماذج الضعيفة قد لا تؤدي المطلوب."
+			"warning": "ملاحظة: Arcanea يعمل أفضل مع Claude. النماذج الضعيفة قد لا تؤدي المطلوب."
 		},
 		"unboundApiKey": "مفتاح Unbound",
 		"getUnboundApiKey": "احصل على مفتاح Unbound",
@@ -463,7 +463,7 @@
 		},
 		"consecutiveMistakeLimit": {
 			"label": "حد الأخطاء والتكرار",
-			"description": "عدد الأخطاء المتتالية أو الإجراءات المتكررة قبل إظهار حوار 'Kilo Code يواجه مشكلة'",
+			"description": "عدد الأخطاء المتتالية أو الإجراءات المتكررة قبل إظهار حوار 'Arcanea يواجه مشكلة'",
 			"unlimitedDescription": "إعادة المحاولة غير المحدودة مفعلة (المتابعة التلقائية). لن يظهر الحوار أبداً.",
 			"warning": "⚠️ تعيين القيمة إلى 0 يسمح بإعادة المحاولة غير المحدودة مما قد يستهلك استخدام API كبير"
 		},
@@ -512,7 +512,7 @@
 			"name": "Requesty",
 			"description": "مساعد ذكي سريع وموثوق"
 		},
-		"kilo_code_openrouter": {
+		"arcanea_openrouter": {
 			"description": "الوصول لأكثر من 200 نموذج عبر OpenRouter بنافذة سياق 1 مليون"
 		},
 		"qwenCode": {
@@ -537,13 +537,13 @@
 	"topP": {
 		"description": "تحكم في تنوع الإجابات"
 	},
-	"kiloRemoteControl": {
+	"arcaneaRemoteControl": {
 		"description": "تفعيل التحكم عن بُعد للمهام"
 	},
 	"browser": {
 		"enable": {
 			"label": "تفعيل أداة المتصفح",
-			"description": "إذا تم التفعيل، Kilo Code يقدر يستخدم المتصفح مع النماذج الداعمة. <0>تعرف أكثر</0>"
+			"description": "إذا تم التفعيل، Arcanea يقدر يستخدم المتصفح مع النماذج الداعمة. <0>تعرف أكثر</0>"
 		},
 		"viewport": {
 			"label": "حجم العرض",
@@ -588,7 +588,7 @@
 		},
 		"tts": {
 			"label": "تفعيل النص إلى كلام",
-			"description": "يقرأ ردود Kilo Code بصوت عالٍ.",
+			"description": "يقرأ ردود Arcanea بصوت عالٍ.",
 			"speedLabel": "السرعة"
 		}
 	},
@@ -596,7 +596,7 @@
 		"description": "تحكّم بالمعلومات المُدرجة في سياق الذكاء.",
 		"autoCondenseContextPercent": {
 			"label": "نسبة تشغيل التلخيص الذكي",
-			"description": "عند الوصول لهذه النسبة، يختصر Kilo Code السياق."
+			"description": "عند الوصول لهذه النسبة، يختصر Arcanea السياق."
 		},
 		"condensingApiConfiguration": {
 			"label": "إعداد API للتلخيص",
@@ -623,7 +623,7 @@
 			"description": "أقصى عدد ملفات تُدرج من المجلد الحالي."
 		},
 		"rooignore": {
-			"label": "إظهار ملفات .kilocodeignore",
+			"label": "إظهار ملفات .arcaneaignore",
 			"description": "عند التفعيل تُعرض مع رمز قفل؛ عند التعطيل تُخفى."
 		},
 		"maxConcurrentFileReads": {
@@ -757,7 +757,7 @@
 		},
 		"todoList": {
 			"label": "تفعيل أداة قائمة المهام",
-			"description": "عند التفعيل، يمكن لـ Kilo Code إنشاء وإدارة قوائم المهام لتتبع تقدم المهام. هذا يساعد في تنظيم المهام المعقدة إلى خطوات قابلة للإدارة."
+			"description": "عند التفعيل، يمكن لـ Arcanea إنشاء وإدارة قوائم المهام لتتبع تقدم المهام. هذا يساعد في تنظيم المهام المعقدة إلى خطوات قابلة للإدارة."
 		}
 	},
 	"experimental": {
@@ -795,13 +795,13 @@
 		},
 		"MORPH_FAST_APPLY": {
 			"name": "تفعيل Morph Fast Apply",
-			"description": "عند التفعيل، يمكن لـ Kilo Code تحرير الملفات باستخدام Morph Fast Apply. يتطلب مزوّد Kilo Code API أو OpenRouter أو مفتاح Morph API.",
+			"description": "عند التفعيل، يمكن لـ Arcanea تحرير الملفات باستخدام Morph Fast Apply. يتطلب مزوّد Arcanea API أو OpenRouter أو مفتاح Morph API.",
 			"apiKey": "مفتاح Morph API (اختياري)",
 			"placeholder": "أدخل مفتاح Morph API (اختياري)"
 		},
 		"PREVENT_FOCUS_DISRUPTION": {
 			"name": "التحرير في الخلفية",
-			"description": "منع تعطيل تركيز المحرر عند التفعيل. تحدث تعديلات الملفات في الخلفية دون فتح عروض diff أو سرقة التركيز. يمكنك الاستمرار في العمل دون انقطاع بينما يقوم Kilo Code بإجراء التغييرات. يمكن فتح الملفات دون تركيز لالتقاط التشخيصات أو إبقاؤها مغلقة تماماً."
+			"description": "منع تعطيل تركيز المحرر عند التفعيل. تحدث تعديلات الملفات في الخلفية دون فتح عروض diff أو سرقة التركيز. يمكنك الاستمرار في العمل دون انقطاع بينما يقوم Arcanea بإجراء التغييرات. يمكن فتح الملفات دون تركيز لالتقاط التشخيصات أو إبقاؤها مغلقة تماماً."
 		},
 		"ASSISTANT_MESSAGE_PARSER": {
 			"name": "استخدام محلل الرسائل الجديد",
@@ -813,13 +813,13 @@
 		},
 		"IMAGE_GENERATION": {
 			"name": "تمكين إنشاء صور بالذكاء الاصطناعي",
-			"description": "عند التفعيل، يمكن لـ Kilo Code إنشاء صور من النصوص. يتطلب مفتاح Kilo Code أو OpenRouter API.",
+			"description": "عند التفعيل، يمكن لـ Arcanea إنشاء صور من النصوص. يتطلب مفتاح Arcanea أو OpenRouter API.",
 			"apiProvider": "مزود API",
 			"openRouterApiKeyLabel": "مفتاح OpenRouter API",
 			"openRouterApiKeyPlaceholder": "أدخل مفتاح OpenRouter API",
-			"kiloCodeApiKeyLabel": "مفتاح Kilo Code API",
-			"kiloCodeApiKeyPlaceholder": "أدخل مفتاح Kilo Code API",
-			"kiloCodeApiKeyPaste": "لصق مفتاح Kilo Code API الحالي",
+			"arcaneaApiKeyLabel": "مفتاح Arcanea API",
+			"arcaneaApiKeyPlaceholder": "أدخل مفتاح Arcanea API",
+			"arcaneaApiKeyPaste": "لصق مفتاح Arcanea API الحالي",
 			"getApiKeyText": "احصل على مفتاحك من",
 			"modelSelectionLabel": "نموذج إنشاء الصور",
 			"modelSelectionDescription": "اختر النموذج المراد استخدامه لإنشاء الصور",
@@ -828,7 +828,7 @@
 		},
 		"RUN_SLASH_COMMAND": {
 			"name": "تمكين أوامر الشرطة المدفوعة بالنموذج",
-			"description": "عند التمكين، يمكن لـ Kilo Code تشغيل أوامر الشرطة الخاصة بك لتنفيذ سير العمل."
+			"description": "عند التمكين، يمكن لـ Arcanea تشغيل أوامر الشرطة الخاصة بك لتنفيذ سير العمل."
 		},
 		"INLINE_ASSIST": {
 			"name": "Autocomplete",
@@ -837,7 +837,7 @@
 	},
 	"promptCaching": {
 		"label": "تعطيل تخزين الموجهات",
-		"description": "عند التفعيل، ما يستخدم Kilo Code الكاش لهذا النموذج."
+		"description": "عند التفعيل، ما يستخدم Arcanea الكاش لهذا النموذج."
 	},
 	"temperature": {
 		"useCustom": "استخدام درجة حرارة مخصصة",
@@ -869,18 +869,18 @@
 		}
 	},
 	"modelPicker": {
-		"automaticFetch": "الإضافة تجلب تلقائياً أحدث قائمة بالنماذج المتاحة على <serviceLink>{{serviceName}}</serviceLink>. إذا كنت غير متأكد من النموذج الذي تختاره، فإن Kilo Code يعمل بشكل أفضل مع <defaultModelLink>{{defaultModelId}}</defaultModelLink>.",
+		"automaticFetch": "الإضافة تجلب تلقائياً أحدث قائمة بالنماذج المتاحة على <serviceLink>{{serviceName}}</serviceLink>. إذا كنت غير متأكد من النموذج الذي تختاره، فإن Arcanea يعمل بشكل أفضل مع <defaultModelLink>{{defaultModelId}}</defaultModelLink>.",
 		"label": "النموذج",
 		"searchPlaceholder": "بحث",
 		"noMatchFound": "ما فيه تطابق",
 		"useCustomModel": "استخدام مخصص: {{modelId}}"
 	},
 	"footer": {
-		"feedback": "عندك سؤال أو ملاحظة؟ افتح تذكرة في <githubLink>github.com/Kilo-Org/kilocode</githubLink> أو انضم لـ <redditLink>r/kilocode</redditLink> أو <discordLink>kilocode.ai/discord</discordLink>.",
-		"support": "للاستفسارات المالية: <supportLink>https://kilocode.ai/support</supportLink>",
+		"feedback": "عندك سؤال أو ملاحظة؟ افتح تذكرة في <githubLink>github.com/Arcanea-Org/arcanea</githubLink> أو انضم لـ <redditLink>r/arcanea</redditLink> أو <discordLink>arcanea.ai/discord</discordLink>.",
+		"support": "للاستفسارات المالية: <supportLink>https://arcanea.ai/support</supportLink>",
 		"telemetry": {
 			"label": "السماح بتقارير الأخطاء والاستخدام",
-			"description": "ساعد في تحسين Kilo Code بإرسال بيانات الاستخدام وتقارير الأخطاء. لا يتم إرسال أي كود أو مطالبات أو معلومات شخصية أبداً. راجع سياسة الخصوصية لمزيد من التفاصيل."
+			"description": "ساعد في تحسين Arcanea بإرسال بيانات الاستخدام وتقارير الأخطاء. لا يتم إرسال أي كود أو مطالبات أو معلومات شخصية أبداً. راجع سياسة الخصوصية لمزيد من التفاصيل."
 		},
 		"settings": {
 			"import": "استيراد",

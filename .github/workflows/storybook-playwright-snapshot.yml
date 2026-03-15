@@ -81,10 +81,10 @@ jobs:
                   WORKSPACE_ROOT: ${{ github.workspace }}
 
             - name: Generate Stories from Playwright Screenshots
-              run: pnpm --filter @roo-code/storybook generate-screenshot-stories
+              run: pnpm --filter @arcanea/storybook generate-screenshot-stories
 
             - name: Build Storybook
-              run: pnpm --filter @roo-code/storybook build-storybook
+              run: pnpm --filter @arcanea/storybook build-storybook
 
             - name: Run Chromatic
               id: chromatic

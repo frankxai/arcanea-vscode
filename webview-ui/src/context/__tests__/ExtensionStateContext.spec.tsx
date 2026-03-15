@@ -3,8 +3,8 @@ import { render, screen, act } from "@/utils/test-utils"
 import {
 	ProviderSettings,
 	ExperimentId,
-	openRouterDefaultModelId, // kilocode_change
-} from "@roo-code/types"
+	openRouterDefaultModelId, // arcanea_change
+} from "@arcanea/types"
 
 import { ExtensionState } from "@roo/ExtensionMessage"
 
@@ -230,8 +230,8 @@ describe("mergeExtensionState", () => {
 			mcpEnabled: false,
 			enableMcpServerCreation: false,
 			clineMessages: [],
-			taskHistoryFullLength: 0, // kilocode_change
-			taskHistoryVersion: 0, // kilocode_change
+			taskHistoryFullLength: 0, // arcanea_change
+			taskHistoryVersion: 0, // arcanea_change
 			shouldShowAnnouncement: false,
 			enableCheckpoints: true,
 			writeDelayMs: 1000,
@@ -257,7 +257,7 @@ describe("mergeExtensionState", () => {
 			hasOpenedModeSelector: false, // Add the new required property
 			maxImageFileSize: 5,
 			maxTotalImageSize: 20,
-			kilocodeDefaultModel: openRouterDefaultModelId,
+			arcaneaDefaultModel: openRouterDefaultModelId,
 			remoteControlEnabled: false,
 			taskSyncEnabled: false,
 			featureRoomoteControlEnabled: false,
@@ -276,7 +276,7 @@ describe("mergeExtensionState", () => {
 				powerSteering: true,
 				multiFileApplyDiff: true,
 				preventFocusDisruption: false,
-				morphFastApply: false, // kilocode_change
+				morphFastApply: false, // arcanea_change
 				newTaskRequireTodos: false,
 				imageGeneration: false,
 				runSlashCommand: false,
@@ -294,7 +294,7 @@ describe("mergeExtensionState", () => {
 			powerSteering: true,
 			multiFileApplyDiff: true,
 			preventFocusDisruption: false,
-			morphFastApply: false, // kilocode_change
+			morphFastApply: false, // arcanea_change
 			newTaskRequireTodos: false,
 			imageGeneration: false,
 			runSlashCommand: false,

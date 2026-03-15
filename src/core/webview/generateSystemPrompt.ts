@@ -11,7 +11,7 @@ import { MultiFileSearchReplaceDiffStrategy } from "../diff/strategies/multi-fil
 import { ClineProvider } from "./ClineProvider"
 
 export const generateSystemPrompt = async (provider: ClineProvider, message: WebviewMessage) => {
-	const state = await provider.getState() // kilocode_change
+	const state = await provider.getState() // arcanea_change
 
 	const {
 		apiConfiguration,
@@ -27,7 +27,7 @@ export const generateSystemPrompt = async (provider: ClineProvider, message: Web
 		language,
 		maxReadFileLine,
 		maxConcurrentFileReads,
-	} = state // kilocode_change
+	} = state // arcanea_change
 
 	// Check experiment to determine which diff strategy to use
 	const isMultiFileApplyDiffEnabled = experimentsModule.isEnabled(
@@ -53,7 +53,7 @@ export const generateSystemPrompt = async (provider: ClineProvider, message: Web
 	// This avoids relying on an active Cline instance which might not exist during preview
 	try {
 		const tempApiHandler = buildApiHandler(apiConfiguration)
-		// kilocode_change: supports images => supports browser
+		// arcanea_change: supports images => supports browser
 		modelSupportsComputerUse = tempApiHandler.getModel().info.supportsImages ?? false
 	} catch (error) {
 		console.error("Error checking if model supports computer use:", error)
@@ -87,16 +87,16 @@ export const generateSystemPrompt = async (provider: ClineProvider, message: Web
 		{
 			maxConcurrentFileReads: maxConcurrentFileReads ?? 5,
 			todoListEnabled: apiConfiguration?.todoListEnabled ?? true,
-			useAgentRules: vscode.workspace.getConfiguration("kilo-code").get<boolean>("useAgentRules") ?? true,
+			useAgentRules: vscode.workspace.getConfiguration("arcanea").get<boolean>("useAgentRules") ?? true,
 			newTaskRequireTodos: vscode.workspace
-				.getConfiguration("kilo-code")
+				.getConfiguration("arcanea")
 				.get<boolean>("newTaskRequireTodos", false),
 		},
-		// kilocode_change start
+		// arcanea_change start
 		undefined,
 		undefined,
 		state,
-		// kilocode_change end
+		// arcanea_change end
 	)
 
 	return systemPrompt

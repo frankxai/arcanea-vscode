@@ -6,13 +6,13 @@ import {
 	type CustomModePrompts,
 	type ModeConfig,
 	type ExperimentId,
-	GhostServiceSettings, // kilocode_change
-	openRouterDefaultModelId, // kilocode_change
+	GhostServiceSettings, // arcanea_change
+	openRouterDefaultModelId, // arcanea_change
 	type TodoItem,
 	type TelemetrySetting,
 	type OrganizationAllowList,
 	ORGANIZATION_ALLOW_ALL,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { ExtensionMessage, ExtensionState, MarketplaceInstalledMetadata, Command } from "@roo/ExtensionMessage"
 import { findLastIndex } from "@roo/array"
@@ -22,44 +22,44 @@ import { Mode, defaultModeSlug, defaultPrompts } from "@roo/modes"
 import { CustomSupportPrompts } from "@roo/support-prompt"
 import { experimentDefault } from "@roo/experiments"
 import { RouterModels } from "@roo/api"
-import { McpMarketplaceCatalog } from "../../../src/shared/kilocode/mcp" // kilocode_change
+import { McpMarketplaceCatalog } from "../../../src/shared/arcanea/mcp" // arcanea_change
 
 import { vscode } from "@src/utils/vscode"
 import { convertTextMateToHljs } from "@src/utils/textMateToHljs"
-import { ClineRulesToggles } from "@roo/cline-rules" // kilocode_change
+import { ClineRulesToggles } from "@roo/cline-rules" // arcanea_change
 
 export interface ExtensionStateContextType extends ExtensionState {
 	historyPreviewCollapsed?: boolean // Add the new state property
-	showTaskTimeline?: boolean // kilocode_change
-	setShowTaskTimeline: (value: boolean) => void // kilocode_change
-	hoveringTaskTimeline?: boolean // kilocode_change
-	setHoveringTaskTimeline: (value: boolean) => void // kilocode_change
-	systemNotificationsEnabled?: boolean // kilocode_change
-	setSystemNotificationsEnabled: (value: boolean) => void // kilocode_change
-	dismissedNotificationIds: string[] // kilocode_change
+	showTaskTimeline?: boolean // arcanea_change
+	setShowTaskTimeline: (value: boolean) => void // arcanea_change
+	hoveringTaskTimeline?: boolean // arcanea_change
+	setHoveringTaskTimeline: (value: boolean) => void // arcanea_change
+	systemNotificationsEnabled?: boolean // arcanea_change
+	setSystemNotificationsEnabled: (value: boolean) => void // arcanea_change
+	dismissedNotificationIds: string[] // arcanea_change
 	didHydrateState: boolean
 	showWelcome: boolean
 	theme: any
 	mcpServers: McpServer[]
-	mcpMarketplaceCatalog: McpMarketplaceCatalog // kilocode_change
+	mcpMarketplaceCatalog: McpMarketplaceCatalog // arcanea_change
 	hasSystemPromptOverride?: boolean
 	currentCheckpoint?: string
 	currentTaskTodos?: TodoItem[] // Initial todos for the current task
 	filePaths: string[]
 	openedTabs: Array<{ label: string; isActive: boolean; path?: string }>
-	// kilocode_change start
+	// arcanea_change start
 	globalRules: ClineRulesToggles
 	localRules: ClineRulesToggles
 	globalWorkflows: ClineRulesToggles
 	localWorkflows: ClineRulesToggles
-	// kilocode_change start
+	// arcanea_change start
 	commands: Command[]
 	organizationAllowList: OrganizationAllowList
 	organizationSettingsVersion: number
 	cloudIsAuthenticated: boolean
 	sharingEnabled: boolean
 	maxConcurrentFileReads?: number
-	allowVeryLargeReads?: boolean // kilocode_change
+	allowVeryLargeReads?: boolean // arcanea_change
 	mdmCompliant?: boolean
 	hasOpenedModeSelector: boolean // New property to track if user has opened mode selector
 	setHasOpenedModeSelector: (value: boolean) => void // Setter for the new property
@@ -88,7 +88,7 @@ export interface ExtensionStateContextType extends ExtensionState {
 	setAlwaysAllowSubtasks: (value: boolean) => void
 	setBrowserToolEnabled: (value: boolean) => void
 	setShowRooIgnoredFiles: (value: boolean) => void
-	setShowAutoApproveMenu: (value: boolean) => void // kilocode_change
+	setShowAutoApproveMenu: (value: boolean) => void // arcanea_change
 	setShowAnnouncement: (value: boolean) => void
 	setAllowedCommands: (value: string[]) => void
 	setDeniedCommands: (value: string[]) => void
@@ -137,11 +137,11 @@ export interface ExtensionStateContextType extends ExtensionState {
 	setCustomSupportPrompts: (value: CustomSupportPrompts) => void
 	enhancementApiConfigId?: string
 	setEnhancementApiConfigId: (value: string) => void
-	commitMessageApiConfigId?: string // kilocode_change
-	setCommitMessageApiConfigId: (value: string) => void // kilocode_change
-	markNotificationAsDismissed: (notificationId: string) => void // kilocode_change
-	ghostServiceSettings?: GhostServiceSettings // kilocode_change
-	setGhostServiceSettings: (value: GhostServiceSettings) => void // kilocode_change
+	commitMessageApiConfigId?: string // arcanea_change
+	setCommitMessageApiConfigId: (value: string) => void // arcanea_change
+	markNotificationAsDismissed: (notificationId: string) => void // arcanea_change
+	ghostServiceSettings?: GhostServiceSettings // arcanea_change
+	setGhostServiceSettings: (value: GhostServiceSettings) => void // arcanea_change
 	setExperimentEnabled: (id: ExperimentId, enabled: boolean) => void
 	setAutoApprovalEnabled: (value: boolean) => void
 	customModes: ModeConfig[]
@@ -209,8 +209,8 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		apiConfiguration: {},
 		version: "",
 		clineMessages: [],
-		taskHistoryFullLength: 0, // kilocode_change
-		taskHistoryVersion: 0, // kilocode_change
+		taskHistoryFullLength: 0, // arcanea_change
+		taskHistoryVersion: 0, // arcanea_change
 		shouldShowAnnouncement: false,
 		allowedCommands: [],
 		deniedCommands: [],
@@ -234,8 +234,8 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		taskSyncEnabled: false,
 		featureRoomoteControlEnabled: false,
 		alwaysApproveResubmit: false,
-		alwaysAllowWrite: true, // kilocode_change
-		alwaysAllowReadOnly: true, // kilocode_change
+		alwaysAllowWrite: true, // arcanea_change
+		alwaysAllowReadOnly: true, // arcanea_change
 		requestDelaySeconds: 5,
 		currentApiConfigName: "default",
 		listApiConfigMeta: [],
@@ -244,9 +244,9 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		customSupportPrompts: {},
 		experiments: experimentDefault,
 		enhancementApiConfigId: "",
-		dismissedNotificationIds: [], // kilocode_change
-		commitMessageApiConfigId: "", // kilocode_change
-		ghostServiceSettings: {}, // kilocode_change
+		dismissedNotificationIds: [], // arcanea_change
+		commitMessageApiConfigId: "", // arcanea_change
+		ghostServiceSettings: {}, // arcanea_change
 		condensingApiConfigId: "", // Default empty string for condensing API config ID
 		customCondensingPrompt: "", // Default empty string for custom condensing prompt
 		hasOpenedModeSelector: false, // Default to false (not opened yet)
@@ -258,7 +258,7 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		browserToolEnabled: true,
 		telemetrySetting: "unset",
 		showRooIgnoredFiles: true, // Default to showing .rooignore'd files with lock symbol (current behavior).
-		showAutoApproveMenu: false, // kilocode_change
+		showAutoApproveMenu: false, // arcanea_change
 		renderContext: "sidebar",
 		maxReadFileLine: -1, // Default max read file line limit
 		maxImageFileSize: 5, // Default max image file size in MB
@@ -266,13 +266,13 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		pinnedApiConfigs: {}, // Empty object for pinned API configs
 		terminalZshOhMy: false, // Default Oh My Zsh integration setting
 		maxConcurrentFileReads: 5, // Default concurrent file reads
-		allowVeryLargeReads: false, // kilocode_change
+		allowVeryLargeReads: false, // arcanea_change
 		terminalZshP10k: false, // Default Powerlevel10k integration setting
 		terminalZdotdir: false, // Default ZDOTDIR handling setting
 		terminalCompressProgressBar: true, // Default to compress progress bar output
 		historyPreviewCollapsed: false, // Initialize the new state (default to expanded)
-		showTaskTimeline: true, // kilocode_change
-		kilocodeDefaultModel: openRouterDefaultModelId,
+		showTaskTimeline: true, // arcanea_change
+		arcaneaDefaultModel: openRouterDefaultModelId,
 		cloudUserInfo: null,
 		cloudIsAuthenticated: false,
 		sharingEnabled: false,
@@ -295,7 +295,7 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		includeDiagnosticMessages: true,
 		maxDiagnosticMessages: 50,
 		openRouterImageApiKey: "",
-		kiloCodeImageApiKey: "",
+		arcaneaImageApiKey: "",
 		openRouterImageGenerationSelectedModel: "",
 	})
 
@@ -306,15 +306,15 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 	const [openedTabs, setOpenedTabs] = useState<Array<{ label: string; isActive: boolean; path?: string }>>([])
 	const [commands, setCommands] = useState<Command[]>([])
 	const [mcpServers, setMcpServers] = useState<McpServer[]>([])
-	const [mcpMarketplaceCatalog, setMcpMarketplaceCatalog] = useState<McpMarketplaceCatalog>({ items: [] }) // kilocode_change
+	const [mcpMarketplaceCatalog, setMcpMarketplaceCatalog] = useState<McpMarketplaceCatalog>({ items: [] }) // arcanea_change
 	const [currentCheckpoint, setCurrentCheckpoint] = useState<string>()
 	const [extensionRouterModels, setExtensionRouterModels] = useState<RouterModels | undefined>(undefined)
-	// kilocode_change start
+	// arcanea_change start
 	const [globalRules, setGlobalRules] = useState<ClineRulesToggles>({})
 	const [localRules, setLocalRules] = useState<ClineRulesToggles>({})
 	const [globalWorkflows, setGlobalWorkflows] = useState<ClineRulesToggles>({})
 	const [localWorkflows, setLocalWorkflows] = useState<ClineRulesToggles>({})
-	// kilocode_change end
+	// arcanea_change end
 	const [marketplaceItems, setMarketplaceItems] = useState<any[]>([])
 	const [alwaysAllowFollowupQuestions, setAlwaysAllowFollowupQuestions] = useState(false) // Add state for follow-up questions auto-approve
 	const [followupAutoApproveTimeoutMs, setFollowupAutoApproveTimeoutMs] = useState<number | undefined>(undefined) // Will be set from global settings
@@ -405,7 +405,7 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 					setMcpServers(message.mcpServers ?? [])
 					break
 				}
-				// kilocode_change
+				// arcanea_change
 				case "mcpMarketplaceCatalog": {
 					if (message.mcpMarketplaceCatalog) {
 						setMcpMarketplaceCatalog(message.mcpMarketplaceCatalog)
@@ -419,7 +419,7 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 					if (message.localWorkflows) setLocalWorkflows(message.localWorkflows)
 					break
 				}
-				// end kilocode_change
+				// end arcanea_change
 				case "currentCheckpointUpdated": {
 					setCurrentCheckpoint(message.text)
 					break
@@ -463,16 +463,16 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		showWelcome,
 		theme,
 		mcpServers,
-		mcpMarketplaceCatalog, // kilocode_change
+		mcpMarketplaceCatalog, // arcanea_change
 		currentCheckpoint,
 		filePaths,
 		openedTabs,
-		// kilocode_change start
+		// arcanea_change start
 		globalRules,
 		localRules,
 		globalWorkflows,
 		localWorkflows,
-		// kilocode_change end
+		// arcanea_change end
 		commands,
 		soundVolume: state.soundVolume,
 		ttsSpeed: state.ttsSpeed,
@@ -549,7 +549,7 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		setCustomSupportPrompts: (value) => setState((prevState) => ({ ...prevState, customSupportPrompts: value })),
 		setEnhancementApiConfigId: (value) =>
 			setState((prevState) => ({ ...prevState, enhancementApiConfigId: value })),
-		// kilocode_change start
+		// arcanea_change start
 		markNotificationAsDismissed: (notificationId) => {
 			setState((prevState) => {
 				return {
@@ -564,7 +564,7 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		setShowAutoApproveMenu: (value) => setState((prevState) => ({ ...prevState, showAutoApproveMenu: value })),
 		setShowTaskTimeline: (value) => setState((prevState) => ({ ...prevState, showTaskTimeline: value })),
 		setHoveringTaskTimeline: (value) => setState((prevState) => ({ ...prevState, hoveringTaskTimeline: value })),
-		// kilocode_change end
+		// arcanea_change end
 		setAutoApprovalEnabled: (value) => setState((prevState) => ({ ...prevState, autoApprovalEnabled: value })),
 		setCustomModes: (value) => setState((prevState) => ({ ...prevState, customModes: value })),
 		setMaxOpenTabsContext: (value) => setState((prevState) => ({ ...prevState, maxOpenTabsContext: value })),
@@ -605,11 +605,11 @@ export const ExtensionStateContextProvider: React.FC<{ children: React.ReactNode
 		setCustomCondensingPrompt: (value) =>
 			setState((prevState) => ({ ...prevState, customCondensingPrompt: value })),
 		setProfileThresholds: (value) => setState((prevState) => ({ ...prevState, profileThresholds: value })),
-		// kilocode_change start
+		// arcanea_change start
 		setSystemNotificationsEnabled: (value) =>
 			setState((prevState) => ({ ...prevState, systemNotificationsEnabled: value })),
-		dismissedNotificationIds: state.dismissedNotificationIds || [], // kilocode_change
-		// kilocode_change end
+		dismissedNotificationIds: state.dismissedNotificationIds || [], // arcanea_change
+		// arcanea_change end
 		alwaysAllowUpdateTodoList: state.alwaysAllowUpdateTodoList,
 		setAlwaysAllowUpdateTodoList: (value) => {
 			setState((prevState) => ({ ...prevState, alwaysAllowUpdateTodoList: value }))

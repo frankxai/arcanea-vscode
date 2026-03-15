@@ -11,7 +11,7 @@ export class GhostDecorationAnimation {
 	private decorationType: vscode.TextEditorDecorationType
 	private animationState = 0
 	private isTypingPhase = true // Track whether we're in typing phase or blinking phase
-	private readonly animationFrames = ["█", "K█", "KI█", "KIL█", "KILO█"]
+	private readonly animationFrames = ["█", "A█", "A█", "AR█", "ARC█"]
 	private isBlockVisible = true // For blinking effect when fully spelled
 	private editor: vscode.TextEditor | null = null
 	private range: vscode.Range | null = null
@@ -91,10 +91,10 @@ export class GhostDecorationAnimation {
 		}
 
 		// Animation with two phases:
-		// 1. Typing out "KILO" (block moves to the right) - faster (100ms)
+		// 1. Typing out "ARC" (block moves to the right) - faster (100ms)
 		// 2. Blinking block at the end when fully spelled - slower (200ms)
 		if (this.animationState < this.animationFrames.length - 1) {
-			// Phase 1: Spell out "KILO" with block cursor
+			// Phase 1: Spell out "ARC" with block cursor
 			this.animationState++
 		} else {
 			// Check if we just reached the end of typing phase
@@ -129,8 +129,8 @@ export class GhostDecorationAnimation {
 
 		// When fully spelled and in blinking mode
 		if (this.animationState === this.animationFrames.length - 1) {
-			// Show either the full frame with block, or just "KILO" without block
-			text = this.isBlockVisible ? this.animationFrames[this.animationState] : "KILO"
+			// Show either the full frame with block, or just "ARC" without block
+			text = this.isBlockVisible ? this.animationFrames[this.animationState] : "ARC"
 		} else {
 			// Normal animation frames (with block)
 			text = this.animationFrames[this.animationState]

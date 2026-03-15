@@ -5,11 +5,11 @@ import {
 	type GenerateContentParameters,
 	type GenerateContentConfig,
 	type GroundingMetadata,
-	FinishReason, // kilocode_change
+	FinishReason, // arcanea_change
 } from "@google/genai"
 import type { JWTInput } from "google-auth-library"
 
-import { type ModelInfo, type GeminiModelId, geminiDefaultModelId, geminiModels } from "@roo-code/types"
+import { type ModelInfo, type GeminiModelId, geminiDefaultModelId, geminiModels } from "@arcanea/types"
 
 import type { ApiHandlerOptions } from "../../shared/api"
 import { safeJsonParse } from "../../shared/safeJsonParse"
@@ -21,7 +21,7 @@ import { getModelParams } from "../transform/model-params"
 
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
 import { BaseProvider } from "./base-provider"
-import { throwMaxCompletionTokensReachedError } from "./kilocode/verifyFinishReason"
+import { throwMaxCompletionTokensReachedError } from "./arcanea/verifyFinishReason"
 
 type GeminiHandlerOptions = ApiHandlerOptions & {
 	isVertex?: boolean
@@ -102,11 +102,11 @@ export class GeminiHandler extends BaseProvider implements SingleCompletionHandl
 				if (chunk.candidates && chunk.candidates.length > 0) {
 					const candidate = chunk.candidates[0]
 
-					// kilocode_change start
+					// arcanea_change start
 					if (candidate.finishReason === FinishReason.MAX_TOKENS) {
 						throwMaxCompletionTokensReachedError()
 					}
-					// kilocode_change end
+					// arcanea_change end
 
 					if (candidate.groundingMetadata) {
 						pendingGroundingMetadata = candidate.groundingMetadata

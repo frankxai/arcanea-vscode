@@ -5,7 +5,7 @@ import * as fs from "fs/promises"
 import * as yaml from "yaml"
 import * as vscode from "vscode"
 import * as os from "os"
-import type { MarketplaceItem } from "@roo-code/types"
+import type { MarketplaceItem } from "@arcanea/types"
 import type { CustomModesManager } from "../../../core/config/CustomModesManager"
 import * as path from "path"
 import { fileExistsAtPath } from "../../../utils/fs"
@@ -159,7 +159,7 @@ describe("SimpleInstaller", () => {
 
 			const result = await installer.installItem(mockMcpItem, { target: "project" })
 
-			expect(result.filePath).toBe(path.join("/test/workspace", ".kilocode", "mcp.json"))
+			expect(result.filePath).toBe(path.join("/test/workspace", ".arcanea", "mcp.json"))
 			expect(mockFs.writeFile).toHaveBeenCalled()
 
 			// Verify the written content contains the new server

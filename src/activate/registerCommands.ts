@@ -1,12 +1,12 @@
 import * as vscode from "vscode"
 import delay from "delay"
 
-import type { CommandId } from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
+import type { CommandId } from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { getCommand } from "../utils/commands"
 import { ClineProvider } from "../core/webview/ClineProvider"
-import { exportSettings } from "../core/config/importExport" // kilocode_change
+import { exportSettings } from "../core/config/importExport" // arcanea_change
 import { ContextProxy } from "../core/config/ContextProxy"
 import { focusPanel } from "../utils/focusPanel"
 
@@ -16,7 +16,7 @@ import { CodeIndexManager } from "../services/code-index/manager"
 import { importSettingsWithFeedback } from "../core/config/importExport"
 import { MdmService } from "../services/mdm/MdmService"
 import { t } from "../i18n"
-import { generateTerminalCommand } from "../utils/terminalCommandGenerator" // kilocode_change
+import { generateTerminalCommand } from "../utils/terminalCommandGenerator" // arcanea_change
 
 /**
  * Helper to get the visible ClineProvider instance or log if not found.
@@ -154,7 +154,7 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 
 		visibleProvider.postMessageToWebview({ type: "action", action: "historyButtonClicked" })
 	},
-	// kilocode_change begin
+	// arcanea_change begin
 	profileButtonClicked: () => {
 		const visibleProvider = getVisibleProviderOrLog(outputChannel)
 
@@ -165,9 +165,9 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 		visibleProvider.postMessageToWebview({ type: "action", action: "profileButtonClicked" })
 	},
 	helpButtonClicked: () => {
-		vscode.env.openExternal(vscode.Uri.parse("https://kilocode.ai"))
+		vscode.env.openExternal(vscode.Uri.parse("https://arcanea.ai"))
 	},
-	// kilocode_change end
+	// arcanea_change end
 	marketplaceButtonClicked: () => {
 		const visibleProvider = getVisibleProviderOrLog(outputChannel)
 		if (!visibleProvider) return
@@ -223,7 +223,7 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 		}
 
 		visibleProvider.postMessageToWebview({ type: "acceptInput" })
-	}, // kilocode_change begin
+	}, // arcanea_change begin
 	focusChatInput: async () => {
 		try {
 			await vscode.commands.executeCommand("arcanea.SidebarProvider.focus")
@@ -246,7 +246,7 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 			outputChannel.appendLine(`Error in focusChatInput: ${error}`)
 		}
 	},
-	generateTerminalCommand: async () => await generateTerminalCommand({ outputChannel, context }), // kilocode_change
+	generateTerminalCommand: async () => await generateTerminalCommand({ outputChannel, context }), // arcanea_change
 	exportSettings: async () => {
 		const visibleProvider = getVisibleProviderOrLog(outputChannel)
 		if (!visibleProvider) return
@@ -276,7 +276,7 @@ const getCommandsMap = ({ context, outputChannel }: RegisterCommandOptions): Rec
 			outputChannel.appendLine(`Error handling external URI: ${uriString}, error: ${error}`)
 		}
 	},
-	// kilocode_change end
+	// arcanea_change end
 })
 
 export const openClineInNewTab = async ({ context, outputChannel }: Omit<RegisterCommandOptions, "provider">) => {
@@ -319,8 +319,8 @@ export const openClineInNewTab = async ({ context, outputChannel }: Omit<Registe
 	setPanel(newPanel, "tab")
 
 	newPanel.iconPath = {
-		light: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "kilo.png"),
-		dark: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "kilo-dark.png"),
+		light: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "arcanea.png"),
+		dark: vscode.Uri.joinPath(context.extensionUri, "assets", "icons", "arcanea-dark.png"),
 	}
 
 	await tabProvider.resolveWebviewView(newPanel)

@@ -20,8 +20,8 @@ const mockExtensionState = {
 	],
 	enhancementApiConfigId: "",
 	setEnhancementApiConfigId: vitest.fn(),
-	commitMessageApiConfigId: "", // kilocode_change
-	setCommitMessageApiConfigId: vitest.fn(), // kilocode_change
+	commitMessageApiConfigId: "", // arcanea_change
+	setCommitMessageApiConfigId: vitest.fn(), // arcanea_change
 	mode: "code",
 	customModes: [],
 	customSupportPrompts: [],

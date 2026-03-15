@@ -1,7 +1,7 @@
 // npx vitest run api/providers/__tests__/roo.spec.ts
 
 import { Anthropic } from "@anthropic-ai/sdk"
-import { rooDefaultModelId, rooModels } from "@roo-code/types"
+import { rooDefaultModelId, rooModels } from "@arcanea/types"
 
 import { ApiHandlerOptions } from "../../../shared/api"
 
@@ -74,7 +74,7 @@ const mockHasInstance = vitest.fn()
 const mockGetSessionTokenFn = vitest.fn()
 const mockHasInstanceFn = vitest.fn()
 
-vitest.mock("@roo-code/cloud", () => ({
+vitest.mock("@arcanea/cloud", () => ({
 	CloudService: {
 		hasInstance: () => mockHasInstanceFn(),
 		get instance() {
@@ -99,7 +99,7 @@ vitest.mock("../../../i18n", () => ({
 
 // Import after mocks are set up
 import { RooHandler } from "../roo"
-import { CloudService } from "@roo-code/cloud"
+import { CloudService } from "@arcanea/cloud"
 
 describe("RooHandler", () => {
 	let handler: RooHandler

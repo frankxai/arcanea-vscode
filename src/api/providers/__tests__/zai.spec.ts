@@ -14,7 +14,7 @@ import {
 	internationalZAiModels,
 	mainlandZAiModels,
 	ZAI_DEFAULT_TEMPERATURE,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { ZAiHandler } from "../zai"
 
@@ -115,7 +115,7 @@ describe("ZAiHandler", () => {
 			const handlerDefault = new ZAiHandler({ zaiApiKey: "test-zai-api-key" })
 			expect(OpenAI).toHaveBeenCalledWith(
 				expect.objectContaining({
-					baseURL: "https://api.z.ai/api/coding/paas/v4", // kilocode_change, upstream pr pending
+					baseURL: "https://api.z.ai/api/coding/paas/v4", // arcanea_change, upstream pr pending
 				}),
 			)
 

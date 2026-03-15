@@ -6,8 +6,8 @@ import * as path from "path"
 import * as vscode from "vscode"
 import { Anthropic } from "@anthropic-ai/sdk"
 
-import type { GlobalState, ProviderSettings, ModelInfo } from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
+import type { GlobalState, ProviderSettings, ModelInfo } from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { Task } from "../Task"
 import { ClineProvider } from "../../webview/ClineProvider"
@@ -328,7 +328,7 @@ describe("Cline", () => {
 				apiConfiguration: mockApiConfig,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			expect(cline.consecutiveMistakeLimit).toBe(3)
@@ -341,7 +341,7 @@ describe("Cline", () => {
 				consecutiveMistakeLimit: 5,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			expect(cline.consecutiveMistakeLimit).toBe(5)
@@ -354,7 +354,7 @@ describe("Cline", () => {
 				consecutiveMistakeLimit: 0,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			expect(cline.consecutiveMistakeLimit).toBe(0)
@@ -367,7 +367,7 @@ describe("Cline", () => {
 				consecutiveMistakeLimit: 0,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			// The toolRepetitionDetector should be initialized with 0 for unlimited mode
@@ -383,7 +383,7 @@ describe("Cline", () => {
 				consecutiveMistakeLimit: 5,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			// The toolRepetitionDetector should be initialized with the same limit
@@ -1418,7 +1418,7 @@ describe("Cline", () => {
 					enableDiff: false,
 					task: "test task",
 					startTask: false,
-					context: mockExtensionContext, // kilocode_change
+					context: mockExtensionContext, // arcanea_change
 				})
 
 				expect(task.diffEnabled).toBe(false)
@@ -1439,7 +1439,7 @@ describe("Cline", () => {
 					apiConfiguration: anthropicConfig,
 					task: "test task",
 					startTask: false,
-					context: mockExtensionContext, // kilocode_change
+					context: mockExtensionContext, // arcanea_change
 				})
 				// Should use anthropic protocol even with non-claude model
 				expect(anthropicTask.apiConfiguration.apiProvider).toBe("anthropic")
@@ -1454,7 +1454,7 @@ describe("Cline", () => {
 					apiConfiguration: openrouterClaudeConfig,
 					task: "test task",
 					startTask: false,
-					context: mockExtensionContext, // kilocode_change
+					context: mockExtensionContext, // arcanea_change
 				})
 				expect(openrouterClaudeTask.apiConfiguration.apiProvider).toBe("openrouter")
 
@@ -1468,7 +1468,7 @@ describe("Cline", () => {
 					apiConfiguration: openrouterGptConfig,
 					task: "test task",
 					startTask: false,
-					context: mockExtensionContext, // kilocode_change
+					context: mockExtensionContext, // arcanea_change
 				})
 				expect(openrouterGptTask.apiConfiguration.apiProvider).toBe("openrouter")
 
@@ -1491,7 +1491,7 @@ describe("Cline", () => {
 						apiConfiguration: config,
 						task: "test task",
 						startTask: false,
-						context: mockExtensionContext, // kilocode_change
+						context: mockExtensionContext, // arcanea_change
 					})
 					// Verify the model ID contains claude (case-insensitive)
 					expect(modelId.toLowerCase()).toContain("claude")
@@ -1508,7 +1508,7 @@ describe("Cline", () => {
 					apiConfiguration: undefinedProviderConfig,
 					task: "test task",
 					startTask: false,
-					context: mockExtensionContext, // kilocode_change
+					context: mockExtensionContext, // arcanea_change
 				})
 				expect(undefinedProviderTask.apiConfiguration.apiProvider).toBeUndefined()
 
@@ -1521,7 +1521,7 @@ describe("Cline", () => {
 					apiConfiguration: noModelConfig,
 					task: "test task",
 					startTask: false,
-					context: mockExtensionContext, // kilocode_change
+					context: mockExtensionContext, // arcanea_change
 				})
 				expect(noModelTask.apiConfiguration.apiProvider).toBe("openai")
 			})
@@ -1660,7 +1660,7 @@ describe("Cline", () => {
 				apiConfiguration: mockApiConfig,
 				task: "initial task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			// Ensure provider state returns required fields for attemptApiRequest
@@ -1723,7 +1723,7 @@ describe("Cline", () => {
 				apiConfiguration: mockApiConfig,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			// Spy on emit method
@@ -1748,7 +1748,7 @@ describe("Cline", () => {
 				apiConfiguration: mockApiConfig,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			// Mock the dispose method to track cleanup
@@ -1768,7 +1768,7 @@ describe("Cline", () => {
 				apiConfiguration: mockApiConfig,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			// Cast to TaskLike to ensure interface compliance
@@ -1793,7 +1793,7 @@ describe("Cline", () => {
 				apiConfiguration: mockApiConfig,
 				task: "test task",
 				startTask: false,
-				context: mockExtensionContext, // kilocode_change
+				context: mockExtensionContext, // arcanea_change
 			})
 
 			// Mock dispose to throw an error

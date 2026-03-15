@@ -8,8 +8,8 @@
 		"noMatchFound": "No s'han trobat modes",
 		"editModesConfig": "Editar configuració de modes",
 		"editGlobalModes": "Editar modes globals",
-		"editProjectModes": "Editar modes de projecte (.kilocodemodes)",
-		"createModeHelpText": "Els modes són persones especialitzades que adapten el comportament de Kilo Code. <0>Aprèn sobre l'ús de modes</0> o <1>Personalització de modes.</1>",
+		"editProjectModes": "Editar modes de projecte (.arcaneamodes)",
+		"createModeHelpText": "Els modes són persones especialitzades que adapten el comportament de Arcanea. <0>Aprèn sobre l'ús de modes</0> o <1>Personalització de modes.</1>",
 		"selectMode": "Cerqueu modes"
 	},
 	"apiConfiguration": {
@@ -34,7 +34,7 @@
 	"roleDefinition": {
 		"title": "Definició de rol",
 		"resetToDefault": "Restablir a valors predeterminats",
-		"description": "Definiu l'experiència i personalitat de Kilo Code per a aquest mode. Aquesta descripció determina com Kilo Code es presenta i aborda les tasques."
+		"description": "Definiu l'experiència i personalitat de Arcanea per a aquest mode. Aquesta descripció determina com Arcanea es presenta i aborda les tasques."
 	},
 	"description": {
 		"title": "Descripció curta (per a humans)",
@@ -50,11 +50,11 @@
 		"title": "Instruccions personalitzades específiques del mode (opcional)",
 		"resetToDefault": "Restablir a valors predeterminats",
 		"description": "Afegiu directrius de comportament específiques per al mode {{modeName}}.",
-		"loadFromFile": "Les instruccions personalitzades específiques per al mode {{mode}} també es poden carregar des de la carpeta <span>.kilocode/rules-{{slug}}/</span> al vostre espai de treball o des del global <0>.kilocode/rules-{{slug}}/</0> (.kilocoderules-{{slug}} i .clinerules-{{slug}} estan obsolets i deixaran de funcionar aviat)."
+		"loadFromFile": "Les instruccions personalitzades específiques per al mode {{mode}} també es poden carregar des de la carpeta <span>.arcanea/rules-{{slug}}/</span> al vostre espai de treball o des del global <0>.arcanea/rules-{{slug}}/</0> (.arcanearules-{{slug}} i .clinerules-{{slug}} estan obsolets i deixaran de funcionar aviat)."
 	},
 	"exportMode": {
 		"title": "Exportar mode",
-		"description": "Exporta aquest mode amb regles de la carpeta .kilocode/rules-{{slug}}/ combinades en un fitxer YAML compartible. Els fitxers originals romanen sense canvis.",
+		"description": "Exporta aquest mode amb regles de la carpeta .arcanea/rules-{{slug}}/ combinades en un fitxer YAML compartible. Els fitxers originals romanen sense canvis.",
 		"exporting": "Exportant..."
 	},
 	"importMode": {
@@ -63,11 +63,11 @@
 		"importing": "Important...",
 		"global": {
 			"label": "Nivell global",
-			"description": "Disponible a tots els projectes. Si el mode exportat contenia fitxers de regles, es tornaran a crear a la carpeta global .kilocode/rules-{slug}/."
+			"description": "Disponible a tots els projectes. Si el mode exportat contenia fitxers de regles, es tornaran a crear a la carpeta global .arcanea/rules-{slug}/."
 		},
 		"project": {
 			"label": "Nivell de projecte",
-			"description": "Només disponible en aquest espai de treball. Si el mode exportat contenia fitxers de regles, es tornaran a crear a la carpeta .kilocode/rules-{slug}/."
+			"description": "Només disponible en aquest espai de treball. Si el mode exportat contenia fitxers de regles, es tornaran a crear a la carpeta .arcanea/rules-{slug}/."
 		}
 	},
 	"advanced": {
@@ -76,7 +76,7 @@
 	"globalCustomInstructions": {
 		"title": "Instruccions personalitzades per a tots els modes",
 		"description": "Aquestes instruccions s'apliquen a tots els modes. Proporcionen un conjunt bàsic de comportaments que es poden millorar amb instruccions específiques de cada mode a continuació. <0>Més informació</0>",
-		"loadFromFile": "Les instruccions també es poden carregar des de la carpeta <span>.kilocode/rules/</span> al vostre espai de treball o des del global <0>.kilocode/rules/</0> (.kilocoderules i .clinerules estan obsolets i deixaran de funcionar aviat)."
+		"loadFromFile": "Les instruccions també es poden carregar des de la carpeta <span>.arcanea/rules/</span> al vostre espai de treball o des del global <0>.arcanea/rules/</0> (.arcanearules i .clinerules estan obsolets i deixaran de funcionar aviat)."
 	},
 	"systemPrompt": {
 		"preview": "Previsualització del prompt del sistema",
@@ -105,7 +105,7 @@
 		"types": {
 			"ENHANCE": {
 				"label": "Millorar prompt",
-				"description": "Utilitzeu la millora de prompts per obtenir suggeriments o millores personalitzades per a les vostres entrades. Això assegura que Kilo Code entengui la vostra intenció i proporcioni les millors respostes possibles. Disponible a través de la icona ✨ al xat."
+				"description": "Utilitzeu la millora de prompts per obtenir suggeriments o millores personalitzades per a les vostres entrades. Això assegura que Arcanea entengui la vostra intenció i proporcioni les millors respostes possibles. Disponible a través de la icona ✨ al xat."
 			},
 			"CONDENSE": {
 				"label": "Condensació de context",
@@ -155,7 +155,7 @@
 	},
 	"advancedSystemPrompt": {
 		"title": "Avançat: Sobreescriure prompt del sistema",
-		"description": "<2>⚠️ Avís:</2> Aquesta funcionalitat avançada eludeix les salvaguardes. <1>LLEGIU AIXÒ ABANS D'UTILITZAR!</1>Sobreescriviu el prompt del sistema per defecte creant un fitxer a <span>.kilocode/system-prompt-{{slug}}</span>."
+		"description": "<2>⚠️ Avís:</2> Aquesta funcionalitat avançada eludeix les salvaguardes. <1>LLEGIU AIXÒ ABANS D'UTILITZAR!</1>Sobreescriviu el prompt del sistema per defecte creant un fitxer a <span>.arcanea/system-prompt-{{slug}}</span>."
 	},
 	"createModeDialog": {
 		"title": "Crear nou mode",
@@ -176,13 +176,13 @@
 				"description": "Disponible a tots els espais de treball"
 			},
 			"project": {
-				"label": "Específic del projecte (.kilocodemodes)",
+				"label": "Específic del projecte (.arcaneamodes)",
 				"description": "Només disponible en aquest espai de treball, té prioritat sobre el global"
 			}
 		},
 		"roleDefinition": {
 			"label": "Definició de rol",
-			"description": "Definiu l'experiència i personalitat de Kilo Code per a aquest mode."
+			"description": "Definiu l'experiència i personalitat de Arcanea per a aquest mode."
 		},
 		"whenToUse": {
 			"label": "Quan utilitzar (opcional)",

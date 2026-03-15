@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react"
-import { MarketplaceItem, TelemetryEventName } from "@roo-code/types"
+import { MarketplaceItem, TelemetryEventName } from "@arcanea/types"
 import { vscode } from "@/utils/vscode"
 import { telemetryClient } from "@/utils/TelemetryClient"
 import { ViewState } from "../MarketplaceViewStateManager"
@@ -39,7 +39,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({ item, 
 	const { t } = useAppTranslation()
 	const { cwd } = useExtensionState()
 	const [showInstallModal, setShowInstallModal] = useState(false)
-	const [installModalVersion, setInstallModalVersion] = useState(0) // kilocode_change
+	const [installModalVersion, setInstallModalVersion] = useState(0) // arcanea_change
 	const [showRemoveConfirm, setShowRemoveConfirm] = useState(false)
 	const [removeTarget, setRemoveTarget] = useState<"project" | "global">("project")
 	const [removeError, setRemoveError] = useState<string | null>(null)
@@ -86,7 +86,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({ item, 
 			itemName: item.name,
 		})
 
-		setInstallModalVersion((prev) => prev + 1) // kilocode_change
+		setInstallModalVersion((prev) => prev + 1) // arcanea_change
 		// Show modal for all item types (MCP and modes)
 		setShowInstallModal(true)
 	}
@@ -199,7 +199,7 @@ export const MarketplaceItemCard: React.FC<MarketplaceItemCardProps> = ({ item, 
 
 			{/* Installation Modal - Outside the clickable card */}
 			<MarketplaceInstallModal
-				key={`install-modal-${item.id}-${installModalVersion}` /* kilocode_change */}
+				key={`install-modal-${item.id}-${installModalVersion}` /* arcanea_change */}
 				item={item}
 				isOpen={showInstallModal}
 				onClose={() => setShowInstallModal(false)}

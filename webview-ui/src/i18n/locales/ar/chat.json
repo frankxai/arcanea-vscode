@@ -1,5 +1,5 @@
 {
-	"greeting": "وش يقدر Kilo Code يسوّي لك؟",
+	"greeting": "وش يقدر Arcanea يسوّي لك؟",
 	"task": {
 		"title": "المهمة",
 		"seeMore": "عرض المزيد",
@@ -19,7 +19,7 @@
 		"sharePublicly": "مشاركة للجميع",
 		"sharePubliclyDescription": "أي أحد عنده الرابط يقدر يشوف",
 		"connectToCloud": "اتصل بالسحابة",
-		"connectToCloudDescription": "سجّل دخولك لـ Kilo Code Cloud لمشاركة المهام",
+		"connectToCloudDescription": "سجّل دخولك لـ Arcanea Cloud لمشاركة المهام",
 		"sharingDisabledByOrganization": "المشاركة معطّلة من قِبَل المنظمة",
 		"shareSuccessOrganization": "تم نسخ رابط المنظمة للحافظة",
 		"shareSuccessPublic": "تم نسخ الرابط العام للحافظة",
@@ -130,7 +130,7 @@
 		"title": "الأنماط",
 		"marketplace": "سوق الأنماط",
 		"settings": "إعدادات الأنماط",
-		"description": "شخصيات متخصصة تضبط سلوك Kilo Code.",
+		"description": "شخصيات متخصصة تضبط سلوك Arcanea.",
 		"searchPlaceholder": "ابحث في الأنماط...",
 		"noResults": "لا توجد نتائج"
 	},
@@ -180,50 +180,50 @@
 		"tokens": "توكينات"
 	},
 	"instructions": {
-		"wantsToFetch": "Kilo Code يريد جلب تعليمات تفصيلية للمهمة الحالية"
+		"wantsToFetch": "Arcanea يريد جلب تعليمات تفصيلية للمهمة الحالية"
 	},
 	"fileOperations": {
-		"wantsToRead": "Kilo Code يريد قراءة هذا الملف:",
-		"wantsToReadMultiple": "Kilo Code يريد قراءة عدة ملفات:",
-		"wantsToReadAndXMore": "Kilo Code يريد قراءة هذا الملف و{{count}} غيره:",
-		"wantsToReadOutsideWorkspace": "Kilo Code يريد قراءة ملف خارج مساحة العمل:",
-		"didRead": "Kilo Code قرأ هذا الملف:",
-		"wantsToEdit": "Kilo Code يريد تعديل هذا الملف:",
-		"wantsToEditOutsideWorkspace": "Kilo Code يريد تعديل ملف خارج مساحة العمل:",
-		"wantsToEditProtected": "Kilo Code يريد تعديل ملف إعدادات محمي:",
-		"wantsToApplyBatchChanges": "Kilo Code يريد تطبيق تغييرات على عدة ملفات:",
-		"wantsToGenerateImage": "Kilo Code يريد إنشاء صورة:",
-		"wantsToGenerateImageOutsideWorkspace": "Kilo Code يريد إنشاء صورة خارج مساحة العمل:",
-		"wantsToGenerateImageProtected": "Kilo Code يريد إنشاء صورة في موقع محمي:",
-		"didGenerateImage": "Kilo Code أنشأ صورة:",
-		"wantsToCreate": "Kilo Code يريد إنشاء ملف جديد:",
-		"wantsToSearchReplace": "Kilo Code يريد البحث والاستبدال في هذا الملف:",
-		"didSearchReplace": "Kilo Code أجرى بحثًا واستبدالًا في هذا الملف:",
-		"wantsToInsert": "Kilo Code يريد إدراج محتوى في هذا الملف:",
-		"wantsToInsertWithLineNumber": "Kilo Code يريد إدراج محتوى في هذا الملف عند السطر {{lineNumber}}:",
-		"wantsToInsertAtEnd": "Kilo Code يريد إضافة محتوى في نهاية هذا الملف:"
+		"wantsToRead": "Arcanea يريد قراءة هذا الملف:",
+		"wantsToReadMultiple": "Arcanea يريد قراءة عدة ملفات:",
+		"wantsToReadAndXMore": "Arcanea يريد قراءة هذا الملف و{{count}} غيره:",
+		"wantsToReadOutsideWorkspace": "Arcanea يريد قراءة ملف خارج مساحة العمل:",
+		"didRead": "Arcanea قرأ هذا الملف:",
+		"wantsToEdit": "Arcanea يريد تعديل هذا الملف:",
+		"wantsToEditOutsideWorkspace": "Arcanea يريد تعديل ملف خارج مساحة العمل:",
+		"wantsToEditProtected": "Arcanea يريد تعديل ملف إعدادات محمي:",
+		"wantsToApplyBatchChanges": "Arcanea يريد تطبيق تغييرات على عدة ملفات:",
+		"wantsToGenerateImage": "Arcanea يريد إنشاء صورة:",
+		"wantsToGenerateImageOutsideWorkspace": "Arcanea يريد إنشاء صورة خارج مساحة العمل:",
+		"wantsToGenerateImageProtected": "Arcanea يريد إنشاء صورة في موقع محمي:",
+		"didGenerateImage": "Arcanea أنشأ صورة:",
+		"wantsToCreate": "Arcanea يريد إنشاء ملف جديد:",
+		"wantsToSearchReplace": "Arcanea يريد البحث والاستبدال في هذا الملف:",
+		"didSearchReplace": "Arcanea أجرى بحثًا واستبدالًا في هذا الملف:",
+		"wantsToInsert": "Arcanea يريد إدراج محتوى في هذا الملف:",
+		"wantsToInsertWithLineNumber": "Arcanea يريد إدراج محتوى في هذا الملف عند السطر {{lineNumber}}:",
+		"wantsToInsertAtEnd": "Arcanea يريد إضافة محتوى في نهاية هذا الملف:"
 	},
 	"directoryOperations": {
-		"wantsToViewTopLevel": "Kilo Code يريد عرض الملفات العلوية في هذا المجلد:",
-		"didViewTopLevel": "Kilo Code عرض الملفات العلوية في هذا المجلد:",
-		"wantsToViewTopLevelOutsideWorkspace": "Kilo Code يريد عرض الملفات العلوية في هذا المجلد (خارج مساحة العمل):",
-		"didViewTopLevelOutsideWorkspace": "Kilo Code عرض الملفات العلوية في هذا المجلد (خارج مساحة العمل):",
-		"wantsToViewRecursive": "Kilo Code يريد استعراض كل الملفات في هذا المجلد بشكل متعمق:",
-		"didViewRecursive": "Kilo Code استعرض كل الملفات في هذا المجلد:",
-		"wantsToViewRecursiveOutsideWorkspace": "Kilo Code يريد استعراض كل الملفات في هذا المجلد (خارج مساحة العمل):",
-		"didViewRecursiveOutsideWorkspace": "Kilo Code استعرض كل الملفات في هذا المجلد (خارج مساحة العمل):",
-		"wantsToViewDefinitions": "Kilo Code يريد عرض أسماء التعريفات البرمجية المستخدمة في هذا المجلد:",
-		"didViewDefinitions": "Kilo Code عرض أسماء التعريفات البرمجية المستخدمة في هذا المجلد:",
-		"wantsToViewDefinitionsOutsideWorkspace": "Kilo Code يريد عرض أسماء التعريفات في هذا المجلد (خارج مساحة العمل):",
-		"didViewDefinitionsOutsideWorkspace": "Kilo Code عرض أسماء التعريفات في هذا المجلد (خارج مساحة العمل):",
-		"wantsToSearch": "Kilo Code يريد البحث في هذا المجلد عن <code>{{regex}}</code>:",
-		"didSearch": "Kilo Code بحث في هذا المجلد عن <code>{{regex}}</code>:",
-		"wantsToSearchOutsideWorkspace": "Kilo Code يريد البحث في هذا المجلد (خارج مساحة العمل) عن <code>{{regex}}</code>:",
-		"didSearchOutsideWorkspace": "Kilo Code بحث في هذا المجلد (خارج مساحة العمل) عن <code>{{regex}}</code>:"
+		"wantsToViewTopLevel": "Arcanea يريد عرض الملفات العلوية في هذا المجلد:",
+		"didViewTopLevel": "Arcanea عرض الملفات العلوية في هذا المجلد:",
+		"wantsToViewTopLevelOutsideWorkspace": "Arcanea يريد عرض الملفات العلوية في هذا المجلد (خارج مساحة العمل):",
+		"didViewTopLevelOutsideWorkspace": "Arcanea عرض الملفات العلوية في هذا المجلد (خارج مساحة العمل):",
+		"wantsToViewRecursive": "Arcanea يريد استعراض كل الملفات في هذا المجلد بشكل متعمق:",
+		"didViewRecursive": "Arcanea استعرض كل الملفات في هذا المجلد:",
+		"wantsToViewRecursiveOutsideWorkspace": "Arcanea يريد استعراض كل الملفات في هذا المجلد (خارج مساحة العمل):",
+		"didViewRecursiveOutsideWorkspace": "Arcanea استعرض كل الملفات في هذا المجلد (خارج مساحة العمل):",
+		"wantsToViewDefinitions": "Arcanea يريد عرض أسماء التعريفات البرمجية المستخدمة في هذا المجلد:",
+		"didViewDefinitions": "Arcanea عرض أسماء التعريفات البرمجية المستخدمة في هذا المجلد:",
+		"wantsToViewDefinitionsOutsideWorkspace": "Arcanea يريد عرض أسماء التعريفات في هذا المجلد (خارج مساحة العمل):",
+		"didViewDefinitionsOutsideWorkspace": "Arcanea عرض أسماء التعريفات في هذا المجلد (خارج مساحة العمل):",
+		"wantsToSearch": "Arcanea يريد البحث في هذا المجلد عن <code>{{regex}}</code>:",
+		"didSearch": "Arcanea بحث في هذا المجلد عن <code>{{regex}}</code>:",
+		"wantsToSearchOutsideWorkspace": "Arcanea يريد البحث في هذا المجلد (خارج مساحة العمل) عن <code>{{regex}}</code>:",
+		"didSearchOutsideWorkspace": "Arcanea بحث في هذا المجلد (خارج مساحة العمل) عن <code>{{regex}}</code>:"
 	},
 	"codebaseSearch": {
-		"wantsToSearch": "Kilo Code يريد البحث في الكود عن <code>{{query}}</code>:",
-		"wantsToSearchWithPath": "Kilo Code يريد البحث في الكود عن <code>{{query}}</code> في <code>{{path}}</code>:",
+		"wantsToSearch": "Arcanea يريد البحث في الكود عن <code>{{query}}</code>:",
+		"wantsToSearchWithPath": "Arcanea يريد البحث في الكود عن <code>{{query}}</code> في <code>{{path}}</code>:",
 		"didSearch_one": "تم العثور على نتيجة واحدة",
 		"didSearch_other": "تم العثور على {{count}} نتيجة",
 		"resultTooltip": "درجة التشابه: {{score}} (انقر لفتح الملف)"
@@ -252,18 +252,18 @@
 	"response": "الاستجابة",
 	"arguments": "المعطيات",
 	"mcp": {
-		"wantsToUseTool": "Kilo Code يريد استخدام أداة على خادم MCP {{serverName}}:",
-		"wantsToAccessResource": "Kilo Code يريد الوصول إلى مورد على خادم MCP {{serverName}}:"
+		"wantsToUseTool": "Arcanea يريد استخدام أداة على خادم MCP {{serverName}}:",
+		"wantsToAccessResource": "Arcanea يريد الوصول إلى مورد على خادم MCP {{serverName}}:"
 	},
 	"modes": {
-		"wantsToSwitch": "Kilo Code يريد التبديل إلى النمط {{mode}}",
-		"wantsToSwitchWithReason": "Kilo Code يريد التبديل إلى النمط {{mode}} لأن: {{reason}}",
-		"didSwitch": "Kilo Code انتقل إلى النمط {{mode}}",
-		"didSwitchWithReason": "Kilo Code انتقل إلى النمط {{mode}} لأن: {{reason}}"
+		"wantsToSwitch": "Arcanea يريد التبديل إلى النمط {{mode}}",
+		"wantsToSwitchWithReason": "Arcanea يريد التبديل إلى النمط {{mode}} لأن: {{reason}}",
+		"didSwitch": "Arcanea انتقل إلى النمط {{mode}}",
+		"didSwitchWithReason": "Arcanea انتقل إلى النمط {{mode}} لأن: {{reason}}"
 	},
 	"subtasks": {
-		"wantsToCreate": "Kilo Code يريد إنشاء مهمة فرعية جديدة في النمط {{mode}}:",
-		"wantsToFinish": "Kilo Code يريد إنهاء هذه المهمة الفرعية",
+		"wantsToCreate": "Arcanea يريد إنشاء مهمة فرعية جديدة في النمط {{mode}}:",
+		"wantsToFinish": "Arcanea يريد إنهاء هذه المهمة الفرعية",
 		"newTaskContent": "تعليمات المهمة الفرعية",
 		"completionContent": "المهمة الفرعية انتهت",
 		"resultContent": "نتائج المهمة الفرعية",
@@ -271,21 +271,21 @@
 		"completionInstructions": "تمت المهمة الفرعية! راجع النتائج واقترح تصحيحات أو خطوات لاحقة. إذا كل شي تمام، أكّد للرجوع للمهمة الأم."
 	},
 	"questions": {
-		"hasQuestion": "Kilo Code عنده سؤال:"
+		"hasQuestion": "Arcanea عنده سؤال:"
 	},
 	"taskCompleted": "المهمة انتهت",
 	"error": "خطأ",
 	"diffError": {
 		"title": "التعديل لم ينجح"
 	},
-	"troubleMessage": "Kilo Code يواجه مشكلة...",
+	"troubleMessage": "Arcanea يواجه مشكلة...",
 	"powershell": {
 		"issues": "يبدو أنك تواجه مشاكل مع Windows PowerShell، اطلع هنا"
 	},
 	"autoApprove": {
 		"title": "الموافقة التلقائية:",
 		"none": "لا شيء",
-		"description": "الموافقة التلقائية تسمح لـ Kilo Code بتنفيذ إجراءات دون طلب إذن. فعّلها فقط للإجراءات اللي تثق فيها تماماً. إعدادات تفصيلية أكثر متوفرة في <settingsLink>الإعدادات</settingsLink>.",
+		"description": "الموافقة التلقائية تسمح لـ Arcanea بتنفيذ إجراءات دون طلب إذن. فعّلها فقط للإجراءات اللي تثق فيها تماماً. إعدادات تفصيلية أكثر متوفرة في <settingsLink>الإعدادات</settingsLink>.",
 		"selectOptionsFirst": "اختر خيار واحد على الأقل أدناه لتفعيل الموافقة التلقائية",
 		"toggleAriaLabel": "تبديل الموافقة التلقائية",
 		"disabledAriaLabel": "الموافقة التلقائية معطّلة - اختر الخيارات أولاً",
@@ -301,16 +301,16 @@
 		"approveAllTooltip": "وافق على كل الإجراءات تلقائياً"
 	},
 	"announcement": {
-		"title": "🎉 Kilo Code {{version}} تم إطلاقه",
+		"title": "🎉 Arcanea {{version}} تم إطلاقه",
 		"stealthModel": {
 			"feature": "<bold>نموذج سري مجاني لفترة محدودة</bold> - نموذج تفكير سريع جداً يتفوق في البرمجة الذكية مع نافذة سياق 262k، متاح عبر Roo Code Cloud.",
 			"note": "(ملاحظة: يتم تسجيل المحادثات والاستجابات من قِبل منشئ النموذج لتحسينه)",
 			"connectButton": "اتصل بـ Roo Code Cloud",
 			"selectModel": "اختر <code>roo/sonic</code> من موفر Roo Code Cloud في<br/><settingsLink>الإعدادات</settingsLink> لتبدأ"
 		},
-		"description": "Kilo Code {{version}} يجلب ميزات وتحسينات كبيرة بناءً على ملاحظاتكم.",
+		"description": "Arcanea {{version}} يجلب ميزات وتحسينات كبيرة بناءً على ملاحظاتكم.",
 		"whatsNew": "الجديد",
-		"feature1": "<bold>إطلاق سوق Kilo Code</bold>: السوق صار متاح! اكتشف وثبّت الأنماط و MCPs بسهولة.",
+		"feature1": "<bold>إطلاق سوق Arcanea</bold>: السوق صار متاح! اكتشف وثبّت الأنماط و MCPs بسهولة.",
 		"feature2": "<bold>نماذج Gemini 2.5</bold>: دعم نماذج Gemini 2.5 Pro و Flash و Flash Lite.",
 		"feature3": "<bold>دعم ملفات Excel والمزيد</bold>: دعم ملفات .xlsx بالإضافة لكثير من الإصلاحات والتحسينات!",
 		"hideButton": "إخفاء الإعلان",
@@ -329,7 +329,7 @@
 		"countdownDisplay": "{{count}}ث"
 	},
 	"browser": {
-		"rooWantsToUse": "Kilo Code يريد استخدام المتصفح:",
+		"rooWantsToUse": "Arcanea يريد استخدام المتصفح:",
 		"consoleLogs": "سجلات الكونسول",
 		"noNewLogs": "(لا توجد سجلات جديدة)",
 		"screenshot": "لقطة شاشة للمتصفح",
@@ -363,18 +363,18 @@
 	"profileViolationWarning": "الملف الحالي يخالف إعدادات منظمتك",
 	"shellIntegration": {
 		"title": "تحذير تنفيذ الأوامر",
-		"description": "يتم تنفيذ الأمر خارج تكامل الشل في VS Code. لإيقاف هذا التحذير عطّل تكامل الشل من قسم <strong>Terminal</strong> في <settingsLink>إعدادات Kilo Code</settingsLink> أو اطّلع على الدليل أدناه.",
+		"description": "يتم تنفيذ الأمر خارج تكامل الشل في VS Code. لإيقاف هذا التحذير عطّل تكامل الشل من قسم <strong>Terminal</strong> في <settingsLink>إعدادات Arcanea</settingsLink> أو اطّلع على الدليل أدناه.",
 		"troubleshooting": "اضغط هنا لدليل تكامل الشل."
 	},
 	"ask": {
 		"autoApprovedRequestLimitReached": {
 			"title": "تم بلوغ حد الطلبات الموافق عليها تلقائياً",
-			"description": "Kilo Code وصل لحد {{count}} طلب API موافَق عليه تلقائيًا. تبي تعيد العداد وتكمل المهمة؟",
+			"description": "Arcanea وصل لحد {{count}} طلب API موافَق عليه تلقائيًا. تبي تعيد العداد وتكمل المهمة؟",
 			"button": "إعادة الضبط والمتابعة"
 		},
 		"autoApprovedCostLimitReached": {
 			"title": "تم الوصول لحد التكلفة المعتمدة تلقائياً",
-			"description": "Kilo Code وصل لحد التكلفة المعتمدة تلقائياً ${{count}}. تبي تعيد التكلفة وتكمل المهمة؟",
+			"description": "Arcanea وصل لحد التكلفة المعتمدة تلقائياً ${{count}}. تبي تعيد التكلفة وتكمل المهمة؟",
 			"button": "أعد التعيين وكمّل"
 		}
 	},
@@ -416,8 +416,8 @@
 		}
 	},
 	"slashCommand": {
-		"wantsToRun": "Kilo Code يريد تشغيل أمر شرطة مائلة:",
-		"didRun": "Kilo Code شغّل أمر شرطة مائلة:"
+		"wantsToRun": "Arcanea يريد تشغيل أمر شرطة مائلة:",
+		"didRun": "Arcanea شغّل أمر شرطة مائلة:"
 	},
 	"queuedMessages": {
 		"title": "الرسائل في الطابور:",

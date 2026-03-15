@@ -1,5 +1,5 @@
 {
-	"name": "@roo-code/storybook",
+	"name": "@arcanea/storybook",
 	"private": true,
 	"type": "module",
 	"scripts": {
@@ -12,7 +12,7 @@
 		"clean": "rimraf storybook-static .turbo stories/generated public/screenshots"
 	},
 	"dependencies": {
-		"@roo-code/types": "workspace:^",
+		"@arcanea/types": "workspace:^",
 		"@radix-ui/react-slot": "^1.1.2",
 		"@vscode/codicons": "^0.0.36",
 		"change-case": "^5.4.4",

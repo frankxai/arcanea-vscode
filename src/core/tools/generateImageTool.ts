@@ -9,7 +9,7 @@ import { getReadablePath } from "../../utils/path"
 import { isPathOutsideWorkspace } from "../../utils/pathUtils"
 import { EXPERIMENT_IDS, experiments } from "../../shared/experiments"
 import { OpenRouterHandler } from "../../api/providers/openrouter"
-import { KilocodeOpenrouterHandler } from "../../api/providers/kilocode-openrouter"
+import { ArcaneacodeOpenrouterHandler } from "../../api/providers/arcanea-openrouter"
 
 // Hardcoded list of image generation models for now
 const IMAGE_GENERATION_MODELS = ["google/gemini-2.5-flash-image-preview", "google/gemini-2.5-flash-image-preview:free"]
@@ -131,9 +131,9 @@ export async function generateImageTool(
 
 	// Get OpenRouter API key from global settings (experimental image generation)
 	const openRouterApiKey = state?.openRouterImageApiKey
-	const kiloCodeApiKey = state?.kiloCodeImageApiKey
+	const arcaneaApiKey = state?.arcaneaImageApiKey
 
-	if (!openRouterApiKey && !kiloCodeApiKey) {
+	if (!openRouterApiKey && !arcaneaApiKey) {
 		await cline.say(
 			"error",
 			"OpenRouter API key is required for image generation. Please configure it in the Image Generation experimental settings.",
@@ -179,32 +179,32 @@ export async function generateImageTool(
 			}
 
 			// Create a temporary OpenRouter handler with minimal options
-			// kilocode_change start
+			// arcanea_change start
 			const openRouterHandler = openRouterApiKey
 				? new OpenRouterHandler({})
-				: new KilocodeOpenrouterHandler({
-						kilocodeToken: kiloCodeApiKey,
-						kilocodeOrganizationId:
-							cline.apiConfiguration.apiProvider === "kilocode" &&
-							cline.apiConfiguration.kilocodeToken === kiloCodeApiKey
-								? cline.apiConfiguration.kilocodeOrganizationId
+				: new ArcaneacodeOpenrouterHandler({
+						arcaneaToken: arcaneaApiKey,
+						arcaneaOrganizationId:
+							cline.apiConfiguration.apiProvider === "arcanea" &&
+							cline.apiConfiguration.arcaneaToken === arcaneaApiKey
+								? cline.apiConfiguration.arcaneaOrganizationId
 								: undefined,
 					})
-			// kilocode_change end
+			// arcanea_change end
 
 			// Call the generateImage method with the explicit API key and optional input image
 			const result = await openRouterHandler.generateImage(
 				prompt,
 				selectedModel,
-				// kilocode_change start
+				// arcanea_change start
 				openRouterApiKey ||
-					kiloCodeApiKey ||
+					arcaneaApiKey ||
 					(() => {
 						throw new Error("Unreachable because of earlier check.")
 					})(),
-				// kilocode_change end
+				// arcanea_change end
 				inputImageData,
-				cline.taskId, // kilocode_change
+				cline.taskId, // arcanea_change
 			)
 
 			if (!result.success) {

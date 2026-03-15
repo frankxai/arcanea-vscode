@@ -4,7 +4,7 @@ import { Trans } from "react-i18next"
 import { Info, Download, Upload, TriangleAlert } from "lucide-react"
 import { VSCodeCheckbox, VSCodeLink } from "@vscode/webview-ui-toolkit/react"
 
-import type { TelemetrySetting } from "@roo-code/types"
+import type { TelemetrySetting } from "@arcanea/types"
 
 import { Package } from "@roo/package"
 
@@ -51,7 +51,7 @@ export const About = ({ telemetrySetting, setTelemetrySetting, className, ...pro
 						<Trans
 							i18nKey="settings:footer.telemetry.description"
 							components={{
-								privacyLink: <VSCodeLink href="https://kilocode.ai/privacy" />,
+								privacyLink: <VSCodeLink href="https://arcanea.ai/privacy" />,
 							}}
 						/>
 					</p>
@@ -61,23 +61,23 @@ export const About = ({ telemetrySetting, setTelemetrySetting, className, ...pro
 					<Trans
 						i18nKey="settings:footer.feedback"
 						components={{
-							githubLink: <VSCodeLink href="https://github.com/Kilo-Org/kilocode" />,
-							redditLink: <VSCodeLink href="https://reddit.com/r/kilocode" />,
-							discordLink: <VSCodeLink href="https://kilocode.ai/discord" />,
+							githubLink: <VSCodeLink href="https://github.com/Arcanea-Org/arcanea" />,
+							redditLink: <VSCodeLink href="https://reddit.com/r/arcanea" />,
+							discordLink: <VSCodeLink href="https://arcanea.ai/discord" />,
 						}}
 					/>
 				</div>
 
-				{/* kilocode_change start */}
+				{/* arcanea_change start */}
 				<div>
 					<Trans
 						i18nKey="settings:footer.support"
 						components={{
-							supportLink: <VSCodeLink href="https://kilocode.ai/support" />,
+							supportLink: <VSCodeLink href="https://arcanea.ai/support" />,
 						}}
 					/>
 				</div>
-				{/* kilocode_change end */}
+				{/* arcanea_change end */}
 
 				<div className="flex flex-wrap items-center gap-2 mt-2">
 					<Button onClick={() => vscode.postMessage({ type: "exportSettings" })} className="w-28">

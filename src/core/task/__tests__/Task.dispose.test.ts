@@ -1,4 +1,4 @@
-import { ProviderSettings } from "@roo-code/types"
+import { ProviderSettings } from "@arcanea/types"
 
 import { Task } from "../Task"
 import { ClineProvider } from "../../webview/ClineProvider"
@@ -25,7 +25,7 @@ vi.mock("../../../api", () => ({
 vi.mock("./AutoApprovalHandler")
 
 // Mock TelemetryService
-vi.mock("@roo-code/telemetry", () => ({
+vi.mock("@arcanea/telemetry", () => ({
 	TelemetryService: {
 		instance: {
 			captureTaskCreated: vi.fn(),
@@ -43,7 +43,7 @@ describe("Task dispose method", () => {
 		// Reset all mocks
 		vi.clearAllMocks()
 
-		// kilocode_change start: mock context
+		// arcanea_change start: mock context
 		const mockContext = {
 			globalStorageUri: { fsPath: "/test/path" },
 			subscriptions: [],
@@ -62,11 +62,11 @@ describe("Task dispose method", () => {
 			globalStoragePath: "/test/global-storage",
 			logPath: "/test/logs",
 		} as any
-		// kilocode_change_end
+		// arcanea_change_end
 
 		// Mock provider
 		mockProvider = {
-			context: mockContext, // kilocode_change
+			context: mockContext, // arcanea_change
 			getState: vi.fn().mockResolvedValue({ mode: "code" }),
 			log: vi.fn(),
 		}
@@ -79,7 +79,7 @@ describe("Task dispose method", () => {
 
 		// Create task instance without starting it
 		task = new Task({
-			context: mockContext, // kilocode_change
+			context: mockContext, // arcanea_change
 			provider: mockProvider as ClineProvider,
 			apiConfiguration: mockApiConfiguration,
 			startTask: false,

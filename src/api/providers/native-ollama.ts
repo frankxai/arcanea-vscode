@@ -1,6 +1,6 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 import { Message, Ollama } from "ollama"
-import { ModelInfo, openAiModelInfoSaneDefaults, DEEP_SEEK_DEFAULT_TEMPERATURE } from "@roo-code/types"
+import { ModelInfo, openAiModelInfoSaneDefaults, DEEP_SEEK_DEFAULT_TEMPERATURE } from "@arcanea/types"
 import { ApiStream } from "../transform/stream"
 import { BaseProvider } from "./base-provider"
 import type { ApiHandlerOptions } from "../../shared/api"
@@ -8,8 +8,8 @@ import { getOllamaModels } from "./fetchers/ollama"
 import { XmlMatcher } from "../../utils/xml-matcher"
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
 
-// kilocode_change start
-import { fetchWithTimeout } from "./kilocode/fetchWithTimeout"
+// arcanea_change start
+import { fetchWithTimeout } from "./arcanea/fetchWithTimeout"
 const OLLAMA_TIMEOUT_MS = 3_600_000
 
 const TOKEN_ESTIMATION_FACTOR = 4 //Industry standard technique for estimating token counts without actually implementing a parser/tokenizer
@@ -18,7 +18,7 @@ function estimateOllamaTokenCount(messages: Message[]): number {
 	const totalChars = messages.reduce((acc, msg) => acc + (msg.content?.length || 0), 0)
 	return Math.ceil(totalChars / TOKEN_ESTIMATION_FACTOR)
 }
-// kilocode_change end
+// arcanea_change end
 
 function convertToOllamaMessages(anthropicMessages: Anthropic.Messages.MessageParam[]): Message[] {
 	const ollamaMessages: Message[] = []
@@ -143,15 +143,15 @@ export class NativeOllamaHandler extends BaseProvider implements SingleCompletio
 	protected options: ApiHandlerOptions
 	private client: Ollama | undefined
 	protected models: Record<string, ModelInfo> = {}
-	private isInitialized = false // kilocode_change
+	private isInitialized = false // arcanea_change
 
 	constructor(options: ApiHandlerOptions) {
 		super()
 		this.options = options
-		this.initialize() // kilocode_change
+		this.initialize() // arcanea_change
 	}
 
-	// kilocode_change start
+	// arcanea_change start
 	private async initialize(): Promise<void> {
 		if (this.isInitialized) {
 			return
@@ -159,23 +159,23 @@ export class NativeOllamaHandler extends BaseProvider implements SingleCompletio
 		await this.fetchModel()
 		this.isInitialized = true
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	private ensureClient(): Ollama {
 		if (!this.client) {
 			try {
-				// kilocode_change start
+				// arcanea_change start
 				const headers = this.options.ollamaApiKey
 					? { Authorization: this.options.ollamaApiKey } // Yes, this is weird, its not a Bearer token
 					: undefined
-				// kilocode_change end
+				// arcanea_change end
 
 				this.client = new Ollama({
 					host: this.options.ollamaBaseUrl || "http://localhost:11434",
-					// kilocode_change start
+					// arcanea_change start
 					fetch: fetchWithTimeout(OLLAMA_TIMEOUT_MS, headers),
 					headers: headers,
-					// kilocode_change end
+					// arcanea_change end
 				})
 			} catch (error: any) {
 				throw new Error(`Error creating Ollama client: ${error.message}`)
@@ -189,14 +189,14 @@ export class NativeOllamaHandler extends BaseProvider implements SingleCompletio
 		messages: Anthropic.Messages.MessageParam[],
 		metadata?: ApiHandlerCreateMessageMetadata,
 	): ApiStream {
-		// kilocode_change start
+		// arcanea_change start
 		if (!this.isInitialized) {
 			await this.initialize()
 		}
-		// kilocode_change end
+		// arcanea_change end
 
 		const client = this.ensureClient()
-		const { id: modelId, info: modelInfo } = this.getModel() // kilocode_change: fetchModel => getModel
+		const { id: modelId, info: modelInfo } = this.getModel() // arcanea_change: fetchModel => getModel
 		const useR1Format = modelId.toLowerCase().includes("deepseek-r1")
 
 		const ollamaMessages: Message[] = [
@@ -204,14 +204,14 @@ export class NativeOllamaHandler extends BaseProvider implements SingleCompletio
 			...convertToOllamaMessages(messages),
 		]
 
-		// kilocode_change start
+		// arcanea_change start
 		const estimatedTokenCount = estimateOllamaTokenCount(ollamaMessages)
 		if (modelInfo.maxTokens && estimatedTokenCount > modelInfo.maxTokens) {
 			throw new Error(
-				`Input message is too long for the selected model. Estimated tokens: ${estimatedTokenCount}, Max tokens: ${modelInfo.maxTokens}. To increase the context window size, see: https://kilocode.ai/docs/providers/ollama#configure-the-context-size`,
+				`Input message is too long for the selected model. Estimated tokens: ${estimatedTokenCount}, Max tokens: ${modelInfo.maxTokens}. To increase the context window size, see: https://arcanea.ai/docs/providers/ollama#configure-the-context-size`,
 			)
 		}
-		// kilocode_change end
+		// arcanea_change end
 
 		const matcher = new XmlMatcher(
 			"think",
@@ -295,13 +295,13 @@ export class NativeOllamaHandler extends BaseProvider implements SingleCompletio
 
 	async fetchModel() {
 		this.models = await getOllamaModels(this.options.ollamaBaseUrl, this.options.ollamaApiKey)
-		return this.models // kilocode_change
+		return this.models // arcanea_change
 	}
 
 	override getModel(): { id: string; info: ModelInfo } {
 		const modelId = this.options.ollamaModelId || ""
 
-		// kilocode_change start
+		// arcanea_change start
 		const modelInfo = this.models[modelId]
 		if (!modelInfo) {
 			const availableModels = Object.keys(this.models)
@@ -311,24 +311,24 @@ export class NativeOllamaHandler extends BaseProvider implements SingleCompletio
 					: `Model ${modelId} not found. No models available.`
 			throw new Error(errorMessage)
 		}
-		// kilocode_change end
+		// arcanea_change end
 
 		return {
 			id: modelId,
-			info: modelInfo, // kilocode_change
+			info: modelInfo, // arcanea_change
 		}
 	}
 
 	async completePrompt(prompt: string): Promise<string> {
 		try {
-			// kilocode_change start
+			// arcanea_change start
 			if (!this.isInitialized) {
 				await this.initialize()
 			}
-			// kilocode_change end
+			// arcanea_change end
 
 			const client = this.ensureClient()
-			const { id: modelId } = this.getModel() // kilocode_change: fetchModel => getModel
+			const { id: modelId } = this.getModel() // arcanea_change: fetchModel => getModel
 			const useR1Format = modelId.toLowerCase().includes("deepseek-r1")
 
 			const response = await client.chat({

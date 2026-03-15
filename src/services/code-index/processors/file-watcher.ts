@@ -23,8 +23,8 @@ import { codeParser } from "./parser"
 import { CacheManager } from "../cache-manager"
 import { generateNormalizedAbsolutePath, generateRelativeFilePath } from "../shared/get-relative-path"
 import { isPathInIgnoredDirectory } from "../../glob/ignore-utils"
-import { TelemetryService } from "@roo-code/telemetry"
-import { TelemetryEventName } from "@roo-code/types"
+import { TelemetryService } from "@arcanea/telemetry"
+import { TelemetryEventName } from "@arcanea/types"
 import { sanitizeErrorMessage } from "../shared/validation-helpers"
 import { Package } from "../../../shared/package"
 
@@ -526,7 +526,7 @@ export class FileWatcher implements IFileWatcher {
 				return {
 					path: filePath,
 					status: "skipped" as const,
-					reason: "File is ignored by .kilocodeignore or .gitignore",
+					reason: "File is ignored by .arcaneaignore or .gitignore",
 				}
 			}
 

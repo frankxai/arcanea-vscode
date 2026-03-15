@@ -1,7 +1,7 @@
-import type { AssertEqual, Equals, Keys, Values, ExperimentId, Experiments } from "@roo-code/types"
+import type { AssertEqual, Equals, Keys, Values, ExperimentId, Experiments } from "@arcanea/types"
 
 export const EXPERIMENT_IDS = {
-	MORPH_FAST_APPLY: "morphFastApply", // kilocode_change
+	MORPH_FAST_APPLY: "morphFastApply", // arcanea_change
 	MULTI_FILE_APPLY_DIFF: "multiFileApplyDiff",
 	POWER_STEERING: "powerSteering",
 	PREVENT_FOCUS_DISRUPTION: "preventFocusDisruption",
@@ -18,7 +18,7 @@ interface ExperimentConfig {
 }
 
 export const experimentConfigsMap: Record<ExperimentKey, ExperimentConfig> = {
-	MORPH_FAST_APPLY: { enabled: false }, // kilocode_change
+	MORPH_FAST_APPLY: { enabled: false }, // arcanea_change
 	MULTI_FILE_APPLY_DIFF: { enabled: false },
 	POWER_STEERING: { enabled: false },
 	PREVENT_FOCUS_DISRUPTION: { enabled: false },

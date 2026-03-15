@@ -2,7 +2,7 @@ import { memo, useState } from "react"
 import { Trans } from "react-i18next"
 import { VSCodeLink } from "@vscode/webview-ui-toolkit/react"
 
-import type { TelemetrySetting } from "@roo-code/types"
+import type { TelemetrySetting } from "@arcanea/types"
 
 import { vscode } from "@src/utils/vscode"
 import { useAppTranslation } from "@src/i18n/TranslationContext"
@@ -29,7 +29,7 @@ const TelemetryBanner = () => {
 	}
 
 	return (
-		// kilocode_change: styling
+		// arcanea_change: styling
 		<div className="relative p-4 pr-10 bg-vscode-editor-background border border-vscode-panel-border rounded text-sm leading-normal text-vscode-foreground">
 			{/* Close button (X) */}
 			<button

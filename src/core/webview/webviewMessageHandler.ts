@@ -4,16 +4,16 @@ import * as os from "os"
 import * as fs from "fs/promises"
 import pWaitFor from "p-wait-for"
 import * as vscode from "vscode"
-// kilocode_change start
+// arcanea_change start
 import axios from "axios"
-import { getKiloBaseUriFromToken } from "../../shared/kilocode/token"
+import { getArcaneaBaseUriFromToken } from "../../shared/arcanea/token"
 import {
 	ProfileData,
 	SeeNewChangesPayload,
 	TaskHistoryRequestPayload,
 	TasksByIdRequestPayload,
 } from "../../shared/WebviewMessage"
-// kilocode_change end
+// arcanea_change end
 
 import {
 	type Language,
@@ -21,11 +21,11 @@ import {
 	type ClineMessage,
 	type TelemetrySetting,
 	TelemetryEventName,
-	ghostServiceSettingsSchema, // kilocode_change
+	ghostServiceSettingsSchema, // arcanea_change
 	UserSettingsConfig,
-} from "@roo-code/types"
-import { CloudService } from "@roo-code/cloud"
-import { TelemetryService } from "@roo-code/telemetry"
+} from "@arcanea/types"
+import { CloudService } from "@arcanea/cloud"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { type ApiMessage } from "../task-persistence/apiMessages"
 import { saveTaskMessages } from "../task-persistence"
@@ -54,8 +54,8 @@ import { discoverChromeHostUrl, tryChromeHostUrl } from "../../services/browser/
 import { searchWorkspaceFiles } from "../../services/search/file-search"
 import { fileExistsAtPath } from "../../utils/fs"
 import { playTts, setTtsEnabled, setTtsSpeed, stopTts } from "../../utils/tts"
-import { showSystemNotification } from "../../integrations/notifications" // kilocode_change
-import { singleCompletionHandler } from "../../utils/single-completion-handler" // kilocode_change
+import { showSystemNotification } from "../../integrations/notifications" // arcanea_change
+import { singleCompletionHandler } from "../../utils/single-completion-handler" // arcanea_change
 import { searchCommits } from "../../utils/git"
 import { exportSettings, importSettingsWithFeedback } from "../config/importExport"
 import { getOpenAiModels } from "../../api/providers/openai"
@@ -67,17 +67,17 @@ import { getModels, flushModels } from "../../api/providers/fetchers/modelCache"
 import { GetModelsOptions } from "../../shared/api"
 import { generateSystemPrompt } from "./generateSystemPrompt"
 import { getCommand } from "../../utils/commands"
-import { toggleWorkflow, toggleRule, createRuleFile, deleteRuleFile } from "./kilorules"
-import { mermaidFixPrompt } from "../prompts/utilities/mermaid" // kilocode_change
-import { editMessageHandler, fetchKilocodeNotificationsHandler } from "../kilocode/webview/webviewMessageHandlerUtils" // kilocode_change
+import { toggleWorkflow, toggleRule, createRuleFile, deleteRuleFile } from "./arcanearules"
+import { mermaidFixPrompt } from "../prompts/utilities/mermaid" // arcanea_change
+import { editMessageHandler, fetchArcaneacodeNotificationsHandler } from "../arcanea/webview/webviewMessageHandlerUtils" // arcanea_change
 
 const ALLOWED_VSCODE_SETTINGS = new Set(["terminal.integrated.inheritEnv"])
 
 import { MarketplaceManager, MarketplaceItemType } from "../../services/marketplace"
 import { setPendingTodoList } from "../tools/updateTodoListTool"
 import { UsageTracker } from "../../utils/usage-tracker"
-import { seeNewChanges } from "../checkpoints/kilocode/seeNewChanges" // kilocode_change
-import { getTaskHistory } from "../../shared/kilocode/getTaskHistory" // kilocode_change
+import { seeNewChanges } from "../checkpoints/arcanea/seeNewChanges" // arcanea_change
+import { getTaskHistory } from "../../shared/arcanea/getTaskHistory" // arcanea_change
 
 export const webviewMessageHandler = async (
 	provider: ClineProvider,
@@ -450,11 +450,11 @@ export const webviewMessageHandler = async (
 			await updateGlobalState("customModes", customModes)
 
 			// Refresh workflow toggles
-			const { refreshWorkflowToggles } = await import("../context/instructions/workflows") // kilocode_change
-			await refreshWorkflowToggles(provider.context, provider.cwd) // kilocode_change
+			const { refreshWorkflowToggles } = await import("../context/instructions/workflows") // arcanea_change
+			await refreshWorkflowToggles(provider.context, provider.cwd) // arcanea_change
 
 			provider.postStateToWebview()
-			provider.postRulesDataToWebview() // kilocode_change: send workflows and rules immediately
+			provider.postRulesDataToWebview() // arcanea_change: send workflows and rules immediately
 			provider.workspaceTracker?.initializeFilePaths() // Don't await.
 
 			getTheme().then((theme) => provider.postMessageToWebview({ type: "theme", text: JSON.stringify(theme) }))
@@ -515,11 +515,11 @@ export const webviewMessageHandler = async (
 				)
 
 			// If user already opted in to telemetry, enable telemetry service
-			provider.getStateToPostToWebview().then(async (/*kilocode_change*/ state) => {
+			provider.getStateToPostToWebview().then(async (/*arcanea_change*/ state) => {
 				const { telemetrySetting } = state
 				const isOptedIn = telemetrySetting !== "disabled"
 				TelemetryService.instance.updateTelemetryState(isOptedIn)
-				await TelemetryService.instance.updateIdentity(state.apiConfiguration.kilocodeToken ?? "") // kilocode_change
+				await TelemetryService.instance.updateIdentity(state.apiConfiguration.arcaneaToken ?? "") // arcanea_change
 			})
 
 			provider.isViewLaunched = true
@@ -547,11 +547,11 @@ export const webviewMessageHandler = async (
 				)
 			}
 			break
-		// kilocode_change start
+		// arcanea_change start
 		case "condense":
 			provider.getCurrentTask()?.handleWebviewAskResponse("yesButtonClicked")
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "customInstructions":
 			await provider.updateCustomInstructions(message.text)
 			break
@@ -792,7 +792,7 @@ export const webviewMessageHandler = async (
 				glama: {},
 				unbound: {},
 				litellm: {},
-				"kilocode-openrouter": {}, // kilocode_change
+				"arcanea-openrouter": {}, // arcanea_change
 				ollama: {},
 				lmstudio: {},
 				deepinfra: {},
@@ -810,7 +810,7 @@ export const webviewMessageHandler = async (
 				}
 			}
 
-			// kilocode_change start: openrouter auth, kilocode provider
+			// arcanea_change start: openrouter auth, arcanea provider
 			const openRouterApiKey = apiConfiguration.openRouterApiKey || message?.values?.openRouterApiKey
 			const openRouterBaseUrl = apiConfiguration.openRouterBaseUrl || message?.values?.openRouterBaseUrl
 
@@ -830,11 +830,11 @@ export const webviewMessageHandler = async (
 				{ key: "glama", options: { provider: "glama" } },
 				{ key: "unbound", options: { provider: "unbound", apiKey: apiConfiguration.unboundApiKey } },
 				{
-					key: "kilocode-openrouter",
+					key: "arcanea-openrouter",
 					options: {
-						provider: "kilocode-openrouter",
-						kilocodeToken: apiConfiguration.kilocodeToken,
-						kilocodeOrganizationId: apiConfiguration.kilocodeOrganizationId,
+						provider: "arcanea-openrouter",
+						arcaneaToken: apiConfiguration.arcaneaToken,
+						arcaneaOrganizationId: apiConfiguration.arcaneaOrganizationId,
 					},
 				},
 				{ key: "ollama", options: { provider: "ollama", baseUrl: apiConfiguration.ollamaBaseUrl } },
@@ -848,7 +848,7 @@ export const webviewMessageHandler = async (
 					},
 				},
 			]
-			// kilocode_change end
+			// arcanea_change end
 
 			// Add IO Intelligence if API key is provided
 			const ioIntelligenceApiKey = apiConfiguration.ioIntelligenceApiKey
@@ -1036,7 +1036,7 @@ export const webviewMessageHandler = async (
 			}
 
 			break
-		// kilocode_change start
+		// arcanea_change start
 		case "seeNewChanges":
 			const task = provider.getCurrentTask()
 			if (task && message.payload && message.payload) {
@@ -1065,7 +1065,7 @@ export const webviewMessageHandler = async (
 			})
 			break
 		}
-		// kilocode_change end
+		// arcanea_change end
 		case "checkpointRestore": {
 			const result = checkoutRestorePayloadSchema.safeParse(message.payload)
 
@@ -1147,7 +1147,7 @@ export const webviewMessageHandler = async (
 			}
 
 			const workspaceFolder = getCurrentCwd()
-			const rooDir = path.join(workspaceFolder, ".kilocode")
+			const rooDir = path.join(workspaceFolder, ".arcanea")
 			const mcpPath = path.join(rooDir, "mcp.json")
 
 			try {
@@ -1260,7 +1260,7 @@ export const webviewMessageHandler = async (
 			await updateGlobalState("enableMcpServerCreation", message.bool ?? true)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change begin
+		// arcanea_change begin
 		case "openGlobalKeybindings":
 			vscode.commands.executeCommand("workbench.action.openGlobalKeybindings", message.text ?? "arcanea.")
 			break
@@ -1283,7 +1283,7 @@ export const webviewMessageHandler = async (
 				vscode.env.openExternal(vscode.Uri.parse(message.url))
 			}
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "remoteControlEnabled":
 			try {
 				await CloudService.instance.updateUserSettings({ extensionBridgeEnabled: message.bool ?? false })
@@ -1420,12 +1420,12 @@ export const webviewMessageHandler = async (
 			await updateGlobalState("fuzzyMatchThreshold", message.value)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change start
+		// arcanea_change start
 		case "morphApiKey":
 			await updateGlobalState("morphApiKey", message.text)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "updateVSCodeSetting": {
 			const { setting, value } = message
 
@@ -1695,9 +1695,9 @@ export const webviewMessageHandler = async (
 			await updateGlobalState("maxReadFileLine", message.value)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change start
-		case "kiloCodeImageApiKey":
-			await provider.contextProxy.setValue("kiloCodeImageApiKey", message.text)
+		// arcanea_change start
+		case "arcaneaImageApiKey":
+			await provider.contextProxy.setValue("arcaneaImageApiKey", message.text)
 			await provider.postStateToWebview()
 			break
 		case "showAutoApproveMenu":
@@ -1712,7 +1712,7 @@ export const webviewMessageHandler = async (
 			await updateGlobalState("allowVeryLargeReads", message.bool ?? false)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "maxImageFileSize":
 			await updateGlobalState("maxImageFileSize", message.value)
 			await provider.postStateToWebview()
@@ -1759,19 +1759,19 @@ export const webviewMessageHandler = async (
 			await updateGlobalState("enhancementApiConfigId", message.text)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change start - commitMessageApiConfigId
+		// arcanea_change start - commitMessageApiConfigId
 		case "commitMessageApiConfigId":
 			await updateGlobalState("commitMessageApiConfigId", message.text)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change end - commitMessageApiConfigId
-		// kilocode_change start - terminalCommandApiConfigId
+		// arcanea_change end - commitMessageApiConfigId
+		// arcanea_change start - terminalCommandApiConfigId
 		case "terminalCommandApiConfigId":
 			await updateGlobalState("terminalCommandApiConfigId", message.text)
 			await provider.postStateToWebview()
 			break
-		// kilocode_change end - terminalCommandApiConfigId
-		// kilocode_change start - ghostServiceSettings
+		// arcanea_change end - terminalCommandApiConfigId
+		// arcanea_change start - ghostServiceSettings
 		case "ghostServiceSettings":
 			if (!message.values) {
 				return
@@ -1782,7 +1782,7 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			vscode.commands.executeCommand("arcanea.ghost.reload")
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "includeTaskHistoryInEnhance":
 			await updateGlobalState("includeTaskHistoryInEnhance", message.bool ?? true)
 			await provider.postStateToWebview()
@@ -1846,7 +1846,7 @@ export const webviewMessageHandler = async (
 						`Error enhancing prompt: ${JSON.stringify(error, Object.getOwnPropertyNames(error), 2)}`,
 					)
 
-					TelemetryService.instance.captureException(error, { context: "enhance_prompt" }) // kilocode_change
+					TelemetryService.instance.captureException(error, { context: "enhance_prompt" }) // arcanea_change
 					vscode.window.showErrorMessage(t("common:errors.enhance_prompt"))
 					await provider.postMessageToWebview({ type: "enhancedPrompt" })
 				}
@@ -1899,7 +1899,7 @@ export const webviewMessageHandler = async (
 			}
 			break
 		}
-		// kilocode_change start
+		// arcanea_change start
 		case "showFeedbackOptions": {
 			const githubIssuesText = t("common:feedback.githubIssues")
 			const discordText = t("common:feedback.discord")
@@ -1914,15 +1914,15 @@ export const webviewMessageHandler = async (
 			)
 
 			if (answer === githubIssuesText) {
-				await vscode.env.openExternal(vscode.Uri.parse("https://github.com/Kilo-Org/kilocode/issues"))
+				await vscode.env.openExternal(vscode.Uri.parse("https://github.com/Arcanea-Org/arcanea/issues"))
 			} else if (answer === discordText) {
 				await vscode.env.openExternal(vscode.Uri.parse("https://discord.gg/fxrhCFGhkP"))
 			} else if (answer === customerSupport) {
-				await vscode.env.openExternal(vscode.Uri.parse("https://kilocode.ai/support"))
+				await vscode.env.openExternal(vscode.Uri.parse("https://arcanea.ai/support"))
 			}
 			break
 		}
-		// kilocode_change end
+		// arcanea_change end
 		case "searchFiles": {
 			const workspacePath = getCurrentCwd()
 
@@ -1986,31 +1986,31 @@ export const webviewMessageHandler = async (
 			}
 			break
 		case "upsertApiConfiguration":
-			// kilocode_change start: check for kilocodeToken change to remove organizationId
+			// arcanea_change start: check for arcaneaToken change to remove organizationId
 			if (message.text && message.apiConfiguration) {
 				let configToSave = message.apiConfiguration
 				try {
 					const { ...currentConfig } = await provider.providerSettingsManager.getProfile({
 						name: message.text,
 					})
-					// Only clear organization ID if we actually had a kilocode token before and it's different now
-					const hadPreviousToken = currentConfig.kilocodeToken !== undefined
-					const hasNewToken = message.apiConfiguration.kilocodeToken !== undefined
-					const tokensAreDifferent = currentConfig.kilocodeToken !== message.apiConfiguration.kilocodeToken
+					// Only clear organization ID if we actually had a arcanea token before and it's different now
+					const hadPreviousToken = currentConfig.arcaneaToken !== undefined
+					const hasNewToken = message.apiConfiguration.arcaneaToken !== undefined
+					const tokensAreDifferent = currentConfig.arcaneaToken !== message.apiConfiguration.arcaneaToken
 
 					if (hadPreviousToken && hasNewToken && tokensAreDifferent) {
-						configToSave = { ...message.apiConfiguration, kilocodeOrganizationId: undefined }
+						configToSave = { ...message.apiConfiguration, arcaneaOrganizationId: undefined }
 					}
-					if (currentConfig.kilocodeOrganizationId !== message.apiConfiguration.kilocodeOrganizationId) {
-						await flushModels("kilocode-openrouter")
+					if (currentConfig.arcaneaOrganizationId !== message.apiConfiguration.arcaneaOrganizationId) {
+						await flushModels("arcanea-openrouter")
 						const models = await getModels({
-							provider: "kilocode-openrouter",
-							kilocodeOrganizationId: message.apiConfiguration.kilocodeOrganizationId,
-							kilocodeToken: message.apiConfiguration.kilocodeToken,
+							provider: "arcanea-openrouter",
+							arcaneaOrganizationId: message.apiConfiguration.arcaneaOrganizationId,
+							arcaneaToken: message.apiConfiguration.arcaneaToken,
 						})
 						provider.postMessageToWebview({
 							type: "routerModels",
-							routerModels: { "kilocode-openrouter": models } as Record<RouterName, ModelRecord>,
+							routerModels: { "arcanea-openrouter": models } as Record<RouterName, ModelRecord>,
 						})
 					}
 				} catch (error) {
@@ -2019,7 +2019,7 @@ export const webviewMessageHandler = async (
 
 				await provider.upsertProviderProfile(message.text, configToSave)
 			}
-			// kilocode_change end
+			// arcanea_change end
 			break
 		case "renameApiConfiguration":
 			if (message.values && message.apiConfiguration) {
@@ -2493,37 +2493,37 @@ export const webviewMessageHandler = async (
 			}
 			break
 
-		// kilocode_change_start
+		// arcanea_change_start
 		case "fetchProfileDataRequest":
 			try {
 				const { apiConfiguration, currentApiConfigName } = await provider.getState()
-				const kilocodeToken = apiConfiguration?.kilocodeToken
+				const arcaneaToken = apiConfiguration?.arcaneaToken
 
-				if (!kilocodeToken) {
-					provider.log("KiloCode token not found in extension state.")
+				if (!arcaneaToken) {
+					provider.log("Arcanea token not found in extension state.")
 					provider.postMessageToWebview({
 						type: "profileDataResponse",
-						payload: { success: false, error: "KiloCode API token not configured." },
+						payload: { success: false, error: "Arcanea API token not configured." },
 					})
 					break
 				}
 
 				// Changed to /api/profile
 				const headers: Record<string, string> = {
-					Authorization: `Bearer ${kilocodeToken}`,
+					Authorization: `Bearer ${arcaneaToken}`,
 					"Content-Type": "application/json",
 				}
 
-				// Add X-KILOCODE-TESTER: SUPPRESS header if the setting is enabled
+				// Add X-ARCANEA-TESTER: SUPPRESS header if the setting is enabled
 				if (
-					apiConfiguration.kilocodeTesterWarningsDisabledUntil &&
-					apiConfiguration.kilocodeTesterWarningsDisabledUntil > Date.now()
+					apiConfiguration.arcaneaTesterWarningsDisabledUntil &&
+					apiConfiguration.arcaneaTesterWarningsDisabledUntil > Date.now()
 				) {
-					headers["X-KILOCODE-TESTER"] = "SUPPRESS"
+					headers["X-ARCANEA-TESTER"] = "SUPPRESS"
 				}
 
-				const response = await axios.get<Omit<ProfileData, "kilocodeToken">>(
-					`${getKiloBaseUriFromToken(kilocodeToken)}/api/profile`,
+				const response = await axios.get<Omit<ProfileData, "arcaneaToken">>(
+					`${getArcaneaBaseUriFromToken(arcaneaToken)}/api/profile`,
 					{
 						headers,
 					},
@@ -2531,18 +2531,18 @@ export const webviewMessageHandler = async (
 
 				// Go back to Personal when no longer part of the current set organization
 				const organizationExists = (response.data.organizations ?? []).some(
-					({ id }) => id === apiConfiguration?.kilocodeOrganizationId,
+					({ id }) => id === apiConfiguration?.arcaneaOrganizationId,
 				)
-				if (apiConfiguration?.kilocodeOrganizationId && !organizationExists) {
+				if (apiConfiguration?.arcaneaOrganizationId && !organizationExists) {
 					provider.upsertProviderProfile(currentApiConfigName ?? "default", {
 						...apiConfiguration,
-						kilocodeOrganizationId: undefined,
+						arcaneaOrganizationId: undefined,
 					})
 				}
 
 				provider.postMessageToWebview({
 					type: "profileDataResponse", // Assuming this response type is still appropriate for /api/profile
-					payload: { success: true, data: { kilocodeToken, ...response.data } },
+					payload: { success: true, data: { arcaneaToken, ...response.data } },
 				})
 			} catch (error: any) {
 				const errorMessage =
@@ -2559,35 +2559,35 @@ export const webviewMessageHandler = async (
 		case "fetchBalanceDataRequest": // New handler
 			try {
 				const { apiConfiguration } = await provider.getState()
-				const { kilocodeToken, kilocodeOrganizationId } = apiConfiguration ?? {}
+				const { arcaneaToken, arcaneaOrganizationId } = apiConfiguration ?? {}
 
-				if (!kilocodeToken) {
-					provider.log("KiloCode token not found in extension state for balance data.")
+				if (!arcaneaToken) {
+					provider.log("Arcanea token not found in extension state for balance data.")
 					provider.postMessageToWebview({
 						type: "balanceDataResponse", // New response type
-						payload: { success: false, error: "KiloCode API token not configured." },
+						payload: { success: false, error: "Arcanea API token not configured." },
 					})
 					break
 				}
 
 				const headers: Record<string, string> = {
-					Authorization: `Bearer ${kilocodeToken}`,
+					Authorization: `Bearer ${arcaneaToken}`,
 					"Content-Type": "application/json",
 				}
 
-				if (kilocodeOrganizationId) {
-					headers["X-KiloCode-OrganizationId"] = kilocodeOrganizationId
+				if (arcaneaOrganizationId) {
+					headers["X-Arcanea-OrganizationId"] = arcaneaOrganizationId
 				}
 
-				// Add X-KILOCODE-TESTER: SUPPRESS header if the setting is enabled
+				// Add X-ARCANEA-TESTER: SUPPRESS header if the setting is enabled
 				if (
-					apiConfiguration.kilocodeTesterWarningsDisabledUntil &&
-					apiConfiguration.kilocodeTesterWarningsDisabledUntil > Date.now()
+					apiConfiguration.arcaneaTesterWarningsDisabledUntil &&
+					apiConfiguration.arcaneaTesterWarningsDisabledUntil > Date.now()
 				) {
-					headers["X-KILOCODE-TESTER"] = "SUPPRESS"
+					headers["X-ARCANEA-TESTER"] = "SUPPRESS"
 				}
 
-				const response = await axios.get(`${getKiloBaseUriFromToken(kilocodeToken)}/api/profile/balance`, {
+				const response = await axios.get(`${getArcaneaBaseUriFromToken(arcaneaToken)}/api/profile/balance`, {
 					// Original path for balance
 					headers,
 				})
@@ -2608,9 +2608,9 @@ export const webviewMessageHandler = async (
 		case "shopBuyCredits": // New handler
 			try {
 				const { apiConfiguration } = await provider.getState()
-				const kilocodeToken = apiConfiguration?.kilocodeToken
-				if (!kilocodeToken) {
-					provider.log("KiloCode token not found in extension state for buy credits.")
+				const arcaneaToken = apiConfiguration?.arcaneaToken
+				if (!arcaneaToken) {
+					provider.log("Arcanea token not found in extension state for buy credits.")
 					break
 				}
 				const credits = message.values?.credits || 50
@@ -2618,13 +2618,13 @@ export const webviewMessageHandler = async (
 				const uiKind = message.values?.uiKind || "Desktop"
 				const source = uiKind === "Web" ? "web" : uriScheme
 
-				const baseUrl = getKiloBaseUriFromToken(kilocodeToken)
+				const baseUrl = getArcaneaBaseUriFromToken(arcaneaToken)
 				const response = await axios.post(
 					`${baseUrl}/payments/topup?origin=extension&source=${source}&amount=${credits}`,
 					{},
 					{
 						headers: {
-							Authorization: `Bearer ${kilocodeToken}`,
+							Authorization: `Bearer ${arcaneaToken}`,
 							"Content-Type": "application/json",
 						},
 						maxRedirects: 0, // Prevent axios from following redirects automatically
@@ -2705,7 +2705,7 @@ export const webviewMessageHandler = async (
 					await createRuleFile(message.filename, message.isGlobal, message.ruleType)
 				} catch (error) {
 					console.error("Error creating rule file:", error)
-					vscode.window.showErrorMessage(t("kilocode:rules.errors.failedToCreateRuleFile"))
+					vscode.window.showErrorMessage(t("arcanea:rules.errors.failedToCreateRuleFile"))
 				}
 				await provider.postRulesDataToWebview()
 			}
@@ -2718,7 +2718,7 @@ export const webviewMessageHandler = async (
 					await deleteRuleFile(message.rulePath)
 				} catch (error) {
 					console.error("Error deleting rule file:", error)
-					vscode.window.showErrorMessage(t("kilocode:rules.errors.failedToDeleteRuleFile"))
+					vscode.window.showErrorMessage(t("arcanea:rules.errors.failedToDeleteRuleFile"))
 				}
 				await provider.postRulesDataToWebview()
 			}
@@ -2728,7 +2728,7 @@ export const webviewMessageHandler = async (
 		case "reportBug":
 			provider.getCurrentTask()?.handleWebviewAskResponse("yesButtonClicked")
 			break
-		// end kilocode_change
+		// end arcanea_change
 		case "telemetrySetting": {
 			const telemetrySetting = message.text as TelemetrySetting
 			await updateGlobalState("telemetrySetting", telemetrySetting)
@@ -3087,7 +3087,7 @@ export const webviewMessageHandler = async (
 			}
 			break
 		}
-		// kilocode_change start - add clearUsageData
+		// arcanea_change start - add clearUsageData
 		case "clearUsageData": {
 			try {
 				const usageTracker = UsageTracker.getInstance()
@@ -3100,7 +3100,7 @@ export const webviewMessageHandler = async (
 			}
 			break
 		}
-		// kilocode_change start - add getUsageData
+		// arcanea_change start - add getUsageData
 		case "getUsageData": {
 			if (message.text) {
 				try {
@@ -3118,14 +3118,14 @@ export const webviewMessageHandler = async (
 			}
 			break
 		}
-		// kilocode_change end - add getUsageData
-		// kilocode_change start - add toggleTaskFavorite
+		// arcanea_change end - add getUsageData
+		// arcanea_change start - add toggleTaskFavorite
 		case "toggleTaskFavorite":
 			if (message.text) {
 				await provider.toggleTaskFavorite(message.text)
 			}
 			break
-		// kilocode_change start - add fixMermaidSyntax
+		// arcanea_change start - add fixMermaidSyntax
 		case "fixMermaidSyntax":
 			if (message.text && message.requestId) {
 				try {
@@ -3154,7 +3154,7 @@ export const webviewMessageHandler = async (
 				}
 			}
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "focusPanelRequest": {
 			// Execute the focusPanel command to focus the WebView
 			await vscode.commands.executeCommand(getCommand("focusPanel"))
@@ -3291,13 +3291,13 @@ export const webviewMessageHandler = async (
 			}
 			break
 		}
-		// kilocode_change start
+		// arcanea_change start
 		case "editMessage": {
 			await editMessageHandler(provider, message)
 			break
 		}
-		case "fetchKilocodeNotifications": {
-			await fetchKilocodeNotificationsHandler(provider)
+		case "fetchArcaneacodeNotifications": {
+			await fetchArcaneacodeNotificationsHandler(provider)
 			break
 		}
 		case "dismissNotificationId": {
@@ -3311,7 +3311,7 @@ export const webviewMessageHandler = async (
 			await provider.postStateToWebview()
 			break
 		}
-		// kilocode_change end
+		// arcanea_change end
 		case "insertTextToChatArea":
 			provider.postMessageToWebview({ type: "insertTextToChatArea", text: message.text })
 			break

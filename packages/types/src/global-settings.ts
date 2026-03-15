@@ -14,7 +14,7 @@ import { telemetrySettingsSchema } from "./telemetry.js"
 import { modeConfigSchema } from "./mode.js"
 import { customModePromptsSchema, customSupportPromptsSchema } from "./mode.js"
 import { languagesSchema } from "./vscode.js"
-import { ghostServiceSettingsSchema } from "./kilocode.js" // kilocode_change
+import { ghostServiceSettingsSchema } from "./arcanea.js" // arcanea_change
 
 /**
  * Default delay in milliseconds after writes to allow diagnostics to detect potential problems.
@@ -47,7 +47,7 @@ export const globalSettingsSchema = z.object({
 	// Image generation settings (experimental) - flattened for simplicity
 	openRouterImageApiKey: z.string().optional(),
 	openRouterImageGenerationSelectedModel: z.string().optional(),
-	kiloCodeImageApiKey: z.string().optional(),
+	arcaneaImageApiKey: z.string().optional(),
 
 	condensingApiConfigId: z.string().optional(),
 	customCondensingPrompt: z.string().optional(),
@@ -79,7 +79,7 @@ export const globalSettingsSchema = z.object({
 	autoCondenseContext: z.boolean().optional(),
 	autoCondenseContextPercent: z.number().optional(),
 	maxConcurrentFileReads: z.number().optional(),
-	allowVeryLargeReads: z.boolean().optional(), // kilocode_change
+	allowVeryLargeReads: z.boolean().optional(), // arcanea_change
 
 	/**
 	 * Whether to include diagnostic messages (errors, warnings) in tool outputs
@@ -94,12 +94,12 @@ export const globalSettingsSchema = z.object({
 
 	browserToolEnabled: z.boolean().optional(),
 	browserViewportSize: z.string().optional(),
-	showAutoApproveMenu: z.boolean().optional(), // kilocode_change
-	showTaskTimeline: z.boolean().optional(), // kilocode_change
-	localWorkflowToggles: z.record(z.string(), z.boolean()).optional(), // kilocode_change
-	globalWorkflowToggles: z.record(z.string(), z.boolean()).optional(), // kilocode_change
-	localRulesToggles: z.record(z.string(), z.boolean()).optional(), // kilocode_change
-	globalRulesToggles: z.record(z.string(), z.boolean()).optional(), // kilocode_change
+	showAutoApproveMenu: z.boolean().optional(), // arcanea_change
+	showTaskTimeline: z.boolean().optional(), // arcanea_change
+	localWorkflowToggles: z.record(z.string(), z.boolean()).optional(), // arcanea_change
+	globalWorkflowToggles: z.record(z.string(), z.boolean()).optional(), // arcanea_change
+	localRulesToggles: z.record(z.string(), z.boolean()).optional(), // arcanea_change
+	globalRulesToggles: z.record(z.string(), z.boolean()).optional(), // arcanea_change
 	screenshotQuality: z.number().optional(),
 	remoteBrowserEnabled: z.boolean().optional(),
 	remoteBrowserHost: z.string().optional(),
@@ -111,7 +111,7 @@ export const globalSettingsSchema = z.object({
 	ttsSpeed: z.number().optional(),
 	soundEnabled: z.boolean().optional(),
 	soundVolume: z.number().optional(),
-	systemNotificationsEnabled: z.boolean().optional(), // kilocode_change
+	systemNotificationsEnabled: z.boolean().optional(), // arcanea_change
 
 	maxOpenTabsContext: z.number().optional(),
 	maxWorkspaceFiles: z.number().optional(),
@@ -139,7 +139,7 @@ export const globalSettingsSchema = z.object({
 	fuzzyMatchThreshold: z.number().optional(),
 	experiments: experimentsSchema.optional(),
 
-	morphApiKey: z.string().optional(), // kilocode_change: Morph fast apply
+	morphApiKey: z.string().optional(), // arcanea_change: Morph fast apply
 
 	codebaseIndexModels: codebaseIndexModelsSchema.optional(),
 	codebaseIndexConfig: codebaseIndexConfigSchema.optional(),
@@ -150,7 +150,7 @@ export const globalSettingsSchema = z.object({
 
 	mcpEnabled: z.boolean().optional(),
 	enableMcpServerCreation: z.boolean().optional(),
-	mcpMarketplaceCatalog: z.any().optional(), // kilocode_change: MCP marketplace catalog
+	mcpMarketplaceCatalog: z.any().optional(), // arcanea_change: MCP marketplace catalog
 
 	mode: z.string().optional(),
 	modeApiConfigs: z.record(z.string(), z.string()).optional(),
@@ -158,10 +158,10 @@ export const globalSettingsSchema = z.object({
 	customModePrompts: customModePromptsSchema.optional(),
 	customSupportPrompts: customSupportPromptsSchema.optional(),
 	enhancementApiConfigId: z.string().optional(),
-	dismissedNotificationIds: z.string().array().optional(), // kilocode_change
-	commitMessageApiConfigId: z.string().optional(), // kilocode_change
-	terminalCommandApiConfigId: z.string().optional(), // kilocode_change
-	ghostServiceSettings: ghostServiceSettingsSchema, // kilocode_change
+	dismissedNotificationIds: z.string().array().optional(), // arcanea_change
+	commitMessageApiConfigId: z.string().optional(), // arcanea_change
+	terminalCommandApiConfigId: z.string().optional(), // arcanea_change
+	ghostServiceSettings: ghostServiceSettingsSchema, // arcanea_change
 	includeTaskHistoryInEnhance: z.boolean().optional(),
 	historyPreviewCollapsed: z.boolean().optional(),
 	profileThresholds: z.record(z.string(), z.number()).optional(),
@@ -211,9 +211,9 @@ export const SECRET_STATE_KEYS = [
 	"deepInfraApiKey",
 	"codeIndexOpenAiKey",
 	"codeIndexQdrantApiKey",
-	// kilocode_change start
-	"kilocodeToken",
-	// kilocode_change end
+	// arcanea_change start
+	"arcaneaToken",
+	// arcanea_change end
 	"codebaseIndexOpenAiCompatibleApiKey",
 	"codebaseIndexGeminiApiKey",
 	"codebaseIndexMistralApiKey",
@@ -230,7 +230,7 @@ export const SECRET_STATE_KEYS = [
 // Global secrets that are part of GlobalSettings (not ProviderSettings)
 export const GLOBAL_SECRET_KEYS = [
 	"openRouterImageApiKey", // For image generation
-	"kiloCodeImageApiKey",
+	"arcaneaImageApiKey",
 ] as const
 
 // Type for the actual secret storage keys
@@ -302,9 +302,9 @@ export const EVALS_SETTINGS: RooCodeSettings = {
 	ttsSpeed: 1,
 	soundEnabled: false,
 	soundVolume: 0.5,
-	dismissedNotificationIds: [], // kilocode_change
-	systemNotificationsEnabled: true, // kilocode_change
-	ghostServiceSettings: {}, // kilocode_change
+	dismissedNotificationIds: [], // arcanea_change
+	systemNotificationsEnabled: true, // arcanea_change
+	ghostServiceSettings: {}, // arcanea_change
 
 	terminalOutputLineLimit: 500,
 	terminalOutputCharacterLimit: DEFAULT_TERMINAL_OUTPUT_CHARACTER_LIMIT,

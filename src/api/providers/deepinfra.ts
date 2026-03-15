@@ -1,7 +1,7 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 import OpenAI from "openai"
 
-import { deepInfraDefaultModelId, deepInfraDefaultModelInfo } from "@roo-code/types"
+import { deepInfraDefaultModelId, deepInfraDefaultModelInfo } from "@arcanea/types"
 
 import type { ApiHandlerOptions } from "../../shared/api"
 import { calculateApiCostOpenAI } from "../../shared/cost"
@@ -20,7 +20,7 @@ export class DeepInfraHandler extends RouterProvider implements SingleCompletion
 			options: {
 				...options,
 				openAiHeaders: {
-					"X-Deepinfra-Source": "kilocode",
+					"X-Deepinfra-Source": "arcanea",
 					"X-Deepinfra-Version": `2025-08-25`,
 				},
 			},

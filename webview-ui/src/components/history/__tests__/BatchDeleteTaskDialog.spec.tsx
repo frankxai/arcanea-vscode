@@ -21,8 +21,8 @@ vi.mock("@/i18n/TranslationContext", () => ({
 	}),
 }))
 
-// kilocode_change start: add mocks
-vi.mock("@/kilocode/hooks/useTaskHistory", () => ({
+// arcanea_change start: add mocks
+vi.mock("@/arcanea/hooks/useTaskHistory", () => ({
 	useTaskWithId: () => ({
 		data: [
 			{ id: "task-1", isFavorited: false },
@@ -32,7 +32,7 @@ vi.mock("@/kilocode/hooks/useTaskHistory", () => ({
 		],
 	}),
 }))
-// kilocode_change end
+// arcanea_change end
 
 describe("BatchDeleteTaskDialog", () => {
 	const mockTaskIds = ["task-1", "task-2", "task-3"]

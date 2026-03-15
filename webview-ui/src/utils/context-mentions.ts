@@ -1,6 +1,6 @@
 import { Fzf } from "fzf"
 
-import type { ModeConfig } from "@roo-code/types"
+import type { ModeConfig } from "@arcanea/types"
 import type { Command } from "@roo/ExtensionMessage"
 
 import { mentionRegex } from "@roo/context-mentions"
@@ -107,7 +107,7 @@ export enum ContextMenuOptionType {
 	Git = "git",
 	NoResults = "noResults",
 	Mode = "mode", // Add mode type
-	Image = "image", // kilocode_change
+	Image = "image", // arcanea_change
 	Command = "command", // Add command type
 	SectionHeader = "sectionHeader", // Add section header type
 }
@@ -256,7 +256,7 @@ export function getContextMenuOptions(
 			{ type: ContextMenuOptionType.URL },
 			{ type: ContextMenuOptionType.Folder },
 			{ type: ContextMenuOptionType.File },
-			{ type: ContextMenuOptionType.Image }, // kilocode_change
+			{ type: ContextMenuOptionType.Image }, // arcanea_change
 			{ type: ContextMenuOptionType.Git },
 		]
 	}

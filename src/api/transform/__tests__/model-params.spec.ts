@@ -1,6 +1,6 @@
 // npx vitest run api/transform/__tests__/model-params.spec.ts
 
-import { type ModelInfo, ANTHROPIC_DEFAULT_MAX_TOKENS } from "@roo-code/types"
+import { type ModelInfo, ANTHROPIC_DEFAULT_MAX_TOKENS } from "@arcanea/types"
 
 import { getModelParams } from "../model-params"
 import {
@@ -597,7 +597,7 @@ describe("getModelParams", () => {
 
 			// For hybrid models (supportsReasoningBudget) in Anthropic contexts,
 			// should discard model's maxTokens and use ANTHROPIC_DEFAULT_MAX_TOKENS
-			expect(result.maxTokens).toBe(3200 /*kilocode_change*/)
+			expect(result.maxTokens).toBe(3200 /*arcanea_change*/)
 			expect(result.reasoningBudget).toBeUndefined()
 		})
 

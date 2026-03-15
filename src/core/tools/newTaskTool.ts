@@ -1,7 +1,7 @@
 import delay from "delay"
 import * as vscode from "vscode"
 
-import { TodoItem } from "@roo-code/types"
+import { TodoItem } from "@arcanea/types"
 
 import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../shared/tools"
 import { Task } from "../task/Task"
@@ -124,16 +124,16 @@ export async function newTaskTool(
 			// Preserve the current mode so we can resume with it later.
 			task.pausedModeSlug = (await provider.getState()).mode ?? defaultModeSlug
 
-			// kilocode_change start: Switch to the desired mode BEFORE creating the task
+			// arcanea_change start: Switch to the desired mode BEFORE creating the task
 			await provider.handleModeSwitch(mode)
 			// Small delay to ensure mode switch has propagated
 			await delay(100)
-			// kilocode_change end
+			// arcanea_change end
 
 			const newTask = await task.startSubtask(unescapedMessage, todoItems, mode)
 
 			if (!newTask) {
-				await provider.handleModeSwitch(task.pausedModeSlug) // kilocode_change: if task creation failed, switch back to the parent's mode
+				await provider.handleModeSwitch(task.pausedModeSlug) // arcanea_change: if task creation failed, switch back to the parent's mode
 				pushToolResult(t("tools:newTask.errors.policy_restriction"))
 				return
 			}

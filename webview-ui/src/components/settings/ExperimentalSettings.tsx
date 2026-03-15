@@ -1,7 +1,7 @@
 import React, { HTMLAttributes } from "react"
 import { FlaskConical } from "lucide-react"
 
-import type { Experiments } from "@roo-code/types"
+import type { Experiments } from "@arcanea/types"
 
 import { EXPERIMENT_IDS, experimentConfigsMap } from "@roo/experiments"
 
@@ -9,25 +9,25 @@ import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { cn } from "@src/lib/utils"
 
 import {
-	SetCachedStateField, // kilocode_change
+	SetCachedStateField, // arcanea_change
 	SetExperimentEnabled,
 } from "./types"
 import { SectionHeader } from "./SectionHeader"
 import { Section } from "./Section"
 import { ExperimentalFeature } from "./ExperimentalFeature"
-import { MorphSettings } from "./MorphSettings" // kilocode_change: Use global version
+import { MorphSettings } from "./MorphSettings" // arcanea_change: Use global version
 import { ImageGenerationSettings } from "./ImageGenerationSettings"
 
 type ExperimentalSettingsProps = HTMLAttributes<HTMLDivElement> & {
 	experiments: Experiments
 	setExperimentEnabled: SetExperimentEnabled
-	// kilocode_change start
+	// arcanea_change start
 	morphApiKey?: string
 	setCachedStateField: SetCachedStateField<"morphApiKey">
-	kiloCodeImageApiKey?: string
-	setKiloCodeImageApiKey?: (apiKey: string) => void
-	currentProfileKilocodeToken?: string
-	// kilocode_change end
+	arcaneaImageApiKey?: string
+	setArcaneaImageApiKey?: (apiKey: string) => void
+	currentProfileArcaneacodeToken?: string
+	// arcanea_change end
 	apiConfiguration?: any
 	setApiConfigurationField?: any
 	openRouterImageApiKey?: string
@@ -46,13 +46,13 @@ export const ExperimentalSettings = ({
 	setOpenRouterImageApiKey,
 	setImageGenerationSelectedModel,
 	className,
-	// kilocode_change start
+	// arcanea_change start
 	morphApiKey,
 	setCachedStateField,
-	setKiloCodeImageApiKey,
-	kiloCodeImageApiKey,
-	currentProfileKilocodeToken,
-	// kilocode_change end
+	setArcaneaImageApiKey,
+	arcaneaImageApiKey,
+	currentProfileArcaneacodeToken,
+	// arcanea_change end
 	...props
 }: ExperimentalSettingsProps) => {
 	const { t } = useAppTranslation()
@@ -69,7 +69,7 @@ export const ExperimentalSettings = ({
 			<Section>
 				{Object.entries(experimentConfigsMap)
 					.filter(([key]) => key in EXPERIMENT_IDS)
-					.filter((config) => config[0] !== "MARKETPLACE") // kilocode_change: we have our own market place, filter this out for now
+					.filter((config) => config[0] !== "MARKETPLACE") // arcanea_change: we have our own market place, filter this out for now
 					.map((config) => {
 						if (config[0] === "MULTI_FILE_APPLY_DIFF") {
 							return (
@@ -83,7 +83,7 @@ export const ExperimentalSettings = ({
 								/>
 							)
 						}
-						// kilocode_change start
+						// arcanea_change start
 						if (config[0] === "MORPH_FAST_APPLY") {
 							const enabled =
 								experiments[EXPERIMENT_IDS[config[0] as keyof typeof EXPERIMENT_IDS]] ?? false
@@ -109,11 +109,11 @@ export const ExperimentalSettings = ({
 								</React.Fragment>
 							)
 						}
-						// kilocode_change end
+						// arcanea_change end
 						if (
 							config[0] === "IMAGE_GENERATION" &&
 							setOpenRouterImageApiKey &&
-							setKiloCodeImageApiKey &&
+							setArcaneaImageApiKey &&
 							setImageGenerationSelectedModel
 						) {
 							return (
@@ -124,12 +124,12 @@ export const ExperimentalSettings = ({
 										setExperimentEnabled(EXPERIMENT_IDS.IMAGE_GENERATION, enabled)
 									}
 									openRouterImageApiKey={openRouterImageApiKey}
-									kiloCodeImageApiKey={kiloCodeImageApiKey}
+									arcaneaImageApiKey={arcaneaImageApiKey}
 									openRouterImageGenerationSelectedModel={openRouterImageGenerationSelectedModel}
 									setOpenRouterImageApiKey={setOpenRouterImageApiKey}
-									setKiloCodeImageApiKey={setKiloCodeImageApiKey}
+									setArcaneaImageApiKey={setArcaneaImageApiKey}
 									setImageGenerationSelectedModel={setImageGenerationSelectedModel}
-									currentProfileKilocodeToken={currentProfileKilocodeToken}
+									currentProfileArcaneacodeToken={currentProfileArcaneacodeToken}
 								/>
 							)
 						}

@@ -8,11 +8,11 @@ import {
 	OPEN_ROUTER_REASONING_BUDGET_MODELS,
 	OPEN_ROUTER_REQUIRED_REASONING_BUDGET_MODELS,
 	anthropicModels,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import type { ApiHandlerOptions } from "../../../shared/api"
 import { parseApiPrice } from "../../../shared/cost"
-import { DEFAULT_HEADERS } from "../constants" // kilocode_change
+import { DEFAULT_HEADERS } from "../constants" // arcanea_change
 
 /**
  * OpenRouterBaseModel
@@ -36,7 +36,7 @@ const modelRouterBaseModelSchema = z.object({
 	description: z.string().optional(),
 	context_length: z.number(),
 	max_completion_tokens: z.number().nullish(),
-	preferredIndex: z.number().nullish(), // kilocode_change
+	preferredIndex: z.number().nullish(), // arcanea_change
 	pricing: openRouterPricingSchema.optional(),
 })
 
@@ -60,7 +60,7 @@ export type OpenRouterModel = z.infer<typeof openRouterModelSchema>
  */
 
 export const openRouterModelEndpointSchema = modelRouterBaseModelSchema.extend({
-	model_name: z.string(), // kilocode_change
+	model_name: z.string(), // arcanea_change
 	provider_name: z.string(),
 	tag: z.string().optional(),
 })
@@ -99,27 +99,27 @@ type OpenRouterModelEndpointsResponse = z.infer<typeof openRouterModelEndpointsR
  */
 
 export async function getOpenRouterModels(
-	options?: ApiHandlerOptions & { headers?: Record<string, string> }, // kilocode_change: added headers
+	options?: ApiHandlerOptions & { headers?: Record<string, string> }, // arcanea_change: added headers
 ): Promise<Record<string, ModelInfo>> {
 	const models: Record<string, ModelInfo> = {}
 	const baseURL = options?.openRouterBaseUrl || "https://openrouter.ai/api/v1"
 
 	try {
-		// kilocode_change: use fetch, added headers
+		// arcanea_change: use fetch, added headers
 		const response = await fetch(`${baseURL}/models`, {
 			headers: { ...DEFAULT_HEADERS, ...(options?.headers ?? {}) },
 		})
 		const json = await response.json()
 		const result = openRouterModelsResponseSchema.safeParse(json)
 		const data = result.success ? result.data.data : json.data
-		// kilocode_change end
+		// arcanea_change end
 
 		if (!result.success) {
-			// kilocode_change start
+			// arcanea_change start
 			throw new Error(
 				"OpenRouter models response is invalid: " + JSON.stringify(result.error.format(), undefined, 2),
 			)
-			// kilocode_change end
+			// arcanea_change end
 		}
 
 		for (const model of data) {
@@ -133,7 +133,7 @@ export async function getOpenRouterModels(
 			models[id] = parseOpenRouterModel({
 				id,
 				model,
-				displayName: model.name, // kilocode_change
+				displayName: model.name, // arcanea_change
 				inputModality: architecture?.input_modalities,
 				outputModality: architecture?.output_modalities,
 				maxTokens: top_provider?.max_completion_tokens,
@@ -144,7 +144,7 @@ export async function getOpenRouterModels(
 		console.error(
 			`Error fetching OpenRouter models: ${JSON.stringify(error, Object.getOwnPropertyNames(error), 2)}`,
 		)
-		throw error // kilocode_change
+		throw error // arcanea_change
 	}
 
 	return models
@@ -181,7 +181,7 @@ export async function getOpenRouterModelEndpoints(
 			models[endpoint.tag ?? endpoint.provider_name] = parseOpenRouterModel({
 				id,
 				model: endpoint,
-				displayName: endpoint.model_name, // kilocode_change
+				displayName: endpoint.model_name, // arcanea_change
 				inputModality: architecture?.input_modalities,
 				outputModality: architecture?.output_modalities,
 				maxTokens: endpoint.max_completion_tokens,
@@ -203,7 +203,7 @@ export async function getOpenRouterModelEndpoints(
 export const parseOpenRouterModel = ({
 	id,
 	model,
-	displayName, // kilocode_change
+	displayName, // arcanea_change
 	inputModality,
 	outputModality,
 	maxTokens,
@@ -211,7 +211,7 @@ export const parseOpenRouterModel = ({
 }: {
 	id: string
 	model: OpenRouterBaseModel
-	displayName?: string // kilocode_change
+	displayName?: string // arcanea_change
 	inputModality: string[] | null | undefined
 	outputModality: string[] | null | undefined
 	maxTokens: number | null | undefined
@@ -237,10 +237,10 @@ export const parseOpenRouterModel = ({
 		description: model.description,
 		supportsReasoningEffort: supportedParameters ? supportedParameters.includes("reasoning") : undefined,
 		supportedParameters: supportedParameters ? supportedParameters.filter(isModelParameter) : undefined,
-		// kilocode_change start
+		// arcanea_change start
 		displayName,
 		preferredIndex: model.preferredIndex,
-		// kilocode_change end
+		// arcanea_change end
 	}
 
 	// The OpenRouter model definition doesn't give us any hints about

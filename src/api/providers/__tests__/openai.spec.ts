@@ -4,7 +4,7 @@ import { OpenAiHandler, getOpenAiModels } from "../openai"
 import { ApiHandlerOptions } from "../../../shared/api"
 import { Anthropic } from "@anthropic-ai/sdk"
 import OpenAI from "openai"
-import { openAiModelInfoSaneDefaults } from "@roo-code/types"
+import { openAiModelInfoSaneDefaults } from "@arcanea/types"
 import { Package } from "../../../shared/package"
 import axios from "axios"
 
@@ -111,10 +111,10 @@ describe("OpenAiHandler", () => {
 				baseURL: expect.any(String),
 				apiKey: expect.any(String),
 				defaultHeaders: {
-					"HTTP-Referer": "https://kilocode.ai",
+					"HTTP-Referer": "https://arcanea.ai",
 					"X-Title": "Arcanea",
-					"X-KiloCode-Version": Package.version,
-					"User-Agent": `Kilo-Code/${Package.version}`,
+					"X-Arcanea-Version": Package.version,
+					"User-Agent": `Arcanea-Code/${Package.version}`,
 				},
 				timeout: expect.any(Number),
 			})

@@ -8,9 +8,9 @@ import {
 	deepSeekModels,
 	moonshotModels,
 	geminiModels,
-	// kilocode_change start
+	// arcanea_change start
 	geminiCliModels,
-	// kilocode_change end
+	// arcanea_change end
 	mistralModels,
 	openAiNativeModels,
 	qwenCodeModels,
@@ -24,7 +24,7 @@ import {
 	fireworksModels,
 	rooModels,
 	featherlessModels,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 export const MODELS_BY_PROVIDER: Partial<Record<ProviderName, Record<string, ModelInfo>>> = {
 	anthropic: anthropicModels,
@@ -35,9 +35,9 @@ export const MODELS_BY_PROVIDER: Partial<Record<ProviderName, Record<string, Mod
 	doubao: doubaoModels,
 	moonshot: moonshotModels,
 	gemini: geminiModels,
-	// kilocode_change start
+	// arcanea_change start
 	"gemini-cli": geminiCliModels,
-	// kilocode_change end
+	// arcanea_change end
 	mistral: mistralModels,
 	"openai-native": openAiNativeModels,
 	"qwen-code": qwenCodeModels,
@@ -60,10 +60,10 @@ export const PROVIDERS = [
 	{ value: "cerebras", label: "Cerebras" },
 	{ value: "gemini", label: "Google Gemini" },
 	{ value: "doubao", label: "Doubao" },
-	// kilocode_change start
+	// arcanea_change start
 	{ value: "gemini-cli", label: "Gemini CLI" },
 	{ value: "virtual-quota-fallback", label: "Virtual Quota Fallback" },
-	// kilocode_change end
+	// arcanea_change end
 	{ value: "deepseek", label: "DeepSeek" },
 	{ value: "moonshot", label: "Moonshot" },
 	{ value: "openai-native", label: "OpenAI" },
@@ -89,10 +89,10 @@ export const PROVIDERS = [
 	{ value: "fireworks", label: "Fireworks AI" },
 	{ value: "featherless", label: "Featherless AI" },
 	{ value: "io-intelligence", label: "IO Intelligence" },
-	// kilocode_change start
+	// arcanea_change start
 	// { value: "roo", label: "Roo Code Cloud" },
-	// kilocode_change end
+	// arcanea_change end
 	{ value: "vercel-ai-gateway", label: "Vercel AI Gateway" },
 ].sort((a, b) => a.label.localeCompare(b.label))
 
-PROVIDERS.unshift({ value: "kilocode", label: "Arcanea" }) // kilocode_change
+PROVIDERS.unshift({ value: "arcanea", label: "Arcanea" }) // arcanea_change

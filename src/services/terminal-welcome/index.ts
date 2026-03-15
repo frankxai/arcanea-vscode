@@ -1,4 +1,4 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import * as vscode from "vscode"
 import { TerminalWelcomeService } from "./TerminalWelcomeService"
 

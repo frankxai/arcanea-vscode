@@ -2,7 +2,7 @@ import { HTMLAttributes } from "react"
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { Globe } from "lucide-react"
 
-import type { Language } from "@roo-code/types"
+import type { Language } from "@arcanea/types"
 
 import { LANGUAGES } from "@roo/language"
 
@@ -18,11 +18,11 @@ type LanguageSettingsProps = HTMLAttributes<HTMLDivElement> & {
 	setCachedStateField: SetCachedStateField<"language">
 }
 
-// kilocode_change start: sort languages
+// arcanea_change start: sort languages
 function getSortedLanguages() {
 	return Object.entries(LANGUAGES).toSorted((a, b) => a[0].localeCompare(b[0]))
 }
-// kilocode_change end
+// arcanea_change end
 
 export const LanguageSettings = ({ language, setCachedStateField, className, ...props }: LanguageSettingsProps) => {
 	const { t } = useAppTranslation()
@@ -43,7 +43,7 @@ export const LanguageSettings = ({ language, setCachedStateField, className, ...
 					</SelectTrigger>
 					<SelectContent>
 						<SelectGroup>
-							{/* kilocode_change: sort languages */}
+							{/* arcanea_change: sort languages */}
 							{getSortedLanguages().map(([code, name]) => (
 								<SelectItem key={code} value={code}>
 									{name}

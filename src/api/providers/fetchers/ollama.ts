@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ModelInfo, ollamaDefaultModelInfo } from "@roo-code/types"
+import { ModelInfo, ollamaDefaultModelInfo } from "@arcanea/types"
 import { z } from "zod"
 
 const OllamaModelDetailsSchema = z.object({
@@ -39,9 +39,9 @@ type OllamaModelInfoResponse = z.infer<typeof OllamaModelInfoResponseSchema>
 
 export const parseOllamaModel = (
 	rawModel: OllamaModelInfoResponse,
-	baseUrl?: string, // kilocode_change
+	baseUrl?: string, // arcanea_change
 ): ModelInfo => {
-	// kilocode_change start
+	// arcanea_change start
 	const contextKey = Object.keys(rawModel.model_info).find((k) => k.includes("context_length"))
 	const contextLengthFromModelInfo =
 		contextKey && typeof rawModel.model_info[contextKey] === "number" ? rawModel.model_info[contextKey] : undefined
@@ -58,7 +58,7 @@ export const parseOllamaModel = (
 		contextLengthFromEnvironment ??
 		(contextLengthFromModelParameters !== 40960 ? contextLengthFromModelParameters : undefined) ?? // Alledgedly Ollama sometimes returns an undefind context as 40960
 		4096 // This is usually the default: https://github.com/ollama/ollama/blob/4383a3ab7a075eff78b31f7dc84c747e2fcd22b8/docs/faq.md#how-can-i-specify-the-context-window-size
-	// kilocode_change end
+	// arcanea_change end
 
 	const modelInfo: ModelInfo = Object.assign({}, ollamaDefaultModelInfo, {
 		description: `Family: ${rawModel.details.family}, Context: ${contextWindow}, Size: ${rawModel.details.parameter_size}`,
@@ -110,7 +110,7 @@ export async function getOllamaModels(
 						.then((ollamaModelInfo) => {
 							models[ollamaModel.name] = parseOllamaModel(
 								ollamaModelInfo.data,
-								baseUrl, // kilocode_change
+								baseUrl, // arcanea_change
 							)
 						}),
 				)

@@ -1,4 +1,4 @@
-import type { ClineMessage } from "@roo-code/types"
+import type { ClineMessage } from "@arcanea/types"
 
 // Hard-coded constants for dynamic sizing
 export const MAX_HEIGHT_PX = 26

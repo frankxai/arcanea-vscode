@@ -1,4 +1,4 @@
-// kilocode_change: Morph fast apply -- file added
+// arcanea_change: Morph fast apply -- file added
 
 import path from "path"
 import { promises as fs } from "fs"
@@ -9,12 +9,12 @@ import { formatResponse } from "../prompts/responses"
 import { ToolUse, AskApproval, HandleError, PushToolResult, RemoveClosingTag } from "../../shared/tools"
 import { fileExistsAtPath } from "../../utils/fs"
 import { getReadablePath } from "../../utils/path"
-import { getKiloBaseUriFromToken } from "../../shared/kilocode/token"
+import { getArcaneaBaseUriFromToken } from "../../shared/arcanea/token"
 import { DEFAULT_HEADERS } from "../../api/providers/constants"
-import { TelemetryService } from "@roo-code/telemetry"
+import { TelemetryService } from "@arcanea/telemetry"
 import { type ClineProviderState } from "../webview/ClineProvider"
 import { ClineSayTool } from "../../shared/ExtensionMessage"
-import { X_KILOCODE_ORGANIZATIONID, X_KILOCODE_TASKID, X_KILOCODE_TESTER } from "../../shared/kilocode/headers"
+import { X_ARCANEA_ORGANIZATIONID, X_ARCANEA_TASKID, X_ARCANEA_TESTER } from "../../shared/arcanea/headers"
 
 // Morph model pricing per 1M tokens
 const MORPH_MODEL_PRICING = {
@@ -252,20 +252,20 @@ async function applyMorphEdit(
 			`Original Content: ${originalContent.length} characters`,
 		].join("\n")
 
-		const kiloTesterSuppressUntil = state.apiConfiguration.kilocodeTesterWarningsDisabledUntil
-		const kiloTesterSuppress =
-			kiloTesterSuppressUntil && kiloTesterSuppressUntil > Date.now() ? { [X_KILOCODE_TESTER]: "SUPPRESS" } : {}
+		const arcaneaTesterSuppressUntil = state.apiConfiguration.arcaneaTesterWarningsDisabledUntil
+		const arcaneaTesterSuppress =
+			arcaneaTesterSuppressUntil && arcaneaTesterSuppressUntil > Date.now() ? { [X_ARCANEA_TESTER]: "SUPPRESS" } : {}
 		// Create OpenAI client for Morph API
 		const client = new OpenAI({
 			apiKey: morphConfig.apiKey,
 			baseURL: morphConfig.baseUrl,
 			defaultHeaders: {
 				...DEFAULT_HEADERS,
-				...(morphConfig.kiloCodeOrganizationId
-					? { [X_KILOCODE_ORGANIZATIONID]: morphConfig.kiloCodeOrganizationId }
+				...(morphConfig.arcaneaOrganizationId
+					? { [X_ARCANEA_ORGANIZATIONID]: morphConfig.arcaneaOrganizationId }
 					: {}),
-				...kiloTesterSuppress,
-				[X_KILOCODE_TASKID]: cline.taskId,
+				...arcaneaTesterSuppress,
+				[X_ARCANEA_TASKID]: cline.taskId,
 			},
 		})
 
@@ -321,7 +321,7 @@ interface MorphConfiguration {
 	baseUrl?: string
 	model?: string
 	error?: string
-	kiloCodeOrganizationId?: string
+	arcaneaOrganizationId?: string
 }
 
 function getMorphConfiguration(state: ClineProviderState): MorphConfiguration {
@@ -344,18 +344,18 @@ function getMorphConfiguration(state: ClineProviderState): MorphConfiguration {
 		}
 	}
 
-	// Priority 2: Use KiloCode provider
-	if (state.apiConfiguration?.apiProvider === "kilocode") {
-		const token = state.apiConfiguration.kilocodeToken
+	// Priority 2: Use Arcanea provider
+	if (state.apiConfiguration?.apiProvider === "arcanea") {
+		const token = state.apiConfiguration.arcaneaToken
 		if (!token) {
-			return { available: false, error: "No KiloCode token available to use Morph" }
+			return { available: false, error: "No Arcanea token available to use Morph" }
 		}
 		return {
 			available: true,
 			apiKey: token,
-			baseUrl: `${getKiloBaseUriFromToken(token)}/api/openrouter/`,
+			baseUrl: `${getArcaneaBaseUriFromToken(token)}/api/openrouter/`,
 			model: "morph/morph-v3-large", // Morph model via OpenRouter
-			kiloCodeOrganizationId: state.apiConfiguration.kilocodeOrganizationId,
+			arcaneaOrganizationId: state.apiConfiguration.arcaneaOrganizationId,
 		}
 	}
 

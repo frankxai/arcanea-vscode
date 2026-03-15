@@ -9,7 +9,7 @@ import {
 	OPEN_ROUTER_COMPUTER_USE_MODELS,
 	OPEN_ROUTER_REASONING_BUDGET_MODELS,
 	OPEN_ROUTER_REQUIRED_REASONING_BUDGET_MODELS,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { getOpenRouterModelEndpoints, getOpenRouterModels, parseOpenRouterModel } from "../openrouter"
 
@@ -18,7 +18,7 @@ nockBack.setMode("lockdown")
 
 describe("OpenRouter API", () => {
 	describe("getOpenRouterModels", () => {
-		// kilocode_change: skip, this test uses "nock", which works with axios, but with fetch it truncates responses for unclear reasons
+		// arcanea_change: skip, this test uses "nock", which works with axios, but with fetch it truncates responses for unclear reasons
 		it.skip("fetches models and validates schema", async () => {
 			const { nockDone } = await nockBack("openrouter-models.json")
 
@@ -31,7 +31,7 @@ describe("OpenRouter API", () => {
 
 			// Define models that are intentionally excluded
 			const excludedModels = new Set([
-				"google/gemini-2.5-pro", // kilocode_change: not included in mock response
+				"google/gemini-2.5-pro", // arcanea_change: not included in mock response
 				"google/gemini-2.5-pro-preview", // Excluded due to lag issue (#4487)
 				"google/gemini-2.5-flash", // OpenRouter doesn't report this as supporting prompt caching
 				"google/gemini-2.5-flash-lite-preview-06-17", // OpenRouter doesn't report this as supporting prompt caching
@@ -172,7 +172,7 @@ describe("OpenRouter API", () => {
 				cacheWritesPrice: 3.75,
 				cacheReadsPrice: 0.3,
 				description: expect.any(String),
-				displayName: expect.any(String), // kilocode_change
+				displayName: expect.any(String), // arcanea_change
 				supportsComputerUse: true,
 				supportsReasoningBudget: false,
 				supportsReasoningEffort: false,
@@ -189,7 +189,7 @@ describe("OpenRouter API", () => {
 				cacheWritesPrice: 3.75,
 				cacheReadsPrice: 0.3,
 				description: expect.any(String),
-				displayName: expect.any(String), // kilocode_change
+				displayName: expect.any(String), // arcanea_change
 				supportsComputerUse: true,
 				supportsReasoningBudget: true,
 				requiredReasoningBudget: true,

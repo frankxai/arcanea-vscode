@@ -2,7 +2,7 @@
 
 import type { Mock } from "vitest"
 
-import { TelemetryService } from "@roo-code/telemetry"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { ApiHandler } from "../../../api"
 import { ApiMessage } from "../../task-persistence/apiMessages"
@@ -13,7 +13,7 @@ vi.mock("../../../api/transform/image-cleaning", () => ({
 	maybeRemoveImageBlocks: vi.fn((messages: ApiMessage[], _apiHandler: ApiHandler) => [...messages]),
 }))
 
-vi.mock("@roo-code/telemetry", () => ({
+vi.mock("@arcanea/telemetry", () => ({
 	TelemetryService: {
 		instance: {
 			captureContextCondensed: vi.fn(),
@@ -728,7 +728,7 @@ describe("summarizeConversation with custom settings", () => {
 	/**
 	 * Test that telemetry is called for custom prompt usage
 	 */
-	// kilocode_change: skip
+	// arcanea_change: skip
 	it.skip("should capture telemetry when using custom prompt", async () => {
 		await summarizeConversation(
 			sampleMessages,
@@ -752,7 +752,7 @@ describe("summarizeConversation with custom settings", () => {
 	/**
 	 * Test that telemetry is called for custom API handler usage
 	 */
-	// kilocode_change: skip
+	// arcanea_change: skip
 	it.skip("should capture telemetry when using custom API handler", async () => {
 		await summarizeConversation(
 			sampleMessages,
@@ -777,7 +777,7 @@ describe("summarizeConversation with custom settings", () => {
 	/**
 	 * Test that telemetry is called with both custom prompt and API handler
 	 */
-	// kilocode_change: skip
+	// arcanea_change: skip
 	it.skip("should capture telemetry when using both custom prompt and API handler", async () => {
 		await summarizeConversation(
 			sampleMessages,

@@ -11,12 +11,12 @@ import { Trans, useTranslation } from "react-i18next"
 import { useDebounceEffect } from "@src/utils/useDebounceEffect"
 import { appendImages } from "@src/utils/imageUtils"
 
-import type { ClineAsk, ClineMessage, McpServerUse } from "@roo-code/types"
+import type { ClineAsk, ClineMessage, McpServerUse } from "@arcanea/types"
 
 import { ClineSayBrowserAction, ClineSayTool, ExtensionMessage } from "@roo/ExtensionMessage"
 import { McpServer, McpTool } from "@roo/mcp"
 import { findLast } from "@roo/array"
-import { FollowUpData, SuggestionItem } from "@roo-code/types"
+import { FollowUpData, SuggestionItem } from "@arcanea/types"
 import { combineApiRequests } from "@roo/combineApiRequests"
 import { combineCommandSequences } from "@roo/combineCommandSequences"
 import { getApiMetrics } from "@roo/getApiMetrics"
@@ -35,37 +35,37 @@ import {
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { useExtensionState } from "@src/context/ExtensionStateContext"
 import { useSelectedModel } from "@src/components/ui/hooks/useSelectedModel"
-// import RooHero from "@src/components/welcome/RooHero" // kilocode_change: unused
-// import RooTips from "@src/components/welcome/RooTips" // kilocode_change: unused
+// import RooHero from "@src/components/welcome/RooHero" // arcanea_change: unused
+// import RooTips from "@src/components/welcome/RooTips" // arcanea_change: unused
 import { StandardTooltip } from "@src/components/ui"
 import { useAutoApprovalState } from "@src/hooks/useAutoApprovalState"
 import { useAutoApprovalToggles } from "@src/hooks/useAutoApprovalToggles"
-// import { CloudUpsellDialog } from "@src/components/cloud/CloudUpsellDialog" // kilocode_change: unused
+// import { CloudUpsellDialog } from "@src/components/cloud/CloudUpsellDialog" // arcanea_change: unused
 
-import TelemetryBanner from "../common/TelemetryBanner" // kilocode_change: deactivated for now
-// import VersionIndicator from "../common/VersionIndicator" // kilocode_change: unused
-import { OrganizationSelector } from "../kilocode/common/OrganizationSelector"
-// import { useTaskSearch } from "../history/useTaskSearch" // kilocode_change: unused
+import TelemetryBanner from "../common/TelemetryBanner" // arcanea_change: deactivated for now
+// import VersionIndicator from "../common/VersionIndicator" // arcanea_change: unused
+import { OrganizationSelector } from "../arcanea/common/OrganizationSelector"
+// import { useTaskSearch } from "../history/useTaskSearch" // arcanea_change: unused
 import HistoryPreview from "../history/HistoryPreview"
 import Announcement from "./Announcement"
 import BrowserSessionRow from "./BrowserSessionRow"
 import ChatRow from "./ChatRow"
 import { ChatTextArea } from "./ChatTextArea"
-// import TaskHeader from "./TaskHeader"// kilocode_change
-import KiloTaskHeader from "../kilocode/KiloTaskHeader" // kilocode_change
+// import TaskHeader from "./TaskHeader"// arcanea_change
+import ArcaneaTaskHeader from "../arcanea/ArcaneaTaskHeader" // arcanea_change
 import AutoApproveMenu from "./AutoApproveMenu"
-import BottomControls from "../kilocode/BottomControls" // kilocode_change
+import BottomControls from "../arcanea/BottomControls" // arcanea_change
 import SystemPromptWarning from "./SystemPromptWarning"
-import { showSystemNotification } from "@/kilocode/helpers" // kilocode_change
-// import ProfileViolationWarning from "./ProfileViolationWarning" kilocode_change: unused
+import { showSystemNotification } from "@/arcanea/helpers" // arcanea_change
+// import ProfileViolationWarning from "./ProfileViolationWarning" arcanea_change: unused
 import { CheckpointWarning } from "./CheckpointWarning"
-import { IdeaSuggestionsBox } from "../kilocode/chat/IdeaSuggestionsBox" // kilocode_change
-import { KilocodeNotifications } from "../kilocode/KilocodeNotifications" // kilocode_change
+import { IdeaSuggestionsBox } from "../arcanea/chat/IdeaSuggestionsBox" // arcanea_change
+import { ArcaneacodeNotifications } from "../arcanea/ArcaneacodeNotifications" // arcanea_change
 import { QueuedMessages } from "./QueuedMessages"
 import { buildDocLink } from "@/utils/docLinks"
-// import DismissibleUpsell from "../common/DismissibleUpsell" // kilocode_change: unused
-// import { useCloudUpsell } from "@src/hooks/useCloudUpsell" // kilocode_change: unused
-// import { Cloud } from "lucide-react" // kilocode_change: unused
+// import DismissibleUpsell from "../common/DismissibleUpsell" // arcanea_change: unused
+// import { useCloudUpsell } from "@src/hooks/useCloudUpsell" // arcanea_change: unused
+// import { Cloud } from "lucide-react" // arcanea_change: unused
 
 export interface ChatViewProps {
 	isHidden: boolean
@@ -75,7 +75,7 @@ export interface ChatViewProps {
 
 export interface ChatViewRef {
 	acceptInput: () => void
-	focusInput: () => void // kilocode_change
+	focusInput: () => void // arcanea_change
 }
 
 export const MAX_IMAGES_PER_MESSAGE = 20 // This is the Anthropic limit.
@@ -101,8 +101,8 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		clineMessages: messages,
 		currentTaskItem,
 		currentTaskTodos,
-		taskHistoryFullLength, // kilocode_change
-		taskHistoryVersion, // kilocode_change
+		taskHistoryFullLength, // arcanea_change
+		taskHistoryVersion, // arcanea_change
 		apiConfiguration,
 		organizationAllowList,
 		mcpServers,
@@ -122,7 +122,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		setMode,
 		autoApprovalEnabled,
 		alwaysAllowModeSwitch,
-		showAutoApproveMenu, // kilocode_change
+		showAutoApproveMenu, // arcanea_change
 		alwaysAllowSubtasks,
 		alwaysAllowFollowupQuestions,
 		alwaysAllowUpdateTodoList,
@@ -132,7 +132,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		historyPreviewCollapsed, // Added historyPreviewCollapsed
 		soundEnabled,
 		soundVolume,
-		// cloudIsAuthenticated, // kilocode_change
+		// cloudIsAuthenticated, // arcanea_change
 		messageQueue = [],
 	} = useExtensionState()
 
@@ -142,7 +142,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		messagesRef.current = messages
 	}, [messages])
 
-	// const { tasks } = useTaskSearch() // kilocode_change
+	// const { tasks } = useTaskSearch() // arcanea_change
 
 	// Initialize expanded state based on the persisted setting (default to expanded if undefined)
 	const [isExpanded, setIsExpanded] = useState(
@@ -221,7 +221,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		clineAskRef.current = clineAsk
 	}, [clineAsk])
 
-	// kilocode_change start: unused
+	// arcanea_change start: unused
 	// const {
 	// 	isOpen: isUpsellOpen,
 	// 	openUpsell,
@@ -230,7 +230,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	// } = useCloudUpsell({
 	// 	autoOpenOnAuth: false,
 	// })
-	// kilocode_change end
+	// arcanea_change end
 
 	// Keep inputValueRef in sync with inputValue state
 	useEffect(() => {
@@ -335,7 +335,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						case "tool":
 							if (!isAutoApproved(lastMessage) && !isPartial) {
 								playSound("notification")
-								showSystemNotification(t("kilocode:notifications.toolRequest")) // kilocode_change
+								showSystemNotification(t("arcanea:notifications.toolRequest")) // arcanea_change
 							}
 							setSendingDisabled(isPartial)
 							setClineAsk("tool")
@@ -372,7 +372,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						case "browser_action_launch":
 							if (!isAutoApproved(lastMessage) && !isPartial) {
 								playSound("notification")
-								showSystemNotification(t("kilocode:notifications.browserAction")) // kilocode_change
+								showSystemNotification(t("arcanea:notifications.browserAction")) // arcanea_change
 							}
 							setSendingDisabled(isPartial)
 							setClineAsk("browser_action_launch")
@@ -383,7 +383,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						case "command":
 							if (!isAutoApproved(lastMessage) && !isPartial) {
 								playSound("notification")
-								showSystemNotification(t("kilocode:notifications.command")) // kilocode_change
+								showSystemNotification(t("arcanea:notifications.command")) // arcanea_change
 							}
 							setSendingDisabled(isPartial)
 							setClineAsk("command")
@@ -435,7 +435,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							setSecondaryButtonText(undefined)
 							setDidClickCancel(false)
 							break
-						// kilocode_change begin
+						// arcanea_change begin
 						case "report_bug":
 							if (!isPartial) {
 								playSound("notification")
@@ -449,10 +449,10 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							setSendingDisabled(isPartial)
 							setClineAsk("condense")
 							setEnableButtons(!isPartial)
-							setPrimaryButtonText(t("kilocode:chat.condense.condenseConversation"))
+							setPrimaryButtonText(t("arcanea:chat.condense.condenseConversation"))
 							setSecondaryButtonText(undefined)
 							break
-						// kilocode_change end
+						// arcanea_change end
 					}
 					break
 				case "say":
@@ -746,21 +746,21 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 				case "command_output":
 					vscode.postMessage({ type: "terminalOperation", terminalOperation: "continue" })
 					break
-				// kilocode_change start
+				// arcanea_change start
 				case "condense":
 					vscode.postMessage({
 						type: "condense",
 						text: lastMessage?.text,
 					})
 					break
-				// kilocode_change end
+				// arcanea_change end
 			}
 
 			setSendingDisabled(true)
 			setClineAsk(undefined)
 			setEnableButtons(false)
 		},
-		[clineAsk, startNewTask, lastMessage?.text], // kilocode_change: add lastMessage?.text
+		[clineAsk, startNewTask, lastMessage?.text], // arcanea_change: add lastMessage?.text
 	)
 
 	const handleSecondaryButtonClick = useCallback(
@@ -813,7 +813,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		[clineAsk, startNewTask, isStreaming],
 	)
 
-	const handleTaskCloseButtonClick = useCallback(() => startNewTask(), [startNewTask]) // kilocode_change
+	const handleTaskCloseButtonClick = useCallback(() => startNewTask(), [startNewTask]) // arcanea_change
 
 	const { info: model } = useSelectedModel(apiConfiguration)
 
@@ -1096,7 +1096,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 	// Check if a command message should be auto-approved.
 	const isAllowedCommand = useCallback(
 		(message: ClineMessage | undefined): boolean => {
-			// kilocode_change start wrap in try/catch
+			// arcanea_change start wrap in try/catch
 			if (message?.type !== "ask") return false
 			try {
 				return getCommandDecisionForMessage(message) === "auto_approve"
@@ -1105,7 +1105,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 				console.error("Cannot validate command, auto-approve denied.", e)
 				return false
 			}
-			// kilocode_change end
+			// arcanea_change end
 		},
 		[getCommandDecisionForMessage],
 	)
@@ -1326,7 +1326,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		}
 
 		visibleMessages.forEach((message: ClineMessage) => {
-			// kilocode_change start: upstream pr https://github.com/RooCodeInc/Roo-Code/pull/5452
+			// arcanea_change start: upstream pr https://github.com/RooCodeInc/Roo-Code/pull/5452
 			// Special handling for browser_action_result - ensure it's always in a browser session
 			if (message.say === "browser_action_result" && !isInBrowserSession) {
 				isInBrowserSession = true
@@ -1338,7 +1338,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 				isInBrowserSession = true
 				currentGroup = []
 			}
-			// kilocode_change end
+			// arcanea_change end
 
 			if (message.ask === "browser_action_launch") {
 				// Complete existing browser session if any.
@@ -1370,7 +1370,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 				if (isBrowserSessionMessage(message)) {
 					currentGroup.push(message)
 
-					// kilocode_change start: upstream pr https://github.com/RooCodeInc/Roo-Code/pull/5452
+					// arcanea_change start: upstream pr https://github.com/RooCodeInc/Roo-Code/pull/5452
 					if (message.say === "browser_action_result") {
 						// Check if the previous browser_action was a close action
 						const lastBrowserAction = [...currentGroup].reverse().find((m) => m.say === "browser_action")
@@ -1381,7 +1381,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							}
 						}
 					}
-					// kilocode_change end
+					// arcanea_change end
 				} else {
 					// complete existing browser session if any
 					endBrowserSession()
@@ -1435,7 +1435,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 		})
 	}, [])
 
-	// kilocode_change start
+	// arcanea_change start
 	// Animated "blink" to highlight a specific message. Used by the TaskTimeline
 	const highlightClearTimerRef = useRef<NodeJS.Timeout | undefined>()
 	const [highlightedMessageIndex, setHighlightedMessageIndex] = useState<number | null>(null)
@@ -1461,7 +1461,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 			}
 		}
 	}, [])
-	// kilocode_change end
+	// arcanea_change end
 
 	const handleSetExpandedRow = useCallback(
 		(ts: number, expand?: boolean) => {
@@ -1518,7 +1518,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 			}
 		}
 	}, [])
-	//kilocode_change
+	//arcanea_change
 
 	// Effect to handle showing the checkpoint warning after a delay
 	useEffect(() => {
@@ -1639,7 +1639,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 					isStreaming={isStreaming}
 					onSuggestionClick={handleSuggestionClickInRow} // This was already stabilized
 					onBatchFileResponse={handleBatchFileResponse}
-					highlighted={highlightedMessageIndex === index} // kilocode_change: add highlight prop
+					highlighted={highlightedMessageIndex === index} // arcanea_change: add highlight prop
 					onFollowUpUnmount={handleFollowUpUnmount}
 					isFollowUpAnswered={messageOrGroup.isAnswered === true || messageOrGroup.ts === currentFollowUpTs}
 					editable={
@@ -1672,7 +1672,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 			isStreaming,
 			handleSuggestionClickInRow,
 			handleBatchFileResponse,
-			highlightedMessageIndex, // kilocode_change: add highlightedMessageIndex
+			highlightedMessageIndex, // arcanea_change: add highlightedMessageIndex
 			handleFollowUpUnmount,
 			currentFollowUpTs,
 			alwaysAllowUpdateTodoList,
@@ -1737,7 +1737,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 					if (followUpData && followUpData.suggest && followUpData.suggest.length > 0) {
 						// Wait for the configured timeout before auto-selecting the first suggestion
 						await new Promise<void>((resolve) => {
-							// kilocode_change start
+							// arcanea_change start
 							if (!isMountedRef.current) {
 								resolve()
 								return
@@ -1750,7 +1750,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 								autoApproveTimeoutRef.current = null
 								resolve()
 							}, followupAutoApproveTimeoutMs)
-							// kilocode_change end
+							// arcanea_change end
 						})
 
 						// Check if user responded manually
@@ -1766,7 +1766,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						return
 					}
 				} else if (lastMessage.ask === "tool" && isWriteToolAction(lastMessage)) {
-					// kilocode_change start
+					// arcanea_change start
 					await new Promise<void>((resolve) => {
 						if (!isMountedRef.current) {
 							resolve()
@@ -1781,7 +1781,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							resolve()
 						}, writeDelayMs)
 					})
-					// kilocode_change end
+					// arcanea_change end
 				}
 
 				vscode.postMessage({ type: "askResponse", askResponse: "yesButtonClicked" })
@@ -1867,12 +1867,12 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 
 	useEffect(() => {
 		window.addEventListener("keydown", handleKeyDown)
-		window.addEventListener("wheel", handleWheel, { passive: true }) // kilocode_change
+		window.addEventListener("wheel", handleWheel, { passive: true }) // arcanea_change
 		return () => {
 			window.removeEventListener("keydown", handleKeyDown)
-			window.removeEventListener("wheel", handleWheel) // kilocode_change
+			window.removeEventListener("wheel", handleWheel) // arcanea_change
 		}
-	}, [handleKeyDown, handleWheel]) // kilocode_change
+	}, [handleKeyDown, handleWheel]) // arcanea_change
 
 	useImperativeHandle(ref, () => ({
 		acceptInput: () => {
@@ -1882,13 +1882,13 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 				handleSendMessage(inputValue, selectedImages)
 			}
 		},
-		// kilocode_change start
+		// arcanea_change start
 		focusInput: () => {
 			if (textAreaRef.current) {
 				textAreaRef.current.focus()
 			}
 		},
-		// kilocode_change end
+		// arcanea_change end
 	}))
 
 	const handleCondenseContext = (taskId: string) => {
@@ -1902,7 +1902,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 
 	const areButtonsVisible = showScrollToBottom || primaryButtonText || secondaryButtonText || isStreaming
 
-	const showTelemetryBanner = telemetrySetting === "unset" // kilocode_change
+	const showTelemetryBanner = telemetrySetting === "unset" // arcanea_change
 
 	return (
 		<div
@@ -1922,7 +1922,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 			)}
 			{task ? (
 				<>
-					{/* kilocode_change start */}
+					{/* arcanea_change start */}
 					{/* <TaskHeader
 						task={task}
 						tokensIn={apiMetrics.totalTokensIn}
@@ -1935,7 +1935,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						handleCondenseContext={handleCondenseContext}
 						todos={latestTodos}
 					/> */}
-					<KiloTaskHeader
+					<ArcaneaTaskHeader
 						task={task}
 						tokensIn={apiMetrics.totalTokensIn}
 						tokensOut={apiMetrics.totalTokensOut}
@@ -1951,7 +1951,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						isTaskActive={sendingDisabled}
 						todos={latestTodos}
 					/>
-					{/* kilocode_change start */}
+					{/* arcanea_change start */}
 
 					{hasSystemPromptOverride && (
 						<div className="px-3">
@@ -1985,11 +1985,11 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							<OrganizationSelector className="absolute top-2 right-3" />
 						</div>
 					)}
-					{/* kilocode_change start: changed the classes to support notifications */}
+					{/* arcanea_change start: changed the classes to support notifications */}
 					<div className="w-full h-full flex flex-col gap-4 px-3.5 transition-all duration-300">
-						{/* kilocode_change end */}
+						{/* arcanea_change end */}
 						{/* Version indicator in top-right corner - only on welcome screen */}
-						{/* kilocode_change: do not show */}
+						{/* arcanea_change: do not show */}
 						{/* <VersionIndicator
 							onClick={() => setShowAnnouncementModal(true)}
 							className="absolute top-2 right-3 z-10"
@@ -1997,15 +1997,15 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 
 						<RooHero /> */}
 
-						{/* kilocode_change start: KilocodeNotifications + Layout fixes */}
+						{/* arcanea_change start: ArcaneacodeNotifications + Layout fixes */}
 						{showTelemetryBanner && <TelemetryBanner />}
 						{!showTelemetryBanner && (
 							<div className={taskHistoryFullLength === 0 ? "mt-10" : undefined}>
-								<KilocodeNotifications />
+								<ArcaneacodeNotifications />
 							</div>
 						)}
 						<div className="flex flex-grow flex-col justify-center gap-4">
-							{/* kilocode_change end */}
+							{/* arcanea_change end */}
 							<p className="text-vscode-editor-foreground leading-tight font-vscode-font-family text-center text-balance max-w-[380px] mx-auto my-0">
 								<Trans
 									i18nKey="chat:about"
@@ -2021,17 +2021,17 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 									}}
 								/>
 							</p>
-							{taskHistoryFullLength === 0 && <IdeaSuggestionsBox />} {/* kilocode_change */}
+							{taskHistoryFullLength === 0 && <IdeaSuggestionsBox />} {/* arcanea_change */}
 							{/*<div className="mb-2.5">
 								{cloudIsAuthenticated || taskHistory.length < 4 ? <RooTips /> : <RooCloudCTA />}
-							</div> kilocode_change: do not show */}
+							</div> arcanea_change: do not show */}
 							{/* Show the task history preview if expanded and tasks exist */}
 							{taskHistoryFullLength > 0 && isExpanded && (
 								<HistoryPreview taskHistoryVersion={taskHistoryVersion} />
 							)}
-							{/* kilocode_change start: KilocodeNotifications + Layout fixes */}
+							{/* arcanea_change start: ArcaneacodeNotifications + Layout fixes */}
 						</div>
-						{/* kilocode_change end */}
+						{/* arcanea_change end */}
 					</div>
 				</div>
 			)}
@@ -2051,7 +2051,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 			//    This ensures it takes its natural height when there's space
 			//    but becomes scrollable when the viewport is too small
 			*/}
-			{/* kilocode_change: added settings toggle for this */}
+			{/* arcanea_change: added settings toggle for this */}
 			{!task && showAutoApproveMenu && (
 				<div className="mb-1 flex-initial min-h-0">
 					<AutoApproveMenu />
@@ -2066,7 +2066,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 							key={task.ts}
 							className="scrollable grow overflow-y-scroll mb-1"
 							// increasing top by 3_000 to prevent jumping around when user collapses a row
-							increaseViewportBy={{ top: 400, bottom: 400 }} // kilocode_change: use more modest numbers to see if they reduce gray screen incidence
+							increaseViewportBy={{ top: 400, bottom: 400 }} // arcanea_change: use more modest numbers to see if they reduce gray screen incidence
 							data={groupedMessages}
 							itemContent={itemContent}
 							atBottomStateChange={(isAtBottom: boolean) => {
@@ -2081,7 +2081,7 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 						/>
 					</div>
 					<div className={`flex-initial min-h-0 ${!areButtonsVisible ? "mb-1" : ""}`}>
-						{/* kilocode_change: added settings toggle for this */}
+						{/* arcanea_change: added settings toggle for this */}
 						{showAutoApproveMenu && <AutoApproveMenu />}
 					</div>
 					{areButtonsVisible && (
@@ -2205,18 +2205,18 @@ const ChatViewComponent: React.ForwardRefRenderFunction<ChatViewRef, ChatViewPro
 				setMode={setMode}
 				modeShortcutText={modeShortcutText}
 			/>
-			{/* kilocode_change: added settings toggle the profile and model selection */}
+			{/* arcanea_change: added settings toggle the profile and model selection */}
 			<BottomControls showApiConfig />
-			{/* kilocode_change: end */}
+			{/* arcanea_change: end */}
 
-			{/* kilocode_change: disable {isProfileDisabled && (
+			{/* arcanea_change: disable {isProfileDisabled && (
 				<div className="px-3">
 					<ProfileViolationWarning />
 				</div>
 			)} */}
 
 			<div id="roo-portal" />
-			{/* kilocode_change: disable  */}
+			{/* arcanea_change: disable  */}
 			{/* <CloudUpsellDialog open={isUpsellOpen} onOpenChange={closeUpsell} onConnect={handleConnect} /> */}
 		</div>
 	)

@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk"
 
-import { TelemetryService } from "@roo-code/telemetry"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { t } from "../../i18n"
 import { ApiHandler } from "../../api"
@@ -107,7 +107,7 @@ export async function summarizeConversation(
 	const messagesToSummarize = getMessagesSinceLastSummary(messages.slice(1, -N_MESSAGES_TO_KEEP))
 
 	if (messagesToSummarize.length <= 1) {
-		// kilocode_change start
+		// arcanea_change start
 		const error =
 			messages.length <= N_MESSAGES_TO_KEEP + 1
 				? t("common:errors.condense_not_enough_messages", {
@@ -116,7 +116,7 @@ export async function summarizeConversation(
 						minimumMessageCount: N_MESSAGES_TO_KEEP + 2,
 					})
 				: t("common:errors.condensed_recently")
-		// kilocode_change end
+		// arcanea_change end
 		return { ...response, error }
 	}
 
@@ -211,7 +211,7 @@ export async function summarizeConversation(
 
 	const newContextTokens = outputTokens + (await apiHandler.countTokens(contextBlocks))
 	if (newContextTokens >= prevContextTokens) {
-		// kilocode_change add numbers
+		// arcanea_change add numbers
 		const error = t("common:errors.condense_context_grew", { prevContextTokens, newContextTokens })
 		return { ...response, cost, error }
 	}

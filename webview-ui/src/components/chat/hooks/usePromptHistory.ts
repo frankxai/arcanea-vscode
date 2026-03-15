@@ -1,10 +1,10 @@
-import { useTaskHistory } from "@/kilocode/hooks/useTaskHistory"
-import { ClineMessage } from "@roo-code/types"
+import { useTaskHistory } from "@/arcanea/hooks/useTaskHistory"
+import { ClineMessage } from "@arcanea/types"
 import { useCallback, useEffect, useMemo, useState } from "react"
 
 interface UsePromptHistoryProps {
 	clineMessages: ClineMessage[] | undefined
-	taskHistoryVersion: number // kilocode_change
+	taskHistoryVersion: number // arcanea_change
 	cwd: string | undefined
 	inputValue: string
 	setInputValue: (value: string) => void
@@ -27,7 +27,7 @@ export interface UsePromptHistoryReturn {
 
 export const usePromptHistory = ({
 	clineMessages,
-	taskHistoryVersion, // kilocode_change
+	taskHistoryVersion, // arcanea_change
 	cwd,
 	inputValue,
 	setInputValue,
@@ -40,7 +40,7 @@ export const usePromptHistory = ({
 	const [tempInput, setTempInput] = useState("")
 	const [promptHistory, setPromptHistory] = useState<string[]>([])
 
-	// kilocode_change start
+	// arcanea_change start
 	const { data } = useTaskHistory(
 		{
 			workspace: "current",
@@ -50,7 +50,7 @@ export const usePromptHistory = ({
 		},
 		taskHistoryVersion,
 	)
-	// kilocode_change end
+	// arcanea_change end
 
 	// Initialize prompt history with hybrid approach: conversation messages if in task, otherwise task history
 	const filteredPromptHistory = useMemo(() => {
@@ -70,7 +70,7 @@ export const usePromptHistory = ({
 			return []
 		}
 
-		const taskHistory = data?.historyItems ?? [] // kilocode_change
+		const taskHistory = data?.historyItems ?? [] // arcanea_change
 
 		// Fall back to task history only when starting fresh (no active conversation)
 		if (!taskHistory?.length || !cwd) {
@@ -83,7 +83,7 @@ export const usePromptHistory = ({
 			.map((item) => item.task)
 			.slice(0, MAX_PROMPT_HISTORY_SIZE)
 	}, [
-		data, // kilocode_change
+		data, // arcanea_change
 		clineMessages,
 		cwd,
 	])

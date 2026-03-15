@@ -7,8 +7,8 @@
 		"importMode": "Importovat režim",
 		"editModesConfig": "Upravit konfiguraci režimů",
 		"editGlobalModes": "Upravit Global Modes",
-		"editProjectModes": "Upravit Project Modes (.kilocodemodes)",
-		"createModeHelpText": "Režimy jsou specializované persony, které přizpůsobují chování Kilo Code. <0>Zjisti více o Používání režimů</0> nebo <1>Přizpůsobení režimů.</1>",
+		"editProjectModes": "Upravit Project Modes (.arcaneamodes)",
+		"createModeHelpText": "Režimy jsou specializované persony, které přizpůsobují chování Arcanea. <0>Zjisti více o Používání režimů</0> nebo <1>Přizpůsobení režimů.</1>",
 		"selectMode": "Hledat režimy",
 		"noMatchFound": "Žádné režimy nenalezeny"
 	},
@@ -34,7 +34,7 @@
 	"roleDefinition": {
 		"title": "Definice role",
 		"resetToDefault": "Obnovit výchozí",
-		"description": "Definuj odbornost a osobnost Kilo Code pro tento režim. Tento popis formuje, jak se Kilo Code prezentuje a jak přistupuje k úkolům."
+		"description": "Definuj odbornost a osobnost Arcanea pro tento režim. Tento popis formuje, jak se Arcanea prezentuje a jak přistupuje k úkolům."
 	},
 	"description": {
 		"title": "Krátký popis (pro lidi)",
@@ -50,11 +50,11 @@
 		"title": "Vlastní instrukce pro režim (volitelné)",
 		"resetToDefault": "Obnovit výchozí",
 		"description": "Přidej pokyny pro chování specifické pro režim {{modeName}}.",
-		"loadFromFile": "Vlastní instrukce specifické pro režim {{mode}} lze také načíst ze složky <span>.kilocode/rules/</span> ve tvém pracovním prostoru (.kilocoderules-{{slug}} je zastaralé a brzy přestane fungovat)."
+		"loadFromFile": "Vlastní instrukce specifické pro režim {{mode}} lze také načíst ze složky <span>.arcanea/rules/</span> ve tvém pracovním prostoru (.arcanearules-{{slug}} je zastaralé a brzy přestane fungovat)."
 	},
 	"exportMode": {
 		"title": "Exportovat režim",
-		"description": "Exportuj tento režim s pravidly ze složky .kilocode/rules-{{slug}}/ zkombinovanými do sdílitelného YAML souboru. Původní soubory zůstanou nezměněny.",
+		"description": "Exportuj tento režim s pravidly ze složky .arcanea/rules-{{slug}}/ zkombinovanými do sdílitelného YAML souboru. Původní soubory zůstanou nezměněny.",
 		"exporting": "Exportování..."
 	},
 	"importMode": {
@@ -63,11 +63,11 @@
 		"importing": "Importování...",
 		"global": {
 			"label": "Globální úroveň",
-			"description": "Dostupné napříč všemi projekty. Pokud exportovaný režim obsahoval soubory pravidel, budou znovu vytvořeny v globální složce .kilocode/rules-{slug}/."
+			"description": "Dostupné napříč všemi projekty. Pokud exportovaný režim obsahoval soubory pravidel, budou znovu vytvořeny v globální složce .arcanea/rules-{slug}/."
 		},
 		"project": {
 			"label": "Úroveň projektu",
-			"description": "Dostupné pouze v tomto pracovním prostoru. Pokud exportovaný režim obsahoval soubory pravidel, budou znovu vytvořeny ve složce .kilocode/rules-{slug}/."
+			"description": "Dostupné pouze v tomto pracovním prostoru. Pokud exportovaný režim obsahoval soubory pravidel, budou znovu vytvořeny ve složce .arcanea/rules-{slug}/."
 		}
 	},
 	"advanced": {
@@ -76,7 +76,7 @@
 	"globalCustomInstructions": {
 		"title": "Vlastní instrukce pro všechny režimy",
 		"description": "Tyto instrukce platí pro všechny režimy. Poskytují základní sadu chování, která může být rozšířena instrukcemi specifickými pro režim níže. <0>Zjistit více</0>",
-		"loadFromFile": "Instrukce lze také načíst ze složky <span>.kilocode/rules/</span> ve tvém pracovním prostoru (.kilocoderules je zastaralé a brzy přestane fungovat)."
+		"loadFromFile": "Instrukce lze také načíst ze složky <span>.arcanea/rules/</span> ve tvém pracovním prostoru (.arcanearules je zastaralé a brzy přestane fungovat)."
 	},
 	"systemPrompt": {
 		"preview": "Náhled System Prompt",
@@ -105,7 +105,7 @@
 		"types": {
 			"ENHANCE": {
 				"label": "Vylepšit Prompt",
-				"description": "Použij vylepšení promptu k získání přizpůsobených návrhů nebo vylepšení pro tvé vstupy. To zajišťuje, že Kilo Code rozumí tvému záměru a poskytuje nejlepší možné odpovědi. Dostupné přes ikonu ✨ v chatu."
+				"description": "Použij vylepšení promptu k získání přizpůsobených návrhů nebo vylepšení pro tvé vstupy. To zajišťuje, že Arcanea rozumí tvému záměru a poskytuje nejlepší možné odpovědi. Dostupné přes ikonu ✨ v chatu."
 			},
 			"CONDENSE": {
 				"label": "Kondenzace kontextu",
@@ -155,7 +155,7 @@
 	},
 	"advancedSystemPrompt": {
 		"title": "Pokročilé: Přepsat System Prompt",
-		"description": "<2>⚠️ Varování:</2> Tato pokročilá funkce obchází bezpečnostní opatření. <1>PŘEČTI SI TOTO PŘED POUŽITÍM!</1>Přepiš výchozí system prompt vytvořením souboru v <span>.kilocode/system-prompt-{{slug}}</span>."
+		"description": "<2>⚠️ Varování:</2> Tato pokročilá funkce obchází bezpečnostní opatření. <1>PŘEČTI SI TOTO PŘED POUŽITÍM!</1>Přepiš výchozí system prompt vytvořením souboru v <span>.arcanea/system-prompt-{{slug}}</span>."
 	},
 	"createModeDialog": {
 		"title": "Vytvořit nový režim",
@@ -176,13 +176,13 @@
 				"description": "Dostupné ve všech pracovních prostorech"
 			},
 			"project": {
-				"label": "Specifické pro projekt (.kilocodemodes)",
+				"label": "Specifické pro projekt (.arcaneamodes)",
 				"description": "Dostupné pouze v tomto pracovním prostoru, má přednost před globálním"
 			}
 		},
 		"roleDefinition": {
 			"label": "Definice role",
-			"description": "Definuj odbornost a osobnost Kilo Code pro tento režim."
+			"description": "Definuj odbornost a osobnost Arcanea pro tento režim."
 		},
 		"description": {
 			"label": "Krátký popis (pro lidi)",

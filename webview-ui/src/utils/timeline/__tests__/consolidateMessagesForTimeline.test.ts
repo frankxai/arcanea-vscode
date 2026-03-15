@@ -1,4 +1,4 @@
-import type { ClineMessage } from "@roo-code/types"
+import type { ClineMessage } from "@arcanea/types"
 import { consolidateMessagesForTimeline } from "../consolidateMessagesForTimeline"
 
 function createMessage(id: string): ClineMessage {

@@ -61,10 +61,10 @@ describe("OpenRouterHandler", () => {
 			baseURL: "https://openrouter.ai/api/v1",
 			apiKey: mockOptions.openRouterApiKey,
 			defaultHeaders: {
-				"HTTP-Referer": "https://kilocode.ai",
+				"HTTP-Referer": "https://arcanea.ai",
 				"X-Title": "Arcanea",
-				"X-KiloCode-Version": Package.version,
-				"User-Agent": `Kilo-Code/${Package.version}`,
+				"X-Arcanea-Version": Package.version,
+				"User-Agent": `Arcanea-Code/${Package.version}`,
 			},
 		})
 	})
@@ -183,7 +183,7 @@ describe("OpenRouterHandler", () => {
 					top_p: undefined,
 					transforms: ["middle-out"],
 				}),
-				undefined, // kilocode_change
+				undefined, // arcanea_change
 			)
 		})
 
@@ -210,7 +210,7 @@ describe("OpenRouterHandler", () => {
 
 			expect(mockCreate).toHaveBeenCalledWith(
 				expect.objectContaining({ transforms: ["middle-out"] }),
-				undefined, // kilocode_change
+				undefined, // arcanea_change
 			)
 		})
 
@@ -253,7 +253,7 @@ describe("OpenRouterHandler", () => {
 						}),
 					]),
 				}),
-				undefined, // kilocode_change
+				undefined, // arcanea_change
 			)
 		})
 
@@ -298,7 +298,7 @@ describe("OpenRouterHandler", () => {
 					messages: [{ role: "user", content: "test prompt" }],
 					stream: false,
 				},
-				undefined, // kilocode_change options
+				undefined, // arcanea_change options
 			)
 		})
 

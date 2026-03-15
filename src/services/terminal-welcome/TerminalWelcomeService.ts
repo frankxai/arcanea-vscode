@@ -1,4 +1,4 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import * as vscode from "vscode"
 import { t } from "../../i18n"
 import { getKeybindingForCommand } from "../../utils/keybindings"
@@ -34,13 +34,13 @@ export class TerminalWelcomeService {
 			return // Don't show the tip if already shown this session
 		}
 
-		this.tipShownThisSession = true // kilocode_change: Mark as shown for this session
+		this.tipShownThisSession = true // arcanea_change: Mark as shown for this session
 		setTimeout(() => this.showWelcomeMessage(terminal), 500)
 	}
 
 	private async showWelcomeMessage(terminal: vscode.Terminal): Promise<void> {
 		const shortcut = await getKeybindingForCommand("arcanea.generateTerminalCommand")
-		const message = t("kilocode:terminalCommandGenerator.tipMessage", { shortcut })
+		const message = t("arcanea:terminalCommandGenerator.tipMessage", { shortcut })
 		vscode.window.showInformationMessage(message)
 	}
 

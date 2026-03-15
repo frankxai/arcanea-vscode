@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo, useEffect } from "react"
 import { useEvent } from "react-use"
 import { VSCodeTextField, VSCodeRadioGroup, VSCodeRadio } from "@vscode/webview-ui-toolkit/react"
 
-import type { ProviderSettings } from "@roo-code/types"
+import type { ProviderSettings } from "@arcanea/types"
 
 import { ExtensionMessage } from "@roo/ExtensionMessage"
 
@@ -22,8 +22,8 @@ export const Ollama = ({ apiConfiguration, setApiConfigurationField }: OllamaPro
 	const { t } = useAppTranslation()
 
 	const [ollamaModels, setOllamaModels] = useState<ModelRecord>({})
-	const [showApiKey, setShowApiKey] = useState(false) // kilocode_change added
-	const routerModels = useRouterModels({ ollamaBaseUrl: apiConfiguration.ollamaBaseUrl }) // kilocode_change query key
+	const [showApiKey, setShowApiKey] = useState(false) // arcanea_change added
+	const routerModels = useRouterModels({ ollamaBaseUrl: apiConfiguration.ollamaBaseUrl }) // arcanea_change query key
 
 	const handleInputChange = useCallback(
 		<K extends keyof ProviderSettings, E>(
@@ -89,7 +89,7 @@ export const Ollama = ({ apiConfiguration, setApiConfigurationField }: OllamaPro
 				<label className="block font-medium mb-1">{t("settings:providers.ollama.baseUrl")}</label>
 			</VSCodeTextField>
 			{
-				// kilocode_change start
+				// arcanea_change start
 				<>
 					<div className="relative">
 						<VSCodeTextField
@@ -120,7 +120,7 @@ export const Ollama = ({ apiConfiguration, setApiConfigurationField }: OllamaPro
 						{t("settings:providers.ollama.apiKeyInfo")}
 					</div>
 				</>
-				// kilocode_change end
+				// arcanea_change end
 			}
 			<VSCodeTextField
 				value={apiConfiguration?.ollamaModelId || ""}

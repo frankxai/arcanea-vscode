@@ -1,6 +1,6 @@
 import i18next from "i18next"
 
-import type { ProviderSettings, OrganizationAllowList } from "@roo-code/types"
+import type { ProviderSettings, OrganizationAllowList } from "@arcanea/types"
 
 import { isRouterName, RouterModels } from "@roo/api"
 
@@ -77,11 +77,11 @@ function validateModelsAndKeysProvided(apiConfiguration: ProviderSettings): stri
 				return i18next.t("settings:validation.apiKey")
 			}
 			break
-		// kilocode_change start
+		// arcanea_change start
 		case "gemini-cli":
 			// OAuth-based provider, no API key validation needed
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "openai-native":
 			if (!apiConfiguration.openAiNativeApiKey) {
 				return i18next.t("settings:validation.apiKey")
@@ -112,13 +112,13 @@ function validateModelsAndKeysProvided(apiConfiguration: ProviderSettings): stri
 				return i18next.t("settings:validation.modelSelector")
 			}
 			break
-		// kilocode_change start
-		case "kilocode":
-			if (!apiConfiguration.kilocodeToken) {
+		// arcanea_change start
+		case "arcanea":
+			if (!apiConfiguration.arcaneaToken) {
 				return i18next.t("settings:validation.apiKey")
 			}
 			break
-		// kilocode_change end
+		// arcanea_change end
 		case "huggingface":
 			if (!apiConfiguration.huggingFaceApiKey) {
 				return i18next.t("settings:validation.apiKey")

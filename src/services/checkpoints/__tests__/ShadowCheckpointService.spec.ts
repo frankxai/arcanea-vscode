@@ -12,22 +12,22 @@ import * as fileSearch from "../../../services/search/file-search"
 
 import { RepoPerTaskCheckpointService } from "../RepoPerTaskCheckpointService"
 
-// kilocode_change start
-vi.mock("@roo-code/telemetry", () => ({
+// arcanea_change start
+vi.mock("@arcanea/telemetry", () => ({
 	TelemetryService: {
 		instance: {
 			captureEvent: vi.fn(),
 		},
 	},
 }))
-// kilocode_change end
+// arcanea_change end
 
 const tmpDir = path.join(os.tmpdir(), "CheckpointService")
 
 const initWorkspaceRepo = async ({
 	workspaceDir,
 	userName = "Arcanea",
-	userEmail = "support@kilocode.ai",
+	userEmail = "support@arcanea.ai",
 	testFileName = "test.txt",
 	textFileContent = "Hello, world!",
 }: {

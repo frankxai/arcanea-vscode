@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Share2 } from "lucide-react"
 
-import { type HistoryItem, type ShareVisibility, TelemetryEventName } from "@roo-code/types"
+import { type HistoryItem, type ShareVisibility, TelemetryEventName } from "@arcanea/types"
 
 import { vscode } from "@/utils/vscode"
 import { telemetryClient } from "@/utils/TelemetryClient"
@@ -147,12 +147,12 @@ export const ShareButton = ({ item, disabled = false, showLabel = false }: Share
 		return null
 	}
 
-	// kilocode_change start render nothing
+	// arcanea_change start render nothing
 	// we do not want to connect to the cloud of roo
 	if (Math.random() <= 1) {
 		return null
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	return (
 		<>

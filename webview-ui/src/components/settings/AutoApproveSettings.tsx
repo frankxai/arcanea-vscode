@@ -34,7 +34,7 @@ type AutoApproveSettingsProps = HTMLAttributes<HTMLDivElement> & {
 	allowedCommands?: string[]
 	allowedMaxRequests?: number | undefined
 	allowedMaxCost?: number | undefined
-	showAutoApproveMenu?: boolean // kilocode_change
+	showAutoApproveMenu?: boolean // arcanea_change
 	deniedCommands?: string[]
 	setCachedStateField: SetCachedStateField<
 		| "alwaysAllowReadOnly"
@@ -54,7 +54,7 @@ type AutoApproveSettingsProps = HTMLAttributes<HTMLDivElement> & {
 		| "allowedCommands"
 		| "allowedMaxRequests"
 		| "allowedMaxCost"
-		| "showAutoApproveMenu" // kilocode_change
+		| "showAutoApproveMenu" // arcanea_change
 		| "deniedCommands"
 		| "alwaysAllowUpdateTodoList"
 	>
@@ -79,7 +79,7 @@ export const AutoApproveSettings = ({
 	allowedCommands,
 	allowedMaxRequests,
 	allowedMaxCost,
-	showAutoApproveMenu, // kilocode_change
+	showAutoApproveMenu, // arcanea_change
 	deniedCommands,
 	setCachedStateField,
 	...props
@@ -124,7 +124,7 @@ export const AutoApproveSettings = ({
 				</div>
 			</SectionHeader>
 
-			{/* kilocode_change start */}
+			{/* arcanea_change start */}
 			<Section>
 				<div>
 					<VSCodeCheckbox
@@ -138,7 +138,7 @@ export const AutoApproveSettings = ({
 					</div>
 				</div>
 			</Section>
-			{/* kilocode_change end */}
+			{/* arcanea_change end */}
 
 			<Section>
 				<div className="space-y-4">

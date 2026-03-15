@@ -2,7 +2,7 @@ import { useCallback, useState, memo, useMemo } from "react"
 import { useEvent } from "react-use"
 import { ChevronDown, Skull } from "lucide-react"
 
-import { CommandExecutionStatus, commandExecutionStatusSchema } from "@roo-code/types"
+import { CommandExecutionStatus, commandExecutionStatusSchema } from "@arcanea/types"
 
 import { ExtensionMessage } from "@roo/ExtensionMessage"
 import { safeJsonParse } from "@roo/safeJsonParse"
@@ -13,7 +13,7 @@ import { vscode } from "@src/utils/vscode"
 import { useExtensionState } from "@src/context/ExtensionStateContext"
 import { cn } from "@src/lib/utils"
 import { Button } from "@src/components/ui"
-import CodeBlock from "../kilocode/common/CodeBlock" // kilocode_change
+import CodeBlock from "../arcanea/common/CodeBlock" // arcanea_change
 import { CommandPatternSelector } from "./CommandPatternSelector"
 import { parseCommand } from "../../utils/command-validation"
 import { extractPatternsFromCommand } from "../../utils/command-parser"
@@ -32,7 +32,7 @@ interface CommandExecutionProps {
 
 export const CommandExecution = ({ executionId, text, icon, title }: CommandExecutionProps) => {
 	const {
-		terminalShellIntegrationDisabled = true, // kilocode_change: default
+		terminalShellIntegrationDisabled = true, // arcanea_change: default
 		allowedCommands = [],
 		deniedCommands = [],
 		setAllowedCommands,

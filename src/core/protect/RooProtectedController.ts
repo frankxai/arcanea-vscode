@@ -13,11 +13,11 @@ export class RooProtectedController {
 
 	// Predefined list of protected Roo configuration patterns
 	private static readonly PROTECTED_PATTERNS = [
-		".kilocodeignore",
+		".arcaneaignore",
 		".arcaneamodes",
-		".kilocoderules",
+		".arcanearules",
 		".arcanea/**",
-		".kilocodeprotected",
+		".arcaneaprotected",
 		".rooignore",
 		".roomodes",
 		".roorules*",

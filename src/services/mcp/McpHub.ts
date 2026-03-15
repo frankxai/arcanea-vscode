@@ -32,7 +32,7 @@ import {
 import { fileExistsAtPath } from "../../utils/fs"
 import { arePathsEqual, getWorkspacePath } from "../../utils/path"
 import { injectVariables } from "../../utils/config"
-import { NotificationService } from "./kilocode/NotificationService"
+import { NotificationService } from "./arcanea/NotificationService"
 
 // Discriminated union for connection states
 export type ConnectedMcpConnection = {
@@ -150,7 +150,7 @@ export class McpHub {
 	private isDisposed: boolean = false
 	connections: McpConnection[] = []
 	isConnecting: boolean = false
-	readonly kiloNotificationService = new NotificationService()
+	readonly arcaneaNotificationService = new NotificationService()
 	private refCount: number = 0 // Reference counter for active clients
 	private configChangeDebounceTimers: Map<string, NodeJS.Timeout> = new Map()
 
@@ -554,7 +554,7 @@ export class McpHub {
 	// Get project-level MCP configuration path
 	private async getProjectMcpPath(): Promise<string | null> {
 		const workspacePath = this.providerRef.deref()?.cwd ?? getWorkspacePath()
-		const projectMcpDir = path.join(workspacePath, ".kilocode")
+		const projectMcpDir = path.join(workspacePath, ".arcanea")
 		const projectMcpPath = path.join(projectMcpDir, "mcp.json")
 
 		try {
@@ -844,7 +844,7 @@ export class McpHub {
 			connection.server.error = ""
 			connection.server.instructions = client.getInstructions()
 
-			this.kiloNotificationService.connect(name, connection.client)
+			this.arcaneaNotificationService.connect(name, connection.client)
 
 			// Initial fetch of tools and resources
 			connection.server.tools = await this.fetchToolsList(name, source)

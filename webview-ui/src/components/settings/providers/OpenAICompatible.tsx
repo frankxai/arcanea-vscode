@@ -10,7 +10,7 @@ import {
 	type OrganizationAllowList,
 	azureOpenAiDefaultApiVersion,
 	openAiModelInfoSaneDefaults,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { ExtensionMessage } from "@roo/ExtensionMessage"
 
@@ -393,7 +393,7 @@ export const OpenAICompatible = ({
 					</div>
 				</div>
 
-				{/* kilocode_change: supports computer use => supports browser
+				{/* arcanea_change: supports computer use => supports browser
 				<div>
 					<div className="flex items-center gap-1">
 						<Checkbox

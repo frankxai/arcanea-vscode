@@ -4,14 +4,14 @@ import deepEqual from "fast-deep-equal"
 import { useTranslation } from "react-i18next"
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react"
 
-import type { ClineMessage } from "@roo-code/types"
+import type { ClineMessage } from "@arcanea/types"
 
 import { BrowserAction, BrowserActionResult, ClineSayBrowserAction } from "@roo/ExtensionMessage"
 
 import { vscode } from "@src/utils/vscode"
 import { useExtensionState } from "@src/context/ExtensionStateContext"
 
-import CodeBlock, { CODE_BLOCK_BG_COLOR } from "../kilocode/common/CodeBlock" // kilocode_change
+import CodeBlock, { CODE_BLOCK_BG_COLOR } from "../arcanea/common/CodeBlock" // arcanea_change
 import { ChatRowContent } from "./ChatRow"
 import { ProgressIndicator } from "./ProgressIndicator"
 

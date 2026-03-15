@@ -1,8 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk"
 import * as vscode from "vscode"
 
-import { RooCodeEventName } from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
+import { RooCodeEventName } from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { Task } from "../task/Task"
 import {
@@ -17,20 +17,20 @@ import {
 } from "../../shared/tools"
 import { formatResponse } from "../prompts/responses"
 import { Package } from "../../shared/package"
-import { getCommitRangeForNewCompletion } from "../checkpoints/kilocode/seeNewChanges"
+import { getCommitRangeForNewCompletion } from "../checkpoints/arcanea/seeNewChanges"
 
-// kilocode_change start
+// arcanea_change start
 async function getClineMessageOptions(task: Task) {
 	const commitRange = await getCommitRangeForNewCompletion(task)
 	return (
 		commitRange && {
 			metadata: {
-				kiloCode: { commitRange },
+				arcanea: { commitRange },
 			},
 		}
 	)
 }
-// kilocode_change end
+// arcanea_change end
 
 export async function attemptCompletionTool(
 	cline: Task,
@@ -88,7 +88,7 @@ export async function attemptCompletionTool(
 						false,
 						undefined,
 						undefined,
-						await getClineMessageOptions(cline), // kilocode_change
+						await getClineMessageOptions(cline), // arcanea_change
 					)
 
 					TelemetryService.instance.captureTaskCompleted(cline.taskId)
@@ -120,7 +120,7 @@ export async function attemptCompletionTool(
 				false,
 				undefined,
 				undefined,
-				await getClineMessageOptions(cline), //kilocode_change
+				await getClineMessageOptions(cline), //arcanea_change
 			)
 			TelemetryService.instance.captureTaskCompleted(cline.taskId)
 			cline.emit(RooCodeEventName.TaskCompleted, cline.taskId, cline.getTokenUsage(), cline.toolUsage)

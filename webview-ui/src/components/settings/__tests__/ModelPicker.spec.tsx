@@ -6,14 +6,14 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import {
 	ModelInfo,
-	openRouterDefaultModelId, // kilocode_change
-} from "@roo-code/types"
+	openRouterDefaultModelId, // arcanea_change
+} from "@arcanea/types"
 
 import { ModelPicker } from "../ModelPicker"
 
 vi.mock("@src/context/ExtensionStateContext", () => ({
 	useExtensionState: vi.fn(() => ({
-		kilocodeDefaultModel: openRouterDefaultModelId, // kilocode_change
+		arcaneaDefaultModel: openRouterDefaultModelId, // arcanea_change
 	})),
 }))
 

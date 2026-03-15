@@ -14,10 +14,10 @@ import {
 	moonshotModels,
 	geminiDefaultModelId,
 	geminiModels,
-	// kilocode_change start
+	// arcanea_change start
 	geminiCliDefaultModelId,
 	geminiCliModels,
-	// kilocode_change end
+	// arcanea_change end
 	mistralDefaultModelId,
 	mistralModels,
 	openAiModelInfoSaneDefaults,
@@ -61,46 +61,46 @@ import {
 	vercelAiGatewayDefaultModelId,
 	BEDROCK_CLAUDE_SONNET_4_MODEL_ID,
 	deepInfraDefaultModelId,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import type { ModelRecord, RouterModels } from "@roo/api"
 
 import { useRouterModels } from "./useRouterModels"
 import { useOpenRouterModelProviders } from "./useOpenRouterModelProviders"
 import { useLmStudioModels } from "./useLmStudioModels"
-import { useExtensionState } from "@/context/ExtensionStateContext" // kilocode_change
+import { useExtensionState } from "@/context/ExtensionStateContext" // arcanea_change
 
-// kilocode_change start
-export const useModelProviders = (kilocodeDefaultModel: string, apiConfiguration?: ProviderSettings) => {
+// arcanea_change start
+export const useModelProviders = (arcaneaDefaultModel: string, apiConfiguration?: ProviderSettings) => {
 	const provider = apiConfiguration?.apiProvider
 	return useOpenRouterModelProviders(
-		provider === "kilocode"
-			? (apiConfiguration?.kilocodeModel ?? kilocodeDefaultModel)
+		provider === "arcanea"
+			? (apiConfiguration?.arcaneaModel ?? arcaneaDefaultModel)
 			: provider === "openrouter"
 				? (apiConfiguration?.openRouterModelId ?? openRouterDefaultModelId)
 				: undefined,
 		provider === "openrouter" ? apiConfiguration?.openRouterBaseUrl : undefined,
 		apiConfiguration?.apiKey,
-		apiConfiguration?.kilocodeOrganizationId ?? "personal",
+		apiConfiguration?.arcaneaOrganizationId ?? "personal",
 	)
 }
-// kilocode_change end
+// arcanea_change end
 import { useOllamaModels } from "./useOllamaModels"
 
 export const useSelectedModel = (apiConfiguration?: ProviderSettings) => {
 	const provider = apiConfiguration?.apiProvider || "anthropic"
-	// kilocode_change start
-	const { kilocodeDefaultModel } = useExtensionState()
+	// arcanea_change start
+	const { arcaneaDefaultModel } = useExtensionState()
 	const lmStudioModelId = provider === "lmstudio" ? apiConfiguration?.lmStudioModelId : undefined
 	const ollamaModelId = provider === "ollama" ? apiConfiguration?.ollamaModelId : undefined
 
 	const routerModels = useRouterModels({
 		openRouterBaseUrl: apiConfiguration?.openRouterBaseUrl,
-		openRouterApiKey: apiConfiguration?.apiKey, // kilocode_change
-		kilocodeOrganizationId: apiConfiguration?.kilocodeOrganizationId, // kilocode_change
+		openRouterApiKey: apiConfiguration?.apiKey, // arcanea_change
+		arcaneaOrganizationId: apiConfiguration?.arcaneaOrganizationId, // arcanea_change
 	})
-	const openRouterModelProviders = useModelProviders(kilocodeDefaultModel, apiConfiguration)
-	// kilocode_change end
+	const openRouterModelProviders = useModelProviders(arcaneaDefaultModel, apiConfiguration)
+	// arcanea_change end
 	const lmStudioModels = useLmStudioModels(lmStudioModelId)
 	const ollamaModels = useOllamaModels(ollamaModelId)
 
@@ -116,7 +116,7 @@ export const useSelectedModel = (apiConfiguration?: ProviderSettings) => {
 					routerModels: routerModels.data,
 					openRouterModelProviders: openRouterModelProviders.data,
 					lmStudioModels: lmStudioModels.data,
-					kilocodeDefaultModel,
+					arcaneaDefaultModel,
 					ollamaModels: ollamaModels.data,
 				})
 			: { id: anthropicDefaultModelId, info: undefined }
@@ -142,7 +142,7 @@ function getSelectedModel({
 	routerModels,
 	openRouterModelProviders,
 	lmStudioModels,
-	kilocodeDefaultModel,
+	arcaneaDefaultModel,
 	ollamaModels,
 }: {
 	provider: ProviderName
@@ -150,7 +150,7 @@ function getSelectedModel({
 	routerModels: RouterModels
 	openRouterModelProviders: Record<string, ModelInfo>
 	lmStudioModels: ModelRecord | undefined
-	kilocodeDefaultModel: string
+	arcaneaDefaultModel: string
 	ollamaModels: ModelRecord | undefined
 }): { id: string; info: ModelInfo | undefined } {
 	// the `undefined` case are used to show the invalid selection to prevent
@@ -319,14 +319,14 @@ function getSelectedModel({
 			const info = vscodeLlmModels[modelFamily as keyof typeof vscodeLlmModels]
 			return { id, info: { ...openAiModelInfoSaneDefaults, ...info, supportsImages: false } } // VSCode LM API currently doesn't support images.
 		}
-		// kilocode_change begin
-		case "kilocode": {
+		// arcanea_change begin
+		case "arcanea": {
 			// Use the fetched models from routerModels
-			if (routerModels["kilocode-openrouter"] && apiConfiguration.kilocodeModel) {
+			if (routerModels["arcanea-openrouter"] && apiConfiguration.arcaneaModel) {
 				// Find the model in the fetched models
-				const modelEntries = Object.entries(routerModels["kilocode-openrouter"])
+				const modelEntries = Object.entries(routerModels["arcanea-openrouter"])
 
-				const selectedModelId = apiConfiguration.kilocodeModel.toLowerCase()
+				const selectedModelId = apiConfiguration.arcaneaModel.toLowerCase()
 
 				// Prefer exact match
 				const selectedModel =
@@ -347,10 +347,10 @@ function getSelectedModel({
 				}
 			}
 
-			const invalidOrDefaultModel = apiConfiguration.kilocodeModel ?? kilocodeDefaultModel
+			const invalidOrDefaultModel = apiConfiguration.arcaneaModel ?? arcaneaDefaultModel
 			return {
 				id: invalidOrDefaultModel,
-				info: routerModels["kilocode-openrouter"][invalidOrDefaultModel],
+				info: routerModels["arcanea-openrouter"][invalidOrDefaultModel],
 			}
 		}
 		case "gemini-cli": {
@@ -366,7 +366,7 @@ function getSelectedModel({
 				],
 			}
 		}
-		// kilocode_change end
+		// arcanea_change end
 
 		case "claude-code": {
 			// Claude Code models extend anthropic models but with images and prompt caching disabled

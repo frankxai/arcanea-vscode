@@ -84,7 +84,7 @@ describe("loadRuleFiles", () => {
 		readFileMock.mockResolvedValue("  content with spaces  ")
 		const result = await loadRuleFiles("/fake/path")
 		expect(readFileMock).toHaveBeenCalled()
-		expect(result).toBe("\n# Rules from .kilocoderules:\ncontent with spaces\n")
+		expect(result).toBe("\n# Rules from .arcanearules:\ncontent with spaces\n")
 	})
 
 	it("should handle ENOENT error", async () => {
@@ -119,7 +119,7 @@ describe("loadRuleFiles", () => {
 		// Simulate no .arcanea/rules directory
 		statMock.mockRejectedValueOnce({ code: "ENOENT" })
 		readFileMock.mockImplementation((filePath: PathLike) => {
-			if (filePath.toString().endsWith(".kilocoderules")) {
+			if (filePath.toString().endsWith(".arcanearules")) {
 				return Promise.resolve("roo rules content")
 			}
 			if (filePath.toString().endsWith(".clinerules")) {
@@ -129,7 +129,7 @@ describe("loadRuleFiles", () => {
 		})
 
 		const result = await loadRuleFiles("/fake/path")
-		expect(result).toBe("\n# Rules from .kilocoderules:\nroo rules content\n")
+		expect(result).toBe("\n# Rules from .arcanearules:\nroo rules content\n")
 	})
 
 	it("should handle when no rule files exist", async () => {
@@ -145,7 +145,7 @@ describe("loadRuleFiles", () => {
 		// Simulate no .arcanea/rules directory
 		statMock.mockRejectedValueOnce({ code: "ENOENT" })
 		readFileMock.mockImplementation((filePath: PathLike) => {
-			if (filePath.toString().endsWith(".kilocoderules")) {
+			if (filePath.toString().endsWith(".arcanearules")) {
 				return Promise.reject({ code: "EISDIR" })
 			}
 			if (filePath.toString().endsWith(".clinerules")) {
@@ -212,11 +212,11 @@ describe("loadRuleFiles", () => {
 		const result = await loadRuleFiles("/fake/path")
 		const expectedPath1 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\file1.txt"
+				? "\\fake\\path\\.arcanea\\rules\\file1.txt"
 				: "/fake/path/.arcanea/rules/file1.txt"
 		const expectedPath2 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\file2.txt"
+				? "\\fake\\path\\.arcanea\\rules\\file2.txt"
 				: "/fake/path/.arcanea/rules/file2.txt"
 		expect(result).toContain(`# Rules from ${expectedPath1}:`)
 		expect(result).toContain("content of file1")
@@ -225,14 +225,14 @@ describe("loadRuleFiles", () => {
 
 		// We expect both checks because our new implementation checks the files again for validation
 		const expectedRulesDir =
-			process.platform === "win32" ? "\\fake\\path\\.kilocode\\rules" : "/fake/path/.arcanea/rules"
+			process.platform === "win32" ? "\\fake\\path\\.arcanea\\rules" : "/fake/path/.arcanea/rules"
 		const expectedFile1Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\file1.txt"
+				? "\\fake\\path\\.arcanea\\rules\\file1.txt"
 				: "/fake/path/.arcanea/rules/file1.txt"
 		const expectedFile2Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\file2.txt"
+				? "\\fake\\path\\.arcanea\\rules\\file2.txt"
 				: "/fake/path/.arcanea/rules/file2.txt"
 
 		expect(statMock).toHaveBeenCalledWith(expectedRulesDir)
@@ -442,7 +442,7 @@ describe("loadRuleFiles", () => {
 		}
 	})
 
-	it("should fall back to .kilocoderules when .arcanea/rules/ is empty", async () => {
+	it("should fall back to .arcanearules when .arcanea/rules/ is empty", async () => {
 		// Simulate .arcanea/rules directory exists
 		statMock.mockResolvedValueOnce({
 			isDirectory: vi.fn().mockReturnValue(true),
@@ -451,16 +451,16 @@ describe("loadRuleFiles", () => {
 		// Simulate empty directory
 		readdirMock.mockResolvedValueOnce([])
 
-		// Simulate .kilocoderules exists
+		// Simulate .arcanearules exists
 		readFileMock.mockImplementation((filePath: PathLike) => {
-			if (filePath.toString().endsWith(".kilocoderules")) {
+			if (filePath.toString().endsWith(".arcanearules")) {
 				return Promise.resolve("roo rules content")
 			}
 			return Promise.reject({ code: "ENOENT" })
 		})
 
 		const result = await loadRuleFiles("/fake/path")
-		expect(result).toBe("\n# Rules from .kilocoderules:\nroo rules content\n")
+		expect(result).toBe("\n# Rules from .arcanearules:\nroo rules content\n")
 	})
 
 	it("should handle errors when reading directory", async () => {
@@ -472,16 +472,16 @@ describe("loadRuleFiles", () => {
 		// Simulate error reading directory
 		readdirMock.mockRejectedValueOnce(new Error("Failed to read directory"))
 
-		// Simulate .kilocoderules exists
+		// Simulate .arcanearules exists
 		readFileMock.mockImplementation((filePath: PathLike) => {
-			if (filePath.toString().endsWith(".kilocoderules")) {
+			if (filePath.toString().endsWith(".arcanearules")) {
 				return Promise.resolve("roo rules content")
 			}
 			return Promise.reject({ code: "ENOENT" })
 		})
 
 		const result = await loadRuleFiles("/fake/path")
-		expect(result).toBe("\n# Rules from .kilocoderules:\nroo rules content\n")
+		expect(result).toBe("\n# Rules from .arcanearules:\nroo rules content\n")
 	})
 
 	it("should read files from nested subdirectories in .arcanea/rules/", async () => {
@@ -558,15 +558,15 @@ describe("loadRuleFiles", () => {
 		// Check root file content
 		const expectedRootPath =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\root.txt"
+				? "\\fake\\path\\.arcanea\\rules\\root.txt"
 				: "/fake/path/.arcanea/rules/root.txt"
 		const expectedNested1Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\subdir\\nested1.txt"
+				? "\\fake\\path\\.arcanea\\rules\\subdir\\nested1.txt"
 				: "/fake/path/.arcanea/rules/subdir/nested1.txt"
 		const expectedNested2Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\subdir\\subdir2\\nested2.txt"
+				? "\\fake\\path\\.arcanea\\rules\\subdir\\subdir2\\nested2.txt"
 				: "/fake/path/.arcanea/rules/subdir/subdir2/nested2.txt"
 
 		expect(result).toContain(`# Rules from ${expectedRootPath}:`)
@@ -581,15 +581,15 @@ describe("loadRuleFiles", () => {
 		// Verify correct paths were checked
 		const expectedRootPath2 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\root.txt"
+				? "\\fake\\path\\.arcanea\\rules\\root.txt"
 				: "/fake/path/.arcanea/rules/root.txt"
 		const expectedNested1Path2 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\subdir\\nested1.txt"
+				? "\\fake\\path\\.arcanea\\rules\\subdir\\nested1.txt"
 				: "/fake/path/.arcanea/rules/subdir/nested1.txt"
 		const expectedNested2Path2 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\subdir\\subdir2\\nested2.txt"
+				? "\\fake\\path\\.arcanea\\rules\\subdir\\subdir2\\nested2.txt"
 				: "/fake/path/.arcanea/rules/subdir/subdir2/nested2.txt"
 
 		expect(statMock).toHaveBeenCalledWith(expectedRootPath2)
@@ -627,7 +627,7 @@ describe("addCustomInstructions", () => {
 		expect(result).toContain("(es)") // Check for language code in parentheses
 		expect(result).toContain("Global Instructions:\nglobal instructions")
 		expect(result).toContain("Mode-specific Instructions:\nmode instructions")
-		expect(result).toContain("Rules from .kilocoderules-test-mode:\nmode specific rules")
+		expect(result).toContain("Rules from .arcanearules-test-mode:\nmode specific rules")
 	})
 
 	it("should load AGENTS.md when settings.useAgentRules is true", async () => {
@@ -1178,15 +1178,15 @@ describe("addCustomInstructions", () => {
 
 		const expectedTestModeDir =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode"
+				? "\\fake\\path\\.arcanea\\rules-test-mode"
 				: "/fake/path/.arcanea/rules-test-mode"
 		const expectedRule1Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode\\rule1.txt"
+				? "\\fake\\path\\.arcanea\\rules-test-mode\\rule1.txt"
 				: "/fake/path/.arcanea/rules-test-mode/rule1.txt"
 		const expectedRule2Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode\\rule2.txt"
+				? "\\fake\\path\\.arcanea\\rules-test-mode\\rule2.txt"
 				: "/fake/path/.arcanea/rules-test-mode/rule2.txt"
 
 		expect(result).toContain(`# Rules from ${expectedTestModeDir}`)
@@ -1197,15 +1197,15 @@ describe("addCustomInstructions", () => {
 
 		const expectedTestModeDir2 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode"
+				? "\\fake\\path\\.arcanea\\rules-test-mode"
 				: "/fake/path/.arcanea/rules-test-mode"
 		const expectedRule1Path2 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode\\rule1.txt"
+				? "\\fake\\path\\.arcanea\\rules-test-mode\\rule1.txt"
 				: "/fake/path/.arcanea/rules-test-mode/rule1.txt"
 		const expectedRule2Path2 =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode\\rule2.txt"
+				? "\\fake\\path\\.arcanea\\rules-test-mode\\rule2.txt"
 				: "/fake/path/.arcanea/rules-test-mode/rule2.txt"
 
 		expect(statMock).toHaveBeenCalledWith(expectedTestModeDir2)
@@ -1215,13 +1215,13 @@ describe("addCustomInstructions", () => {
 		expect(readFileMock).toHaveBeenCalledWith(expectedRule2Path2, "utf-8")
 	})
 
-	it("should fall back to .kilocoderules-test-mode when .arcanea/rules-test-mode/ does not exist", async () => {
+	it("should fall back to .arcanearules-test-mode when .arcanea/rules-test-mode/ does not exist", async () => {
 		// Simulate .arcanea/rules-test-mode directory does not exist
 		statMock.mockRejectedValueOnce({ code: "ENOENT" })
 
-		// Simulate .kilocoderules-test-mode exists
+		// Simulate .arcanearules-test-mode exists
 		readFileMock.mockImplementation((filePath: PathLike) => {
-			if (filePath.toString().includes(".kilocoderules-test-mode")) {
+			if (filePath.toString().includes(".arcanearules-test-mode")) {
 				return Promise.resolve("mode specific rules from file")
 			}
 			return Promise.reject({ code: "ENOENT" })
@@ -1234,7 +1234,7 @@ describe("addCustomInstructions", () => {
 			"test-mode",
 		)
 
-		expect(result).toContain("Rules from .kilocoderules-test-mode:\nmode specific rules from file")
+		expect(result).toContain("Rules from .arcanearules-test-mode:\nmode specific rules from file")
 	})
 
 	it("should correctly format content from directories when using .arcanea/rules-test-mode/", async () => {
@@ -1292,11 +1292,11 @@ describe("addCustomInstructions", () => {
 
 		const expectedTestModeDir =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode"
+				? "\\fake\\path\\.arcanea\\rules-test-mode"
 				: "/fake/path/.arcanea/rules-test-mode"
 		const expectedRule1Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules-test-mode\\rule1.txt"
+				? "\\fake\\path\\.arcanea\\rules-test-mode\\rule1.txt"
 				: "/fake/path/.arcanea/rules-test-mode/rule1.txt"
 
 		expect(result).toContain(`# Rules from ${expectedTestModeDir}`)
@@ -1329,7 +1329,7 @@ describe("Directory existence checks", () => {
 
 		// Verify stat was called to check directory existence
 		const expectedRulesDir =
-			process.platform === "win32" ? "\\fake\\path\\.kilocode\\rules" : "/fake/path/.arcanea/rules"
+			process.platform === "win32" ? "\\fake\\path\\.arcanea\\rules" : "/fake/path/.arcanea/rules"
 		expect(statMock).toHaveBeenCalledWith(expectedRulesDir)
 	})
 
@@ -1343,7 +1343,7 @@ describe("Directory existence checks", () => {
 		const result = await loadRuleFiles("/fake/path")
 
 		// Verify it fell back to reading rule files directly
-		expect(result).toBe("\n# Rules from .kilocoderules:\nfallback content\n")
+		expect(result).toBe("\n# Rules from .arcanearules:\nfallback content\n")
 	})
 })
 
@@ -1450,19 +1450,19 @@ describe("Rules directory reading", () => {
 		// Verify both regular file and symlink target content are included
 		const expectedRegularPath =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\regular.txt"
+				? "\\fake\\path\\.arcanea\\rules\\regular.txt"
 				: "/fake/path/.arcanea/rules/regular.txt"
 		const expectedSymlinkPath =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\symlink-target.txt"
+				? "\\fake\\path\\.arcanea\\symlink-target.txt"
 				: "/fake/path/.arcanea/symlink-target.txt"
 		const expectedSubdirPath =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\symlink-target-dir\\subdir_link.txt"
+				? "\\fake\\path\\.arcanea\\rules\\symlink-target-dir\\subdir_link.txt"
 				: "/fake/path/.arcanea/rules/symlink-target-dir/subdir_link.txt"
 		const expectedNestedPath =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\nested-symlink-target.txt"
+				? "\\fake\\path\\.arcanea\\nested-symlink-target.txt"
 				: "/fake/path/.arcanea/nested-symlink-target.txt"
 
 		expect(result).toContain(`# Rules from ${expectedRegularPath}:`)
@@ -1538,15 +1538,15 @@ describe("Rules directory reading", () => {
 
 		const expectedFile1Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\file1.txt"
+				? "\\fake\\path\\.arcanea\\rules\\file1.txt"
 				: "/fake/path/.arcanea/rules/file1.txt"
 		const expectedFile2Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\file2.txt"
+				? "\\fake\\path\\.arcanea\\rules\\file2.txt"
 				: "/fake/path/.arcanea/rules/file2.txt"
 		const expectedFile3Path =
 			process.platform === "win32"
-				? "\\fake\\path\\.kilocode\\rules\\file3.txt"
+				? "\\fake\\path\\.arcanea\\rules\\file3.txt"
 				: "/fake/path/.arcanea/rules/file3.txt"
 
 		expect(result).toContain(`# Rules from ${expectedFile1Path}:`)
@@ -1720,6 +1720,6 @@ describe("Rules directory reading", () => {
 		readFileMock.mockResolvedValueOnce("fallback content")
 
 		const result = await loadRuleFiles("/fake/path")
-		expect(result).toBe("\n# Rules from .kilocoderules:\nfallback content\n")
+		expect(result).toBe("\n# Rules from .arcanearules:\nfallback content\n")
 	})
 })

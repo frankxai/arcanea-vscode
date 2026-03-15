@@ -5,7 +5,7 @@
 		"clean": {
 			"cache": false
 		},
-		"clean:resource-kilocode": {
+		"clean:resource-arcanea": {
 			"cache": false
 		},
 		"clean:resource-host": {
@@ -17,23 +17,23 @@
 		"clean:resource-nodemodules": {
 			"cache": false
 		},
-		"clean:kilocode": {
+		"clean:arcanea": {
 			"cache": false
 		},
-		"copy:kilocode": {
+		"copy:arcanea": {
 			"cache": false,
-			"dependsOn": ["clean:kilocode", "kilo-code#vsix:unpacked"]
+			"dependsOn": ["clean:arcanea", "arcanea#vsix:unpacked"]
 		},
-		"copy:resource-kilocode": {
+		"copy:resource-arcanea": {
 			"cache": false,
-			"dependsOn": ["clean:resource-kilocode", "kilo-code#vsix:unpacked"]
+			"dependsOn": ["clean:resource-arcanea", "arcanea#vsix:unpacked"]
 		},
 		"copy:resource-host": {
 			"cache": false,
 			"dependsOn": [
 				"clean:resource-host",
-				"@kilo-code/jetbrains-host#bundle",
-				"@kilo-code/jetbrains-host#prop:deps"
+				"@arcanea/jetbrains-host#bundle",
+				"@arcanea/jetbrains-host#prop:deps"
 			]
 		},
 		"copy:resource-logs": {
@@ -73,8 +73,8 @@
 			"dependsOn": [
 				"sync:version",
 				"sync:changelog",
-				"copy:kilocode",
-				"copy:resource-kilocode",
+				"copy:arcanea",
+				"copy:resource-arcanea",
 				"copy:resource-host",
 				"copy:resource-logs",
 				"copy:resource-nodemodules",
@@ -88,8 +88,8 @@
 			"dependsOn": [
 				"sync:version",
 				"sync:changelog",
-				"copy:kilocode",
-				"copy:resource-kilocode",
+				"copy:arcanea",
+				"copy:resource-arcanea",
 				"copy:resource-host",
 				"copy:resource-logs",
 				"copy:resource-nodemodules",

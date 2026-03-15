@@ -12,7 +12,7 @@ import { ExtensionMessage } from "@roo/ExtensionMessage"
 import { cn } from "@/lib/utils"
 import { Slider } from "@/components/ui"
 
-import { TerminalCommandGeneratorSettings } from "./TerminalCommandGeneratorSettings" // kilocode_change
+import { TerminalCommandGeneratorSettings } from "./TerminalCommandGeneratorSettings" // arcanea_change
 import { SetCachedStateField } from "./types"
 import { SectionHeader } from "./SectionHeader"
 import { Section } from "./Section"
@@ -29,7 +29,7 @@ type TerminalSettingsProps = HTMLAttributes<HTMLDivElement> & {
 	terminalZshP10k?: boolean
 	terminalZdotdir?: boolean
 	terminalCompressProgressBar?: boolean
-	terminalCommandApiConfigId?: string // kilocode_change
+	terminalCommandApiConfigId?: string // arcanea_change
 	setCachedStateField: SetCachedStateField<
 		| "terminalOutputLineLimit"
 		| "terminalOutputCharacterLimit"
@@ -42,7 +42,7 @@ type TerminalSettingsProps = HTMLAttributes<HTMLDivElement> & {
 		| "terminalZshP10k"
 		| "terminalZdotdir"
 		| "terminalCompressProgressBar"
-		| "terminalCommandApiConfigId" // kilocode_change
+		| "terminalCommandApiConfigId" // arcanea_change
 	>
 }
 
@@ -58,7 +58,7 @@ export const TerminalSettings = ({
 	terminalZshP10k,
 	terminalZdotdir,
 	terminalCompressProgressBar,
-	terminalCommandApiConfigId, // kilocode_change
+	terminalCommandApiConfigId, // arcanea_change
 	setCachedStateField,
 	className,
 	...props
@@ -232,7 +232,7 @@ export const TerminalSettings = ({
 
 						<div>
 							<VSCodeCheckbox
-								checked={terminalShellIntegrationDisabled ?? true /* kilocode_change: default */}
+								checked={terminalShellIntegrationDisabled ?? true /* arcanea_change: default */}
 								onChange={(e: any) =>
 									setCachedStateField("terminalShellIntegrationDisabled", e.target.checked)
 								}>
@@ -440,12 +440,12 @@ export const TerminalSettings = ({
 						)}
 					</div>
 				</div>
-				{/* kilocode_change start */}
+				{/* arcanea_change start */}
 				<TerminalCommandGeneratorSettings
 					terminalCommandApiConfigId={terminalCommandApiConfigId}
 					setCachedStateField={setCachedStateField}
 				/>
-				{/* kilocode_change end */}
+				{/* arcanea_change end */}
 			</Section>
 		</div>
 	)

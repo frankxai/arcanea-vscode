@@ -13,19 +13,19 @@ export const SettingsFooter = ({ version, className, ...props }: SettingsFooterP
 	<div className={cn("text-vscode-descriptionForeground p-5", className)} {...props}>
 		<p style={{ wordWrap: "break-word", margin: 0, padding: 0 }}>
 			If you have any questions or feedback, feel free to open an issue at{" "}
-			<VSCodeLink href="https://github.com/Kilo-Org/kilocode" style={{ display: "inline" }}>
-				github.com/Kilo-Org/kilocode
+			<VSCodeLink href="https://github.com/Arcanea-Org/arcanea" style={{ display: "inline" }}>
+				github.com/Arcanea-Org/arcanea
 			</VSCodeLink>{" "}
 			or join{" "}
-			<VSCodeLink href="https://www.reddit.com/r/KiloCode/" style={{ display: "inline" }}>
-				reddit.com/r/KiloCode
+			<VSCodeLink href="https://www.reddit.com/r/Arcanea/" style={{ display: "inline" }}>
+				reddit.com/r/Arcanea
 			</VSCodeLink>
 			.
 		</p>
 		<p style={{ wordWrap: "break-word", margin: 0, padding: 0 }}>
 			Regarding financial questions, please contact Customer Service at{" "}
-			<VSCodeLink href="mail:hi@kilocode.ai" style={{ display: "inline" }}>
-				hi@kilocode.ai
+			<VSCodeLink href="mail:hi@arcanea.ai" style={{ display: "inline" }}>
+				hi@arcanea.ai
 			</VSCodeLink>{" "}
 		</p>
 		<p className="italic">Arcanea v{version}</p>

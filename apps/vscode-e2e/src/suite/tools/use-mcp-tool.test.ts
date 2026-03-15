@@ -4,7 +4,7 @@ import * as path from "path"
 import * as os from "os"
 import * as vscode from "vscode"
 
-import { RooCodeEventName, type ClineMessage } from "@roo-code/types"
+import { RooCodeEventName, type ClineMessage } from "@arcanea/types"
 
 import { waitFor, sleep } from "../utils"
 import { setDefaultSuiteTimeout } from "../test-utils"
@@ -30,7 +30,7 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 		testFiles = {
 			simple: path.join(workspaceDir, `mcp-test-${Date.now()}.txt`),
 			testData: path.join(workspaceDir, `mcp-data-${Date.now()}.json`),
-			mcpConfig: path.join(workspaceDir, ".kilocode", "mcp.json"),
+			mcpConfig: path.join(workspaceDir, ".arcanea", "mcp.json"),
 		}
 
 		// Create initial test files
@@ -38,7 +38,7 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 		await fs.writeFile(testFiles.testData, JSON.stringify({ test: "data", value: 42 }, null, 2))
 
 		// Create .roo directory and MCP configuration file
-		const rooDir = path.join(workspaceDir, ".kilocode")
+		const rooDir = path.join(workspaceDir, ".arcanea")
 		await fs.mkdir(rooDir, { recursive: true })
 
 		const mcpConfig = {
@@ -76,7 +76,7 @@ suite.skip("Roo Code use_mcp_tool Tool", function () {
 
 		// Clean up .roo directory
 		const workspaceDir = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath || tempDir
-		const rooDir = path.join(workspaceDir, ".kilocode")
+		const rooDir = path.join(workspaceDir, ".arcanea")
 		try {
 			await fs.rm(rooDir, { recursive: true, force: true })
 		} catch {

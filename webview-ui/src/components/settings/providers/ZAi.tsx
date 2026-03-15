@@ -2,12 +2,12 @@ import { useCallback } from "react"
 import { VSCodeTextField, VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react"
 
 import {
-	// kilocode_change start
+	// arcanea_change start
 	zaiApiLineConfigs,
 	zaiApiLineSchema,
-	// kilocode_change end
+	// arcanea_change end
 	type ProviderSettings,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { VSCodeButtonLink } from "@src/components/common/VSCodeButtonLink"
@@ -40,12 +40,12 @@ export const ZAi = ({ apiConfiguration, setApiConfigurationField }: ZAiProps) =>
 				<label className="block font-medium mb-1">{t("settings:providers.zaiEntrypoint")}</label>
 				<VSCodeDropdown
 					value={
-						apiConfiguration.zaiApiLine || zaiApiLineSchema.enum.international_coding /*kilocode_chance*/
+						apiConfiguration.zaiApiLine || zaiApiLineSchema.enum.international_coding /*arcanea_chance*/
 					}
 					onChange={handleInputChange("zaiApiLine")}
 					className={cn("w-full")}>
 					{
-						// kilocode_change start
+						// arcanea_change start
 						zaiApiLineSchema.options.map((zaiApiLine) => {
 							const config = zaiApiLineConfigs[zaiApiLine]
 							return (
@@ -54,7 +54,7 @@ export const ZAi = ({ apiConfiguration, setApiConfigurationField }: ZAiProps) =>
 								</VSCodeOption>
 							)
 						})
-						// kilocode_change end
+						// arcanea_change end
 					}
 				</VSCodeDropdown>
 				<div className="text-xs text-vscode-descriptionForeground mt-1">
@@ -76,7 +76,7 @@ export const ZAi = ({ apiConfiguration, setApiConfigurationField }: ZAiProps) =>
 				{!apiConfiguration?.zaiApiKey && (
 					<VSCodeButtonLink
 						href={
-							zaiApiLineConfigs[apiConfiguration.zaiApiLine ?? "international_coding"].isChina // kilocode_change
+							zaiApiLineConfigs[apiConfiguration.zaiApiLine ?? "international_coding"].isChina // arcanea_change
 								? "https://open.bigmodel.cn/console/overview"
 								: "https://z.ai/manage-apikey/apikey-list"
 						}

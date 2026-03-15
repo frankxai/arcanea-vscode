@@ -275,7 +275,7 @@ async function getFileOrFolderContent(
 
 		if (stats.isFile()) {
 			if (rooIgnoreController && !rooIgnoreController.validateAccess(absPath)) {
-				return `(File ${mentionPath} is ignored by .kilocodeignore)`
+				return `(File ${mentionPath} is ignored by .arcaneaignore)`
 			}
 			try {
 				const content = await extractTextFromFile(absPath, maxReadFileLine)

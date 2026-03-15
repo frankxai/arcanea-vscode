@@ -14,7 +14,7 @@ interface MarketplaceViewProps {
 	onDone?: () => void
 	stateManager: MarketplaceViewStateManager
 	targetTab?: "mcp" | "mode"
-	hideHeader?: boolean // kilocode_change
+	hideHeader?: boolean // arcanea_change
 }
 export function MarketplaceView({ stateManager, onDone, targetTab, hideHeader = false }: MarketplaceViewProps) {
 	const { t } = useAppTranslation()
@@ -98,9 +98,9 @@ export function MarketplaceView({ stateManager, onDone, targetTab, hideHeader = 
 
 	return (
 		<TooltipProvider delayDuration={300}>
-			{/* kilocode_change: add className relative */}
+			{/* arcanea_change: add className relative */}
 			<Tab className="relative">
-				{/*  kilocode_change: display header conditionally */}
+				{/*  arcanea_change: display header conditionally */}
 				<TabHeader
 					style={{ display: hideHeader ? "none" : "flex" }}
 					className="flex flex-col sticky top-0 z-10 px-3 py-2 bg-vscode-sideBar-background">

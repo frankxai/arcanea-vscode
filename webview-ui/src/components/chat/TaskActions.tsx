@@ -1,15 +1,15 @@
 import { useState } from "react"
 import { useTranslation } from "react-i18next"
 
-import type { HistoryItem } from "@roo-code/types"
+import type { HistoryItem } from "@arcanea/types"
 
 import { vscode } from "@/utils/vscode"
 import { useCopyToClipboard } from "@/utils/clipboard"
 
 import { DeleteTaskDialog } from "../history/DeleteTaskDialog"
 import { IconButton } from "./IconButton"
-// import { ShareButton } from "./ShareButton" // kilocode_change unused
-// import { CloudTaskButton } from "./CloudTaskButton" // kilocode_change: unused
+// import { ShareButton } from "./ShareButton" // arcanea_change unused
+// import { CloudTaskButton } from "./CloudTaskButton" // arcanea_change: unused
 
 interface TaskActionsProps {
 	item?: HistoryItem
@@ -62,7 +62,7 @@ export const TaskActions = ({ item, buttonsDisabled }: TaskActionsProps) => {
 					)}
 				</>
 			)}
-			{/* <ShareButton item={item} disabled={false} showLabel={false} /> kilocode_change: unused */}
+			{/* <ShareButton item={item} disabled={false} showLabel={false} /> arcanea_change: unused */}
 			{/* <CloudTaskButton item={item} disabled={buttonsDisabled} />  */}
 		</div>
 	)

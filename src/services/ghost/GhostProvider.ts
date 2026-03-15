@@ -12,11 +12,11 @@ import { getWorkspacePath } from "../../utils/path"
 import { GhostSuggestionsState } from "./GhostSuggestions"
 import { GhostCodeActionProvider } from "./GhostCodeActionProvider"
 import { GhostCodeLensProvider } from "./GhostCodeLensProvider"
-import { GhostServiceSettings, TelemetryEventName } from "@roo-code/types"
+import { GhostServiceSettings, TelemetryEventName } from "@arcanea/types"
 import { ContextProxy } from "../../core/config/ContextProxy"
 import { ProviderSettingsManager } from "../../core/config/ProviderSettingsManager"
 import { GhostContext } from "./GhostContext"
-import { TelemetryService } from "@roo-code/telemetry"
+import { TelemetryService } from "@arcanea/telemetry"
 import { ClineProvider } from "../../core/webview/ClineProvider"
 import { GhostGutterAnimation } from "./GhostGutterAnimation"
 import { GhostCursor } from "./GhostCursor"
@@ -203,8 +203,8 @@ export class GhostProvider {
 		})
 
 		const userInput = await vscode.window.showInputBox({
-			prompt: t("kilocode:ghost.input.title"),
-			placeHolder: t("kilocode:ghost.input.placeholder"),
+			prompt: t("arcanea:ghost.input.title"),
+			placeHolder: t("arcanea:ghost.input.placeholder"),
 		})
 		if (!userInput) {
 			return
@@ -434,16 +434,16 @@ export class GhostProvider {
 
 	private async updateGlobalContext() {
 		const hasSuggestions = this.suggestions.hasSuggestions()
-		await vscode.commands.executeCommand("setContext", "kilocode.ghost.hasSuggestions", hasSuggestions)
-		await vscode.commands.executeCommand("setContext", "kilocode.ghost.isProcessing", this.isProcessing)
+		await vscode.commands.executeCommand("setContext", "arcanea.ghost.hasSuggestions", hasSuggestions)
+		await vscode.commands.executeCommand("setContext", "arcanea.ghost.isProcessing", this.isProcessing)
 		await vscode.commands.executeCommand(
 			"setContext",
-			"kilocode.ghost.enableQuickInlineTaskKeybinding",
+			"arcanea.ghost.enableQuickInlineTaskKeybinding",
 			this.settings?.enableQuickInlineTaskKeybinding || false,
 		)
 		await vscode.commands.executeCommand(
 			"setContext",
-			"kilocode.ghost.enableSmartInlineTaskKeybinding",
+			"arcanea.ghost.enableSmartInlineTaskKeybinding",
 			this.settings?.enableSmartInlineTaskKeybinding || false,
 		)
 	}
@@ -608,9 +608,9 @@ export class GhostProvider {
 	}
 
 	public async showIncompatibilityExtensionPopup() {
-		const message = t("kilocode:ghost.incompatibilityExtensionPopup.message")
-		const disableCopilot = t("kilocode:ghost.incompatibilityExtensionPopup.disableCopilot")
-		const disableInlineAssist = t("kilocode:ghost.incompatibilityExtensionPopup.disableInlineAssist")
+		const message = t("arcanea:ghost.incompatibilityExtensionPopup.message")
+		const disableCopilot = t("arcanea:ghost.incompatibilityExtensionPopup.disableCopilot")
+		const disableInlineAssist = t("arcanea:ghost.incompatibilityExtensionPopup.disableInlineAssist")
 		const response = await vscode.window.showErrorMessage(message, disableCopilot, disableInlineAssist)
 
 		if (response === disableCopilot) {

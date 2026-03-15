@@ -1,6 +1,6 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 
-import type { ClineAsk, ToolProgressStatus, ToolGroup, ToolName } from "@roo-code/types"
+import type { ClineAsk, ToolProgressStatus, ToolGroup, ToolName } from "@arcanea/types"
 
 export type ToolResponse = string | Array<Anthropic.TextBlockParam | Anthropic.ImageBlockParam>
 
@@ -59,13 +59,13 @@ export const toolParamNames = [
 	"replace",
 	"use_regex",
 	"ignore_case",
-	// kilocode_change start
+	// arcanea_change start
 	"title",
 	"description",
 	"target_file",
 	"instructions",
 	"code_edit",
-	// kilocode_change end
+	// arcanea_change end
 	"args",
 	"start_line",
 	"end_line",
@@ -183,12 +183,12 @@ export interface SearchAndReplaceToolUse extends ToolUse {
 		Partial<Pick<Record<ToolParamName, string>, "use_regex" | "ignore_case" | "start_line" | "end_line">>
 }
 
-// kilocode_change start: Morph fast apply
+// arcanea_change start: Morph fast apply
 export interface EditFileToolUse extends ToolUse {
 	name: "edit_file"
 	params: Required<Pick<Record<ToolParamName, string>, "target_file" | "instructions" | "code_edit">>
 }
-// kilocode_change end
+// arcanea_change end
 
 export interface GenerateImageToolUse extends ToolUse {
 	name: "generate_image"
@@ -207,7 +207,7 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	fetch_instructions: "fetch instructions",
 	write_to_file: "write files",
 	apply_diff: "apply changes",
-	edit_file: "edit file", // kilocode_change: Morph fast apply
+	edit_file: "edit file", // arcanea_change: Morph fast apply
 	search_files: "search files",
 	list_files: "list files",
 	list_code_definition_names: "list definitions",
@@ -221,8 +221,8 @@ export const TOOL_DISPLAY_NAMES: Record<ToolName, string> = {
 	insert_content: "insert content",
 	search_and_replace: "search and replace",
 	new_rule: "create new rule",
-	report_bug: "report bug", // kilocode_change
-	condense: "condense the current context window", // kilocode_change
+	report_bug: "report bug", // arcanea_change
+	condense: "condense the current context window", // arcanea_change
 	codebase_search: "codebase search",
 	update_todo_list: "update todo list",
 	run_slash_command: "run slash command",
@@ -244,11 +244,11 @@ export const TOOL_GROUPS: Record<ToolGroup, ToolGroupConfig> = {
 	edit: {
 		tools: [
 			"apply_diff",
-			"edit_file", // kilocode_change: Morph fast apply
+			"edit_file", // arcanea_change: Morph fast apply
 			"write_to_file",
 			"insert_content",
 			"search_and_replace",
-			"new_rule", // kilocode_change
+			"new_rule", // arcanea_change
 			"generate_image",
 		],
 	},
@@ -274,7 +274,7 @@ export const ALWAYS_AVAILABLE_TOOLS: ToolName[] = [
 	"switch_mode",
 	"new_task",
 	"report_bug",
-	"condense", // kilocode_Change
+	"condense", // arcanea_Change
 	"update_todo_list",
 	"run_slash_command",
 ] as const

@@ -1,8 +1,8 @@
 import cloneDeep from "clone-deep"
 import { serializeError } from "serialize-error"
 
-import type { ToolName, ClineAsk, ToolProgressStatus } from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
+import type { ToolName, ClineAsk, ToolProgressStatus } from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { defaultModeSlug, getModeBySlug } from "../../shared/modes"
 import type { ToolParamName, ToolResponse } from "../../shared/tools"
@@ -11,12 +11,12 @@ import { fetchInstructionsTool } from "../tools/fetchInstructionsTool"
 import { listFilesTool } from "../tools/listFilesTool"
 import { getReadFileToolDescription, readFileTool } from "../tools/readFileTool"
 import { getSimpleReadFileToolDescription, simpleReadFileTool } from "../tools/simpleReadFileTool"
-import { shouldUseSingleFileRead } from "@roo-code/types"
+import { shouldUseSingleFileRead } from "@arcanea/types"
 import { writeToFileTool } from "../tools/writeToFileTool"
 import { applyDiffTool } from "../tools/multiApplyDiffTool"
 import { insertContentTool } from "../tools/insertContentTool"
 import { searchAndReplaceTool } from "../tools/searchAndReplaceTool"
-import { editFileTool } from "../tools/editFileTool" // kilocode_change: Morph fast apply
+import { editFileTool } from "../tools/editFileTool" // arcanea_change: Morph fast apply
 import { listCodeDefinitionNamesTool } from "../tools/listCodeDefinitionNamesTool"
 import { searchFilesTool } from "../tools/searchFilesTool"
 import { browserActionTool } from "../tools/browserActionTool"
@@ -35,13 +35,13 @@ import { generateImageTool } from "../tools/generateImageTool"
 import { formatResponse } from "../prompts/responses"
 import { validateToolUse } from "../tools/validateToolUse"
 import { Task } from "../task/Task"
-import { newRuleTool } from "../tools/newRuleTool" // kilocode_change
-import { reportBugTool } from "../tools/reportBugTool" // kilocode_change
-import { condenseTool } from "../tools/condenseTool" // kilocode_change
+import { newRuleTool } from "../tools/newRuleTool" // arcanea_change
+import { reportBugTool } from "../tools/reportBugTool" // arcanea_change
+import { condenseTool } from "../tools/condenseTool" // arcanea_change
 import { codebaseSearchTool } from "../tools/codebaseSearchTool"
 import { experiments, EXPERIMENT_IDS } from "../../shared/experiments"
 import { applyDiffToolLegacy } from "../tools/applyDiffTool"
-import { yieldPromise } from "../kilocode"
+import { yieldPromise } from "../arcanea"
 
 /**
  * Processes and presents assistant message content to the user interface.
@@ -60,7 +60,7 @@ import { yieldPromise } from "../kilocode"
  * as it becomes available.
  */
 
-export async function presentAssistantMessage(cline: Task, recursionDepth: number = 0 /*kilocode_change*/) {
+export async function presentAssistantMessage(cline: Task, recursionDepth: number = 0 /*arcanea_change*/) {
 	if (cline.abort) {
 		throw new Error(`[Task#presentAssistantMessage] task ${cline.taskId}.${cline.instanceId} aborted`)
 	}
@@ -202,10 +202,10 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 						return `[${block.name} for '${block.params.path}']`
 					case "search_and_replace":
 						return `[${block.name} for '${block.params.path}']`
-					// kilocode_change start: Morph fast apply
+					// arcanea_change start: Morph fast apply
 					case "edit_file":
 						return `[${block.name} for '${block.params.target_file}']`
-					// kilocode_change end
+					// arcanea_change end
 					case "list_files":
 						return `[${block.name} for '${block.params.path}']`
 					case "list_code_definition_names":
@@ -232,14 +232,14 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 						const modeName = getModeBySlug(mode, customModes)?.name ?? mode
 						return `[${block.name} in ${modeName} mode: '${message}']`
 					}
-					// kilocode_change start
+					// arcanea_change start
 					case "new_rule":
 						return `[${block.name} for '${block.params.path}']`
 					case "report_bug":
 						return `[${block.name}]`
 					case "condense":
 						return `[${block.name}]`
-					// kilocode_change end
+					// arcanea_change end
 					case "run_slash_command":
 						return `[${block.name} for '${block.params.command}'${block.params.args ? ` with args: ${block.params.args}` : ""}]`
 					case "generate_image":
@@ -484,12 +484,12 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					await checkpointSaveAndMark(cline)
 					await searchAndReplaceTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
-				// kilocode_change start: Morph fast apply
+				// arcanea_change start: Morph fast apply
 				case "edit_file":
 					await checkpointSaveAndMark(cline)
 					await editFileTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
-				// kilocode_change end
+				// arcanea_change end
 				case "read_file":
 					// Check if this model should use the simplified single-file read tool
 					const modelId = cline.api.getModel().id
@@ -564,7 +564,7 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					await newTaskTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
 				case "attempt_completion":
-					await checkpointSaveAndMark(cline) // kilocode_change for "See new changes"
+					await checkpointSaveAndMark(cline) // arcanea_change for "See new changes"
 					await attemptCompletionTool(
 						cline,
 						block,
@@ -576,7 +576,7 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 						askFinishSubTaskApproval,
 					)
 					break
-				// kilocode_change start
+				// arcanea_change start
 				case "new_rule":
 					await newRuleTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
@@ -586,7 +586,7 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 				case "condense":
 					await condenseTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
-				// kilocode_change end
+				// arcanea_change end
 				case "run_slash_command":
 					await runSlashCommandTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
@@ -594,7 +594,7 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 					await generateImageTool(cline, block, askApproval, handleError, pushToolResult, removeClosingTag)
 					break
 			}
-			// kilocode_change end
+			// arcanea_change end
 
 			break
 	}
@@ -637,20 +637,20 @@ export async function presentAssistantMessage(cline: Task, recursionDepth: numbe
 		if (cline.currentStreamingContentIndex < cline.assistantMessageContent.length) {
 			// There are already more content blocks to stream, so we'll call
 			// this function ourselves.
-			// kilocode_change start: prevent excessive recursion
+			// arcanea_change start: prevent excessive recursion
 			await yieldPromise()
 			await presentAssistantMessage(cline, recursionDepth + 1)
-			// kilocode_change end
+			// arcanea_change end
 			return
 		}
 	}
 
 	// Block is partial, but the read stream may have finished.
 	if (cline.presentAssistantMessageHasPendingUpdates) {
-		// kilocode_change start: prevent excessive recursion
+		// arcanea_change start: prevent excessive recursion
 		await yieldPromise()
 		await presentAssistantMessage(cline, recursionDepth + 1)
-		// kilocode_change end
+		// arcanea_change end
 	}
 }
 

@@ -4,7 +4,7 @@ import { useTranslation, Trans } from "react-i18next"
 import deepEqual from "fast-deep-equal"
 import { VSCodeBadge, VSCodeButton } from "@vscode/webview-ui-toolkit/react"
 
-import type { ClineMessage, FollowUpData, SuggestionItem } from "@roo-code/types"
+import type { ClineMessage, FollowUpData, SuggestionItem } from "@arcanea/types"
 
 import { ClineApiReqInfo, ClineAskUseMcpServer, ClineSayTool } from "@roo/ExtensionMessage"
 import { COMMAND_OUTPUT_STRING } from "@roo/combineCommandSequences"
@@ -16,23 +16,23 @@ import { findMatchingResourceOrTemplate } from "@src/utils/mcp"
 import { vscode } from "@src/utils/vscode"
 import { removeLeadingNonAlphanumeric } from "@src/utils/removeLeadingNonAlphanumeric"
 import { getLanguageFromPath } from "@src/utils/getLanguageFromPath"
-// import { Button } from "@src/components/ui" // kilocode_change
+// import { Button } from "@src/components/ui" // arcanea_change
 
 import { ToolUseBlock, ToolUseBlockHeader } from "../common/ToolUseBlock"
 import UpdateTodoListToolBlock from "./UpdateTodoListToolBlock"
 import CodeAccordian from "../common/CodeAccordian"
-import CodeBlock from "../kilocode/common/CodeBlock" // kilocode_change
+import CodeBlock from "../arcanea/common/CodeBlock" // arcanea_change
 import MarkdownBlock from "../common/MarkdownBlock"
 import { ReasoningBlock } from "./ReasoningBlock"
-// import Thumbnails from "../common/Thumbnails" // kilocode_change
+// import Thumbnails from "../common/Thumbnails" // arcanea_change
 import ImageBlock from "../common/ImageBlock"
 
 import McpResourceRow from "../mcp/McpResourceRow"
 
-// import { Mention } from "./Mention" // kilocode_change
+// import { Mention } from "./Mention" // arcanea_change
 import { CheckpointSaved } from "./checkpoints/CheckpointSaved"
 import { FollowUpSuggest } from "./FollowUpSuggest"
-import { LowCreditWarning } from "../kilocode/chat/LowCreditWarning" // kilocode_change
+import { LowCreditWarning } from "../arcanea/chat/LowCreditWarning" // arcanea_change
 import { BatchFilePermission } from "./BatchFilePermission"
 import { BatchDiffApproval } from "./BatchDiffApproval"
 import { ProgressIndicator } from "./ProgressIndicator"
@@ -41,17 +41,17 @@ import { CommandExecution } from "./CommandExecution"
 import { CommandExecutionError } from "./CommandExecutionError"
 import ReportBugPreview from "./ReportBugPreview"
 
-import { NewTaskPreview } from "../kilocode/chat/NewTaskPreview" // kilocode_change
-import { KiloChatRowGutterBar } from "../kilocode/chat/KiloChatRowGutterBar" // kilocode_change
+import { NewTaskPreview } from "../arcanea/chat/NewTaskPreview" // arcanea_change
+import { ArcaneaChatRowGutterBar } from "../arcanea/chat/ArcaneaChatRowGutterBar" // arcanea_change
 import { AutoApprovedRequestLimitWarning } from "./AutoApprovedRequestLimitWarning"
 import { CondenseContextErrorRow, CondensingContextRow, ContextCondenseRow } from "./ContextCondenseRow"
 import CodebaseSearchResultsDisplay from "./CodebaseSearchResultsDisplay"
 import { cn } from "@/lib/utils"
-import { KiloChatRowUserFeedback } from "../kilocode/chat/KiloChatRowUserFeedback" // kilocode_change
-import { StandardTooltip } from "../ui" // kilocode_change
-import { FastApplyChatDisplay } from "./kilocode/FastApplyChatDisplay" // kilocode_change
+import { ArcaneaChatRowUserFeedback } from "../arcanea/chat/ArcaneaChatRowUserFeedback" // arcanea_change
+import { StandardTooltip } from "../ui" // arcanea_change
+import { FastApplyChatDisplay } from "./arcanea/FastApplyChatDisplay" // arcanea_change
 import { McpExecution } from "./McpExecution"
-import { InvalidModelWarning } from "../kilocode/chat/InvalidModelWarning"
+import { InvalidModelWarning } from "../arcanea/chat/InvalidModelWarning"
 
 interface ChatRowProps {
 	message: ClineMessage
@@ -63,8 +63,8 @@ interface ChatRowProps {
 	onHeightChange: (isTaller: boolean) => void
 	onSuggestionClick?: (suggestion: SuggestionItem, event?: React.MouseEvent) => void
 	onBatchFileResponse?: (response: { [key: string]: boolean }) => void
-	highlighted?: boolean // kilocode_change: Add highlighted prop
-	onChatReset?: () => void // kilocode_change
+	highlighted?: boolean // arcanea_change: Add highlighted prop
+	onChatReset?: () => void // arcanea_change
 	onFollowUpUnmount?: () => void
 	isFollowUpAnswered?: boolean
 	editable?: boolean
@@ -75,8 +75,8 @@ interface ChatRowContentProps extends Omit<ChatRowProps, "onHeightChange"> {}
 
 const ChatRow = memo(
 	(props: ChatRowProps) => {
-		const { highlighted } = props // kilocode_change: Add highlighted prop
-		const { showTaskTimeline } = useExtensionState() // kilocode_change: Used by KiloChatRowGutterBar
+		const { highlighted } = props // arcanea_change: Add highlighted prop
+		const { showTaskTimeline } = useExtensionState() // arcanea_change: Used by ArcaneaChatRowGutterBar
 		const { isLast, onHeightChange, message } = props
 		// Store the previous height to compare with the current height
 		// This allows us to detect changes without causing re-renders
@@ -84,11 +84,11 @@ const ChatRow = memo(
 
 		const [chatrow, { height }] = useSize(
 			<div
-				// kilocode_change: add highlighted className
+				// arcanea_change: add highlighted className
 				className={cn(
 					`px-[15px] py-[10px] pr-[6px] relative ${highlighted ? "animate-message-highlight" : ""}`,
 				)}>
-				{showTaskTimeline && <KiloChatRowGutterBar message={message} />}
+				{showTaskTimeline && <ArcaneaChatRowGutterBar message={message} />}
 				<ChatRowContent {...props} />
 			</div>,
 		)
@@ -125,7 +125,7 @@ export const ChatRowContent = ({
 	onSuggestionClick,
 	onFollowUpUnmount,
 	onBatchFileResponse,
-	onChatReset, // kilocode_change
+	onChatReset, // arcanea_change
 	isFollowUpAnswered,
 	editable,
 }: ChatRowContentProps) => {
@@ -141,7 +141,7 @@ export const ChatRowContent = ({
 		onToggleExpand(message.ts)
 	}, [onToggleExpand, message.ts])
 
-	// kilocode_change: usageMissing
+	// arcanea_change: usageMissing
 	const [cost, usageMissing, apiReqCancelReason, apiReqStreamingFailedMessage] = useMemo(() => {
 		if (message.text !== null && message.text !== undefined && message.say === "api_req_started") {
 			const info = safeJsonParse<ClineApiReqInfo>(message.text)
@@ -369,9 +369,9 @@ export const ChatRowContent = ({
 							onToggleExpand={handleToggleExpand}
 						/>
 						{
-							// kilocode_change start
+							// arcanea_change start
 							tool.fastApplyResult && <FastApplyChatDisplay fastApplyResult={tool.fastApplyResult} />
-							// kilocode_change end
+							// arcanea_change end
 						}
 					</>
 				)
@@ -506,9 +506,9 @@ export const ChatRowContent = ({
 							onJumpToFile={() => vscode.postMessage({ type: "openFile", text: "./" + tool.path })}
 						/>
 						{
-							// kilocode_change start
+							// arcanea_change start
 							tool.fastApplyResult && <FastApplyChatDisplay fastApplyResult={tool.fastApplyResult} />
-							// kilocode_change end
+							// arcanea_change end
 						}
 					</>
 				)
@@ -1088,16 +1088,16 @@ export const ChatRowContent = ({
 									{icon}
 									{title}
 									{
-										// kilocode_change start
+										// arcanea_change start
 										!cost && usageMissing && (
-											<StandardTooltip content={t("kilocode:pricing.costUnknownDescription")}>
+											<StandardTooltip content={t("arcanea:pricing.costUnknownDescription")}>
 												<VSCodeBadge className="whitespace-nowrap">
 													<span className="codicon codicon-warning pr-1"></span>
-													{t("kilocode:pricing.costUnknown")}
+													{t("arcanea:pricing.costUnknown")}
 												</VSCodeBadge>
 											</StandardTooltip>
 										)
-										// kilocode_change end
+										// arcanea_change end
 									}
 									<VSCodeBadge
 										style={{ opacity: cost !== null && cost !== undefined && cost > 0 ? 1 : 0 }}>
@@ -1156,15 +1156,15 @@ export const ChatRowContent = ({
 						</div>
 					)
 				case "user_feedback":
-					// kilocode_change start
+					// arcanea_change start
 					return (
-						<KiloChatRowUserFeedback
+						<ArcaneaChatRowUserFeedback
 							message={message}
 							isStreaming={isStreaming}
 							onChatReset={onChatReset}
 						/>
 					)
-				// kilocode_change end
+				// arcanea_change end
 				case "user_feedback_diff":
 					const tool = safeJsonParse<ClineSayTool>(message.text)
 					return (
@@ -1191,7 +1191,7 @@ export const ChatRowContent = ({
 						</>
 					)
 				case "completion_result":
-					const commitRange = message.metadata?.kiloCode?.commitRange
+					const commitRange = message.metadata?.arcanea?.commitRange
 					return (
 						<>
 							<div style={headerStyle}>
@@ -1202,7 +1202,7 @@ export const ChatRowContent = ({
 								<Markdown markdown={message.text} />
 							</div>
 							{
-								// kilocode_change start
+								// arcanea_change start
 								!message.partial && commitRange ? (
 									<div>
 										<VSCodeButton
@@ -1216,13 +1216,13 @@ export const ChatRowContent = ({
 													},
 												})
 											}}>
-											{t("kilocode:chat.seeNewChanges")}
+											{t("arcanea:chat.seeNewChanges")}
 										</VSCodeButton>
 									</div>
 								) : (
 									<></>
 								)
-								// kilocode_change end
+								// arcanea_change end
 							}
 						</>
 					)
@@ -1274,7 +1274,7 @@ export const ChatRowContent = ({
 					const { results = [] } = parsed?.content || {}
 
 					return <CodebaseSearchResultsDisplay results={results} />
-				// kilocode_change start: upstream pr https://github.com/RooCodeInc/Roo-Code/pull/5452
+				// arcanea_change start: upstream pr https://github.com/RooCodeInc/Roo-Code/pull/5452
 				case "browser_action_result":
 					// This should not normally be rendered here as browser_action_result messages
 					// should be grouped into browser sessions and rendered by BrowserSessionRow.
@@ -1306,7 +1306,7 @@ export const ChatRowContent = ({
 							</div>
 						</>
 					)
-				// kilocode_change end
+				// arcanea_change end
 				case "user_edit_todos":
 					return <UpdateTodoListToolBlock userEdited onChange={() => {}} />
 				case "tool" as any:
@@ -1529,7 +1529,7 @@ export const ChatRowContent = ({
 						</>
 					)
 
-				// kilocode_change begin
+				// arcanea_change begin
 				case "condense":
 					return (
 						<>
@@ -1541,7 +1541,7 @@ export const ChatRowContent = ({
 										marginBottom: "-1.5px",
 									}}></span>
 								<span style={{ color: normalColor, fontWeight: "bold" }}>
-									{t("kilocode:chat.condense.wantsToCondense")}
+									{t("arcanea:chat.condense.wantsToCondense")}
 								</span>
 							</div>
 							<NewTaskPreview context={message.text || ""} />
@@ -1565,13 +1565,13 @@ export const ChatRowContent = ({
 										marginBottom: "-1.5px",
 									}}></span>
 								<span style={{ color: normalColor, fontWeight: "bold" }}>
-									KiloCode wants to create a Github issue:
+									Arcanea wants to create a Github issue:
 								</span>
 							</div>
 							<ReportBugPreview data={message.text || ""} />
 						</>
 					)
-				// kilocode_change end
+				// arcanea_change end
 				case "auto_approval_max_req_reached": {
 					return <AutoApprovedRequestLimitWarning message={message} />
 				}

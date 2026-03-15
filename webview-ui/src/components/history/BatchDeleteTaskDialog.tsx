@@ -13,7 +13,7 @@ import {
 } from "@/components/ui"
 import { vscode } from "@/utils/vscode"
 import { AlertDialogProps } from "@radix-ui/react-alert-dialog"
-import { useTaskWithId } from "@/kilocode/hooks/useTaskHistory"
+import { useTaskWithId } from "@/arcanea/hooks/useTaskHistory"
 
 interface BatchDeleteTaskDialogProps extends AlertDialogProps {
 	taskIds: string[]
@@ -21,11 +21,11 @@ interface BatchDeleteTaskDialogProps extends AlertDialogProps {
 
 export const BatchDeleteTaskDialog = ({ taskIds, ...props }: BatchDeleteTaskDialogProps) => {
 	const { t } = useAppTranslation()
-	const { data: tasks } = useTaskWithId(taskIds) // kilocode_change
+	const { data: tasks } = useTaskWithId(taskIds) // arcanea_change
 	const { onOpenChange } = props
 
-	const favoritedTasks = tasks?.filter((task) => taskIds.includes(task.id) && task.isFavorited) ?? [] // kilocode_change
-	const hasFavoritedTasks = favoritedTasks.length > 0 // kilocode_change
+	const favoritedTasks = tasks?.filter((task) => taskIds.includes(task.id) && task.isFavorited) ?? [] // arcanea_change
+	const hasFavoritedTasks = favoritedTasks.length > 0 // arcanea_change
 
 	const onDelete = useCallback(() => {
 		if (taskIds.length > 0) {
@@ -41,13 +41,13 @@ export const BatchDeleteTaskDialog = ({ taskIds, ...props }: BatchDeleteTaskDial
 					<AlertDialogTitle>{t("history:deleteTasks")}</AlertDialogTitle>
 					<AlertDialogDescription className="text-vscode-foreground">
 						<div className="mb-2">{t("history:confirmDeleteTasks", { count: taskIds.length })}</div>
-						{/* kilocode_change start */}
+						{/* arcanea_change start */}
 						{hasFavoritedTasks && (
 							<div className="text-yellow-500 mb-2">
 								{t("history:deleteTasksFavoritedWarning", { count: favoritedTasks.length })}
 							</div>
 						)}
-						{/* kilocode_change end */}
+						{/* arcanea_change end */}
 						<div className="text-vscode-editor-foreground bg-vscode-editor-background p-2 rounded text-sm">
 							{t("history:deleteTasksWarning")}
 						</div>

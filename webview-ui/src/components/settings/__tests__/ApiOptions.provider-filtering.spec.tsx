@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-import type { ProviderSettings, OrganizationAllowList } from "@roo-code/types"
+import type { ProviderSettings, OrganizationAllowList } from "@arcanea/types"
 
 import { useExtensionState } from "@src/context/ExtensionStateContext"
 import { useSelectedModel } from "@src/components/ui/hooks/useSelectedModel"
@@ -82,7 +82,7 @@ vi.mock("@src/components/ui", () => ({
 	Button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
 }))
 
-// kilocode_change: no filtering done on providers client side
+// arcanea_change: no filtering done on providers client side
 describe.skip("ApiOptions Provider Filtering", () => {
 	const queryClient = new QueryClient({
 		defaultOptions: {

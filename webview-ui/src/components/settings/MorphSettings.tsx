@@ -1,4 +1,4 @@
-// kilocode_change: Morph fast apply - global settings version
+// arcanea_change: Morph fast apply - global settings version
 
 import { VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
 import { useAppTranslation } from "@/i18n/TranslationContext"

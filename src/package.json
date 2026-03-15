@@ -116,8 +116,8 @@
 				{
 					"id": "arcanea-ActivityBar",
 					"title": "%views.activitybar.title%",
-					"icon": "assets/icons/kilo.png",
-					"darkIcon": "assets/icons/kilo-dark.png",
+					"icon": "assets/icons/arcanea.png",
+					"darkIcon": "assets/icons/arcanea-dark.png",
 					"when": "isMac"
 				}
 			]
@@ -257,8 +257,8 @@
 				"command": "arcanea.generateCommitMessage",
 				"title": "%command.generateCommitMessage.title%",
 				"icon": {
-					"light": "assets/icons/kilo-light.svg",
-					"dark": "assets/icons/kilo-dark.svg"
+					"light": "assets/icons/arcanea-light.svg",
+					"dark": "assets/icons/arcanea-dark.svg"
 				},
 				"category": "%configuration.title%"
 			},
@@ -637,10 +637,10 @@
 		"@mistralai/mistralai": "^1.9.18",
 		"@modelcontextprotocol/sdk": "1.12.0",
 		"@qdrant/js-client-rest": "^1.14.0",
-		"@roo-code/cloud": "workspace:^",
-		"@roo-code/ipc": "workspace:^",
-		"@roo-code/telemetry": "workspace:^",
-		"@roo-code/types": "workspace:^",
+		"@arcanea/cloud": "workspace:^",
+		"@arcanea/ipc": "workspace:^",
+		"@arcanea/telemetry": "workspace:^",
+		"@arcanea/types": "workspace:^",
 		"@vscode/codicons": "^0.0.36",
 		"async-mutex": "^0.5.0",
 		"axios": "^1.7.4",
@@ -711,9 +711,9 @@
 		"zod": "^3.25.61"
 	},
 	"devDependencies": {
-		"@roo-code/build": "workspace:^",
-		"@roo-code/config-eslint": "workspace:^",
-		"@roo-code/config-typescript": "workspace:^",
+		"@arcanea/build": "workspace:^",
+		"@arcanea/config-eslint": "workspace:^",
+		"@arcanea/config-typescript": "workspace:^",
 		"@types/clone-deep": "^4.0.4",
 		"@types/debug": "^4.1.12",
 		"@types/diff": "^5.2.3",

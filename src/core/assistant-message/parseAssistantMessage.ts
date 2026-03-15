@@ -1,4 +1,4 @@
-import { type ToolName, toolNames } from "@roo-code/types"
+import { type ToolName, toolNames } from "@arcanea/types"
 
 import { TextContent, ToolUse, ToolParamName, toolParamNames } from "../../shared/tools"
 
@@ -27,7 +27,7 @@ export function parseAssistantMessage(assistantMessage: string): AssistantMessag
 				// Don't trim content parameters to preserve newlines, but strip first and last newline only
 				let paramValue = currentParamValue.slice(0, -paramClosingTag.length).trim()
 
-				// kilocode_change start
+				// arcanea_change start
 				if (currentToolUse.name === "execute_command" && currentParamName === "command") {
 					// Some models XML encode ampersands in the <command></command> tag, some don't
 					// to minimize chances of unintended consequences, we only XML decode &amp; for now
@@ -35,7 +35,7 @@ export function parseAssistantMessage(assistantMessage: string): AssistantMessag
 					// We know it's not a perfect solution and in corner cases can make things worse, but let's try this for now.
 					paramValue = paramValue.replaceAll("&amp;", "&")
 				}
-				// kilocode_change end
+				// arcanea_change end
 
 				currentToolUse.params[currentParamName] =
 					currentParamName === "content"
@@ -80,7 +80,7 @@ export function parseAssistantMessage(assistantMessage: string): AssistantMessag
 				// content tag and the LAST content tag.
 				const contentParamName: ToolParamName = "content"
 				if (
-					(currentToolUse.name === "write_to_file" || currentToolUse.name === "new_rule") && // kilocode_change
+					(currentToolUse.name === "write_to_file" || currentToolUse.name === "new_rule") && // arcanea_change
 					accumulator.endsWith(`</${contentParamName}>`)
 				) {
 					const toolContent = accumulator.slice(currentToolUseStartIndex)

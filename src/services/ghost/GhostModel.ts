@@ -1,14 +1,14 @@
-import { GhostServiceSettings } from "@roo-code/types"
+import { GhostServiceSettings } from "@arcanea/types"
 import { ApiHandler, buildApiHandler } from "../../api"
 import { ContextProxy } from "../../core/config/ContextProxy"
 import { ProviderSettingsManager } from "../../core/config/ProviderSettingsManager"
 import { OpenRouterHandler } from "../../api/providers"
 import { ApiStreamChunk } from "../../api/transform/stream"
 
-const KILOCODE_DEFAULT_MODEL = "mistralai/codestral-2508"
+const ARCANEA_DEFAULT_MODEL = "mistralai/codestral-2508"
 const MISTRAL_DEFAULT_MODEL = "codestral-latest"
 
-const SUPPORTED_DEFAULT_PROVIDERS = ["mistral", "kilocode", "openrouter"]
+const SUPPORTED_DEFAULT_PROVIDERS = ["mistral", "arcanea", "openrouter"]
 
 export class GhostModel {
 	private apiHandler: ApiHandler | null = null
@@ -54,13 +54,13 @@ export class GhostModel {
 				})
 				const profileProvider = profile.apiProvider
 				let modelDefinition = {}
-				if (profileProvider === "kilocode") {
+				if (profileProvider === "arcanea") {
 					modelDefinition = {
-						kilocodeModel: KILOCODE_DEFAULT_MODEL,
+						arcaneaModel: ARCANEA_DEFAULT_MODEL,
 					}
 				} else if (profileProvider === "openrouter") {
 					modelDefinition = {
-						openRouterModelId: KILOCODE_DEFAULT_MODEL,
+						openRouterModelId: ARCANEA_DEFAULT_MODEL,
 					}
 				} else if (profileProvider === "mistral") {
 					modelDefinition = {

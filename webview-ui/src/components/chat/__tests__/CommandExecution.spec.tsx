@@ -17,7 +17,7 @@ vi.mock("../../../utils/vscode", () => ({
 	},
 }))
 
-vi.mock("../../kilocode/common/CodeBlock", () => ({
+vi.mock("../../arcanea/common/CodeBlock", () => ({
 	default: ({ source }: { source: string }) => <div data-testid="code-block">{source}</div>,
 }))
 

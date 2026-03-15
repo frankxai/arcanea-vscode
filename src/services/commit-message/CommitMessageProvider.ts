@@ -1,4 +1,4 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import * as vscode from "vscode"
 import { ContextProxy } from "../../core/config/ContextProxy"
 import { ProviderSettingsManager } from "../../core/config/ProviderSettingsManager"
@@ -8,9 +8,9 @@ import { supportPrompt } from "../../shared/support-prompt"
 import { t } from "../../i18n"
 import { addCustomInstructions } from "../../core/prompts/sections/custom-instructions"
 import { getWorkspacePath } from "../../utils/path"
-import { TelemetryEventName, type ProviderSettings } from "@roo-code/types"
+import { TelemetryEventName, type ProviderSettings } from "@arcanea/types"
 import delay from "delay"
-import { TelemetryService } from "@roo-code/telemetry"
+import { TelemetryService } from "@arcanea/telemetry"
 
 /**
  * Provides AI-powered commit message generation for source control management.
@@ -35,12 +35,12 @@ export class CommitMessageProvider {
 	 * Activates the commit message provider by setting up Git integration.
 	 */
 	public async activate(): Promise<void> {
-		this.outputChannel.appendLine(t("kilocode:commitMessage.activated"))
+		this.outputChannel.appendLine(t("arcanea:commitMessage.activated"))
 
 		try {
 			await this.providerSettingsManager.initialize()
 		} catch (error) {
-			this.outputChannel.appendLine(t("kilocode:commitMessage.gitInitError", { error }))
+			this.outputChannel.appendLine(t("arcanea:commitMessage.gitInitError", { error }))
 		}
 
 		// Register the command
@@ -59,7 +59,7 @@ export class CommitMessageProvider {
 		await vscode.window.withProgress(
 			{
 				location: vscode.ProgressLocation.SourceControl,
-				title: t("kilocode:commitMessage.generating"),
+				title: t("arcanea:commitMessage.generating"),
 				cancellable: false,
 			},
 			async (progress) => {
@@ -73,15 +73,15 @@ export class CommitMessageProvider {
 						staged = false
 						changes = await this.gitService.gatherChanges({ staged })
 						if (changes.length > 0) {
-							vscode.window.showInformationMessage(t("kilocode:commitMessage.generatingFromUnstaged"))
+							vscode.window.showInformationMessage(t("arcanea:commitMessage.generatingFromUnstaged"))
 						} else {
-							vscode.window.showInformationMessage(t("kilocode:commitMessage.noChanges"))
+							vscode.window.showInformationMessage(t("arcanea:commitMessage.noChanges"))
 							return
 						}
 					}
 
 					// Report initial progress after gathering changes (10% of total)
-					progress.report({ increment: 10, message: t("kilocode:commitMessage.generating") })
+					progress.report({ increment: 10, message: t("arcanea:commitMessage.generating") })
 
 					// Track progress for diff collection (70% of total progress)
 					let lastReportedProgress = 0
@@ -89,7 +89,7 @@ export class CommitMessageProvider {
 						const currentProgress = (percentage / 100) * 70
 						const increment = currentProgress - lastReportedProgress
 						if (increment > 0) {
-							progress.report({ increment, message: t("kilocode:commitMessage.generating") })
+							progress.report({ increment, message: t("arcanea:commitMessage.generating") })
 							lastReportedProgress = currentProgress
 						}
 					}
@@ -108,7 +108,7 @@ export class CommitMessageProvider {
 					TelemetryService.instance.captureEvent(TelemetryEventName.COMMIT_MSG_GENERATED)
 				} catch (error) {
 					const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
-					vscode.window.showErrorMessage(t("kilocode:commitMessage.generationFailed", { errorMessage }))
+					vscode.window.showErrorMessage(t("arcanea:commitMessage.generationFailed", { errorMessage }))
 					console.error("Error generating commit message:", error)
 				}
 			},
@@ -135,7 +135,7 @@ export class CommitMessageProvider {
 				minIncrement,
 			)
 			const increment = Math.min(incrementLimited, maxProgress - totalProgressUsed)
-			progress.report({ increment: increment, message: t("kilocode:commitMessage.generating") })
+			progress.report({ increment: increment, message: t("arcanea:commitMessage.generating") })
 			totalProgressUsed += increment
 		}, 100)
 

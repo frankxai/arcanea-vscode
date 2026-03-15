@@ -10,11 +10,11 @@ import {
 	ProviderSettingsEntry,
 	DEFAULT_CONSECUTIVE_MISTAKE_LIMIT,
 	getModelId,
-} from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
+} from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { Mode, modes } from "../../shared/modes"
-import { migrateMorphApiKey } from "./kilocode/migrateMorphApiKey"
+import { migrateMorphApiKey } from "./arcanea/migrateMorphApiKey"
 
 export interface SyncCloudProfilesResult {
 	hasChanges: boolean
@@ -34,7 +34,7 @@ export const providerProfilesSchema = z.object({
 			openAiHeadersMigrated: z.boolean().optional(),
 			consecutiveMistakeLimitMigrated: z.boolean().optional(),
 			todoListEnabledMigrated: z.boolean().optional(),
-			morphApiKeyMigrated: z.boolean().optional(), // kilocode_change: Morph API key migration
+			morphApiKeyMigrated: z.boolean().optional(), // arcanea_change: Morph API key migration
 		})
 		.optional(),
 })
@@ -126,7 +126,7 @@ export class ProviderSettingsManager {
 						openAiHeadersMigrated: false,
 						consecutiveMistakeLimitMigrated: false,
 						todoListEnabledMigrated: false,
-						morphApiKeyMigrated: false, // kilocode_change: Morph API key migration
+						morphApiKeyMigrated: false, // arcanea_change: Morph API key migration
 					} // Initialize with default values
 					isDirty = true
 				}
@@ -161,13 +161,13 @@ export class ProviderSettingsManager {
 					isDirty = true
 				}
 
-				// kilocode_change start
+				// arcanea_change start
 				if (!providerProfiles.migrations.morphApiKeyMigrated) {
 					const result = await migrateMorphApiKey(this.context, providerProfiles)
 					providerProfiles.migrations.morphApiKeyMigrated = true
 					isDirty ||= result
 				}
-				// kilocode_change end
+				// arcanea_change end
 
 				if (isDirty) {
 					await this.store(providerProfiles)

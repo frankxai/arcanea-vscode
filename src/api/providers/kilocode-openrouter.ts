@@ -3,31 +3,31 @@ import { ApiHandlerOptions, ModelRecord } from "../../shared/api"
 import { CompletionUsage, OpenRouterHandler } from "./openrouter"
 import { getModelParams } from "../transform/model-params"
 import { getModels } from "./fetchers/modelCache"
-import { DEEP_SEEK_DEFAULT_TEMPERATURE, openRouterDefaultModelId, openRouterDefaultModelInfo } from "@roo-code/types"
-import { getKiloBaseUriFromToken } from "../../shared/kilocode/token"
+import { DEEP_SEEK_DEFAULT_TEMPERATURE, openRouterDefaultModelId, openRouterDefaultModelInfo } from "@arcanea/types"
+import { getArcaneaBaseUriFromToken } from "../../shared/arcanea/token"
 import { ApiHandlerCreateMessageMetadata } from ".."
 import { getModelEndpoints } from "./fetchers/modelEndpointCache"
-import { getKilocodeDefaultModel } from "./kilocode/getKilocodeDefaultModel"
-import { X_KILOCODE_ORGANIZATIONID, X_KILOCODE_TASKID, X_KILOCODE_TESTER } from "../../shared/kilocode/headers"
+import { getArcaneaDefaultModel } from "./arcanea/getArcaneaDefaultModel"
+import { X_ARCANEA_ORGANIZATIONID, X_ARCANEA_TASKID, X_ARCANEA_TESTER } from "../../shared/arcanea/headers"
 
 /**
  * A custom OpenRouter handler that overrides the getModel function
- * to provide custom model information and fetches models from the KiloCode OpenRouter endpoint.
+ * to provide custom model information and fetches models from the Arcanea OpenRouter endpoint.
  */
-export class KilocodeOpenrouterHandler extends OpenRouterHandler {
+export class ArcaneacodeOpenrouterHandler extends OpenRouterHandler {
 	protected override models: ModelRecord = {}
 	defaultModel: string = openRouterDefaultModelId
 
 	protected override get providerName() {
-		return "KiloCode"
+		return "Arcanea"
 	}
 
 	constructor(options: ApiHandlerOptions) {
-		const baseUri = getKiloBaseUriFromToken(options.kilocodeToken ?? "")
+		const baseUri = getArcaneaBaseUriFromToken(options.arcaneaToken ?? "")
 		options = {
 			...options,
 			openRouterBaseUrl: `${baseUri}/api/openrouter/`,
-			openRouterApiKey: options.kilocodeToken,
+			openRouterApiKey: options.arcaneaToken,
 		}
 
 		super(options)
@@ -37,21 +37,21 @@ export class KilocodeOpenrouterHandler extends OpenRouterHandler {
 		const headers: Record<string, string> = {}
 
 		if (metadata?.taskId) {
-			headers[X_KILOCODE_TASKID] = metadata.taskId
+			headers[X_ARCANEA_TASKID] = metadata.taskId
 		}
 
-		const kilocodeOptions = this.options
+		const arcaneaOptions = this.options
 
-		if (kilocodeOptions.kilocodeOrganizationId) {
-			headers[X_KILOCODE_ORGANIZATIONID] = kilocodeOptions.kilocodeOrganizationId
+		if (arcaneaOptions.arcaneaOrganizationId) {
+			headers[X_ARCANEA_ORGANIZATIONID] = arcaneaOptions.arcaneaOrganizationId
 		}
 
-		// Add X-KILOCODE-TESTER: SUPPRESS header if the setting is enabled
+		// Add X-ARCANEA-TESTER: SUPPRESS header if the setting is enabled
 		if (
-			kilocodeOptions.kilocodeTesterWarningsDisabledUntil &&
-			kilocodeOptions.kilocodeTesterWarningsDisabledUntil > Date.now()
+			arcaneaOptions.arcaneaTesterWarningsDisabledUntil &&
+			arcaneaOptions.arcaneaTesterWarningsDisabledUntil > Date.now()
 		) {
-			headers[X_KILOCODE_TESTER] = "SUPPRESS"
+			headers[X_ARCANEA_TESTER] = "SUPPRESS"
 		}
 
 		return Object.keys(headers).length > 0 ? { headers } : undefined
@@ -62,7 +62,7 @@ export class KilocodeOpenrouterHandler extends OpenRouterHandler {
 		if (!model.inputPrice && !model.outputPrice) {
 			return 0
 		}
-		// https://github.com/Kilo-Org/kilocode-backend/blob/eb3d382df1e933a089eea95b9c4387db0c676e35/src/lib/processUsage.ts#L281
+		// https://github.com/Arcanea-Org/arcanea-backend/blob/eb3d382df1e933a089eea95b9c4387db0c676e35/src/lib/processUsage.ts#L281
 		if (lastUsage.is_byok) {
 			return lastUsage.cost_details?.upstream_inference_cost || 0
 		}
@@ -70,7 +70,7 @@ export class KilocodeOpenrouterHandler extends OpenRouterHandler {
 	}
 
 	override getModel() {
-		let id = this.options.kilocodeModel ?? this.defaultModel
+		let id = this.options.arcaneaModel ?? this.defaultModel
 		let info = this.models[id] ?? openRouterDefaultModelInfo
 
 		// If a specific provider is requested, use the endpoint for that provider.
@@ -92,22 +92,22 @@ export class KilocodeOpenrouterHandler extends OpenRouterHandler {
 	}
 
 	public override async fetchModel() {
-		if (!this.options.kilocodeToken || !this.options.openRouterBaseUrl) {
-			throw new Error("KiloCode token + baseUrl is required to fetch models")
+		if (!this.options.arcaneaToken || !this.options.openRouterBaseUrl) {
+			throw new Error("Arcanea token + baseUrl is required to fetch models")
 		}
 
 		const [models, endpoints, defaultModel] = await Promise.all([
 			getModels({
-				provider: "kilocode-openrouter",
-				kilocodeToken: this.options.kilocodeToken,
-				kilocodeOrganizationId: this.options.kilocodeOrganizationId,
+				provider: "arcanea-openrouter",
+				arcaneaToken: this.options.arcaneaToken,
+				arcaneaOrganizationId: this.options.arcaneaOrganizationId,
 			}),
 			getModelEndpoints({
 				router: "openrouter",
-				modelId: this.options.kilocodeModel,
+				modelId: this.options.arcaneaModel,
 				endpoint: this.options.openRouterSpecificProvider,
 			}),
-			getKilocodeDefaultModel(this.options.kilocodeToken, this.options.kilocodeOrganizationId, this.options),
+			getArcaneaDefaultModel(this.options.arcaneaToken, this.options.arcaneaOrganizationId, this.options),
 		])
 
 		this.models = models

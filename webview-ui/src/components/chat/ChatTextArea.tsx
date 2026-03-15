@@ -19,30 +19,30 @@ import {
 	SearchResult,
 } from "@src/utils/context-mentions"
 import { convertToMentionPath } from "@/utils/path-mentions"
-import { DropdownOptionType, Button, StandardTooltip } from "@/components/ui" // kilocode_change
+import { DropdownOptionType, Button, StandardTooltip } from "@/components/ui" // arcanea_change
 
 import Thumbnails from "../common/Thumbnails"
 import { ModeSelector } from "./ModeSelector"
-import KiloModeSelector from "../kilocode/KiloModeSelector"
-import { KiloProfileSelector } from "../kilocode/chat/KiloProfileSelector" // kilocode_change
+import ArcaneaModeSelector from "../arcanea/ArcaneaModeSelector"
+import { ArcaneaProfileSelector } from "../arcanea/chat/ArcaneaProfileSelector" // arcanea_change
 import { MAX_IMAGES_PER_MESSAGE } from "./ChatView"
 import ContextMenu from "./ContextMenu"
-import { ImageWarningBanner } from "./ImageWarningBanner" // kilocode_change
+import { ImageWarningBanner } from "./ImageWarningBanner" // arcanea_change
 import {
 	VolumeX,
 	Pin,
 	Check,
-	// Image, // kilocode_change
+	// Image, // arcanea_change
 	WandSparkles,
 	SendHorizontal,
-	Paperclip, // kilocode_change
+	Paperclip, // arcanea_change
 } from "lucide-react"
 import { IndexingStatusBadge } from "./IndexingStatusBadge"
 import { cn } from "@/lib/utils"
 import { usePromptHistory } from "./hooks/usePromptHistory"
 import { EditModeControls } from "./EditModeControls"
 
-// kilocode_change start: pull slash commands from Cline
+// arcanea_change start: pull slash commands from Cline
 import SlashCommandMenu from "@/components/chat/SlashCommandMenu"
 import {
 	SlashCommand,
@@ -51,7 +51,7 @@ import {
 	insertSlashCommand,
 	validateSlashCommand,
 } from "@/utils/slash-commands"
-// kilocode_change end
+// arcanea_change end
 
 interface ChatTextAreaProps {
 	inputValue: string
@@ -106,9 +106,9 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 			cwd,
 			pinnedApiConfigs,
 			togglePinnedApiConfig,
-			localWorkflows, // kilocode_change
-			globalWorkflows, // kilocode_change
-			taskHistoryVersion, // kilocode_change
+			localWorkflows, // arcanea_change
+			globalWorkflows, // arcanea_change
+			taskHistoryVersion, // arcanea_change
 			clineMessages,
 		} = useExtensionState()
 
@@ -125,7 +125,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		const [showDropdown, setShowDropdown] = useState(false)
 		const [fileSearchResults, setFileSearchResults] = useState<SearchResult[]>([])
 
-		// kilocode_change begin: remove button from chat when it gets to small
+		// arcanea_change begin: remove button from chat when it gets to small
 		const [containerWidth, setContainerWidth] = useState<number>(300) // Default to a value larger than our threshold
 
 		const containerRef = useRef<HTMLDivElement>(null)
@@ -149,7 +149,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				resizeObserver.disconnect()
 			}
 		}, [])
-		// kilocode_change end
+		// arcanea_change end
 
 		const [searchLoading, setSearchLoading] = useState(false)
 		const [searchRequestId, setSearchRequestId] = useState<string>("")
@@ -209,7 +209,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					if (message.requestId === searchRequestId) {
 						setFileSearchResults(message.results || [])
 					}
-					// kilocode_change start
+					// arcanea_change start
 				} else if (message.type === "insertTextToChatArea") {
 					if (message.text) {
 						setInputValue(message.text)
@@ -220,7 +220,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						}, 0)
 					}
 				}
-				// kilocode_change end
+				// arcanea_change end
 			}
 
 			window.addEventListener("message", messageHandler)
@@ -228,12 +228,12 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		}, [setInputValue, searchRequestId])
 
 		const [isDraggingOver, setIsDraggingOver] = useState(false)
-		// kilocode_change start: pull slash commands from Cline
+		// arcanea_change start: pull slash commands from Cline
 		const [showSlashCommandsMenu, setShowSlashCommandsMenu] = useState(false)
 		const [selectedSlashCommandsIndex, setSelectedSlashCommandsIndex] = useState(0)
 		const [slashCommandsQuery, setSlashCommandsQuery] = useState("")
 		const slashCommandsMenuContainerRef = useRef<HTMLDivElement>(null)
-		// kilocode_end
+		// arcanea_end
 		const [textAreaBaseHeight, setTextAreaBaseHeight] = useState<number | undefined>(undefined)
 		const [showContextMenu, setShowContextMenu] = useState(false)
 		const [cursorPosition, setCursorPosition] = useState(0)
@@ -248,12 +248,12 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		const contextMenuContainerRef = useRef<HTMLDivElement>(null)
 		const [isEnhancingPrompt, setIsEnhancingPrompt] = useState(false)
 		const [isFocused, setIsFocused] = useState(false)
-		const [imageWarning, setImageWarning] = useState<string | null>(null) // kilocode_change
+		const [imageWarning, setImageWarning] = useState<string | null>(null) // arcanea_change
 
 		// Use custom hook for prompt history navigation
 		const { handleHistoryNavigation, resetHistoryNavigation, resetOnInputChange } = usePromptHistory({
 			clineMessages,
-			taskHistoryVersion, // kilocode_change
+			taskHistoryVersion, // arcanea_change
 			cwd,
 			inputValue,
 			setInputValue,
@@ -281,7 +281,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 			}
 		}, [inputValue, setInputValue, t])
 
-		// kilocode_change start: Image warning handlers
+		// arcanea_change start: Image warning handlers
 		const showImageWarning = useCallback((messageKey: string) => {
 			setImageWarning(messageKey)
 		}, [])
@@ -289,19 +289,19 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		const dismissImageWarning = useCallback(() => {
 			setImageWarning(null)
 		}, [])
-		// kilocode_change end: Image warning handlers
+		// arcanea_change end: Image warning handlers
 
-		// kilocode_change start: Clear images if unsupported
+		// arcanea_change start: Clear images if unsupported
 		// Track previous shouldDisableImages state to detect when model image support changes
 		const prevShouldDisableImages = useRef<boolean>(shouldDisableImages)
 		useEffect(() => {
 			if (!prevShouldDisableImages.current && shouldDisableImages && selectedImages.length > 0) {
 				setSelectedImages([])
-				showImageWarning("kilocode:imageWarnings.imagesRemovedNoSupport")
+				showImageWarning("arcanea:imageWarnings.imagesRemovedNoSupport")
 			}
 			prevShouldDisableImages.current = shouldDisableImages
 		}, [shouldDisableImages, selectedImages.length, setSelectedImages, showImageWarning])
-		// kilocode_change end: Clear images if unsupported
+		// arcanea_change end: Clear images if unsupported
 
 		const allModes = useMemo(() => getAllModes(customModes), [customModes])
 
@@ -347,7 +347,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 
 		const handleMentionSelect = useCallback(
 			(type: ContextMenuOptionType, value?: string) => {
-				// kilocode_change start
+				// arcanea_change start
 				if (type === ContextMenuOptionType.Image) {
 					// Close the context menu and remove the @character in this case
 					setShowContextMenu(false)
@@ -368,7 +368,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					onSelectImages()
 					return
 				}
-				// kilocode_change end
+				// arcanea_change end
 
 				if (type === ContextMenuOptionType.NoResults) {
 					return
@@ -438,7 +438,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 			[setInputValue, cursorPosition],
 		)
 
-		// kilocode_change start: pull slash commands from Cline
+		// arcanea_change start: pull slash commands from Cline
 		const handleSlashCommandsSelect = useCallback(
 			(command: SlashCommand) => {
 				setShowSlashCommandsMenu(false)
@@ -472,11 +472,11 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 			},
 			[setInputValue, setMode, customModes],
 		)
-		// kilocode_change end
+		// arcanea_change end
 
 		const handleKeyDown = useCallback(
 			(event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-				// kilocode_change start: pull slash commands from Cline
+				// arcanea_change start: pull slash commands from Cline
 				if (showSlashCommandsMenu) {
 					if (event.key === "Escape") {
 						setShowSlashCommandsMenu(false)
@@ -492,7 +492,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 								customModes,
 								localWorkflows,
 								globalWorkflows,
-							) // kilocode_change
+							) // arcanea_change
 
 							if (commands.length === 0) {
 								return prevIndex
@@ -511,14 +511,14 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							customModes,
 							localWorkflows,
 							globalWorkflows,
-						) // kilocode_change
+						) // arcanea_change
 						if (commands.length > 0) {
 							handleSlashCommandsSelect(commands[selectedSlashCommandsIndex])
 						}
 						return
 					}
 				}
-				// kilocode_change end
+				// arcanea_change end
 				if (showContextMenu) {
 					if (event.key === "Escape") {
 						setSelectedType(null)
@@ -643,7 +643,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				}
 			},
 			[
-				// kilocode_change start
+				// arcanea_change start
 				showSlashCommandsMenu,
 				localWorkflows,
 				globalWorkflows,
@@ -651,7 +651,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				handleSlashCommandsSelect,
 				selectedSlashCommandsIndex,
 				slashCommandsQuery,
-				// kilocode_change end
+				// arcanea_change end
 				onSend,
 				showContextMenu,
 				searchQuery,
@@ -691,7 +691,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				const newCursorPosition = e.target.selectionStart
 				setCursorPosition(newCursorPosition)
 
-				// kilocode_change start: pull slash commands from Cline
+				// arcanea_change start: pull slash commands from Cline
 				let showMenu = shouldShowContextMenu(newValue, newCursorPosition)
 				const showSlashCommandsMenu = shouldShowSlashCommandsMenu(newValue, newCursorPosition)
 
@@ -702,11 +702,11 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				}
 
 				setShowSlashCommandsMenu(showSlashCommandsMenu)
-				// kilocode_change end
+				// arcanea_change end
 
 				setShowContextMenu(showMenu)
 
-				// kilocode_change start: pull slash commands from Cline
+				// arcanea_change start: pull slash commands from Cline
 				if (showSlashCommandsMenu) {
 					const slashIndex = newValue.indexOf("/")
 					const query = newValue.slice(slashIndex + 1, newCursorPosition)
@@ -716,13 +716,13 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					setSlashCommandsQuery("")
 					setSelectedSlashCommandsIndex(0)
 				}
-				// kilocode_change end
+				// arcanea_change end
 
 				if (showMenu) {
-					// kilocode_change start - check lastAtIndex before handling slash commands
+					// arcanea_change start - check lastAtIndex before handling slash commands
 					const lastAtIndex = newValue.lastIndexOf("@", newCursorPosition - 1)
 
-					// if (newValue.startsWith("/")) { ⚠️ kilocode_change added lastAtIndex check
+					// if (newValue.startsWith("/")) { ⚠️ arcanea_change added lastAtIndex check
 					if (newValue.startsWith("/") && lastAtIndex === -1) {
 						// Handle slash command.
 						const query = newValue
@@ -782,7 +782,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 			// Only hide the context menu if the user didn't click on it.
 			if (!isMouseDownOnMenu) {
 				setShowContextMenu(false)
-				setShowSlashCommandsMenu(false) // kilocode_change: pull slash commands from Cline
+				setShowSlashCommandsMenu(false) // arcanea_change: pull slash commands from Cline
 			}
 
 			setIsFocused(false)
@@ -825,19 +825,19 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					return type === "image" && acceptedTypes.includes(subtype)
 				})
 
-				// kilocode_change start: Image validation with warning messages
+				// arcanea_change start: Image validation with warning messages
 				if (imageItems.length > 0) {
 					e.preventDefault()
 
 					if (shouldDisableImages) {
-						showImageWarning(`kilocode:imageWarnings.modelNoImageSupport`)
+						showImageWarning(`arcanea:imageWarnings.modelNoImageSupport`)
 						return
 					}
 					if (selectedImages.length >= MAX_IMAGES_PER_MESSAGE) {
-						showImageWarning(`kilocode:imageWarnings.maxImagesReached`)
+						showImageWarning(`arcanea:imageWarnings.maxImagesReached`)
 						return
 					}
-					// kilocode_change end: Image validation with warning messages
+					// arcanea_change end: Image validation with warning messages
 
 					const imagePromises = imageItems.map((item) => {
 						return new Promise<string | null>((resolve) => {
@@ -881,8 +881,8 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				setInputValue,
 				inputValue,
 				t,
-				selectedImages.length, // kilocode_change - added selectedImages.length
-				showImageWarning, // kilocode_change - added showImageWarning
+				selectedImages.length, // arcanea_change - added selectedImages.length
+				showImageWarning, // arcanea_change - added showImageWarning
 			],
 		)
 
@@ -893,7 +893,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		const updateHighlights = useCallback(() => {
 			if (!textAreaRef.current || !highlightLayerRef.current) return
 
-			// kilocode_change start: pull slash commands from Cline
+			// arcanea_change start: pull slash commands from Cline
 			let processedText = textAreaRef.current.value
 
 			processedText = processedText
@@ -921,7 +921,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						processedText.substring(0, slashIndex) + highlighted + processedText.substring(endIndex)
 				}
 			}
-			// kilocode_change end
+			// arcanea_change end
 
 			highlightLayerRef.current.innerHTML = processedText
 			highlightLayerRef.current.scrollTop = textAreaRef.current.scrollTop
@@ -1003,17 +1003,17 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						return type === "image" && acceptedTypes.includes(subtype)
 					})
 
-					// kilocode_change start: Image validation with warning messages for drag and drop
+					// arcanea_change start: Image validation with warning messages for drag and drop
 					if (imageFiles.length > 0) {
 						if (shouldDisableImages) {
-							showImageWarning("kilocode:imageWarnings.modelNoImageSupport")
+							showImageWarning("arcanea:imageWarnings.modelNoImageSupport")
 							return
 						}
 						if (selectedImages.length >= MAX_IMAGES_PER_MESSAGE) {
-							showImageWarning("kilocode:imageWarnings.maxImagesReached")
+							showImageWarning("arcanea:imageWarnings.maxImagesReached")
 							return
 						}
-						// kilocode_change end: Image validation with warning messages for drag and drop
+						// arcanea_change end: Image validation with warning messages for drag and drop
 
 						const imagePromises = imageFiles.map((file) => {
 							return new Promise<string | null>((resolve) => {
@@ -1060,8 +1060,8 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 				shouldDisableImages,
 				setSelectedImages,
 				t,
-				selectedImages.length, // kilocode_change - added selectedImages.length
-				showImageWarning, // kilocode_change - added showImageWarning
+				selectedImages.length, // arcanea_change - added selectedImages.length
+				showImageWarning, // arcanea_change - added showImageWarning
 			],
 		)
 
@@ -1089,7 +1089,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		)
 
 		// Helper function to render mode
-		// kilocode_change: unused
+		// arcanea_change: unused
 		const _renderModeSelector = () => (
 			<ModeSelector
 				value={mode}
@@ -1103,7 +1103,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		)
 
 		// Helper function to get API config dropdown options
-		// kilocode_change: unused
+		// arcanea_change: unused
 		const _getApiConfigOptions = useMemo(() => {
 			const pinnedConfigs = (listApiConfigMeta || [])
 				.filter((config) => pinnedApiConfigs && pinnedApiConfigs[config.id])
@@ -1155,7 +1155,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		}, [listApiConfigMeta, pinnedApiConfigs, t])
 
 		// Helper function to handle API config change
-		// kilocode_change: unused
+		// arcanea_change: unused
 		const _handleApiConfigChange = useCallback((value: string) => {
 			if (value === "settingsButtonClicked") {
 				vscode.postMessage({
@@ -1169,7 +1169,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 		}, [])
 
 		// Helper function to render API config item
-		// kilocode_change: unused
+		// arcanea_change: unused
 		const _renderApiConfigItem = useCallback(
 			({ type, value, label, pinned }: any) => {
 				if (type !== DropdownOptionType.ITEM) {
@@ -1223,10 +1223,10 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 
 		// Helper function to render non-edit mode controls
 		const renderNonEditModeControls = () => (
-			// kilocode_change move thumbnails to bottom
+			// arcanea_change move thumbnails to bottom
 
 			<div
-				// kilocode_change start
+				// arcanea_change start
 				style={{
 					marginTop: "-38px",
 					zIndex: 2,
@@ -1234,21 +1234,21 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					paddingRight: "8px",
 				}}
 				ref={containerRef}
-				// kilocode_change end
+				// arcanea_change end
 				className={cn("flex", "justify-between", "items-center", "mt-auto")}>
 				<div className={cn("flex", "items-center", "gap-1", "min-w-0")}>
 					<div className="shrink-0">
-						{/* kilocode_change start: KiloModeSelector instead of ModeSelector */}
-						<KiloModeSelector
+						{/* arcanea_change start: ArcaneaModeSelector instead of ModeSelector */}
+						<ArcaneaModeSelector
 							value={mode}
 							onChange={setMode}
 							modeShortcutText={modeShortcutText}
 							customModes={customModes}
 						/>
-						{/* kilocode_change end */}
+						{/* arcanea_change end */}
 					</div>
 
-					<KiloProfileSelector
+					<ArcaneaProfileSelector
 						currentConfigId={currentConfigId}
 						currentApiConfigName={currentApiConfigName}
 						displayName={displayName}
@@ -1259,7 +1259,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					/>
 				</div>
 
-				{/* kilocode_change: hidden on small containerWidth
+				{/* arcanea_change: hidden on small containerWidth
 					<div className={cn("flex", "items-center", "gap-0.5", "shrink-0")}>
 						{isTtsPlaying && (
 							<StandardTooltip content={t("chat:stopTts")}>
@@ -1344,7 +1344,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						"pr-9",
 						"z-10",
 						"forced-color-adjust-none",
-						"pb-16", // kilocode_change
+						"pb-16", // arcanea_change
 					)}
 					style={{
 						color: "transparent",
@@ -1378,7 +1378,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 
 						onHeightChange?.(height)
 					}}
-					// kilocode_change: combine placeholderText and placeholderBottomText here
+					// arcanea_change: combine placeholderText and placeholderBottomText here
 					placeholder={`${placeholderText}\n${placeholderBottomText}`}
 					minRows={3}
 					maxRows={15}
@@ -1412,11 +1412,11 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						"z-[2]",
 						"scrollbar-none",
 						"scrollbar-hide",
-						"pb-16", // kilocode_change: Increased padding to prevent overlap with control bar
+						"pb-16", // arcanea_change: Increased padding to prevent overlap with control bar
 					)}
 					onScroll={() => updateHighlights()}
 				/>
-				{/* kilocode_change {Transparent overlay at bottom of textArea to avoid text overlap } */}
+				{/* arcanea_change {Transparent overlay at bottom of textArea to avoid text overlap } */}
 				<div
 					className="absolute bottom-[1px] left-2 right-2 h-16 bg-gradient-to-t from-[var(--vscode-input-background)] via-[var(--vscode-input-background)] to-transparent pointer-events-none z-[2]"
 					aria-hidden="true"
@@ -1434,7 +1434,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					</StandardTooltip>
 				)}
 
-				{/* kilocode_change: position tweaked */}
+				{/* arcanea_change: position tweaked */}
 				<div className="absolute top-2 right-2 z-30">
 					<StandardTooltip content={t("chat:enhancePrompt")}>
 						<button
@@ -1457,9 +1457,9 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 					</StandardTooltip>
 				</div>
 
-				{/* kilocode_change: position tweaked, rtl support */}
+				{/* arcanea_change: position tweaked, rtl support */}
 				<div className="absolute bottom-2 end-2 z-30">
-					{/* kilocode_change start */}
+					{/* arcanea_change start */}
 					<IndexingStatusBadge className={cn({ hidden: containerWidth < 235 })} />
 					<StandardTooltip content="Add Context (@)">
 						<button
@@ -1512,12 +1512,12 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 									sendingDisabled &&
 										"opacity-40 cursor-not-allowed grayscale-[30%] hover:bg-transparent hover:border-[rgba(255,255,255,0.08)] active:bg-transparent",
 								)}>
-								{/* kilocode_change: rtl */}
+								{/* arcanea_change: rtl */}
 								<SendHorizontal className="w-4 h-4 rtl:-scale-x-100" />
 							</button>
 						</StandardTooltip>
 					)}
-					{/* kilocode_change end */}
+					{/* arcanea_change end */}
 				</div>
 
 				{!inputValue && (
@@ -1529,7 +1529,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 							userSelect: "none",
 							pointerEvents: "none",
 						}}>
-						{/* kilocode_change {placeholderBottomText} */}
+						{/* arcanea_change {placeholderBottomText} */}
 					</div>
 				)}
 			</div>
@@ -1581,14 +1581,14 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 								setIsDraggingOver(false)
 							}
 						}}>
-						{/* kilocode_change start: ImageWarningBanner integration */}
+						{/* arcanea_change start: ImageWarningBanner integration */}
 						<ImageWarningBanner
 							messageKey={imageWarning ?? ""}
 							onDismiss={dismissImageWarning}
 							isVisible={!!imageWarning}
 						/>
-						{/* kilocode_change end: ImageWarningBanner integration */}
-						{/* kilocode_change start: pull slash commands from Cline */}
+						{/* arcanea_change end: ImageWarningBanner integration */}
+						{/* arcanea_change start: pull slash commands from Cline */}
 						{showSlashCommandsMenu && (
 							<div ref={slashCommandsMenuContainerRef}>
 								<SlashCommandMenu
@@ -1601,7 +1601,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 								/>
 							</div>
 						)}
-						{/* kilocode_change end: pull slash commands from Cline */}
+						{/* arcanea_change end: pull slash commands from Cline */}
 						{showContextMenu && (
 							<div
 								ref={contextMenuContainerRef}
@@ -1632,7 +1632,7 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						)}
 
 						{renderTextAreaSection()}
-						{/* kilocode_change: renderNonEditModeControls moved */}
+						{/* arcanea_change: renderNonEditModeControls moved */}
 						{!isEditMode && renderNonEditModeControls()}
 					</div>
 
@@ -1659,13 +1659,13 @@ export const ChatTextArea = forwardRef<HTMLTextAreaElement, ChatTextAreaProps>(
 						style={{
 							left: "16px",
 							zIndex: 2,
-							marginTop: "14px", // kilocode_change
+							marginTop: "14px", // arcanea_change
 							marginBottom: 0,
 						}}
 					/>
 				)}
 
-				{/* kilocode_change: renderNonEditModeControls moved */}
+				{/* arcanea_change: renderNonEditModeControls moved */}
 			</div>
 		)
 	},

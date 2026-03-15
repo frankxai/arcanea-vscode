@@ -46,8 +46,8 @@ async function safeReadFile(filePath: string): Promise<string> {
  * Get the path to a system prompt file for a specific mode
  */
 export function getSystemPromptFilePath(cwd: string, mode: Mode): string {
-	// kilocode_change
-	return path.join(cwd, ".kilocode", `system-prompt-${mode}`)
+	// arcanea_change
+	return path.join(cwd, ".arcanea", `system-prompt-${mode}`)
 }
 
 /**
@@ -65,11 +65,11 @@ export async function loadSystemPromptFile(cwd: string, mode: Mode, variables: P
 }
 
 /**
- * Ensures the .kilocode directory exists, creating it if necessary
+ * Ensures the .arcanea directory exists, creating it if necessary
  */
 export async function ensureRooDirectory(cwd: string): Promise<void> {
-	// kilocode_change
-	const rooDir = path.join(cwd, ".kilocode")
+	// arcanea_change
+	const rooDir = path.join(cwd, ".arcanea")
 
 	// Check if directory already exists
 	if (await fileExistsAtPath(rooDir)) {

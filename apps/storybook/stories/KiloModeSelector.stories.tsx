@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import KiloModeSelector from "../../../webview-ui/src/components/kilocode/KiloModeSelector"
+import ArcaneaModeSelector from "../../../webview-ui/src/components/arcanea/ArcaneaModeSelector"
 import { Mode } from "@roo/modes"
-import { DEFAULT_MODES } from "@roo-code/types"
+import { DEFAULT_MODES } from "@arcanea/types"
 import { withI18n } from "../src/decorators/withI18n"
 import { withTheme } from "../src/decorators/withTheme"
 import { withTooltipProvider } from "../src/decorators/withTooltipProvider"
@@ -16,12 +16,12 @@ interface WrapperProps {
 	initiallyOpen?: boolean
 }
 
-const KiloModeSelectorWrapper = (props: WrapperProps) => {
+const ArcaneaModeSelectorWrapper = (props: WrapperProps) => {
 	const [selectedMode, setSelectedMode] = useState<Mode>(props.value || "code")
 
 	return (
 		<div style={{ padding: "20px", minHeight: "400px", maxWidth: "300px" }}>
-			<KiloModeSelector
+			<ArcaneaModeSelector
 				{...props}
 				value={selectedMode}
 				onChange={setSelectedMode}
@@ -31,9 +31,9 @@ const KiloModeSelectorWrapper = (props: WrapperProps) => {
 	)
 }
 
-const meta: Meta<typeof KiloModeSelectorWrapper> = {
-	title: "Chat/KiloModeSelector",
-	component: KiloModeSelectorWrapper,
+const meta: Meta<typeof ArcaneaModeSelectorWrapper> = {
+	title: "Chat/ArcaneaModeSelector",
+	component: ArcaneaModeSelectorWrapper,
 	decorators: [withI18n, withTheme, withTooltipProvider],
 }
 

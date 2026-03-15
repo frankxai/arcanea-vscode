@@ -3,12 +3,12 @@ import { Server, ChevronDown, ChevronRight } from "lucide-react"
 import { useEvent } from "react-use"
 import { useTranslation } from "react-i18next"
 
-import { McpExecutionStatus, mcpExecutionStatusSchema } from "@roo-code/types"
+import { McpExecutionStatus, mcpExecutionStatusSchema } from "@arcanea/types"
 import { ExtensionMessage, ClineAskUseMcpServer } from "../../../../src/shared/ExtensionMessage"
 import { safeJsonParse } from "../../../../src/shared/safeJsonParse"
 import { cn } from "@src/lib/utils"
 import { Button } from "@src/components/ui"
-import CodeBlock from "../kilocode/common/CodeBlock" // kilocode_change
+import CodeBlock from "../arcanea/common/CodeBlock" // arcanea_change
 import McpToolRow from "../mcp/McpToolRow"
 import { Markdown } from "./Markdown"
 
@@ -28,7 +28,7 @@ interface McpExecutionProps {
 	}
 	useMcpServer?: ClineAskUseMcpServer
 	alwaysAllowMcp?: boolean
-	initiallyExpanded?: boolean // kilocode_change: For Storybook stories only
+	initiallyExpanded?: boolean // arcanea_change: For Storybook stories only
 }
 
 export const McpExecution = ({
@@ -40,7 +40,7 @@ export const McpExecution = ({
 	server,
 	useMcpServer,
 	alwaysAllowMcp = false,
-	initiallyExpanded = false, // kilocode_change
+	initiallyExpanded = false, // arcanea_change
 }: McpExecutionProps) => {
 	const { t } = useTranslation("mcp")
 
@@ -51,7 +51,7 @@ export const McpExecution = ({
 	const [serverName, setServerName] = useState(initialServerName)
 	const [toolName, setToolName] = useState(initialToolName)
 
-	// kilocode_change: Main collapse state for the entire MCP execution content
+	// arcanea_change: Main collapse state for the entire MCP execution content
 	const [isResponseExpanded, setIsResponseExpanded] = useState(initiallyExpanded)
 
 	// Try to parse JSON and return both the result and formatted text
@@ -72,7 +72,7 @@ export const McpExecution = ({
 		}
 	}, [])
 
-	// kilocode_change: Only parse response data when main content is expanded AND complete to avoid parsing partial JSON
+	// arcanea_change: Only parse response data when main content is expanded AND complete to avoid parsing partial JSON
 	const responseData = useMemo(() => {
 		if (!isResponseExpanded) {
 			return { isJson: false, formatted: responseText }
@@ -182,7 +182,7 @@ export const McpExecution = ({
 		<>
 			<div
 				className="flex flex-row items-center justify-between gap-2 mb-1 cursor-pointer select-none"
-				onClick={onToggleResponseExpand /* kilocode_change */}>
+				onClick={onToggleResponseExpand /* arcanea_change */}>
 				<div className="flex flex-row items-center gap-1 flex-wrap">
 					<Server size={16} className="text-vscode-descriptionForeground" />
 					<div className="flex items-center gap-1 flex-wrap">
@@ -217,7 +217,7 @@ export const McpExecution = ({
 							</div>
 						)}
 					</div>
-					{/* kilocode_change start - moved Chevron button */}
+					{/* arcanea_change start - moved Chevron button */}
 					<Button
 						variant="ghost"
 						size="icon"
@@ -227,7 +227,7 @@ export const McpExecution = ({
 						}}>
 						{!isResponseExpanded ? <ChevronRight className="size-4" /> : <ChevronDown className="size-4" />}
 					</Button>
-					{/* kilocode_change end - moved Chevron button */}
+					{/* arcanea_change end - moved Chevron button */}
 				</div>
 			</div>
 

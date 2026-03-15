@@ -9,8 +9,8 @@ import {
 	type ClineMessage,
 	openRouterDefaultModelId,
 	ORGANIZATION_ALLOW_ALL,
-} from "@roo-code/types" // kilocode_change: openRouterDefaultModelId
-import { TelemetryService } from "@roo-code/telemetry"
+} from "@arcanea/types" // arcanea_change: openRouterDefaultModelId
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { ExtensionMessage, ExtensionState } from "../../../shared/ExtensionMessage"
 import { defaultModeSlug } from "../../../shared/modes"
@@ -157,7 +157,7 @@ vi.mock("vscode", () => ({
 		showWarningMessage: vi.fn(),
 		showErrorMessage: vi.fn(),
 		onDidChangeActiveTextEditor: vi.fn(() => ({ dispose: vi.fn() })),
-		createTextEditorDecorationType: vi.fn(() => ({ dispose: vi.fn() })), // kilocode_change
+		createTextEditorDecorationType: vi.fn(() => ({ dispose: vi.fn() })), // arcanea_change
 	},
 	workspace: {
 		getConfiguration: vi.fn().mockReturnValue({
@@ -175,7 +175,7 @@ vi.mock("vscode", () => ({
 	env: {
 		uriScheme: "vscode",
 		language: "en",
-		uiKind: 1, // kilocode_change Desktop
+		uiKind: 1, // arcanea_change Desktop
 		appName: "Visual Studio Code",
 	},
 	ExtensionMode: {
@@ -183,14 +183,14 @@ vi.mock("vscode", () => ({
 		Development: 2,
 		Test: 3,
 	},
-	// kilocode_change start
+	// arcanea_change start
 	UIKind: {
 		1: "Desktop",
 		2: "Web",
 		Desktop: 1,
 		Web: 2,
 	},
-	// kilocode_change end
+	// arcanea_change end
 	version: "1.85.0",
 }))
 
@@ -332,7 +332,7 @@ vi.mock("../diff/strategies/multi-search-replace", () => ({
 	})),
 }))
 
-vi.mock("@roo-code/cloud", () => ({
+vi.mock("@arcanea/cloud", () => ({
 	CloudService: {
 		hasInstance: vi.fn().mockReturnValue(true),
 		get instance() {
@@ -503,7 +503,7 @@ describe("ClineProvider", () => {
 
 		// Verify Content Security Policy contains the necessary PostHog domains
 		expect(mockWebviewView.webview.html).toContain(
-			// kilocode_change: added localhost:3000
+			// arcanea_change: added localhost:3000
 			"connect-src vscode-webview://test-csp-source https://* http://localhost:3000 https://openrouter.ai https://api.requesty.ai https://us.i.posthog.com https://us-assets.i.posthog.com",
 		)
 
@@ -522,17 +522,17 @@ describe("ClineProvider", () => {
 		const mockState: ExtensionState = {
 			version: "1.0.0",
 			clineMessages: [],
-			taskHistoryFullLength: 0, // kilocode_change
-			taskHistoryVersion: 0, // kilocode_change
+			taskHistoryFullLength: 0, // arcanea_change
+			taskHistoryVersion: 0, // arcanea_change
 			shouldShowAnnouncement: false,
 			apiConfiguration: {
-				// kilocode_change start
-				apiProvider: "kilocode",
-				kilocodeModel: openRouterDefaultModelId,
-				kilocodeToken: "kilocode-token",
-				// kilocode_change end
+				// arcanea_change start
+				apiProvider: "arcanea",
+				arcaneaModel: openRouterDefaultModelId,
+				arcaneaToken: "arcanea-token",
+				// arcanea_change end
 			},
-			kilocodeDefaultModel: openRouterDefaultModelId,
+			arcaneaDefaultModel: openRouterDefaultModelId,
 			customInstructions: undefined,
 			alwaysAllowReadOnly: false,
 			alwaysAllowReadOnlyOutsideWorkspace: false,
@@ -569,7 +569,7 @@ describe("ClineProvider", () => {
 			showRooIgnoredFiles: false,
 			renderContext: "sidebar",
 			maxReadFileLine: 500,
-			showAutoApproveMenu: false, // kilocode_change
+			showAutoApproveMenu: false, // arcanea_change
 			maxImageFileSize: 5,
 			maxTotalImageSize: 20,
 			cloudUserInfo: null,
@@ -772,7 +772,7 @@ describe("ClineProvider", () => {
 		expect(state).toHaveProperty("alwaysAllowWrite")
 		expect(state).toHaveProperty("alwaysAllowExecute")
 		expect(state).toHaveProperty("alwaysAllowBrowser")
-		// expect(state).toHaveProperty("taskHistory") // kilocode_change
+		// expect(state).toHaveProperty("taskHistory") // arcanea_change
 		expect(state).toHaveProperty("soundEnabled")
 		expect(state).toHaveProperty("ttsEnabled")
 		expect(state).toHaveProperty("diffEnabled")
@@ -2347,7 +2347,7 @@ describe("Project MCP Settings", () => {
 		})
 
 		// Check that fs.mkdir was called with the correct path
-		expect(mockedFs.mkdir).toHaveBeenCalledWith("/test/workspace/.kilocode", { recursive: true })
+		expect(mockedFs.mkdir).toHaveBeenCalledWith("/test/workspace/.arcanea", { recursive: true })
 
 		// Verify file was created with default content
 		expect(safeWriteJson).toHaveBeenCalledWith("/test/workspace/.roo/mcp.json", { mcpServers: {} })
@@ -2388,7 +2388,7 @@ describe("Project MCP Settings", () => {
 
 		// Verify error message was shown
 		expect(vscode.window.showErrorMessage).toHaveBeenCalledWith(
-			// kilocode_change
+			// arcanea_change
 			expect.stringContaining("Failed to create or open .arcanea/mcp.json"),
 		)
 	})
@@ -2461,7 +2461,7 @@ vi.mock("../../../api/providers/fetchers/modelCache", () => ({
 }))
 
 describe.skip("getTelemetryProperties", () => {
-	// kilocode_change: skip suite
+	// arcanea_change: skip suite
 	let defaultTaskOptions: TaskOptions
 	let provider: ClineProvider
 	let mockContext: vscode.ExtensionContext
@@ -2540,7 +2540,7 @@ describe.skip("getTelemetryProperties", () => {
 
 		test("includes cloud authentication property when user is authenticated", async () => {
 			// Import the CloudService mock and update it
-			const { CloudService } = await import("@roo-code/cloud")
+			const { CloudService } = await import("@arcanea/cloud")
 			const mockCloudService = {
 				isAuthenticated: vi.fn().mockReturnValue(true),
 			}
@@ -2558,7 +2558,7 @@ describe.skip("getTelemetryProperties", () => {
 
 		test("includes cloud authentication property when user is not authenticated", async () => {
 			// Import the CloudService mock and update it
-			const { CloudService } = await import("@roo-code/cloud")
+			const { CloudService } = await import("@arcanea/cloud")
 			const mockCloudService = {
 				isAuthenticated: vi.fn().mockReturnValue(false),
 			}
@@ -2576,7 +2576,7 @@ describe.skip("getTelemetryProperties", () => {
 
 		test("handles CloudService errors gracefully", async () => {
 			// Import the CloudService mock and update it to throw an error
-			const { CloudService } = await import("@roo-code/cloud")
+			const { CloudService } = await import("@arcanea/cloud")
 			Object.defineProperty(CloudService, "instance", {
 				get: vi.fn().mockImplementation(() => {
 					throw new Error("CloudService not available")
@@ -2597,7 +2597,7 @@ describe.skip("getTelemetryProperties", () => {
 
 		test("handles CloudService method errors gracefully", async () => {
 			// Import the CloudService mock and update it
-			const { CloudService } = await import("@roo-code/cloud")
+			const { CloudService } = await import("@arcanea/cloud")
 			const mockCloudService = {
 				isAuthenticated: vi.fn().mockImplementation(() => {
 					throw new Error("Authentication check error")
@@ -2727,7 +2727,7 @@ describe("ClineProvider - Router Models", () => {
 		await messageHandler({ type: "requestRouterModels" })
 
 		// Verify getModels was called for each provider with correct options
-		expect(getModels).toHaveBeenCalledWith({ provider: "openrouter", apiKey: "openrouter-key" }) // kilocode_change: apiKey
+		expect(getModels).toHaveBeenCalledWith({ provider: "openrouter", apiKey: "openrouter-key" }) // arcanea_change: apiKey
 		expect(getModels).toHaveBeenCalledWith({ provider: "requesty", apiKey: "requesty-key" })
 		expect(getModels).toHaveBeenCalledWith({ provider: "glama" })
 		expect(getModels).toHaveBeenCalledWith({ provider: "unbound", apiKey: "unbound-key" })
@@ -2748,8 +2748,8 @@ describe("ClineProvider - Router Models", () => {
 				glama: mockModels,
 				unbound: mockModels,
 				litellm: mockModels,
-				"kilocode-openrouter": mockModels,
-				ollama: mockModels, // kilocode_change
+				"arcanea-openrouter": mockModels,
+				ollama: mockModels, // arcanea_change
 				lmstudio: {},
 				"vercel-ai-gateway": mockModels,
 			},
@@ -2782,8 +2782,8 @@ describe("ClineProvider - Router Models", () => {
 			.mockRejectedValueOnce(new Error("Requesty API error")) // requesty fail
 			.mockResolvedValueOnce(mockModels) // glama success
 			.mockRejectedValueOnce(new Error("Unbound API error")) // unbound fail
-			.mockRejectedValueOnce(new Error("Kilocode-OpenRouter API error")) // kilocode-openrouter fail
-			.mockRejectedValueOnce(new Error("Ollama API error")) // kilocode_change
+			.mockRejectedValueOnce(new Error("Arcaneacode-OpenRouter API error")) // arcanea-openrouter fail
+			.mockRejectedValueOnce(new Error("Ollama API error")) // arcanea_change
 			.mockResolvedValueOnce(mockModels) // vercel-ai-gateway success
 			.mockResolvedValueOnce(mockModels) // deepinfra success
 			.mockRejectedValueOnce(new Error("LiteLLM connection failed")) // litellm fail
@@ -2802,7 +2802,7 @@ describe("ClineProvider - Router Models", () => {
 				ollama: {},
 				lmstudio: {},
 				litellm: {},
-				"kilocode-openrouter": {},
+				"arcanea-openrouter": {},
 				"vercel-ai-gateway": mockModels,
 			},
 		})
@@ -2825,8 +2825,8 @@ describe("ClineProvider - Router Models", () => {
 		expect(mockPostMessage).toHaveBeenCalledWith({
 			type: "singleRouterModelFetchResponse",
 			success: false,
-			error: "Kilocode-OpenRouter API error",
-			values: { provider: "kilocode-openrouter" },
+			error: "Arcaneacode-OpenRouter API error",
+			values: { provider: "arcanea-openrouter" },
 		})
 
 		expect(mockPostMessage).toHaveBeenCalledWith({
@@ -2920,8 +2920,8 @@ describe("ClineProvider - Router Models", () => {
 				glama: mockModels,
 				unbound: mockModels,
 				litellm: {},
-				"kilocode-openrouter": mockModels,
-				ollama: mockModels, // kilocode_change
+				"arcanea-openrouter": mockModels,
+				ollama: mockModels, // arcanea_change
 				lmstudio: {},
 				"vercel-ai-gateway": mockModels,
 			},

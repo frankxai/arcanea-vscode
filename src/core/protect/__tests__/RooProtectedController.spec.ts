@@ -150,11 +150,11 @@ describe("RooProtectedController", () => {
 			const patterns = RooProtectedController.getProtectedPatterns()
 
 			expect(patterns).toEqual([
-				".kilocodeignore",
+				".arcaneaignore",
 				".arcaneamodes",
-				".kilocoderules",
+				".arcanearules",
 				".arcanea/**",
-				".kilocodeprotected",
+				".arcaneaprotected",
 				".rooignore",
 				".roomodes",
 				".roorules*",

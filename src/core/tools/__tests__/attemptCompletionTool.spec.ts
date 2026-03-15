@@ -1,4 +1,4 @@
-import { TodoItem } from "@roo-code/types"
+import { TodoItem } from "@arcanea/types"
 
 import { AttemptCompletionToolUse } from "../../../shared/tools"
 
@@ -16,17 +16,17 @@ vi.mock("vscode", () => ({
 			get: vi.fn(),
 		})),
 	},
-	// kilocode_change start
+	// arcanea_change start
 	window: {
 		createTextEditorDecorationType: vi.fn(() => ({ dispose: vi.fn() })),
 	},
-	// kilocode_change end
+	// arcanea_change end
 }))
 
 // Mock Package module
 vi.mock("../../../shared/package", () => ({
 	Package: {
-		name: "kilo-code",
+		name: "arcanea",
 	},
 }))
 

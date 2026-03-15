@@ -5,12 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { renderHook } from "@testing-library/react"
 import type { Mock } from "vitest"
 
-import { ProviderSettings, ModelInfo, BEDROCK_CLAUDE_SONNET_4_MODEL_ID } from "@roo-code/types"
+import { ProviderSettings, ModelInfo, BEDROCK_CLAUDE_SONNET_4_MODEL_ID } from "@arcanea/types"
 
 import { useSelectedModel } from "../useSelectedModel"
 import { useRouterModels } from "../useRouterModels"
 import { useOpenRouterModelProviders } from "../useOpenRouterModelProviders"
-import { ExtensionStateContextProvider } from "@src/context/ExtensionStateContext" // kilocode_change
+import { ExtensionStateContextProvider } from "@src/context/ExtensionStateContext" // arcanea_change
 
 vi.mock("../useRouterModels")
 vi.mock("../useOpenRouterModelProviders")
@@ -26,14 +26,14 @@ const createWrapper = () => {
 			},
 		},
 	})
-	// kilocode_change start: wrap with ExtensionStateContextProvider
+	// arcanea_change start: wrap with ExtensionStateContextProvider
 	return ({ children }: { children: React.ReactNode }) =>
 		React.createElement(
 			ExtensionStateContextProvider,
 			null,
 			React.createElement(QueryClientProvider, { client: queryClient }, children),
 		)
-	// kilocode_change end
+	// arcanea_change end
 }
 
 describe("useSelectedModel", () => {

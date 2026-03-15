@@ -1,7 +1,7 @@
-# Kilocode Change Marking Guidelines
+# Arcaneacode Change Marking Guidelines
 
 We are a fork of Roo. We regularly merge in the Roo codebase. To enable us to merge more easily, we mark all
-our own changes with `kilocode_change` comments.
+our own changes with `arcanea_change` comments.
 
 ## Basic Usage
 
@@ -10,7 +10,7 @@ our own changes with `kilocode_change` comments.
 For single line changes, add the comment at the end of the line:
 
 ```typescript
-let i = 2 // kilocode_change
+let i = 2 // arcanea_change
 ```
 
 ### Multi-line Changes
@@ -18,10 +18,10 @@ let i = 2 // kilocode_change
 For multiple consecutive lines, wrap them with start/end comments:
 
 ```typescript
-// kilocode_change start
+// arcanea_change start
 let i = 2
 let j = 3
-// kilocode_change end
+// arcanea_change end
 ```
 
 ## Language-Specific Examples
@@ -29,36 +29,36 @@ let j = 3
 ### HTML/JSX/TSX
 
 ```html
-{/* kilocode_change start */}
-<CustomKiloComponent />
-{/* kilocode_change end */}
+{/* arcanea_change start */}
+<CustomArcaneaComponent />
+{/* arcanea_change end */}
 ```
 
 ### CSS/SCSS
 
 ```css
-/* kilocode_change */
-.kilocode-specific-class {
+/* arcanea_change */
+.arcanea-specific-class {
 	color: blue;
 }
 
-/* kilocode_change start */
+/* arcanea_change start */
 .another-class {
 	background: red;
 }
-/* kilocode_change end */
+/* arcanea_change end */
 ```
 
 ## Special Cases
 
-### Kilocode specific file
+### Arcaneacode specific file
 
-if the filename or directory name contains kilocode no marking with comments is required
+if the filename or directory name contains arcanea no marking with comments is required
 
 ### New Files
 
 If you're creating a completely new file that doesn't exist in Roo, add this comment at the top:
 
 ```
-// kilocode_change - new file
+// arcanea_change - new file
 ```

@@ -14,10 +14,10 @@ vi.mock("vscode", () => ({
 // Mock Package module
 vi.mock("../../../shared/package", () => ({
 	Package: {
-		name: "kilo-code",
-		publisher: "Kilo-Org",
+		name: "arcanea",
+		publisher: "Arcanea-Org",
 		version: "1.0.0",
-		outputChannel: "Kilo-Code",
+		outputChannel: "Arcanea-Code",
 	},
 }))
 
@@ -585,7 +585,7 @@ describe("newTaskTool", () => {
 			)
 
 			// Verify that VSCode configuration was accessed correctly
-			expect(mockGetConfiguration).toHaveBeenCalledWith("kilo-code")
+			expect(mockGetConfiguration).toHaveBeenCalledWith("arcanea")
 			expect(mockGet).toHaveBeenCalledWith("newTaskRequireTodos", false)
 		})
 

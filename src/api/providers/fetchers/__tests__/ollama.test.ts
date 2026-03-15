@@ -18,8 +18,8 @@ describe("Ollama Fetcher", () => {
 			const parsedModel = parseOllamaModel(modelData)
 
 			expect(parsedModel).toEqual({
-				maxTokens: 4096, // kilocode_change
-				contextWindow: 4096, // kilocode_change
+				maxTokens: 4096, // arcanea_change
+				contextWindow: 4096, // arcanea_change
 				supportsImages: false,
 				supportsComputerUse: false,
 				supportsPromptCache: true,
@@ -27,7 +27,7 @@ describe("Ollama Fetcher", () => {
 				outputPrice: 0,
 				cacheWritesPrice: 0,
 				cacheReadsPrice: 0,
-				description: "Family: qwen3, Context: 4096, Size: 32.8B", // kilocode_change
+				description: "Family: qwen3, Context: 4096, Size: 32.8B", // arcanea_change
 			})
 		})
 
@@ -43,8 +43,8 @@ describe("Ollama Fetcher", () => {
 			const parsedModel = parseOllamaModel(modelDataWithNullFamilies as any)
 
 			expect(parsedModel).toEqual({
-				maxTokens: 4096, // kilocode_change
-				contextWindow: 4096, // kilocode_change
+				maxTokens: 4096, // arcanea_change
+				contextWindow: 4096, // arcanea_change
 				supportsImages: false,
 				supportsComputerUse: false,
 				supportsPromptCache: true,
@@ -52,7 +52,7 @@ describe("Ollama Fetcher", () => {
 				outputPrice: 0,
 				cacheWritesPrice: 0,
 				cacheReadsPrice: 0,
-				description: "Family: qwen3, Context: 4096, Size: 32.8B", // kilocode_change
+				description: "Family: qwen3, Context: 4096, Size: 32.8B", // arcanea_change
 			})
 		})
 	})

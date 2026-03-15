@@ -13,15 +13,15 @@ import type {
 	OrganizationAllowList,
 	ShareVisibility,
 	QueuedMessage,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { GitCommit } from "../utils/git"
 
 import { McpServer } from "./mcp"
-import { McpMarketplaceCatalog, McpDownloadResponse } from "./kilocode/mcp"
+import { McpMarketplaceCatalog, McpDownloadResponse } from "./arcanea/mcp"
 import { Mode } from "./modes"
 import { ModelRecord, RouterModels } from "./api"
-// kilocode_change start
+// arcanea_change start
 import {
 	ProfileDataResponsePayload,
 	BalanceDataResponsePayload,
@@ -29,8 +29,8 @@ import {
 	TasksByIdResponsePayload,
 } from "./WebviewMessage"
 import { ClineRulesToggles } from "./cline-rules"
-import { KiloCodeWrapperProperties } from "./kilocode/wrapper"
-// kilocode_change end
+import { ArcaneaWrapperProperties } from "./arcanea/wrapper"
+// arcanea_change end
 
 // Command interface for frontend/backend communication
 export interface Command {
@@ -105,7 +105,7 @@ export interface ExtensionMessage {
 		| "showHumanRelayDialog"
 		| "humanRelayResponse"
 		| "humanRelayCancel"
-		| "insertTextToChatArea" // kilocode_change
+		| "insertTextToChatArea" // arcanea_change
 		| "browserToolEnabled"
 		| "browserConnectionResult"
 		| "remoteBrowserEnabled"
@@ -114,64 +114,64 @@ export interface ExtensionMessage {
 		| "maxReadFileLine"
 		| "fileSearchResults"
 		| "toggleApiConfigPin"
-		| "mcpMarketplaceCatalog" // kilocode_change
-		| "mcpDownloadDetails" // kilocode_change
-		| "showSystemNotification" // kilocode_change
-		| "openInBrowser" // kilocode_change
+		| "mcpMarketplaceCatalog" // arcanea_change
+		| "mcpDownloadDetails" // arcanea_change
+		| "showSystemNotification" // arcanea_change
+		| "openInBrowser" // arcanea_change
 		| "acceptInput"
-		| "focusChatInput" // kilocode_change
+		| "focusChatInput" // arcanea_change
 		| "setHistoryPreviewCollapsed"
 		| "commandExecutionStatus"
 		| "mcpExecutionStatus"
 		| "vsCodeSetting"
-		| "profileDataResponse" // kilocode_change
-		| "balanceDataResponse" // kilocode_change
-		| "updateProfileData" // kilocode_change
+		| "profileDataResponse" // arcanea_change
+		| "balanceDataResponse" // arcanea_change
+		| "updateProfileData" // arcanea_change
 		| "authenticatedUser"
 		| "condenseTaskContextResponse"
 		| "singleRouterModelFetchResponse"
 		| "indexingStatusUpdate"
 		| "indexCleared"
 		| "codebaseIndexConfig"
-		| "rulesData" // kilocode_change
+		| "rulesData" // arcanea_change
 		| "marketplaceInstallResult"
 		| "marketplaceRemoveResult"
 		| "marketplaceData"
-		| "mermaidFixResponse" // kilocode_change
-		| "tasksByIdResponse" // kilocode_change
-		| "taskHistoryResponse" // kilocode_change
+		| "mermaidFixResponse" // arcanea_change
+		| "tasksByIdResponse" // arcanea_change
+		| "taskHistoryResponse" // arcanea_change
 		| "shareTaskSuccess"
 		| "codeIndexSettingsSaved"
 		| "codeIndexSecretStatus"
 		| "showDeleteMessageDialog"
 		| "showEditMessageDialog"
-		| "kilocodeNotificationsResponse" // kilocode_change
-		| "usageDataResponse" // kilocode_change
-		| "keybindingsResponse" // kilocode_change
+		| "arcaneaNotificationsResponse" // arcanea_change
+		| "usageDataResponse" // arcanea_change
+		| "keybindingsResponse" // arcanea_change
 		| "commands"
 		| "insertTextIntoTextarea"
 		| "dismissedUpsells"
 	text?: string
-	// kilocode_change start
+	// arcanea_change start
 	payload?:
 		| ProfileDataResponsePayload
 		| BalanceDataResponsePayload
 		| TasksByIdResponsePayload
 		| TaskHistoryResponsePayload
-	// kilocode_change end
+	// arcanea_change end
 	action?:
 		| "chatButtonClicked"
 		| "mcpButtonClicked"
 		| "settingsButtonClicked"
 		| "historyButtonClicked"
 		| "promptsButtonClicked"
-		| "profileButtonClicked" // kilocode_change
+		| "profileButtonClicked" // arcanea_change
 		| "marketplaceButtonClicked"
 		| "cloudButtonClicked"
 		| "didBecomeVisible"
 		| "focusInput"
 		| "switchTab"
-		| "focusChatInput" // kilocode_change
+		| "focusChatInput" // arcanea_change
 	invoke?: "newChat" | "sendMessage" | "primaryButtonClick" | "secondaryButtonClick" | "setChatBoxMessage"
 	state?: ExtensionState
 	images?: string[]
@@ -216,15 +216,15 @@ export interface ExtensionMessage {
 	promptText?: string
 	results?: { path: string; type: "file" | "folder"; label?: string }[]
 	error?: string
-	mcpMarketplaceCatalog?: McpMarketplaceCatalog // kilocode_change
-	mcpDownloadDetails?: McpDownloadResponse // kilocode_change
+	mcpMarketplaceCatalog?: McpMarketplaceCatalog // arcanea_change
+	mcpDownloadDetails?: McpDownloadResponse // arcanea_change
 	notificationOptions?: {
 		title?: string
 		subtitle?: string
 		message: string
-	} // kilocode_change
-	url?: string // kilocode_change
-	keybindings?: Record<string, string> // kilocode_change
+	} // arcanea_change
+	url?: string // arcanea_change
+	keybindings?: Record<string, string> // arcanea_change
 	setting?: string
 	value?: any
 	hasContent?: boolean // For checkRulesDirectoryResult
@@ -232,7 +232,7 @@ export interface ExtensionMessage {
 	userInfo?: CloudUserInfo
 	organizationAllowList?: OrganizationAllowList
 	tab?: string
-	// kilocode_change: Rules data
+	// arcanea_change: Rules data
 	globalRules?: ClineRulesToggles
 	localRules?: ClineRulesToggles
 	globalWorkflows?: ClineRulesToggles
@@ -240,7 +240,7 @@ export interface ExtensionMessage {
 	marketplaceItems?: MarketplaceItem[]
 	organizationMcps?: MarketplaceItem[]
 	marketplaceInstalledMetadata?: MarketplaceInstalledMetadata
-	fixedCode?: string | null // For mermaidFixResponse // kilocode_change
+	fixedCode?: string | null // For mermaidFixResponse // arcanea_change
 	errors?: string[]
 	visibility?: ShareVisibility
 	rulesFolderPath?: string
@@ -248,7 +248,7 @@ export interface ExtensionMessage {
 	messageTs?: number
 	hasCheckpoint?: boolean
 	context?: string
-	// kilocode_change start: Notifications
+	// arcanea_change start: Notifications
 	notifications?: Array<{
 		id: string
 		title: string
@@ -258,7 +258,7 @@ export interface ExtensionMessage {
 			actionURL: string
 		}
 	}>
-	// kilocode_change end
+	// arcanea_change end
 	commands?: Command[]
 	queuedMessages?: QueuedMessage[]
 	list?: string[] // For dismissedUpsells
@@ -296,7 +296,7 @@ export type ExtensionState = Pick<
 	| "allowedMaxCost"
 	| "browserToolEnabled"
 	| "browserViewportSize"
-	| "showAutoApproveMenu" // kilocode_change
+	| "showAutoApproveMenu" // arcanea_change
 	| "screenshotQuality"
 	| "remoteBrowserEnabled"
 	| "cachedChromeHostUrl"
@@ -311,7 +311,7 @@ export type ExtensionState = Pick<
 	// | "showRooIgnoredFiles" // Optional in GlobalSettings, required here.
 	// | "maxReadFileLine" // Optional in GlobalSettings, required here.
 	| "maxConcurrentFileReads" // Optional in GlobalSettings, required here.
-	| "allowVeryLargeReads" // kilocode_change
+	| "allowVeryLargeReads" // arcanea_change
 	| "terminalOutputLineLimit"
 	| "terminalOutputCharacterLimit"
 	| "terminalShellIntegrationTimeout"
@@ -326,7 +326,7 @@ export type ExtensionState = Pick<
 	| "diagnosticsEnabled"
 	| "diffEnabled"
 	| "fuzzyMatchThreshold"
-	| "morphApiKey" // kilocode_change: Morph fast apply - global setting
+	| "morphApiKey" // arcanea_change: Morph fast apply - global setting
 	// | "experiments" // Optional in GlobalSettings, required here.
 	| "language"
 	// | "telemetrySetting" // Optional in GlobalSettings, required here.
@@ -338,20 +338,20 @@ export type ExtensionState = Pick<
 	| "customModePrompts"
 	| "customSupportPrompts"
 	| "enhancementApiConfigId"
-	| "localWorkflowToggles" // kilocode_change
-	| "globalRulesToggles" // kilocode_change
-	| "localRulesToggles" // kilocode_change
-	| "globalWorkflowToggles" // kilocode_change
-	| "commitMessageApiConfigId" // kilocode_change
-	| "terminalCommandApiConfigId" // kilocode_change
-	| "dismissedNotificationIds" // kilocode_change
-	| "ghostServiceSettings" // kilocode_change
+	| "localWorkflowToggles" // arcanea_change
+	| "globalRulesToggles" // arcanea_change
+	| "localRulesToggles" // arcanea_change
+	| "globalWorkflowToggles" // arcanea_change
+	| "commitMessageApiConfigId" // arcanea_change
+	| "terminalCommandApiConfigId" // arcanea_change
+	| "dismissedNotificationIds" // arcanea_change
+	| "ghostServiceSettings" // arcanea_change
 	| "condensingApiConfigId"
 	| "customCondensingPrompt"
 	| "codebaseIndexConfig"
 	| "codebaseIndexModels"
 	| "profileThresholds"
-	| "systemNotificationsEnabled" // kilocode_change
+	| "systemNotificationsEnabled" // arcanea_change
 	| "includeDiagnosticMessages"
 	| "maxDiagnosticMessages"
 	| "openRouterImageGenerationSelectedModel"
@@ -363,15 +363,15 @@ export type ExtensionState = Pick<
 	currentTaskTodos?: TodoItem[] // Initial todos for the current task
 	apiConfiguration: ProviderSettings
 	uriScheme?: string
-	uiKind?: string // kilocode_change
+	uiKind?: string // arcanea_change
 
-	kiloCodeWrapperProperties?: KiloCodeWrapperProperties // kilocode_change: Wrapper information
+	arcaneaWrapperProperties?: ArcaneaWrapperProperties // arcanea_change: Wrapper information
 
-	kilocodeDefaultModel: string
+	arcaneaDefaultModel: string
 	shouldShowAnnouncement: boolean
 
-	taskHistoryFullLength: number // kilocode_change
-	taskHistoryVersion: number // kilocode_change
+	taskHistoryFullLength: number // arcanea_change
+	taskHistoryVersion: number // arcanea_change
 
 	writeDelayMs: number
 	requestDelaySeconds: number
@@ -379,9 +379,9 @@ export type ExtensionState = Pick<
 	enableCheckpoints: boolean
 	maxOpenTabsContext: number // Maximum number of VSCode open tabs to include in context (0-500)
 	maxWorkspaceFiles: number // Maximum number of files to include in current working directory details (0-500)
-	showRooIgnoredFiles: boolean // Whether to show .kilocodeignore'd files in listings
+	showRooIgnoredFiles: boolean // Whether to show .arcaneaignore'd files in listings
 	maxReadFileLine: number // Maximum number of lines to read from a file before truncating
-	showAutoApproveMenu: boolean // kilocode_change: Whether to show the auto-approve menu in the chat view
+	showAutoApproveMenu: boolean // arcanea_change: Whether to show the auto-approve menu in the chat view
 	maxImageFileSize: number // Maximum size of image files to process in MB
 	maxTotalImageSize: number // Maximum total size for all images in a single read operation in MB
 
@@ -402,7 +402,7 @@ export type ExtensionState = Pick<
 	renderContext: "sidebar" | "editor"
 	settingsImportedAt?: number
 	historyPreviewCollapsed?: boolean
-	showTaskTimeline?: boolean // kilocode_change
+	showTaskTimeline?: boolean // arcanea_change
 
 	cloudUserInfo: CloudUserInfo | null
 	cloudIsAuthenticated: boolean
@@ -418,7 +418,7 @@ export type ExtensionState = Pick<
 	profileThresholds: Record<string, number>
 	hasOpenedModeSelector: boolean
 	openRouterImageApiKey?: string
-	kiloCodeImageApiKey?: string
+	arcaneaImageApiKey?: string
 	openRouterUseMiddleOutTransform?: boolean
 	messageQueue?: QueuedMessage[]
 	lastShownAnnouncementId?: string
@@ -487,14 +487,14 @@ export interface ClineSayTool {
 		}>
 	}>
 	question?: string
-	// kilocode_change start
+	// arcanea_change start
 	fastApplyResult?: {
 		description?: string
 		tokensIn?: number
 		tokensOut?: number
 		cost?: number
 	}
-	// kilocode_change end
+	// arcanea_change end
 	imageData?: string // Base64 encoded image data for generated images
 	// Properties for runSlashCommand tool
 	command?: string
@@ -547,7 +547,7 @@ export interface ClineApiReqInfo {
 	cacheWrites?: number
 	cacheReads?: number
 	cost?: number
-	usageMissing?: boolean // kilocode_change
+	usageMissing?: boolean // arcanea_change
 	cancelReason?: ClineApiReqCancelReason
 	streamingFailedMessage?: string
 	apiProtocol?: "anthropic" | "openai"

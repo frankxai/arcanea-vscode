@@ -6,8 +6,8 @@ import { vscode } from "@src/utils/vscode"
 import { useExtensionState } from "@src/context/ExtensionStateContext"
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { AutoApproveToggle, AutoApproveSetting, autoApproveSettingsConfig } from "../settings/AutoApproveToggle"
-import { MaxRequestsInput } from "../settings/MaxRequestsInput" // kilocode_change
-import { MaxCostInput } from "../settings/MaxCostInput" // kilocode_change
+import { MaxRequestsInput } from "../settings/MaxRequestsInput" // arcanea_change
+import { MaxCostInput } from "../settings/MaxCostInput" // arcanea_change
 import { StandardTooltip } from "@src/components/ui"
 import { useAutoApprovalState } from "@src/hooks/useAutoApprovalState"
 import { useAutoApprovalToggles } from "@src/hooks/useAutoApprovalToggles"
@@ -23,8 +23,8 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 		autoApprovalEnabled,
 		setAutoApprovalEnabled,
 		alwaysApproveResubmit,
-		allowedMaxRequests, // kilocode_change
-		allowedMaxCost, // kilocode_change
+		allowedMaxRequests, // arcanea_change
+		allowedMaxCost, // arcanea_change
 		setAlwaysAllowReadOnly,
 		setAlwaysAllowWrite,
 		setAlwaysAllowExecute,
@@ -35,8 +35,8 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 		setAlwaysApproveResubmit,
 		setAlwaysAllowFollowupQuestions,
 		setAlwaysAllowUpdateTodoList,
-		setAllowedMaxRequests, // kilocode_change
-		setAllowedMaxCost, // kilocode_change
+		setAllowedMaxRequests, // arcanea_change
+		setAllowedMaxCost, // arcanea_change
 	} = useExtensionState()
 
 	const { t } = useAppTranslation()
@@ -180,7 +180,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 
 					<AutoApproveToggle {...toggles} onToggle={onAutoApproveToggle} />
 
-					{/* kilocode_change start */}
+					{/* arcanea_change start */}
 					<div className="flex gap-2 w-full justify-stretch mb-2">
 						<MaxRequestsInput
 							allowedMaxRequests={allowedMaxRequests ?? undefined}
@@ -191,7 +191,7 @@ const AutoApproveMenu = ({ style }: AutoApproveMenuProps) => {
 							onValueChange={(value) => setAllowedMaxCost(value)}
 						/>
 					</div>
-					{/* kilocode_change end */}
+					{/* arcanea_change end */}
 				</div>
 			)}
 

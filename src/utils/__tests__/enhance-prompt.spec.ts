@@ -1,6 +1,6 @@
 // npx vitest run src/utils/__tests__/enhance-prompt.spec.ts
 
-import type { ProviderSettings } from "@roo-code/types"
+import type { ProviderSettings } from "@arcanea/types"
 
 import { singleCompletionHandler } from "../single-completion-handler"
 import { buildApiHandler, SingleCompletionHandler } from "../../api"
@@ -77,7 +77,7 @@ describe("enhancePrompt", () => {
 		)
 	})
 
-	// kilocode_change start - updated tests to work with createMessage fallback
+	// arcanea_change start - updated tests to work with createMessage fallback
 	it("falls back to createMessage for API provider without completePrompt", async () => {
 		const mockStream = {
 			async *[Symbol.asyncIterator]() {
@@ -118,7 +118,7 @@ describe("enhancePrompt", () => {
 
 		;(buildApiHandler as any).mockReturnValue({
 			// No completePrompt method
-			createMessage: vi.fn().mockReturnValue(mockStream), // kilocode_change
+			createMessage: vi.fn().mockReturnValue(mockStream), // arcanea_change
 			getModel: vi.fn().mockReturnValue({
 				id: "test-model",
 				info: {
@@ -136,7 +136,7 @@ describe("enhancePrompt", () => {
 			{ role: "user", content: [{ type: "text", text: "Test prompt" }] },
 		])
 	})
-	// kilocode_change end - updated tests to work with createMessage fallback
+	// arcanea_change end - updated tests to work with createMessage fallback
 
 	it("uses appropriate model based on provider", async () => {
 		const openRouterConfig: ProviderSettings = {

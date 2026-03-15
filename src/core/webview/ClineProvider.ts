@@ -40,9 +40,9 @@ import {
 	DEFAULT_WRITE_DELAY_MS,
 	ORGANIZATION_ALLOW_ALL,
 	DEFAULT_MODES,
-} from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
-import { CloudService, BridgeOrchestrator, getRooCodeApiUrl } from "@roo-code/cloud"
+} from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
+import { CloudService, BridgeOrchestrator, getRooCodeApiUrl } from "@arcanea/cloud"
 
 import { Package } from "../../shared/package"
 import { findLast } from "../../shared/array"
@@ -83,7 +83,7 @@ import { buildApiHandler } from "../../api"
 import { forceFullModelDetailsLoad, hasLoadedFullDetails } from "../../api/providers/fetchers/lmstudio"
 
 import { ContextProxy } from "../config/ContextProxy"
-import { getEnabledRules } from "./kilorules"
+import { getEnabledRules } from "./arcanearules"
 import { ProviderSettingsManager } from "../config/ProviderSettingsManager"
 import { CustomModesManager } from "../config/CustomModesManager"
 import { Task } from "../task/Task"
@@ -93,17 +93,17 @@ import { webviewMessageHandler } from "./webviewMessageHandler"
 import { getNonce } from "./getNonce"
 import { getUri } from "./getUri"
 
-//kilocode_change start
-import { McpDownloadResponse, McpMarketplaceCatalog } from "../../shared/kilocode/mcp"
+//arcanea_change start
+import { McpDownloadResponse, McpMarketplaceCatalog } from "../../shared/arcanea/mcp"
 import { McpServer } from "../../shared/mcp"
 import { OpenRouterHandler } from "../../api/providers"
-import { stringifyError } from "../../shared/kilocode/errorUtils"
+import { stringifyError } from "../../shared/arcanea/errorUtils"
 import isWsl from "is-wsl"
-import { getKilocodeDefaultModel } from "../../api/providers/kilocode/getKilocodeDefaultModel"
-import { getKiloCodeWrapperProperties } from "../../core/kilocode/wrapper"
+import { getArcaneaDefaultModel } from "../../api/providers/arcanea/getArcaneaDefaultModel"
+import { getArcaneaWrapperProperties } from "../../core/arcanea-core/wrapper"
 
 export type ClineProviderState = Awaited<ReturnType<ClineProvider["getState"]>>
-// kilocode_change end
+// arcanea_change end
 
 /**
  * https://github.com/microsoft/vscode-webview-ui-toolkit-samples/blob/main/default/weather-webview/src/providers/WeatherViewProvider.ts
@@ -701,7 +701,7 @@ export class ClineProvider
 	async resolveWebviewView(webviewView: vscode.WebviewView | vscode.WebviewPanel) {
 		this.view = webviewView
 
-		// kilocode_change start: extract constant inTabMode
+		// arcanea_change start: extract constant inTabMode
 		// Set panel reference according to webview type
 		const inTabMode = "onDidChangeViewState" in webviewView
 
@@ -710,14 +710,14 @@ export class ClineProvider
 		} else if ("onDidChangeVisibility" in webviewView) {
 			setPanel(webviewView, "sidebar")
 		}
-		// kilocode_change end
+		// arcanea_change end
 
 		// Initialize out-of-scope variables that need to receive persistent
 		// global state values.
 		this.getState().then(
 			({
 				terminalShellIntegrationTimeout = Terminal.defaultShellIntegrationTimeout,
-				terminalShellIntegrationDisabled = true, // kilocode_change: default
+				terminalShellIntegrationDisabled = true, // arcanea_change: default
 				terminalCommandDelay = 0,
 				terminalZshClearEolMark = true,
 				terminalZshOhMy = false,
@@ -888,7 +888,7 @@ export class ClineProvider
 		} = await this.getState()
 
 		const task = new Task({
-			context: this.context, // kilocode_change
+			context: this.context, // arcanea_change
 			provider: this,
 			apiConfiguration,
 			enableDiff,
@@ -1026,10 +1026,10 @@ export class ClineProvider
 			"default-src 'none'",
 			`font-src ${webview.cspSource} data:`,
 			`style-src ${webview.cspSource} 'unsafe-inline' https://* http://${localServerUrl} http://0.0.0.0:${localPort}`,
-			`img-src ${webview.cspSource} https://storage.googleapis.com https://img.clerk.com data: https://*.googleusercontent.com https://*.googleapis.com https://*.githubusercontent.com`, // kilocode_change: add https://*.googleusercontent.com and https://*.googleapis.com and https://*.githubusercontent.com
+			`img-src ${webview.cspSource} https://storage.googleapis.com https://img.clerk.com data: https://*.googleusercontent.com https://*.googleapis.com https://*.githubusercontent.com`, // arcanea_change: add https://*.googleusercontent.com and https://*.googleapis.com and https://*.githubusercontent.com
 			`media-src ${webview.cspSource}`,
 			`script-src 'unsafe-eval' ${webview.cspSource} https://* https://*.posthog.com http://${localServerUrl} http://0.0.0.0:${localPort} 'nonce-${nonce}'`,
-			`connect-src ${webview.cspSource} https://* http://localhost:3000 https://*.posthog.com ws://${localServerUrl} ws://0.0.0.0:${localPort} http://${localServerUrl} http://0.0.0.0:${localPort}`, // kilocode_change: add http://localhost:3000
+			`connect-src ${webview.cspSource} https://* http://localhost:3000 https://*.posthog.com ws://${localServerUrl} ws://0.0.0.0:${localPort} http://${localServerUrl} http://0.0.0.0:${localPort}`, // arcanea_change: add http://localhost:3000
 		]
 
 		return /*html*/ `
@@ -1111,7 +1111,7 @@ export class ClineProvider
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
             <meta name="theme-color" content="#000000">
-			<!-- kilocode_change: add https://*.googleusercontent.com https://*.googleapis.com https://*.githubusercontent.com to img-src, https://*, http://localhost:3000 to connect-src -->
+			<!-- arcanea_change: add https://*.googleusercontent.com https://*.googleapis.com https://*.githubusercontent.com to img-src, https://*, http://localhost:3000 to connect-src -->
             <meta http-equiv="Content-Security-Policy" content="default-src 'none'; font-src ${webview.cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; img-src ${webview.cspSource} https://*.googleusercontent.com https://storage.googleapis.com https://*.githubusercontent.com https://img.clerk.com data: https://*.googleapis.com; media-src ${webview.cspSource}; script-src ${webview.cspSource} 'wasm-unsafe-eval' 'nonce-${nonce}' https://us-assets.i.posthog.com 'strict-dynamic'; connect-src ${webview.cspSource} https://* http://localhost:3000 https://openrouter.ai https://api.requesty.ai https://us.i.posthog.com https://us-assets.i.posthog.com;">
             <link rel="stylesheet" type="text/css" href="${stylesUri}">
 			<link href="${codiconsUri}" rel="stylesheet" />
@@ -1269,7 +1269,7 @@ export class ClineProvider
 					task.api = buildApiHandler(providerSettings)
 				}
 
-				await TelemetryService.instance.updateIdentity(providerSettings.kilocodeToken ?? "") // kilocode_change
+				await TelemetryService.instance.updateIdentity(providerSettings.arcaneaToken ?? "") // arcanea_change
 			} else {
 				await this.updateGlobalState("listApiConfigMeta", await this.providerSettingsManager.listConfig())
 			}
@@ -1333,7 +1333,7 @@ export class ClineProvider
 		}
 
 		await this.postStateToWebview()
-		await TelemetryService.instance.updateIdentity(providerSettings.kilocodeToken ?? "") // kilocode_change
+		await TelemetryService.instance.updateIdentity(providerSettings.arcaneaToken ?? "") // arcanea_change
 
 		if (providerSettings.apiProvider) {
 			this.emit(RooCodeEventName.ProviderProfileChanged, { name, provider: providerSettings.apiProvider })
@@ -1352,21 +1352,21 @@ export class ClineProvider
 		// Get platform-specific application data directory
 		let mcpServersDir: string
 		if (process.platform === "win32") {
-			// Windows: %APPDATA%\Kilo-Code\MCP
-			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "Kilo-Code", "MCP")
+			// Windows: %APPDATA%\Arcanea-Code\MCP
+			mcpServersDir = path.join(os.homedir(), "AppData", "Roaming", "Arcanea-Code", "MCP")
 		} else if (process.platform === "darwin") {
-			// macOS: ~/Documents/Kilo-Code/MCP
-			mcpServersDir = path.join(os.homedir(), "Documents", "Kilo-Code", "MCP")
+			// macOS: ~/Documents/Arcanea-Code/MCP
+			mcpServersDir = path.join(os.homedir(), "Documents", "Arcanea-Code", "MCP")
 		} else {
-			// Linux: ~/.local/share/Kilo-Code/MCP
-			mcpServersDir = path.join(os.homedir(), ".local", "share", "Kilo-Code", "MCP")
+			// Linux: ~/.local/share/Arcanea-Code/MCP
+			mcpServersDir = path.join(os.homedir(), ".local", "share", "Arcanea-Code", "MCP")
 		}
 
 		try {
 			await fs.mkdir(mcpServersDir, { recursive: true })
 		} catch (error) {
 			// Fallback to a relative path if directory creation fails
-			return path.join(os.homedir(), ".kilocode", "mcp")
+			return path.join(os.homedir(), ".arcanea", "mcp")
 		}
 		return mcpServersDir
 	}
@@ -1461,23 +1461,23 @@ export class ClineProvider
 		await this.upsertProviderProfile(currentApiConfigName, newConfiguration)
 	}
 
-	// kilocode_change:
-	async handleKiloCodeCallback(token: string) {
-		const kilocode: ProviderName = "kilocode"
+	// arcanea_change:
+	async handleArcaneaCallback(token: string) {
+		const arcanea: ProviderName = "arcanea"
 		let { apiConfiguration, currentApiConfigName = "default" } = await this.getState()
 
 		await this.upsertProviderProfile(currentApiConfigName, {
 			...apiConfiguration,
-			apiProvider: "kilocode",
-			kilocodeToken: token,
+			apiProvider: "arcanea",
+			arcaneaToken: token,
 		})
 
 		vscode.window.showInformationMessage("Arcanea successfully configured!")
 
 		if (this.getCurrentTask()) {
 			this.getCurrentTask()!.api = buildApiHandler({
-				apiProvider: kilocode,
-				kilocodeToken: token,
+				apiProvider: arcanea,
+				arcaneaToken: token,
 			})
 		}
 	}
@@ -1515,16 +1515,16 @@ export class ClineProvider
 			} else {
 				vscode.window.showErrorMessage(
 					`Task file not found for task ID: ${id} (file ${apiConversationHistoryFilePath})`,
-				) //kilocode_change show extra debugging information to debug task not found issues
+				) //arcanea_change show extra debugging information to debug task not found issues
 			}
 		} else {
-			vscode.window.showErrorMessage(`Task with ID: ${id} not found in history.`) // kilocode_change show extra debugging information to debug task not found issues
+			vscode.window.showErrorMessage(`Task with ID: ${id} not found in history.`) // arcanea_change show extra debugging information to debug task not found issues
 		}
 
 		// if we tried to get a task that doesn't exist, remove it from state
 		// FIXME: this seems to happen sometimes when the json file doesnt save to disk for some reason
-		// await this.deleteTaskFromState(id) // kilocode_change disable confusing behaviour
-		await this.setTaskFileNotFound(id) // kilocode_change
+		// await this.deleteTaskFromState(id) // arcanea_change disable confusing behaviour
+		await this.setTaskFileNotFound(id) // arcanea_change
 		throw new Error("Task not found")
 	}
 
@@ -1565,14 +1565,14 @@ export class ClineProvider
 			// get the task directory full path
 			const { taskDirPath } = await this.getTaskWithId(id)
 
-			// kilocode_change start
+			// arcanea_change start
 			// Check if task is favorited
 			const history = this.getGlobalState("taskHistory") ?? []
 			const task = history.find((item) => item.id === id)
 			if (task?.isFavorited) {
 				throw new Error("Cannot delete a favorited task. Please unfavorite it first.")
 			}
-			// kilocode_change end
+			// arcanea_change end
 
 			// remove task from stack if it's the current task
 			if (id === this.getCurrentTask()?.taskId) {
@@ -1620,7 +1620,7 @@ export class ClineProvider
 		const taskHistory = this.getGlobalState("taskHistory") ?? []
 		const updatedTaskHistory = taskHistory.filter((task) => task.id !== id)
 		await this.updateGlobalState("taskHistory", updatedTaskHistory)
-		this.kiloCodeTaskHistoryVersion++
+		this.arcaneaTaskHistoryVersion++
 		this.recentTasksCache = undefined
 		await this.postStateToWebview()
 	}
@@ -1641,7 +1641,7 @@ export class ClineProvider
 		}
 	}
 
-	// kilocode_change start
+	// arcanea_change start
 	async postRulesDataToWebview() {
 		const workspacePath = this.cwd
 		if (workspacePath) {
@@ -1651,7 +1651,7 @@ export class ClineProvider
 			})
 		}
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	/**
 	 * Fetches marketplace dataon demand to avoid blocking main state updates
@@ -1788,7 +1788,7 @@ export class ClineProvider
 			ttsSpeed,
 			diffEnabled,
 			enableCheckpoints,
-			// taskHistory, // kilocode_change
+			// taskHistory, // arcanea_change
 			soundVolume,
 			browserViewportSize,
 			screenshotQuality,
@@ -1807,7 +1807,7 @@ export class ClineProvider
 			terminalZshP10k,
 			terminalZdotdir,
 			fuzzyMatchThreshold,
-			// mcpEnabled,  // kilocode_change: always true
+			// mcpEnabled,  // arcanea_change: always true
 			enableMcpServerCreation,
 			alwaysApproveResubmit,
 			requestDelaySeconds,
@@ -1818,8 +1818,8 @@ export class ClineProvider
 			customModePrompts,
 			customSupportPrompts,
 			enhancementApiConfigId,
-			commitMessageApiConfigId, // kilocode_change
-			terminalCommandApiConfigId, // kilocode_change
+			commitMessageApiConfigId, // arcanea_change
+			terminalCommandApiConfigId, // arcanea_change
 			autoApprovalEnabled,
 			customModes,
 			experiments,
@@ -1829,8 +1829,8 @@ export class ClineProvider
 			telemetrySetting,
 			showRooIgnoredFiles,
 			language,
-			showAutoApproveMenu, // kilocode_change
-			showTaskTimeline, // kilocode_change
+			showAutoApproveMenu, // arcanea_change
+			showTaskTimeline, // arcanea_change
 			maxReadFileLine,
 			maxImageFileSize,
 			maxTotalImageSize,
@@ -1842,16 +1842,16 @@ export class ClineProvider
 			organizationAllowList,
 			organizationSettingsVersion,
 			maxConcurrentFileReads,
-			allowVeryLargeReads, // kilocode_change
-			ghostServiceSettings, // kilocode_changes
+			allowVeryLargeReads, // arcanea_change
+			ghostServiceSettings, // arcanea_changes
 			condensingApiConfigId,
 			customCondensingPrompt,
 			codebaseIndexConfig,
 			codebaseIndexModels,
 			profileThresholds,
-			systemNotificationsEnabled, // kilocode_change
-			dismissedNotificationIds, // kilocode_change
-			morphApiKey, // kilocode_change
+			systemNotificationsEnabled, // arcanea_change
+			dismissedNotificationIds, // arcanea_change
+			morphApiKey, // arcanea_change
 			alwaysAllowFollowupQuestions,
 			followupAutoApproveTimeoutMs,
 			includeDiagnosticMessages,
@@ -1860,13 +1860,13 @@ export class ClineProvider
 			taskSyncEnabled,
 			remoteControlEnabled,
 			openRouterImageApiKey,
-			kiloCodeImageApiKey,
+			arcaneaImageApiKey,
 			openRouterImageGenerationSelectedModel,
 			openRouterUseMiddleOutTransform,
 			featureRoomoteControlEnabled,
 		} = await this.getState()
 
-		const telemetryKey = process.env.KILOCODE_POSTHOG_API_KEY
+		const telemetryKey = process.env.ARCANEA_POSTHOG_API_KEY
 		const machineId = vscode.env.machineId
 
 		const mergedAllowedCommands = this.mergeAllowedCommands(allowedCommands)
@@ -1877,10 +1877,10 @@ export class ClineProvider
 		const currentMode = mode ?? defaultModeSlug
 		const hasSystemPromptOverride = await this.hasFileBasedSystemPromptOverride(currentMode)
 
-		// kilocode_change start wrapper information
-		const kiloCodeWrapperProperties = getKiloCodeWrapperProperties()
+		// arcanea_change start wrapper information
+		const arcaneaWrapperProperties = getArcaneaWrapperProperties()
 		const taskHistory = this.getTaskHistory()
-		// kilocode_change end
+		// arcanea_change end
 
 		return {
 			version: this.context.extension?.packageJSON?.version ?? "",
@@ -1902,11 +1902,11 @@ export class ClineProvider
 			autoCondenseContext: autoCondenseContext ?? true,
 			autoCondenseContextPercent: autoCondenseContextPercent ?? 100,
 			uriScheme: vscode.env.uriScheme,
-			uiKind: vscode.UIKind[vscode.env.uiKind], // kilocode_change
-			kiloCodeWrapperProperties, // kilocode_change wrapper information
-			kilocodeDefaultModel: await getKilocodeDefaultModel(
-				apiConfiguration.kilocodeToken,
-				apiConfiguration.kilocodeOrganizationId,
+			uiKind: vscode.UIKind[vscode.env.uiKind], // arcanea_change
+			arcaneaWrapperProperties, // arcanea_change wrapper information
+			arcaneaDefaultModel: await getArcaneaDefaultModel(
+				apiConfiguration.arcaneaToken,
+				apiConfiguration.arcaneaOrganizationId,
 			),
 			currentTaskItem: this.getCurrentTask()?.taskId
 				? (taskHistory || []).find((item: HistoryItem) => item.id === this.getCurrentTask()?.taskId)
@@ -1914,14 +1914,14 @@ export class ClineProvider
 			clineMessages: this.getCurrentTask()?.clineMessages || [],
 			currentTaskTodos: this.getCurrentTask()?.todoList || [],
 			messageQueue: this.getCurrentTask()?.messageQueueService?.messages,
-			taskHistoryFullLength: taskHistory.length, // kilocode_change
-			taskHistoryVersion: this.kiloCodeTaskHistoryVersion, // kilocode_change
+			taskHistoryFullLength: taskHistory.length, // arcanea_change
+			taskHistoryVersion: this.arcaneaTaskHistoryVersion, // arcanea_change
 			soundEnabled: soundEnabled ?? false,
 			ttsEnabled: ttsEnabled ?? false,
 			ttsSpeed: ttsSpeed ?? 1.0,
 			diffEnabled: diffEnabled ?? true,
 			enableCheckpoints: enableCheckpoints ?? true,
-			shouldShowAnnouncement: false, // kilocode_change
+			shouldShowAnnouncement: false, // arcanea_change
 			allowedCommands: mergedAllowedCommands,
 			deniedCommands: mergedDeniedCommands,
 			soundVolume: soundVolume ?? 0.5,
@@ -1934,7 +1934,7 @@ export class ClineProvider
 			terminalOutputLineLimit: terminalOutputLineLimit ?? 500,
 			terminalOutputCharacterLimit: terminalOutputCharacterLimit ?? DEFAULT_TERMINAL_OUTPUT_CHARACTER_LIMIT,
 			terminalShellIntegrationTimeout: terminalShellIntegrationTimeout ?? Terminal.defaultShellIntegrationTimeout,
-			terminalShellIntegrationDisabled: terminalShellIntegrationDisabled ?? true, // kilocode_change: default
+			terminalShellIntegrationDisabled: terminalShellIntegrationDisabled ?? true, // arcanea_change: default
 			terminalCommandDelay: terminalCommandDelay ?? 0,
 			terminalPowershellCounter: terminalPowershellCounter ?? false,
 			terminalZshClearEolMark: terminalZshClearEolMark ?? true,
@@ -1942,7 +1942,7 @@ export class ClineProvider
 			terminalZshP10k: terminalZshP10k ?? false,
 			terminalZdotdir: terminalZdotdir ?? false,
 			fuzzyMatchThreshold: fuzzyMatchThreshold ?? 1.0,
-			mcpEnabled: true, // kilocode_change: always true
+			mcpEnabled: true, // arcanea_change: always true
 			enableMcpServerCreation: enableMcpServerCreation ?? true,
 			alwaysApproveResubmit: alwaysApproveResubmit ?? false,
 			requestDelaySeconds: requestDelaySeconds ?? 10,
@@ -1953,8 +1953,8 @@ export class ClineProvider
 			customModePrompts: customModePrompts ?? {},
 			customSupportPrompts: customSupportPrompts ?? {},
 			enhancementApiConfigId,
-			commitMessageApiConfigId, // kilocode_change
-			terminalCommandApiConfigId, // kilocode_change
+			commitMessageApiConfigId, // arcanea_change
+			terminalCommandApiConfigId, // arcanea_change
 			autoApprovalEnabled: autoApprovalEnabled ?? true,
 			customModes,
 			experiments: experiments ?? experimentDefault,
@@ -1967,15 +1967,15 @@ export class ClineProvider
 			telemetryKey,
 			machineId,
 			showRooIgnoredFiles: showRooIgnoredFiles ?? false,
-			showAutoApproveMenu: showAutoApproveMenu ?? false, // kilocode_change
-			showTaskTimeline: showTaskTimeline ?? true, // kilocode_change
-			language, // kilocode_change
+			showAutoApproveMenu: showAutoApproveMenu ?? false, // arcanea_change
+			showTaskTimeline: showTaskTimeline ?? true, // arcanea_change
+			language, // arcanea_change
 			renderContext: this.renderContext,
 			maxReadFileLine: maxReadFileLine ?? -1,
 			maxImageFileSize: maxImageFileSize ?? 5,
 			maxTotalImageSize: maxTotalImageSize ?? 20,
 			maxConcurrentFileReads: maxConcurrentFileReads ?? 5,
-			allowVeryLargeReads: allowVeryLargeReads ?? false, // kilocode_change
+			allowVeryLargeReads: allowVeryLargeReads ?? false, // arcanea_change
 			settingsImportedAt: this.settingsImportedAt,
 			terminalCompressProgressBar: terminalCompressProgressBar ?? true,
 			hasSystemPromptOverride,
@@ -1984,12 +1984,12 @@ export class ClineProvider
 			cloudIsAuthenticated: cloudIsAuthenticated ?? false,
 			sharingEnabled: sharingEnabled ?? false,
 			organizationAllowList,
-			// kilocode_change start
+			// arcanea_change start
 			ghostServiceSettings: ghostServiceSettings ?? {
 				enableQuickInlineTaskKeybinding: true,
 				enableSmartInlineTaskKeybinding: true,
 			},
-			// kilocode_change end
+			// arcanea_change end
 			organizationSettingsVersion,
 			condensingApiConfigId,
 			customCondensingPrompt,
@@ -2011,9 +2011,9 @@ export class ClineProvider
 			profileThresholds: profileThresholds ?? {},
 			cloudApiUrl: getRooCodeApiUrl(),
 			hasOpenedModeSelector: this.getGlobalState("hasOpenedModeSelector") ?? false,
-			systemNotificationsEnabled: systemNotificationsEnabled ?? false, // kilocode_change
-			dismissedNotificationIds: dismissedNotificationIds ?? [], // kilocode_change
-			morphApiKey, // kilocode_change
+			systemNotificationsEnabled: systemNotificationsEnabled ?? false, // arcanea_change
+			dismissedNotificationIds: dismissedNotificationIds ?? [], // arcanea_change
+			morphApiKey, // arcanea_change
 			alwaysAllowFollowupQuestions: alwaysAllowFollowupQuestions ?? false,
 			followupAutoApproveTimeoutMs: followupAutoApproveTimeoutMs ?? 60000,
 			includeDiagnosticMessages: includeDiagnosticMessages ?? true,
@@ -2022,7 +2022,7 @@ export class ClineProvider
 			taskSyncEnabled,
 			remoteControlEnabled,
 			openRouterImageApiKey,
-			kiloCodeImageApiKey,
+			arcaneaImageApiKey,
 			openRouterImageGenerationSelectedModel,
 			openRouterUseMiddleOutTransform,
 			featureRoomoteControlEnabled,
@@ -2044,17 +2044,17 @@ export class ClineProvider
 			| "version"
 			| "shouldShowAnnouncement"
 			| "hasSystemPromptOverride"
-			// kilocode_change start
+			// arcanea_change start
 			| "taskHistoryFullLength"
 			| "taskHistoryVersion"
-			// kilocode_change end
+			// arcanea_change end
 		>
 	> {
 		const stateValues = this.contextProxy.getValues()
 		const customModes = await this.customModesManager.getCustomModes()
 
 		// Determine apiProvider with the same logic as before.
-		const apiProvider: ProviderName = stateValues.apiProvider ? stateValues.apiProvider : "kilocode" // kilocode_change: fall back to kilocode
+		const apiProvider: ProviderName = stateValues.apiProvider ? stateValues.apiProvider : "arcanea" // arcanea_change: fall back to arcanea
 
 		// Build the apiConfiguration object combining state values and secrets.
 		const providerSettings = this.contextProxy.getProviderSettings()
@@ -2130,10 +2130,10 @@ export class ClineProvider
 		// Return the same structure as before.
 		return {
 			apiConfiguration: providerSettings,
-			kilocodeDefaultModel: await getKilocodeDefaultModel(
-				providerSettings.kilocodeToken,
-				providerSettings.kilocodeOrganizationId,
-			), // kilocode_change
+			arcaneaDefaultModel: await getArcaneaDefaultModel(
+				providerSettings.arcaneaToken,
+				providerSettings.arcaneaOrganizationId,
+			), // arcanea_change
 			lastShownAnnouncementId: stateValues.lastShownAnnouncementId,
 			customInstructions: stateValues.customInstructions,
 			apiModelId: stateValues.apiModelId,
@@ -2148,14 +2148,14 @@ export class ClineProvider
 			alwaysAllowModeSwitch: stateValues.alwaysAllowModeSwitch ?? true,
 			alwaysAllowSubtasks: stateValues.alwaysAllowSubtasks ?? true,
 			alwaysAllowFollowupQuestions: stateValues.alwaysAllowFollowupQuestions ?? false,
-			alwaysAllowUpdateTodoList: stateValues.alwaysAllowUpdateTodoList ?? true, // kilocode_change
+			alwaysAllowUpdateTodoList: stateValues.alwaysAllowUpdateTodoList ?? true, // arcanea_change
 			followupAutoApproveTimeoutMs: stateValues.followupAutoApproveTimeoutMs ?? 60000,
 			diagnosticsEnabled: stateValues.diagnosticsEnabled ?? true,
 			allowedMaxRequests: stateValues.allowedMaxRequests,
 			allowedMaxCost: stateValues.allowedMaxCost,
 			autoCondenseContext: stateValues.autoCondenseContext ?? true,
 			autoCondenseContextPercent: stateValues.autoCondenseContextPercent ?? 100,
-			// taskHistory: stateValues.taskHistory ?? [], // kilocode_change
+			// taskHistory: stateValues.taskHistory ?? [], // arcanea_change
 			allowedCommands: stateValues.allowedCommands,
 			deniedCommands: stateValues.deniedCommands,
 			soundEnabled: stateValues.soundEnabled ?? false,
@@ -2176,7 +2176,7 @@ export class ClineProvider
 				stateValues.terminalOutputCharacterLimit ?? DEFAULT_TERMINAL_OUTPUT_CHARACTER_LIMIT,
 			terminalShellIntegrationTimeout:
 				stateValues.terminalShellIntegrationTimeout ?? Terminal.defaultShellIntegrationTimeout,
-			terminalShellIntegrationDisabled: stateValues.terminalShellIntegrationDisabled ?? true, // kilocode_change: default
+			terminalShellIntegrationDisabled: stateValues.terminalShellIntegrationDisabled ?? true, // arcanea_change: default
 			terminalCommandDelay: stateValues.terminalCommandDelay ?? 0,
 			terminalPowershellCounter: stateValues.terminalPowershellCounter ?? false,
 			terminalZshClearEolMark: stateValues.terminalZshClearEolMark ?? true,
@@ -2186,7 +2186,7 @@ export class ClineProvider
 			terminalCompressProgressBar: stateValues.terminalCompressProgressBar ?? true,
 			mode: stateValues.mode ?? defaultModeSlug,
 			language: stateValues.language ?? formatLanguage(vscode.env.language),
-			mcpEnabled: true, // kilocode_change: always true
+			mcpEnabled: true, // arcanea_change: always true
 			enableMcpServerCreation: stateValues.enableMcpServerCreation ?? true,
 			alwaysApproveResubmit: stateValues.alwaysApproveResubmit ?? false,
 			requestDelaySeconds: Math.max(5, stateValues.requestDelaySeconds ?? 10),
@@ -2197,14 +2197,14 @@ export class ClineProvider
 			customModePrompts: stateValues.customModePrompts ?? {},
 			customSupportPrompts: stateValues.customSupportPrompts ?? {},
 			enhancementApiConfigId: stateValues.enhancementApiConfigId,
-			commitMessageApiConfigId: stateValues.commitMessageApiConfigId, // kilocode_change
-			terminalCommandApiConfigId: stateValues.terminalCommandApiConfigId, // kilocode_change
-			// kilocode_change start
+			commitMessageApiConfigId: stateValues.commitMessageApiConfigId, // arcanea_change
+			terminalCommandApiConfigId: stateValues.terminalCommandApiConfigId, // arcanea_change
+			// arcanea_change start
 			ghostServiceSettings: stateValues.ghostServiceSettings ?? {
 				enableQuickInlineTaskKeybinding: true,
 				enableSmartInlineTaskKeybinding: true,
 			},
-			// kilocode_change end
+			// arcanea_change end
 			experiments: stateValues.experiments ?? experimentDefault,
 			autoApprovalEnabled: stateValues.autoApprovalEnabled ?? true,
 			customModes,
@@ -2214,16 +2214,16 @@ export class ClineProvider
 			browserToolEnabled: stateValues.browserToolEnabled ?? true,
 			telemetrySetting: stateValues.telemetrySetting || "unset",
 			showRooIgnoredFiles: stateValues.showRooIgnoredFiles ?? false,
-			showAutoApproveMenu: stateValues.showAutoApproveMenu ?? false, // kilocode_change
-			showTaskTimeline: stateValues.showTaskTimeline ?? true, // kilocode_change
+			showAutoApproveMenu: stateValues.showAutoApproveMenu ?? false, // arcanea_change
+			showTaskTimeline: stateValues.showTaskTimeline ?? true, // arcanea_change
 			maxReadFileLine: stateValues.maxReadFileLine ?? -1,
 			maxImageFileSize: stateValues.maxImageFileSize ?? 5,
 			maxTotalImageSize: stateValues.maxTotalImageSize ?? 20,
 			maxConcurrentFileReads: stateValues.maxConcurrentFileReads ?? 5,
-			allowVeryLargeReads: stateValues.allowVeryLargeReads ?? false, // kilocode_change
-			systemNotificationsEnabled: stateValues.systemNotificationsEnabled ?? true, // kilocode_change
-			dismissedNotificationIds: stateValues.dismissedNotificationIds ?? [], // kilocode_change
-			morphApiKey: stateValues.morphApiKey, // kilocode_change
+			allowVeryLargeReads: stateValues.allowVeryLargeReads ?? false, // arcanea_change
+			systemNotificationsEnabled: stateValues.systemNotificationsEnabled ?? true, // arcanea_change
+			dismissedNotificationIds: stateValues.dismissedNotificationIds ?? [], // arcanea_change
+			morphApiKey: stateValues.morphApiKey, // arcanea_change
 			historyPreviewCollapsed: stateValues.historyPreviewCollapsed ?? false,
 			cloudUserInfo,
 			cloudIsAuthenticated,
@@ -2265,7 +2265,7 @@ export class ClineProvider
 				}
 			})(),
 			openRouterImageApiKey: stateValues.openRouterImageApiKey,
-			kiloCodeImageApiKey: stateValues.kiloCodeImageApiKey,
+			arcaneaImageApiKey: stateValues.arcaneaImageApiKey,
 			openRouterImageGenerationSelectedModel: stateValues.openRouterImageGenerationSelectedModel,
 			featureRoomoteControlEnabled: (() => {
 				try {
@@ -2293,7 +2293,7 @@ export class ClineProvider
 		}
 
 		await this.updateGlobalState("taskHistory", history)
-		this.kiloCodeTaskHistoryVersion++
+		this.arcaneaTaskHistoryVersion++
 		this.recentTasksCache = undefined
 
 		return history
@@ -2342,10 +2342,10 @@ export class ClineProvider
 
 		// Logout from Arcanea provider before resetting (same approach as ProfileView logout)
 		const { apiConfiguration, currentApiConfigName = "default" } = await this.getState()
-		if (apiConfiguration.kilocodeToken) {
+		if (apiConfiguration.arcaneaToken) {
 			await this.upsertProviderProfile(currentApiConfigName, {
 				...apiConfiguration,
-				kilocodeToken: "",
+				arcaneaToken: "",
 			})
 		}
 
@@ -2630,7 +2630,7 @@ export class ClineProvider
 
 		const task = new Task({
 			provider: this,
-			context: this.context, // kilocode_change
+			context: this.context, // arcanea_change
 			apiConfiguration,
 			enableDiff,
 			enableCheckpoints,
@@ -2763,27 +2763,27 @@ export class ClineProvider
 	private getAppProperties(): StaticAppProperties {
 		if (!this._appProperties) {
 			const packageJSON = this.context.extension?.packageJSON
-			// kilocode_change start
+			// arcanea_change start
 			const {
-				kiloCodeWrapped,
-				kiloCodeWrapper,
-				kiloCodeWrapperCode,
-				kiloCodeWrapperVersion,
-				kiloCodeWrapperTitle,
-			} = getKiloCodeWrapperProperties()
-			// kilocode_change end
+				arcaneaWrapped,
+				arcaneaWrapper,
+				arcaneaWrapperCode,
+				arcaneaWrapperVersion,
+				arcaneaWrapperTitle,
+			} = getArcaneaWrapperProperties()
+			// arcanea_change end
 
 			this._appProperties = {
 				appName: packageJSON?.name ?? Package.name,
 				appVersion: packageJSON?.version ?? Package.version,
 				vscodeVersion: vscode.version,
-				platform: isWsl ? "wsl" /* kilocode_change */ : process.platform,
-				editorName: kiloCodeWrapperTitle ? kiloCodeWrapperTitle : vscode.env.appName, // kilocode_change
-				wrapped: kiloCodeWrapped, // kilocode_change
-				wrapper: kiloCodeWrapper, // kilocode_change
-				wrapperCode: kiloCodeWrapperCode, // kilocode_change
-				wrapperVersion: kiloCodeWrapperVersion, // kilocode_change
-				wrapperTitle: kiloCodeWrapperTitle, // kilocode_change
+				platform: isWsl ? "wsl" /* arcanea_change */ : process.platform,
+				editorName: arcaneaWrapperTitle ? arcaneaWrapperTitle : vscode.env.appName, // arcanea_change
+				wrapped: arcaneaWrapped, // arcanea_change
+				wrapper: arcaneaWrapper, // arcanea_change
+				wrapperCode: arcaneaWrapperCode, // arcanea_change
+				wrapperVersion: arcaneaWrapperVersion, // arcanea_change
+				wrapperTitle: arcaneaWrapperTitle, // arcanea_change
 			}
 		}
 
@@ -2851,12 +2851,12 @@ export class ClineProvider
 	}
 
 	public async getTelemetryProperties(): Promise<TelemetryProperties> {
-		// kilocode_change start
+		// arcanea_change start
 		const {
 			mode,
 			apiConfiguration,
 			language,
-			experiments, // kilocode_change
+			experiments, // arcanea_change
 		} = await this.getState()
 		const task = this.getCurrentTask()
 
@@ -2879,7 +2879,7 @@ export class ClineProvider
 		function getOpenRouter() {
 			if (
 				apiConfiguration &&
-				(apiConfiguration.apiProvider === "openrouter" || apiConfiguration.apiProvider === "kilocode")
+				(apiConfiguration.apiProvider === "openrouter" || apiConfiguration.apiProvider === "arcanea")
 			) {
 				return {
 					openRouter: {
@@ -2916,23 +2916,23 @@ export class ClineProvider
 				}
 			}
 		}
-		// kilocode_change end
+		// arcanea_change end
 
 		return {
 			...this.getAppProperties(),
-			// ...this.getCloudProperties(), kilocode_change: disable
-			// kilocode_change start
+			// ...this.getCloudProperties(), arcanea_change: disable
+			// arcanea_change start
 			...(await getModelId()),
 			...getMemory(),
 			...getFastApply(),
 			...getOpenRouter(),
-			// kilocode_change end
+			// arcanea_change end
 			...(await this.getTaskProperties()),
 			...(await this.getGitProperties()),
 		}
 	}
 
-	// kilocode_change:
+	// arcanea_change:
 	// MCP Marketplace
 	private async fetchMcpMarketplaceFromApi(silent: boolean = false): Promise<McpMarketplaceCatalog | undefined> {
 		try {
@@ -3100,9 +3100,9 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			})
 		}
 	}
-	// end kilocode_change
+	// end arcanea_change
 
-	// kilocode_change start
+	// arcanea_change start
 	// Add new methods for favorite functionality
 	async toggleTaskFavorite(id: string) {
 		const history = this.getGlobalState("taskHistory") ?? []
@@ -3113,7 +3113,7 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			return item
 		})
 		await this.updateGlobalState("taskHistory", updatedHistory)
-		this.kiloCodeTaskHistoryVersion++
+		this.arcaneaTaskHistoryVersion++
 		await this.postStateToWebview()
 	}
 
@@ -3145,16 +3145,16 @@ Here is the project's README to help you get started:\n\n${mcpDetails.readmeCont
 			return item
 		})
 		await this.updateGlobalState("taskHistory", updatedHistory)
-		this.kiloCodeTaskHistoryVersion++
+		this.arcaneaTaskHistoryVersion++
 		await this.postStateToWebview()
 	}
 
-	private kiloCodeTaskHistoryVersion = 0
+	private arcaneaTaskHistoryVersion = 0
 
 	public getTaskHistory(): HistoryItem[] {
 		return this.getGlobalState("taskHistory") || []
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	public get cwd() {
 		return this.currentWorkspacePath || getWorkspacePath()

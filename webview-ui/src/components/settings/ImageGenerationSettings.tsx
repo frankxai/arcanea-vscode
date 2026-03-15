@@ -9,11 +9,11 @@ interface ImageGenerationSettingsProps {
 	openRouterImageGenerationSelectedModel?: string
 	setOpenRouterImageApiKey: (apiKey: string) => void
 	setImageGenerationSelectedModel: (model: string) => void
-	// kilocode_change start
-	kiloCodeImageApiKey?: string
-	setKiloCodeImageApiKey: (apiKey: string) => void
-	currentProfileKilocodeToken?: string
-	// kilocode_change end
+	// arcanea_change start
+	arcaneaImageApiKey?: string
+	setArcaneaImageApiKey: (apiKey: string) => void
+	currentProfileArcaneacodeToken?: string
+	// arcanea_change end
 }
 
 // Hardcoded list of image generation models
@@ -30,15 +30,15 @@ export const ImageGenerationSettings = ({
 	openRouterImageGenerationSelectedModel,
 	setOpenRouterImageApiKey,
 	setImageGenerationSelectedModel,
-	// kilocode_change start
-	kiloCodeImageApiKey,
-	setKiloCodeImageApiKey,
-	currentProfileKilocodeToken,
-	// kilocode_change end
+	// arcanea_change start
+	arcaneaImageApiKey,
+	setArcaneaImageApiKey,
+	currentProfileArcaneacodeToken,
+	// arcanea_change end
 }: ImageGenerationSettingsProps) => {
 	const { t } = useAppTranslation()
 
-	// kilocode_change start
+	// arcanea_change start
 	const [isUsingOpenRouter, setIsUsingOpenRouter] = useState(!!openRouterImageApiKey)
 	useEffect(() => {
 		if (!enabled) {
@@ -62,27 +62,27 @@ export const ImageGenerationSettings = ({
 		isUsingOpenRouter,
 		openRouterImageApiKey,
 		setOpenRouterImageApiKey,
-		kiloCodeImageApiKey,
-		setKiloCodeImageApiKey,
+		arcaneaImageApiKey,
+		setArcaneaImageApiKey,
 		openRouterImageGenerationSelectedModel,
 		setImageGenerationSelectedModel,
-		currentProfileKilocodeToken,
+		currentProfileArcaneacodeToken,
 	])
-	// kilocode_change end
+	// arcanea_change end
 
 	// Handle API key changes
 	const handleApiKeyChange = (value: string) => {
-		// setApiKey(value) // kilocode_change
+		// setApiKey(value) // arcanea_change
 		setOpenRouterImageApiKey(value)
 	}
 
-	const handleKiloApiKeyChange = (value: string) => {
-		setKiloCodeImageApiKey(value)
+	const handleArcaneaApiKeyChange = (value: string) => {
+		setArcaneaImageApiKey(value)
 	}
 
 	// Handle model selection changes
 	const handleModelChange = (value: string) => {
-		// setSelectedModel(value) // kilocode_change
+		// setSelectedModel(value) // arcanea_change
 		setImageGenerationSelectedModel(value)
 	}
 
@@ -104,19 +104,19 @@ export const ImageGenerationSettings = ({
 					{/* API Key Configuration */}
 
 					{
-						// kilocode_change start
+						// arcanea_change start
 						<div>
 							<label className="block font-medium mb-1">
 								{t("settings:experimental.IMAGE_GENERATION.apiProvider")}
 							</label>
 							<VSCodeDropdown
-								value={isUsingOpenRouter ? "openrouter" : "kilocode"}
+								value={isUsingOpenRouter ? "openrouter" : "arcanea"}
 								onChange={(e: any) => {
 									console.log("onChange", Boolean(e.target.value))
 									setIsUsingOpenRouter(e.target.value === "openrouter")
 								}}
 								className="w-full">
-								<VSCodeOption className="py-2 px-3" value="kilocode">
+								<VSCodeOption className="py-2 px-3" value="arcanea">
 									Arcanea
 								</VSCodeOption>
 								<VSCodeOption className="py-2 px-3" value="openrouter">
@@ -124,53 +124,53 @@ export const ImageGenerationSettings = ({
 								</VSCodeOption>
 							</VSCodeDropdown>
 						</div>
-						// kilocode_change end
+						// arcanea_change end
 					}
 
 					{
-						// kilocode_change start
+						// arcanea_change start
 						<div style={{ display: isUsingOpenRouter ? "none" : undefined }}>
 							<label className="block font-medium mb-1">
-								{t("settings:experimental.IMAGE_GENERATION.kiloCodeApiKeyLabel")}
+								{t("settings:experimental.IMAGE_GENERATION.arcaneaApiKeyLabel")}
 							</label>
 							<VSCodeTextField
-								value={kiloCodeImageApiKey}
-								onInput={(e: any) => handleKiloApiKeyChange(e.target.value)}
-								placeholder={t("settings:experimental.IMAGE_GENERATION.kiloCodeApiKeyPlaceholder")}
+								value={arcaneaImageApiKey}
+								onInput={(e: any) => handleArcaneaApiKeyChange(e.target.value)}
+								placeholder={t("settings:experimental.IMAGE_GENERATION.arcaneaApiKeyPlaceholder")}
 								className="w-full"
 								type="password"
 							/>
 							<p className="text-vscode-descriptionForeground text-xs mt-1">
-								{currentProfileKilocodeToken ? (
+								{currentProfileArcaneacodeToken ? (
 									<a
 										href="#"
-										onClick={() => handleKiloApiKeyChange(currentProfileKilocodeToken)}
+										onClick={() => handleArcaneaApiKeyChange(currentProfileArcaneacodeToken)}
 										className="text-vscode-textLink-foreground hover:text-vscode-textLink-activeForeground">
-										{t("settings:experimental.IMAGE_GENERATION.kiloCodeApiKeyPaste")}
+										{t("settings:experimental.IMAGE_GENERATION.arcaneaApiKeyPaste")}
 									</a>
 								) : (
 									<>
 										{t("settings:experimental.IMAGE_GENERATION.getApiKeyText")}{" "}
 										<a
-											href="https://app.kilocode.ai/profile?personal=true"
+											href="https://app.arcanea.ai/profile?personal=true"
 											target="_blank"
 											rel="noopener noreferrer"
 											className="text-vscode-textLink-foreground hover:text-vscode-textLink-activeForeground">
-											app.kilocode.ai/profile
+											app.arcanea.ai/profile
 										</a>
 									</>
 								)}
 							</p>
 						</div>
-						// kilocode_change end
+						// arcanea_change end
 					}
 
-					<div style={{ display: isUsingOpenRouter ? undefined : "none" } /*kilocode_change*/}>
+					<div style={{ display: isUsingOpenRouter ? undefined : "none" } /*arcanea_change*/}>
 						<label className="block font-medium mb-1">
 							{t("settings:experimental.IMAGE_GENERATION.openRouterApiKeyLabel")}
 						</label>
 						<VSCodeTextField
-							value={openRouterImageApiKey /*kilocode_change*/}
+							value={openRouterImageApiKey /*arcanea_change*/}
 							onInput={(e: any) => handleApiKeyChange(e.target.value)}
 							placeholder={t("settings:experimental.IMAGE_GENERATION.openRouterApiKeyPlaceholder")}
 							className="w-full"
@@ -189,12 +189,12 @@ export const ImageGenerationSettings = ({
 					</div>
 
 					{/* Model Selection */}
-					<div style={{ display: isUsingOpenRouter ? undefined : "none" } /*kilocode_change*/}>
+					<div style={{ display: isUsingOpenRouter ? undefined : "none" } /*arcanea_change*/}>
 						<label className="block font-medium mb-1">
 							{t("settings:experimental.IMAGE_GENERATION.modelSelectionLabel")}
 						</label>
 						<VSCodeDropdown
-							value={openRouterImageGenerationSelectedModel /*kilocode_change*/}
+							value={openRouterImageGenerationSelectedModel /*arcanea_change*/}
 							onChange={(e: any) => handleModelChange(e.target.value)}
 							className="w-full">
 							{IMAGE_GENERATION_MODELS.map((model) => (
@@ -209,13 +209,13 @@ export const ImageGenerationSettings = ({
 					</div>
 
 					{/* Status Message */}
-					{enabled && (isUsingOpenRouter ? !openRouterImageApiKey : !kiloCodeImageApiKey) && (
+					{enabled && (isUsingOpenRouter ? !openRouterImageApiKey : !arcaneaImageApiKey) && (
 						<div className="p-2 bg-vscode-editorWarning-background text-vscode-editorWarning-foreground rounded text-sm">
 							{t("settings:experimental.IMAGE_GENERATION.warningMissingKey")}
 						</div>
 					)}
 
-					{enabled && (isUsingOpenRouter ? openRouterImageApiKey : kiloCodeImageApiKey) && (
+					{enabled && (isUsingOpenRouter ? openRouterImageApiKey : arcaneaImageApiKey) && (
 						<div className="p-2 bg-vscode-editorInfo-background text-vscode-editorInfo-foreground rounded text-sm">
 							{t("settings:experimental.IMAGE_GENERATION.successConfigured")}
 						</div>

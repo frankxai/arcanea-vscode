@@ -1,4 +1,4 @@
-// kilocode_change: Morph fast apply - file added
+// arcanea_change: Morph fast apply - file added
 
 export function getMorphEditingInstructions(): string {
 	return `- **Morph FastApply is enabled.** You have access to the \`edit_file\` tool which uses a specialized model optimized for intelligent code understanding and modification.

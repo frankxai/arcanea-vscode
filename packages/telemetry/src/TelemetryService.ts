@@ -1,6 +1,6 @@
 import { ZodError } from "zod"
 
-import { type TelemetryClient, type TelemetryPropertiesProvider, TelemetryEventName } from "@roo-code/types"
+import { type TelemetryClient, type TelemetryPropertiesProvider, TelemetryEventName } from "@arcanea/types"
 
 /**
  * TelemetryService wrapper class that defers initialization.
@@ -46,17 +46,17 @@ export class TelemetryService {
 		this.clients.forEach((client) => client.updateTelemetryState(isOptedIn))
 	}
 
-	// kilocode_change start
+	// arcanea_change start
 	public captureException(error: Error, properties?: Record<string | number, unknown>): void {
 		this.clients.forEach((client) => client.captureException(error, properties))
 	}
 
-	public async updateIdentity(kilocodeToken: string) {
+	public async updateIdentity(arcaneaToken: string) {
 		for (const client of this.clients) {
-			await client.updateIdentity(kilocodeToken)
+			await client.updateIdentity(arcaneaToken)
 		}
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	/**
 	 * Generic method to capture any type of event with specified properties
@@ -96,7 +96,7 @@ export class TelemetryService {
 			cacheWriteTokens: number
 			cacheReadTokens: number
 			cost?: number
-			completionTime?: number // kilocode_change
+			completionTime?: number // arcanea_change
 		},
 	): void {
 		this.captureEvent(TelemetryEventName.LLM_COMPLETION, { taskId, ...properties })

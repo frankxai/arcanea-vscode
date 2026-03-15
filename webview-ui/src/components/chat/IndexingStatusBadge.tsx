@@ -92,7 +92,7 @@ export const IndexingStatusBadge: React.FC<IndexingStatusBadgeProps> = ({ classN
 						aria-label={tooltipText}
 						className={cn(
 							"relative h-7 w-7 p-0",
-							"text-vscode-foreground opacity-60", // kilocode_change: opacity to match paperclip
+							"text-vscode-foreground opacity-60", // arcanea_change: opacity to match paperclip
 							"hover:opacity-100 hover:bg-[rgba(255,255,255,0.03)]",
 							"focus:outline-none focus-visible:ring-1 focus-visible:ring-vscode-focusBorder",
 							className,

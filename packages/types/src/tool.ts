@@ -33,12 +33,12 @@ export const toolNames = [
 	"new_task",
 	"fetch_instructions",
 	"codebase_search",
-	// kilocode_change start
+	// arcanea_change start
 	"edit_file",
 	"new_rule",
 	"report_bug",
 	"condense",
-	// kilocode_change end
+	// arcanea_change end
 	"update_todo_list",
 	"run_slash_command",
 	"generate_image",

@@ -1,4 +1,4 @@
-import type { ModelInfo } from "@roo-code/types"
+import type { ModelInfo } from "@arcanea/types"
 
 function calculateApiCostInternal(
 	modelInfo: ModelInfo,

@@ -2,7 +2,7 @@
 import Anthropic from "@anthropic-ai/sdk"
 import * as vscode from "vscode"
 import axios from "axios"
-import { TelemetryService } from "@roo-code/telemetry"
+import { TelemetryService } from "@arcanea/telemetry"
 import { ContextProxy } from "../core/config/ContextProxy"
 import { ClineProvider } from "../core/webview/ClineProvider"
 
@@ -304,7 +304,7 @@ export function setupCommonMocks() {
 		})),
 	}))
 
-	vi.mock("@roo-code/cloud", () => ({
+	vi.mock("@arcanea/cloud", () => ({
 		CloudService: {
 			hasInstance: vi.fn().mockReturnValue(true),
 			get instance() {

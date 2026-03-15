@@ -8,7 +8,7 @@ import remarkGfm from "remark-gfm"
 
 import { vscode } from "@src/utils/vscode"
 
-import CodeBlock from "../kilocode/common/CodeBlock" // kilocode_change
+import CodeBlock from "../arcanea/common/CodeBlock" // arcanea_change
 import MermaidBlock from "./MermaidBlock"
 
 interface MarkdownBlockProps {

@@ -281,9 +281,9 @@ const PromptsSettings = ({
 						</div>
 					)}
 
-					{/* kilocode_change start */}
+					{/* arcanea_change start */}
 					{activeSupportOption === "COMMIT_MESSAGE" && <CommitMessagePromptSettings />}
-					{/* kilocode_change end */}
+					{/* arcanea_change end */}
 				</div>
 			</Section>
 		</div>

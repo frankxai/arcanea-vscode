@@ -8,31 +8,31 @@ import { MarketplaceViewStateManager } from "./components/marketplace/Marketplac
 
 import { vscode } from "./utils/vscode"
 import { telemetryClient } from "./utils/TelemetryClient"
-import { TelemetryEventName } from "@roo-code/types"
+import { TelemetryEventName } from "@arcanea/types"
 import { initializeSourceMaps, exposeSourceMapsForDebugging } from "./utils/sourceMapInitializer"
 import { ExtensionStateContextProvider, useExtensionState } from "./context/ExtensionStateContext"
 import ChatView, { ChatViewRef } from "./components/chat/ChatView"
 import HistoryView from "./components/history/HistoryView"
 import SettingsView, { SettingsViewRef } from "./components/settings/SettingsView"
-import WelcomeView from "./components/kilocode/Welcome/WelcomeView" // kilocode_change
-import ProfileView from "./components/kilocode/profile/ProfileView" // kilocode_change
+import WelcomeView from "./components/arcanea/Welcome/WelcomeView" // arcanea_change
+import ProfileView from "./components/arcanea/profile/ProfileView" // arcanea_change
 import McpView from "./components/mcp/McpView"
 import { MarketplaceView } from "./components/marketplace/MarketplaceView"
 import ModesView from "./components/modes/ModesView"
 import { HumanRelayDialog } from "./components/human-relay/HumanRelayDialog"
-import BottomControls from "./components/kilocode/BottomControls" // kilocode_change
-import { MemoryService } from "./services/MemoryService" // kilocode_change
+import BottomControls from "./components/arcanea/BottomControls" // arcanea_change
+import { MemoryService } from "./services/MemoryService" // arcanea_change
 import { CheckpointRestoreDialog } from "./components/chat/CheckpointRestoreDialog"
 import { DeleteMessageDialog, EditMessageDialog } from "./components/chat/MessageModificationConfirmationDialog"
 import ErrorBoundary from "./components/ErrorBoundary"
-// import { AccountView } from "./components/account/AccountView" // kilocode_change: we have our own profile view
-// import { CloudView } from "./components/cloud/CloudView" // kilocode_change: not rendering this
+// import { AccountView } from "./components/account/AccountView" // arcanea_change: we have our own profile view
+// import { CloudView } from "./components/cloud/CloudView" // arcanea_change: not rendering this
 import { useAddNonInteractiveClickListener } from "./components/ui/hooks/useNonInteractiveClick"
 import { TooltipProvider } from "./components/ui/tooltip"
 import { STANDARD_TOOLTIP_DELAY } from "./components/ui/standard-tooltip"
-import { useKiloIdentity } from "./utils/kilocode/useKiloIdentity"
+import { useArcaneaIdentity } from "./utils/arcanea/useArcaneaIdentity"
 
-type Tab = "settings" | "history" | "mcp" | "modes" | "chat" | "marketplace" | "account" | "cloud" | "profile" // kilocode_change: add "profile"
+type Tab = "settings" | "history" | "mcp" | "modes" | "chat" | "marketplace" | "account" | "cloud" | "profile" // arcanea_change: add "profile"
 
 interface HumanRelayDialogState {
 	isOpen: boolean
@@ -68,7 +68,7 @@ const tabsByMessageAction: Partial<Record<NonNullable<ExtensionMessage["action"]
 	historyButtonClicked: "history",
 	profileButtonClicked: "profile",
 	marketplaceButtonClicked: "marketplace",
-	// cloudButtonClicked: "cloud", // kilocode_change: no cloud
+	// cloudButtonClicked: "cloud", // arcanea_change: no cloud
 }
 
 const App = () => {
@@ -79,11 +79,11 @@ const App = () => {
 		telemetrySetting,
 		telemetryKey,
 		machineId,
-		// cloudUserInfo, // kilocode_change not used
-		// cloudIsAuthenticated, // kilocode_change not used
+		// cloudUserInfo, // arcanea_change not used
+		// cloudIsAuthenticated, // arcanea_change not used
 		renderContext,
 		mdmCompliant,
-		apiConfiguration, // kilocode_change
+		apiConfiguration, // arcanea_change
 	} = useExtensionState()
 
 	// Create a persistent state manager
@@ -113,7 +113,7 @@ const App = () => {
 	})
 
 	const settingsRef = useRef<SettingsViewRef>(null)
-	const chatViewRef = useRef<ChatViewRef & { focusInput: () => void }>(null) // kilocode_change
+	const chatViewRef = useRef<ChatViewRef & { focusInput: () => void }>(null) // arcanea_change
 
 	const switchTab = useCallback(
 		(newTab: Tab) => {
@@ -145,7 +145,7 @@ const App = () => {
 			const message: ExtensionMessage = e.data
 
 			if (message.type === "action" && message.action) {
-				// kilocode_change begin
+				// arcanea_change begin
 				if (message.action === "focusChatInput") {
 					if (tab !== "chat") {
 						switchTab("chat")
@@ -153,7 +153,7 @@ const App = () => {
 					chatViewRef.current?.focusInput()
 					return
 				}
-				// kilocode_change end
+				// arcanea_change end
 
 				// Handle switchTab action with tab parameter
 				if (message.action === "switchTab" && message.tab) {
@@ -202,7 +202,7 @@ const App = () => {
 				chatViewRef.current?.acceptInput()
 			}
 		},
-		// kilocode_change: add tab
+		// arcanea_change: add tab
 		[tab, switchTab],
 	)
 
@@ -215,20 +215,20 @@ const App = () => {
 		}
 	}, [shouldShowAnnouncement, tab])
 
-	// kilocode_change start
-	const telemetryDistinctId = useKiloIdentity(apiConfiguration?.kilocodeToken ?? "", machineId ?? "")
+	// arcanea_change start
+	const telemetryDistinctId = useArcaneaIdentity(apiConfiguration?.arcaneaToken ?? "", machineId ?? "")
 	useEffect(() => {
 		if (didHydrateState) {
 			telemetryClient.updateTelemetryState(telemetrySetting, telemetryKey, telemetryDistinctId)
 
-			// kilocode_change start
+			// arcanea_change start
 			const memoryService = new MemoryService()
 			memoryService.start()
 			return () => memoryService.stop()
-			// kilocode_change end
+			// arcanea_change end
 		}
 	}, [telemetrySetting, telemetryKey, telemetryDistinctId, didHydrateState])
-	// kilocode_change end
+	// arcanea_change end
 
 	// Tell the extension that we are ready to receive messages.
 	useEffect(() => vscode.postMessage({ type: "webviewDidLaunch" }), [])
@@ -277,19 +277,19 @@ const App = () => {
 			{tab === "mcp" && <McpView onDone={() => switchTab("chat")} />}
 			{tab === "history" && <HistoryView onDone={() => switchTab("chat")} />}
 			{tab === "settings" && (
-				<SettingsView ref={settingsRef} onDone={() => switchTab("chat")} targetSection={currentSection} /> // kilocode_change
+				<SettingsView ref={settingsRef} onDone={() => switchTab("chat")} targetSection={currentSection} /> // arcanea_change
 			)}
-			{/* kilocode_change: add profileview */}
+			{/* arcanea_change: add profileview */}
 			{tab === "profile" && <ProfileView onDone={() => switchTab("chat")} />}
 			{tab === "marketplace" && (
 				<MarketplaceView
 					stateManager={marketplaceStateManager}
 					onDone={() => switchTab("chat")}
-					// kilocode_change: targetTab="mode"
+					// arcanea_change: targetTab="mode"
 					targetTab="mode"
 				/>
 			)}
-			{/* kilocode_change: no cloud view */}
+			{/* arcanea_change: no cloud view */}
 			{/* {tab === "cloud" && (
 				<CloudView
 					userInfo={cloudUserInfo}
@@ -298,7 +298,7 @@ const App = () => {
 					onDone={() => switchTab("chat")}
 				/>
 			)} */}
-			{/* kilocode_change: we have our own profile view */}
+			{/* arcanea_change: we have our own profile view */}
 			{/* {tab === "account" && (
 				<AccountView userInfo={cloudUserInfo} isAuthenticated={false} onDone={() => switchTab("chat")} />
 			)} */}
@@ -375,7 +375,7 @@ const App = () => {
 					}}
 				/>
 			)}
-			{/* kilocode_change */}
+			{/* arcanea_change */}
 			{/* Chat, modes and history view contain their own bottom controls */}
 			{!["chat", "modes", "history"].includes(tab) && (
 				<div className="fixed inset-0 top-auto">

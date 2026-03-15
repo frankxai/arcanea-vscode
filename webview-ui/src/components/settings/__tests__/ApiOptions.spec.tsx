@@ -3,7 +3,7 @@
 import { render, screen, fireEvent } from "@/utils/test-utils"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-import { type ModelInfo, type ProviderSettings, openAiModelInfoSaneDefaults } from "@roo-code/types"
+import { type ModelInfo, type ProviderSettings, openAiModelInfoSaneDefaults } from "@arcanea/types"
 
 import { ExtensionStateContextProvider } from "@src/context/ExtensionStateContext"
 
@@ -262,14 +262,14 @@ vi.mock("@src/components/ui/hooks/useSelectedModel", () => ({
 			}
 		}
 	}),
-	// kilocode_change start
+	// arcanea_change start
 	useModelProviders: vi.fn(() => ({
 		data: {
 			openai: { id: "openai", name: "OpenAI" },
 			anthropic: { id: "anthropic", name: "Anthropic" },
 		},
 	})),
-	// kilocode_change end
+	// arcanea_change end
 }))
 
 const renderApiOptions = (props: Partial<ApiOptionsProps> = {}) => {
@@ -352,7 +352,7 @@ describe("ApiOptions", () => {
 		// it's included in the ApiOptions component when appropriate.
 	})
 
-	// kilocode_change: skip, we use a custom provider select component
+	// arcanea_change: skip, we use a custom provider select component
 	it.skip("filters providers by search input and shows no match message when appropriate", () => {
 		renderApiOptions({
 			apiConfiguration: {},

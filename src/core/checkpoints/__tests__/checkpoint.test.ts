@@ -21,13 +21,13 @@ vi.mock("vscode", () => ({
 }))
 
 // Mock other dependencies
-vi.mock("@roo-code/telemetry", () => ({
+vi.mock("@arcanea/telemetry", () => ({
 	TelemetryService: {
 		instance: {
 			captureCheckpointCreated: vi.fn(),
 			captureCheckpointRestored: vi.fn(),
 			captureCheckpointDiffed: vi.fn(),
-			captureEvent: vi.fn(), // kilocode_change
+			captureEvent: vi.fn(), // arcanea_change
 		},
 	},
 }))

@@ -58,11 +58,11 @@ export const providerNames = [
 	"groq",
 	"chutes",
 	"litellm",
-	// kilocode_change start
-	"kilocode",
+	// arcanea_change start
+	"arcanea",
 	"gemini-cli",
 	"virtual-quota-fallback",
-	// kilocode_change end
+	// arcanea_change end
 	"huggingface",
 	"cerebras",
 	"sambanova",
@@ -141,10 +141,10 @@ const glamaSchema = baseProviderSettingsSchema.extend({
 	glamaApiKey: z.string().optional(),
 })
 
-// kilocode_change start
+// arcanea_change start
 export const openRouterProviderDataCollectionSchema = z.enum(["allow", "deny"])
 export const openRouterProviderSortSchema = z.enum(["price", "throughput", "latency"])
-// kilocode_change end
+// arcanea_change end
 
 const openRouterSchema = baseProviderSettingsSchema.extend({
 	openRouterApiKey: z.string().optional(),
@@ -152,10 +152,10 @@ const openRouterSchema = baseProviderSettingsSchema.extend({
 	openRouterBaseUrl: z.string().optional(),
 	openRouterSpecificProvider: z.string().optional(),
 	openRouterUseMiddleOutTransform: z.boolean().optional(),
-	// kilocode_change start
+	// arcanea_change start
 	openRouterProviderDataCollection: openRouterProviderDataCollectionSchema.optional(),
 	openRouterProviderSort: openRouterProviderSortSchema.optional(),
-	// kilocode_change end
+	// arcanea_change end
 })
 
 const bedrockSchema = apiModelIdProviderModelSchema.extend({
@@ -230,12 +230,12 @@ const geminiSchema = apiModelIdProviderModelSchema.extend({
 	enableGrounding: z.boolean().optional(),
 })
 
-// kilocode_change start
+// arcanea_change start
 const geminiCliSchema = apiModelIdProviderModelSchema.extend({
 	geminiCliOAuthPath: z.string().optional(),
 	geminiCliProjectId: z.string().optional(),
 })
-// kilocode_change end
+// arcanea_change end
 
 const openAiNativeSchema = apiModelIdProviderModelSchema.extend({
 	openAiNativeApiKey: z.string().optional(),
@@ -323,15 +323,15 @@ const sambaNovaSchema = apiModelIdProviderModelSchema.extend({
 	sambaNovaApiKey: z.string().optional(),
 })
 
-// kilocode_change start
-const kilocodeSchema = baseProviderSettingsSchema.extend({
-	kilocodeToken: z.string().optional(),
-	kilocodeOrganizationId: z.string().optional(),
-	kilocodeModel: z.string().optional(),
+// arcanea_change start
+const arcaneaSchema = baseProviderSettingsSchema.extend({
+	arcaneaToken: z.string().optional(),
+	arcaneaOrganizationId: z.string().optional(),
+	arcaneaModel: z.string().optional(),
 	openRouterSpecificProvider: z.string().optional(),
 	openRouterProviderDataCollection: openRouterProviderDataCollectionSchema.optional(),
 	openRouterProviderSort: openRouterProviderSortSchema.optional(),
-	kilocodeTesterWarningsDisabledUntil: z.number().optional(), // Timestamp for disabling KILOCODE-TESTER warnings
+	arcaneaTesterWarningsDisabledUntil: z.number().optional(), // Timestamp for disabling ARCANEA-TESTER warnings
 })
 
 export const virtualQuotaFallbackProfileDataSchema = z.object({
@@ -356,11 +356,11 @@ const virtualQuotaFallbackSchema = baseProviderSettingsSchema.extend({
 export const zaiApiLineSchema = z.enum(["international_coding", "international", "china_coding", "china"])
 
 export type ZaiApiLine = z.infer<typeof zaiApiLineSchema>
-// kilocode_change end
+// arcanea_change end
 
 const zaiSchema = apiModelIdProviderModelSchema.extend({
 	zaiApiKey: z.string().optional(),
-	zaiApiLine: zaiApiLineSchema.optional(), // kilocode_change
+	zaiApiLine: zaiApiLineSchema.optional(), // arcanea_change
 })
 
 const fireworksSchema = apiModelIdProviderModelSchema.extend({
@@ -416,11 +416,11 @@ export const providerSettingsSchemaDiscriminated = z.discriminatedUnion("apiProv
 	humanRelaySchema.merge(z.object({ apiProvider: z.literal("human-relay") })),
 	fakeAiSchema.merge(z.object({ apiProvider: z.literal("fake-ai") })),
 	xaiSchema.merge(z.object({ apiProvider: z.literal("xai") })),
-	// kilocode_change start
+	// arcanea_change start
 	geminiCliSchema.merge(z.object({ apiProvider: z.literal("gemini-cli") })),
-	kilocodeSchema.merge(z.object({ apiProvider: z.literal("kilocode") })),
+	arcaneaSchema.merge(z.object({ apiProvider: z.literal("arcanea") })),
 	virtualQuotaFallbackSchema.merge(z.object({ apiProvider: z.literal("virtual-quota-fallback") })),
-	// kilocode_change end
+	// arcanea_change end
 	groqSchema.merge(z.object({ apiProvider: z.literal("groq") })),
 	huggingFaceSchema.merge(z.object({ apiProvider: z.literal("huggingface") })),
 	chutesSchema.merge(z.object({ apiProvider: z.literal("chutes") })),
@@ -450,11 +450,11 @@ export const providerSettingsSchema = z.object({
 	...vsCodeLmSchema.shape,
 	...lmStudioSchema.shape,
 	...geminiSchema.shape,
-	// kilocode_change start
+	// arcanea_change start
 	...geminiCliSchema.shape,
-	...kilocodeSchema.shape,
+	...arcaneaSchema.shape,
 	...virtualQuotaFallbackSchema.shape,
-	// kilocode_change end
+	// arcanea_change end
 	...openAiNativeSchema.shape,
 	...mistralSchema.shape,
 	...deepSeekSchema.shape,
@@ -631,10 +631,10 @@ export const MODELS_BY_PROVIDER: Record<
 	requesty: { id: "requesty", label: "Requesty", models: [] },
 	unbound: { id: "unbound", label: "Unbound", models: [] },
 
-	// kilocode_change start
-	kilocode: { id: "kilocode", label: "Kilocode", models: [] },
+	// arcanea_change start
+	arcanea: { id: "arcanea", label: "Arcaneacode", models: [] },
 	"virtual-quota-fallback": { id: "virtual-quota-fallback", label: "Virtual Quota Fallback", models: [] },
-	// kilocode_change end
+	// arcanea_change end
 	deepinfra: { id: "deepinfra", label: "DeepInfra", models: [] },
 	"vercel-ai-gateway": { id: "vercel-ai-gateway", label: "Vercel AI Gateway", models: [] },
 }
@@ -646,10 +646,10 @@ export const dynamicProviders = [
 	"openrouter",
 	"requesty",
 	"unbound",
-	// kilocode_change start
-	"kilocode",
+	// arcanea_change start
+	"arcanea",
 	"virtual-quota-fallback",
-	// kilocode_change end
+	// arcanea_change end
 	"deepinfra",
 	"vercel-ai-gateway",
 ] as const satisfies readonly ProviderName[]

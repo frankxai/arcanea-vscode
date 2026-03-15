@@ -167,4 +167,4 @@ const RedditLink = () => (
 )
 
 export default memo(Announcement)
-// kilocode_change: file unused, no need to touch anything
+// arcanea_change: file unused, no need to touch anything

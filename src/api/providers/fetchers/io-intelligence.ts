@@ -1,7 +1,7 @@
 import axios from "axios"
 import { z } from "zod"
-import type { ModelInfo } from "@roo-code/types"
-import { IO_INTELLIGENCE_CACHE_DURATION } from "@roo-code/types"
+import type { ModelInfo } from "@arcanea/types"
+import { IO_INTELLIGENCE_CACHE_DURATION } from "@arcanea/types"
 import type { ModelRecord } from "../../../shared/api"
 
 /**

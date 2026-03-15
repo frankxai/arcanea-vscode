@@ -1,4 +1,4 @@
-// kilocode_change - new file: Theme mapping utility for VSCode to Shiki theme conversion
+// arcanea_change - new file: Theme mapping utility for VSCode to Shiki theme conversion
 import * as vscode from "vscode"
 
 export interface ThemeColors {

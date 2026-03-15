@@ -1,6 +1,6 @@
 // npx vitest run shared/__tests__/modes.spec.ts
 
-import type { ModeConfig, PromptComponent } from "@roo-code/types"
+import type { ModeConfig, PromptComponent } from "@arcanea/types"
 
 // Mock setup must come before imports
 vi.mock("vscode")
@@ -389,7 +389,7 @@ describe("FileRestrictionError", () => {
 			expect(debugMode).toBeDefined()
 			expect(debugMode).toMatchObject({
 				slug: "debug",
-				name: "Debug", // kilocode_change
+				name: "Debug", // arcanea_change
 				roleDefinition:
 					"You are Arcanea, an expert software debugger specializing in systematic problem diagnosis and resolution.",
 				groups: ["read", "edit", "browser", "command", "mcp"],
@@ -410,7 +410,7 @@ describe("FileRestrictionError", () => {
 			const result = await getFullModeDetails("debug")
 			expect(result).toMatchObject({
 				slug: "debug",
-				name: "Debug", // kilocode_change
+				name: "Debug", // arcanea_change
 				roleDefinition:
 					"You are Arcanea, an expert software debugger specializing in systematic problem diagnosis and resolution.",
 			})

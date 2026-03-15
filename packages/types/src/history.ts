@@ -18,8 +18,8 @@ export const historyItemSchema = z.object({
 	totalCost: z.number(),
 	size: z.number().optional(),
 	workspace: z.string().optional(),
-	isFavorited: z.boolean().optional(), // kilocode_change
-	fileNotfound: z.boolean().optional(), // kilocode_change
+	isFavorited: z.boolean().optional(), // arcanea_change
+	fileNotfound: z.boolean().optional(), // arcanea_change
 	mode: z.string().optional(),
 })
 

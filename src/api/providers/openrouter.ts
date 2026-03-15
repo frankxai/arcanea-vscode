@@ -7,7 +7,7 @@ import {
 	OPENROUTER_DEFAULT_PROVIDER_NAME,
 	OPEN_ROUTER_PROMPT_CACHING_MODELS,
 	DEEP_SEEK_DEFAULT_TEMPERATURE,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import type { ApiHandlerOptions, ModelRecord } from "../../shared/api"
 
@@ -25,21 +25,21 @@ import { getModelEndpoints } from "./fetchers/modelEndpointCache"
 import { DEFAULT_HEADERS } from "./constants"
 import { BaseProvider } from "./base-provider"
 import type {
-	ApiHandlerCreateMessageMetadata, // kilocode_change
+	ApiHandlerCreateMessageMetadata, // arcanea_change
 	SingleCompletionHandler,
 } from "../index"
-import { verifyFinishReason } from "./kilocode/verifyFinishReason"
+import { verifyFinishReason } from "./arcanea/verifyFinishReason"
 
-// kilocode_change start
+// arcanea_change start
 type OpenRouterProviderParams = {
 	order?: string[]
 	only?: string[]
-	ignore?: string[] // kilocode_change
+	ignore?: string[] // arcanea_change
 	allow_fallbacks?: boolean
 	data_collection?: "allow" | "deny"
 	sort?: "price" | "throughput" | "latency"
 }
-// kilocode_change end
+// arcanea_change end
 import { handleOpenAIError } from "./utils/openai-error-handler"
 
 // Image generation types
@@ -75,13 +75,13 @@ type OpenRouterChatCompletionParams = OpenAI.Chat.ChatCompletionCreateParams & {
 	include_reasoning?: boolean
 	// https://openrouter.ai/docs/use-cases/reasoning-tokens
 	reasoning?: OpenRouterReasoningParams
-	provider?: OpenRouterProviderParams // kilocode_change
+	provider?: OpenRouterProviderParams // arcanea_change
 }
 
 // See `OpenAI.Chat.Completions.ChatCompletionChunk["usage"]`
 // `CompletionsAPI.CompletionUsage`
 // See also: https://openrouter.ai/docs/use-cases/usage-accounting
-export // kilocode_change
+export // arcanea_change
 interface CompletionUsage {
 	completion_tokens?: number
 	completion_tokens_details?: {
@@ -93,7 +93,7 @@ interface CompletionUsage {
 	}
 	total_tokens?: number
 	cost?: number
-	is_byok?: boolean // kilocode_change
+	is_byok?: boolean // arcanea_change
 	cost_details?: {
 		upstream_inference_cost?: number
 	}
@@ -105,11 +105,11 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 	protected models: ModelRecord = {}
 	protected endpoints: ModelRecord = {}
 
-	// kilocode_change start property
+	// arcanea_change start property
 	protected get providerName() {
 		return "OpenRouter"
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	constructor(options: ApiHandlerOptions) {
 		super()
@@ -121,7 +121,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 		this.client = new OpenAI({ baseURL, apiKey, defaultHeaders: DEFAULT_HEADERS })
 	}
 
-	// kilocode_change start
+	// arcanea_change start
 	customRequestOptions(_metadata?: ApiHandlerCreateMessageMetadata): { headers: Record<string, string> } | undefined {
 		return undefined
 	}
@@ -155,12 +155,12 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 		}
 		return {}
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	override async *createMessage(
 		systemPrompt: string,
 		messages: Anthropic.Messages.MessageParam[],
-		metadata?: ApiHandlerCreateMessageMetadata, // kilocode_change
+		metadata?: ApiHandlerCreateMessageMetadata, // arcanea_change
 	): AsyncGenerator<ApiStreamChunk> {
 		const model = await this.fetchModel()
 
@@ -210,7 +210,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 			messages: openAiMessages,
 			stream: true,
 			stream_options: { include_usage: true },
-			...this.getProviderParams(), // kilocode_change: original expression was moved into function
+			...this.getProviderParams(), // arcanea_change: original expression was moved into function
 			...(transforms && { transforms }),
 			...(reasoning && { reasoning }),
 		}
@@ -219,7 +219,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 		try {
 			stream = await this.client.chat.completions.create(
 				completionParams,
-				this.customRequestOptions(metadata), // kilocode_change
+				this.customRequestOptions(metadata), // arcanea_change
 			)
 		} catch (error) {
 			throw handleOpenAIError(error, this.providerName)
@@ -236,11 +236,11 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 					throw new Error(`OpenRouter API Error ${error?.code}: ${error?.message}`)
 				}
 
-				verifyFinishReason(chunk.choices[0]) // kilocode_change
+				verifyFinishReason(chunk.choices[0]) // arcanea_change
 				const delta = chunk.choices[0]?.delta
 
 				if (
-					delta /* kilocode_change */ &&
+					delta /* arcanea_change */ &&
 					"reasoning" in delta &&
 					delta.reasoning &&
 					typeof delta.reasoning === "string"
@@ -248,11 +248,11 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 					yield { type: "reasoning", text: delta.reasoning }
 				}
 
-				// kilocode_change start
+				// arcanea_change start
 				if (delta && "reasoning_content" in delta && typeof delta.reasoning_content === "string") {
 					yield { type: "reasoning", text: delta.reasoning_content }
 				}
-				// kilocode_change end
+				// arcanea_change end
 
 				if (delta?.content) {
 					yield { type: "text", text: delta.content }
@@ -274,7 +274,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 				outputTokens: lastUsage.completion_tokens || 0,
 				cacheReadTokens: lastUsage.prompt_tokens_details?.cached_tokens,
 				reasoningTokens: lastUsage.completion_tokens_details?.reasoning_tokens,
-				totalCost: this.getTotalCost(lastUsage), // kilocode_change
+				totalCost: this.getTotalCost(lastUsage), // arcanea_change
 			}
 		}
 	}
@@ -326,7 +326,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 			temperature,
 			messages: [{ role: "user", content: prompt }],
 			stream: false,
-			...this.getProviderParams(), // kilocode_change: original expression was moved into function
+			...this.getProviderParams(), // arcanea_change: original expression was moved into function
 			...(reasoning && { reasoning }),
 		}
 
@@ -334,7 +334,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 		try {
 			response = await this.client.chat.completions.create(
 				completionParams,
-				this.customRequestOptions(), // kilocode_change
+				this.customRequestOptions(), // arcanea_change
 			)
 		} catch (error) {
 			throw handleOpenAIError(error, this.providerName)
@@ -362,7 +362,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 		model: string,
 		apiKey: string,
 		inputImage?: string,
-		taskId?: string, // kilocode_change
+		taskId?: string, // arcanea_change
 	): Promise<ImageGenerationResult> {
 		if (!apiKey) {
 			return {
@@ -373,14 +373,14 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 
 		try {
 			const response = await fetch(
-				`${this.options.openRouterBaseUrl || "https://openrouter.ai/api/v1/"}chat/completions`, // kilocode_change: support baseUrl
+				`${this.options.openRouterBaseUrl || "https://openrouter.ai/api/v1/"}chat/completions`, // arcanea_change: support baseUrl
 				{
 					method: "POST",
 					headers: {
-						// kilocode_change start
+						// arcanea_change start
 						...DEFAULT_HEADERS,
 						...this.getCustomRequestHeaders(taskId),
-						// kilocode_change end
+						// arcanea_change end
 						Authorization: `Bearer ${apiKey}`,
 						"Content-Type": "application/json",
 					},
@@ -476,7 +476,7 @@ export class OpenRouterHandler extends BaseProvider implements SingleCompletionH
 	}
 }
 
-// kilocode_change start
+// arcanea_change start
 function makeOpenRouterErrorReadable(error: any) {
 	if (error?.code !== 429 && error?.code !== 418) {
 		return `OpenRouter API Error: ${error?.message || error}`
@@ -492,4 +492,4 @@ function makeOpenRouterErrorReadable(error: any) {
 
 	return `Rate limit exceeded, try again later.\n${error?.message || error}`
 }
-// kilocode_change end
+// arcanea_change end

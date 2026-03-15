@@ -4,6 +4,6 @@ export const GlobalFileNames = {
 	mcpSettings: "mcp_settings.json",
 	customModes: "custom_modes.yaml",
 	taskMetadata: "task_metadata.json",
-	kiloRules: ".arcanea/rules", // kilocode_change
-	workflows: ".arcanea/workflows", // kilocode_change
+	arcaneaRules: ".arcanea/rules", // arcanea_change
+	workflows: ".arcanea/workflows", // arcanea_change
 }

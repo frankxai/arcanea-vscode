@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
-import BottomControls from "../kilocode/BottomControls" // kilocode_change
+import BottomControls from "../arcanea/BottomControls" // arcanea_change
 import {
 	VSCodeCheckbox,
 	VSCodeRadioGroup,
@@ -11,7 +11,7 @@ import {
 import { Trans } from "react-i18next"
 import { ChevronDown, X, Upload, Download } from "lucide-react"
 
-import { ModeConfig, GroupEntry, PromptComponent, ToolGroup, modeConfigSchema } from "@roo-code/types"
+import { ModeConfig, GroupEntry, PromptComponent, ToolGroup, modeConfigSchema } from "@arcanea/types"
 
 import {
 	Mode,
@@ -1289,7 +1289,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 
 															vscode.postMessage({
 																type: "openFile",
-																text: `./.arcanea/system-prompt-${currentMode.slug}`, // kilocode_change
+																text: `./.arcanea/system-prompt-${currentMode.slug}`, // arcanea_change
 																values: {
 																	create: true,
 																	content: "",
@@ -1682,7 +1682,7 @@ const ModesView = ({ onDone }: ModesViewProps) => {
 				}}
 			/>
 
-			{/* kilocode_change */}
+			{/* arcanea_change */}
 			<BottomControls />
 		</Tab>
 	)

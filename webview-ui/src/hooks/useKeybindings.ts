@@ -1,4 +1,4 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import { useState, useEffect, useMemo } from "react"
 import { vscode } from "@src/utils/vscode"
 import { useAppTranslation } from "@/i18n/TranslationContext"
@@ -24,7 +24,7 @@ export function useKeybindings(commandIds: string[]): Record<string, string> {
 	// Apply fallback for missing keybindings
 	const keybindingsWithFallback = useMemo(() => {
 		const result: Record<string, string> = {}
-		const fallbackText = t("kilocode:ghost.settings.keybindingNotFound")
+		const fallbackText = t("arcanea:ghost.settings.keybindingNotFound")
 		for (const commandId of commandIds) {
 			result[commandId] = keybindings[commandId] || fallbackText
 		}

@@ -5,7 +5,7 @@
 import * as vscode from "vscode"
 import { PostHog } from "posthog-node"
 
-import { type TelemetryPropertiesProvider, TelemetryEventName } from "@roo-code/types"
+import { type TelemetryPropertiesProvider, TelemetryEventName } from "@arcanea/types"
 
 import { PostHogTelemetryClient } from "../PostHogTelemetryClient"
 
@@ -66,7 +66,7 @@ describe("PostHogTelemetryClient", () => {
 				"isEventCapturable",
 			).bind(client)
 
-			expect(isEventCapturable(TelemetryEventName.TASK_MESSAGE /*kilocode_change*/)).toBe(false)
+			expect(isEventCapturable(TelemetryEventName.TASK_MESSAGE /*arcanea_change*/)).toBe(false)
 		})
 	})
 
@@ -247,7 +247,7 @@ describe("PostHogTelemetryClient", () => {
 			client.updateTelemetryState(true)
 
 			await client.capture({
-				event: TelemetryEventName.TASK_MESSAGE, // This is in the exclude list. // kilocode_change
+				event: TelemetryEventName.TASK_MESSAGE, // This is in the exclude list. // arcanea_change
 				properties: { test: "value" },
 			})
 

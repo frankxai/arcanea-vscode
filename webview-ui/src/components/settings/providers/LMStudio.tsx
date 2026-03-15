@@ -4,7 +4,7 @@ import { Trans } from "react-i18next"
 import { Checkbox } from "vscrui"
 import { VSCodeLink, VSCodeRadio, VSCodeRadioGroup, VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
 
-import type { ProviderSettings } from "@roo-code/types"
+import type { ProviderSettings } from "@arcanea/types"
 
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { ExtensionMessage } from "@roo/ExtensionMessage"
@@ -23,7 +23,7 @@ export const LMStudio = ({ apiConfiguration, setApiConfigurationField }: LMStudi
 	const { t } = useAppTranslation()
 
 	const [lmStudioModels, setLmStudioModels] = useState<ModelRecord>({})
-	const routerModels = useRouterModels({ lmStudioBaseUrl: apiConfiguration.lmStudioBaseUrl }) // kilocode_change: query key
+	const routerModels = useRouterModels({ lmStudioBaseUrl: apiConfiguration.lmStudioBaseUrl }) // arcanea_change: query key
 
 	const handleInputChange = useCallback(
 		<K extends keyof ProviderSettings, E>(

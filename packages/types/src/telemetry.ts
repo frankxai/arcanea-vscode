@@ -18,7 +18,7 @@ export type TelemetrySetting = z.infer<typeof telemetrySettingsSchema>
  */
 
 export enum TelemetryEventName {
-	// kilocode_change start
+	// arcanea_change start
 	COMMIT_MSG_GENERATED = "Commit Message Generated",
 	INLINE_ASSIST_QUICK_TASK = "Inline Assist Quick Task",
 	INLINE_ASSIST_AUTO_TASK = "Inline Assist Auto Task",
@@ -30,10 +30,10 @@ export enum TelemetryEventName {
 	NOTIFICATION_CLICKED = "Notification Clicked",
 	WEBVIEW_MEMORY_USAGE = "Webview Memory Usage",
 	FREE_MODELS_LINK_CLICKED = "Free Models Link Clicked",
-	SWITCH_TO_KILO_CODE_CLICKED = "Switch To Arcanea Clicked",
+	SWITCH_TO_ARCANEA_CLICKED = "Switch To Arcanea Clicked",
 	SUGGESTION_BUTTON_CLICKED = "Suggestion Button Clicked",
 	NO_ASSISTANT_MESSAGES = "No Assistant Messages",
-	// kilocode_change end
+	// arcanea_change end
 
 	TASK_CREATED = "Task Created",
 	TASK_RESTARTED = "Task Reopened",
@@ -95,11 +95,11 @@ export const staticAppPropertiesSchema = z.object({
 	vscodeVersion: z.string(),
 	platform: z.string(),
 	editorName: z.string(),
-	wrapped: z.boolean(), // kilocode_change
-	wrapper: z.string().nullable(), // kilocode_change
-	wrapperTitle: z.string().nullable(), // kilocode_change
-	wrapperCode: z.string().nullable(), // kilocode_change
-	wrapperVersion: z.string().nullable(), // kilocode_change
+	wrapped: z.boolean(), // arcanea_change
+	wrapper: z.string().nullable(), // arcanea_change
+	wrapperTitle: z.string().nullable(), // arcanea_change
+	wrapperCode: z.string().nullable(), // arcanea_change
+	wrapperVersion: z.string().nullable(), // arcanea_change
 	hostname: z.string().optional(),
 })
 
@@ -177,14 +177,14 @@ export type TelemetryEvent = {
 export const rooCodeTelemetryEventSchema = z.discriminatedUnion("type", [
 	z.object({
 		type: z.enum([
-			// kilocode_change start
-			TelemetryEventName.COMMIT_MSG_GENERATED, // kilocode_change
-			TelemetryEventName.INLINE_ASSIST_QUICK_TASK, // kilocode_change
-			TelemetryEventName.INLINE_ASSIST_AUTO_TASK, // kilocode_change
-			TelemetryEventName.INLINE_ASSIST_ACCEPT_SUGGESTION, // kilocode_change
-			TelemetryEventName.INLINE_ASSIST_REJECT_SUGGESTION, // kilocode_change
-			TelemetryEventName.WEBVIEW_MEMORY_USAGE, // kilocode_change
-			// kilocode_change end
+			// arcanea_change start
+			TelemetryEventName.COMMIT_MSG_GENERATED, // arcanea_change
+			TelemetryEventName.INLINE_ASSIST_QUICK_TASK, // arcanea_change
+			TelemetryEventName.INLINE_ASSIST_AUTO_TASK, // arcanea_change
+			TelemetryEventName.INLINE_ASSIST_ACCEPT_SUGGESTION, // arcanea_change
+			TelemetryEventName.INLINE_ASSIST_REJECT_SUGGESTION, // arcanea_change
+			TelemetryEventName.WEBVIEW_MEMORY_USAGE, // arcanea_change
+			// arcanea_change end
 
 			TelemetryEventName.TASK_CREATED,
 			TelemetryEventName.TASK_RESTARTED,
@@ -273,10 +273,10 @@ export interface TelemetryClient {
 
 	setProvider(provider: TelemetryPropertiesProvider): void
 	capture(options: TelemetryEvent): Promise<void>
-	// kilocode_change start
+	// arcanea_change start
 	captureException(error: Error, properties?: Record<string | number, unknown>): void
-	updateIdentity(kilocodeToken: string): Promise<void>
-	// kilocode_change end
+	updateIdentity(arcaneaToken: string): Promise<void>
+	// arcanea_change end
 	updateTelemetryState(isOptedIn: boolean): void
 	isTelemetryEnabled(): boolean
 	shutdown(): Promise<void>

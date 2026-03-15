@@ -1,10 +1,10 @@
 import React from "react"
-import type { HistoryItem } from "@roo-code/types"
+import type { HistoryItem } from "@arcanea/types"
 import { formatTimeAgo } from "@/utils/format"
 import { CopyButton } from "./CopyButton"
 import { ExportButton } from "./ExportButton"
 import { DeleteButton } from "./DeleteButton"
-import { FavoriteButton } from "../kilocode/history/FavoriteButton" // kilocode_change
+import { FavoriteButton } from "../arcanea/history/FavoriteButton" // arcanea_change
 import { StandardTooltip } from "../ui/standard-tooltip"
 
 export interface TaskItemFooterProps {

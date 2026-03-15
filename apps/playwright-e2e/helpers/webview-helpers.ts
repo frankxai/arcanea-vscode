@@ -1,7 +1,7 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import { type Page, type FrameLocator, expect } from "@playwright/test"
 import type { WebviewMessage } from "../../../src/shared/WebviewMessage"
-import { ProviderSettings } from "@roo-code/types"
+import { ProviderSettings } from "@arcanea/types"
 
 const defaultPlaywrightApiConfig = {
 	apiProvider: "openrouter" as const,
@@ -11,7 +11,7 @@ const defaultPlaywrightApiConfig = {
 
 export async function findWebview(workbox: Page): Promise<FrameLocator> {
 	const webviewFrameEl = workbox.frameLocator(
-		'iframe[src*="extensionId=kilocode.kilo-code"][src*="purpose=webviewView"]',
+		'iframe[src*="extensionId=arcanea.arcanea"][src*="purpose=webviewView"]',
 	)
 	await webviewFrameEl.locator("#active-frame")
 	return webviewFrameEl.frameLocator("#active-frame")

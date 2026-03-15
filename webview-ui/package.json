@@ -1,11 +1,11 @@
 {
-	"name": "@roo-code/vscode-webview",
+	"name": "@arcanea/vscode-webview",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"lint": "eslint src --ext=ts,tsx --max-warnings=0",
 		"check-types": "tsc",
-		"pretest": "turbo run kilo-code#bundle --cwd ..",
+		"pretest": "turbo run arcanea#bundle --cwd ..",
 		"test": "vitest run",
 		"format": "prettier --write src",
 		"dev": "vite",
@@ -29,7 +29,7 @@
 		"@radix-ui/react-slider": "^1.2.3",
 		"@radix-ui/react-slot": "^1.1.2",
 		"@radix-ui/react-tooltip": "^1.1.8",
-		"@roo-code/types": "workspace:^",
+		"@arcanea/types": "workspace:^",
 		"@tailwindcss/vite": "^4.0.0",
 		"@tanstack/react-query": "^5.68.0",
 		"@types/seedrandom": "^3.0.8",
@@ -87,8 +87,8 @@
 		"zod": "^3.25.61"
 	},
 	"devDependencies": {
-		"@roo-code/config-eslint": "workspace:^",
-		"@roo-code/config-typescript": "workspace:^",
+		"@arcanea/config-eslint": "workspace:^",
+		"@arcanea/config-typescript": "workspace:^",
 		"@storybook/addon-essentials": "^8.4.7",
 		"@storybook/addon-interactions": "^8.4.7",
 		"@storybook/react-vite": "^8.4.7",

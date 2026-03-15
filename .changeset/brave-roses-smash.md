@@ -1,5 +1,5 @@
 ---
-"kilo-code": patch
+"arcanea": patch
 ---
 
-Update loop error message to refer to model instead of Kilo Code as the cause.
+Update loop error message to refer to model instead of Arcanea as the cause.

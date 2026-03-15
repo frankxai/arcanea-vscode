@@ -1,7 +1,7 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 
-import { rooDefaultModelId, rooModels, type RooModelId } from "@roo-code/types"
-import { CloudService } from "@roo-code/cloud"
+import { rooDefaultModelId, rooModels, type RooModelId } from "@arcanea/types"
+import { CloudService } from "@arcanea/cloud"
 
 import type { ApiHandlerOptions } from "../../shared/api"
 import { ApiStream } from "../transform/stream"

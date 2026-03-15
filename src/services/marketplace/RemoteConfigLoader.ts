@@ -1,14 +1,14 @@
 import axios from "axios"
 import * as yaml from "yaml"
 import { z } from "zod"
-import { getKiloBaseUriFromToken } from "../../shared/kilocode/token" // kilocode_change
+import { getArcaneaBaseUriFromToken } from "../../shared/arcanea/token" // arcanea_change
 import {
 	type MarketplaceItem,
 	type MarketplaceItemType,
 	modeMarketplaceItemSchema,
 	mcpMarketplaceItemSchema,
-} from "@roo-code/types"
-//import { getRooCodeApiUrl } from "@roo-code/cloud" kilocode_change: use our own api
+} from "@arcanea/types"
+//import { getRooCodeApiUrl } from "@arcanea/cloud" arcanea_change: use our own api
 
 const modeMarketplaceResponse = z.object({
 	items: z.array(modeMarketplaceItemSchema),
@@ -24,7 +24,7 @@ export class RemoteConfigLoader {
 	private cacheDuration = 5 * 60 * 1000 // 5 minutes
 
 	constructor() {
-		this.apiBaseUrl = getKiloBaseUriFromToken()
+		this.apiBaseUrl = getArcaneaBaseUriFromToken()
 	}
 
 	async loadAllItems(hideMarketplaceMcps = false): Promise<MarketplaceItem[]> {

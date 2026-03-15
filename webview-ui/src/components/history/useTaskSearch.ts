@@ -1,24 +1,24 @@
 import {
 	useState,
 	useEffect,
-	// useMemo, // kilocode_change
+	// useMemo, // arcanea_change
 } from "react"
 // import { Fzf } from "fzf"
 
-// import { highlightFzfMatch } from "@/utils/highlight" // kilocode_change
+// import { highlightFzfMatch } from "@/utils/highlight" // arcanea_change
 import { useExtensionState } from "@/context/ExtensionStateContext"
-import { useTaskHistory } from "@/kilocode/hooks/useTaskHistory"
+import { useTaskHistory } from "@/arcanea/hooks/useTaskHistory"
 
 type SortOption = "newest" | "oldest" | "mostExpensive" | "mostTokens" | "mostRelevant"
 
 export const useTaskSearch = () => {
-	const { taskHistoryFullLength, taskHistoryVersion } = useExtensionState() // kilocode_change
+	const { taskHistoryFullLength, taskHistoryVersion } = useExtensionState() // arcanea_change
 	const [searchQuery, setSearchQuery] = useState("")
 	const [sortOption, setSortOption] = useState<SortOption>("newest")
 	const [lastNonRelevantSort, setLastNonRelevantSort] = useState<SortOption | null>("newest")
 	const [showAllWorkspaces, setShowAllWorkspaces] = useState(false)
 
-	// kilocode_change start
+	// arcanea_change start
 	const [requestedPageIndex, setRequestedPageIndex] = useState(0)
 	const [showFavoritesOnly, setShowFavoritesOnly] = useState(false)
 	const { data } = useTaskHistory(
@@ -31,7 +31,7 @@ export const useTaskSearch = () => {
 		},
 		taskHistoryVersion,
 	)
-	// kilocode_change end
+	// arcanea_change end
 
 	useEffect(() => {
 		if (searchQuery && sortOption !== "mostRelevant" && !lastNonRelevantSort) {
@@ -43,20 +43,20 @@ export const useTaskSearch = () => {
 		}
 	}, [searchQuery, sortOption, lastNonRelevantSort])
 
-	// kilocode_change start: logic moved to src/core/kilocode/webview/getTaskHistory.ts
+	// arcanea_change start: logic moved to src/core/arcanea-core/webview/getTaskHistory.ts
 	//const presentableTasks = useMemo(() => {
-	//	const taskHistory = data?.historyItems ?? [] // kilocode_change
+	//	const taskHistory = data?.historyItems ?? [] // arcanea_change
 	//	let tasks = taskHistory.filter((item) => item.ts && item.task)
 	//	if (!showAllWorkspaces) {
 	//		tasks = tasks.filter((item) => item.workspace === cwd)
 	//	}
-	//	// kilocode_change start
+	//	// arcanea_change start
 	//	if (showFavoritesOnly) {
 	//		tasks = tasks.filter((item) => item.isFavorited)
 	//	}
-	//	// kilocode_change end
+	//	// arcanea_change end
 	//	return tasks
-	//}, [data, showAllWorkspaces, showFavoritesOnly, cwd]) // kilocode_change
+	//}, [data, showAllWorkspaces, showFavoritesOnly, cwd]) // arcanea_change
 	//
 	//const fzf = useMemo(() => {
 	//	return new Fzf(presentableTasks, {
@@ -104,10 +104,10 @@ export const useTaskSearch = () => {
 	//		}
 	//	})
 	//}, [presentableTasks, searchQuery, fzf, sortOption])
-	// kilocode_change end
+	// arcanea_change end
 
 	return {
-		tasks: data?.historyItems ?? [], // kilocode_change
+		tasks: data?.historyItems ?? [], // arcanea_change
 		searchQuery,
 		setSearchQuery,
 		sortOption,
@@ -116,13 +116,13 @@ export const useTaskSearch = () => {
 		setLastNonRelevantSort,
 		showAllWorkspaces,
 		setShowAllWorkspaces,
-		// kilocode_change start
+		// arcanea_change start
 		data,
 		taskHistoryFullLength,
 		showFavoritesOnly,
 		setShowFavoritesOnly,
 		requestedPageIndex,
 		setRequestedPageIndex,
-		// kilocode_change end
+		// arcanea_change end
 	}
 }

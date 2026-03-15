@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import type { ClineMessage } from "@roo-code/types"
+import type { ClineMessage } from "@arcanea/types"
 import { cn } from "@/lib/utils"
 import { getMessageTypeDescription } from "@/utils/messageColors"
 import { MAX_HEIGHT_PX, type MessageSizeData } from "@/utils/timeline/calculateTaskTimelineSizes"
@@ -22,7 +22,7 @@ interface TaskTimelineMessageProps {
 export const TaskTimelineMessage = memo(({ data, activeIndex, onClick }: TaskTimelineMessageProps) => {
 	const { t } = useTranslation()
 	const messageDescription = getMessageTypeDescription(data.message, t)
-	const tooltip = t("kilocode:taskTimeline.tooltip.clickToScroll", {
+	const tooltip = t("arcanea:taskTimeline.tooltip.clickToScroll", {
 		messageType: messageDescription,
 		messageNumber: data.index + 1,
 	})

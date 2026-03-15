@@ -1,17 +1,17 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import React, { useState } from "react"
 import type { Meta, StoryObj } from "@storybook/react-vite"
-import { KiloProfileSelector } from "../../../webview-ui/src/components/kilocode/chat/KiloProfileSelector"
+import { ArcaneaProfileSelector } from "../../../webview-ui/src/components/arcanea/chat/ArcaneaProfileSelector"
 import { withI18n } from "../src/decorators/withI18n"
 import { withTheme } from "../src/decorators/withTheme"
 import { withTooltipProvider } from "../src/decorators/withTooltipProvider"
 import { withLimitedWidth } from "../src/decorators/withLimitedWidth"
 
-interface KiloProfileSelectorStoryProps {
+interface ArcaneaProfileSelectorStoryProps {
 	initiallyOpen?: boolean
 }
 
-const KiloProfileSelectorStory = ({ initiallyOpen }: KiloProfileSelectorStoryProps) => {
+const ArcaneaProfileSelectorStory = ({ initiallyOpen }: ArcaneaProfileSelectorStoryProps) => {
 	const [pinnedConfigs, setPinnedConfigs] = useState<Record<string, boolean>>({
 		"anthropic-1": true,
 		"openai-2": false,
@@ -33,7 +33,7 @@ const KiloProfileSelectorStory = ({ initiallyOpen }: KiloProfileSelectorStoryPro
 
 	return (
 		<div style={{ maxWidth: `600px`, margin: "0 auto", height: 200 }}>
-			<KiloProfileSelector
+			<ArcaneaProfileSelector
 				currentConfigId="anthropic-1"
 				currentApiConfigName="Anthropic Claude"
 				displayName="Anthropic Claude"
@@ -47,9 +47,9 @@ const KiloProfileSelectorStory = ({ initiallyOpen }: KiloProfileSelectorStoryPro
 	)
 }
 
-const meta: Meta<typeof KiloProfileSelectorStory> = {
-	title: "Chat/KiloProfileSelector",
-	component: KiloProfileSelectorStory,
+const meta: Meta<typeof ArcaneaProfileSelectorStory> = {
+	title: "Chat/ArcaneaProfileSelector",
+	component: ArcaneaProfileSelectorStory,
 	decorators: [withI18n, withTheme, withTooltipProvider, withLimitedWidth(400)],
 }
 

@@ -1,12 +1,12 @@
 <p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=kilocode.Kilo-Code"><img src="https://img.shields.io/visual-studio-marketplace/v/kilocode.Kilo-Code.svg?label=VS%20Code%20Marketplace" alt="VS Code Marketplace"></a>
-  <a href="https://x.com/kilo_code"><img src="https://img.shields.io/twitter/follow/kilo_code?style=flat&logo=x&color=555" alt="X (Twitter)"></a>
-  <a href="https://blog.kilocode.ai"><img src="https://img.shields.io/badge/Blog-555?style=flat&logo=substack&logoColor=white" alt="Substack Blog"></a>
-  <a href="https://kilocode.ai/discord"><img src="https://img.shields.io/discord/1349288496988160052?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://www.reddit.com/r/kilocode/"><img src="https://img.shields.io/reddit/subreddit-subscribers/kilocode?style=flat&logo=reddit&logoColor=white" alt="Reddit"></a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=arcanea.Arcanea-Code"><img src="https://img.shields.io/visual-studio-marketplace/v/arcanea.Arcanea-Code.svg?label=VS%20Code%20Marketplace" alt="VS Code Marketplace"></a>
+  <a href="https://x.com/arcanea"><img src="https://img.shields.io/twitter/follow/arcanea?style=flat&logo=x&color=555" alt="X (Twitter)"></a>
+  <a href="https://blog.arcanea.ai"><img src="https://img.shields.io/badge/Blog-555?style=flat&logo=substack&logoColor=white" alt="Substack Blog"></a>
+  <a href="https://arcanea.ai/discord"><img src="https://img.shields.io/discord/1349288496988160052?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
+  <a href="https://www.reddit.com/r/arcanea/"><img src="https://img.shields.io/reddit/subreddit-subscribers/arcanea?style=flat&logo=reddit&logoColor=white" alt="Reddit"></a>
 </p>
 
-# 🚀 Kilo Code
+# 🚀 Arcanea
 
 > Open-source VS Code AI agent. We frequently merge features from open-source projects, such as [Roo Code](https://github.com/RooVetGit/Roo-Code) and [Cline](https://github.com/cline/cline), while building our own vision.
 
@@ -19,11 +19,11 @@
 - 💡 **Get $20 in bonus credits when you top-up for the first time** Credits can be used with 400+ models like Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Kilo-Org/kilocode/refs/heads/main/kilo.gif" width="100%" />
+  <img src="https://raw.githubusercontent.com/Arcanea-Org/arcanea/refs/heads/main/arcanea.gif" width="100%" />
 </p>
 
-- [VS Code Marketplace](https://kilocode.ai/vscode-marketplace?utm_source=Readme) (download)
-- [Official KiloCode.ai Home page](https://kilocode.ai) (learn more)
+- [VS Code Marketplace](https://arcanea.ai/vscode-marketplace?utm_source=Readme) (download)
+- [Official Arcanea.ai Home page](https://arcanea.ai) (learn more)
 
 ## Key Features
 
@@ -33,23 +33,23 @@
 - **MCP Server Marketplace**: Easily find, and use MCP servers to extend the agent capabilities.
 - **Multi Mode**: Plan with Architect, Code with Coder, and Debug with Debugger, and make your own custom modes.
 
-## How to get started with Kilo Code
+## How to get started with Arcanea
 
-1. Install the Kilo Code extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=kilocode.Kilo-Code).
+1. Install the Arcanea extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=arcanea.Arcanea-Code).
 2. Create your account to access 400+ cutting-edge AI models including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5 – with transparent pricing that matches provider rates exactly.
-3. Start coding with AI that adapts to your workflow. Watch our quick-start guide to see Kilo Code in action:
+3. Start coding with AI that adapts to your workflow. Watch our quick-start guide to see Arcanea in action:
 
 [![Watch the video](https://img.youtube.com/vi/pqGfYXgrhig/maxresdefault.jpg)](https://youtu.be/pqGfYXgrhig)
 
-## Difference between Kilo Code, Roo Code and Cline
+## Difference between Arcanea, Roo Code and Cline
 
-Kilo Code started as a fork of Roo Code, which itself is a fork of Cline. We frequently merge features from these open-source projects and contribute improvements back. Built on these foundations, Kilo Code is independently developed with our own vision for AI coding agents.
+Arcanea started as a fork of Roo Code, which itself is a fork of Cline. We frequently merge features from these open-source projects and contribute improvements back. Built on these foundations, Arcanea is independently developed with our own vision for AI coding agents.
 
-- No need to fiddle with API keys, Kilo Code ships with the latest AI models plugged in, including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
+- No need to fiddle with API keys, Arcanea ships with the latest AI models plugged in, including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
 - MCP Server Marketplace: Easily find, and use MCP servers to extend the agent capabilities.
 - Autocomplete (experimental)
 
-Kilo Code is a direct fork from Roo Code, and also includes the following features from Cline (and our own features):
+Arcanea is a direct fork from Roo Code, and also includes the following features from Cline (and our own features):
 
 - System notifications: Get notified when the agent is done with a task.
 - Easy model connection: batteries included.

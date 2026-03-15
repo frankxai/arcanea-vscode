@@ -1,4 +1,4 @@
-// kilocode_change - new file Support JSON-based launch configurations
+// arcanea_change - new file Support JSON-based launch configurations
 import * as vscode from "vscode"
 
 interface LaunchConfig {
@@ -17,7 +17,7 @@ export async function checkAndRunAutoLaunchingTask(context: vscode.ExtensionCont
 	}
 
 	const workspaceFolderUri = vscode.workspace.workspaceFolders[0].uri
-	const configPath = vscode.Uri.joinPath(workspaceFolderUri, ".kilocode", "launchConfig.json")
+	const configPath = vscode.Uri.joinPath(workspaceFolderUri, ".arcanea", "launchConfig.json")
 
 	try {
 		const configContent = await vscode.workspace.fs.readFile(configPath)

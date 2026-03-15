@@ -1,4 +1,4 @@
-// kilocode_change - new file
+// arcanea_change - new file
 
 export function escapeHtml(text: string) {
 	return text

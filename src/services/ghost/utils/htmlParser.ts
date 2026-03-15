@@ -1,4 +1,4 @@
-// kilocode_change: DOM adapter for browser/Node.js compatibility
+// arcanea_change: DOM adapter for browser/Node.js compatibility
 import { JSDOM } from "jsdom"
 
 // JSDOM is used in the extension for SVG code highlighting.

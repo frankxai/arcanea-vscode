@@ -7,7 +7,7 @@ import { GhostModel } from "../GhostModel"
 import { allowNetConnect } from "../../../vitest.setup"
 
 const KEYS = {
-	KILOCODE: null,
+	ARCANEA: null,
 	OPENROUTER: null,
 	MISTRAL: null,
 }
@@ -65,26 +65,26 @@ describe("GhostModelPerformance", () => {
 
 	describe("Arcanea", () => {
 		it("google/gemini-2.5-flash", async () => {
-			if (!KEYS.KILOCODE) {
+			if (!KEYS.ARCANEA) {
 				return
 			}
-			allowNetConnect("api.kilocode.ai")
+			allowNetConnect("api.arcanea.ai")
 			const apiHandler = buildApiHandler({
-				apiProvider: "kilocode",
-				kilocodeModel: "google/gemini-2.5-flash",
-				kilocodeToken: KEYS.KILOCODE,
+				apiProvider: "arcanea",
+				arcaneaModel: "google/gemini-2.5-flash",
+				arcaneaToken: KEYS.ARCANEA,
 			})
 			await performTestBattery(apiHandler)
 		})
 		it("mistralai/codestral-2501", async () => {
-			if (!KEYS.KILOCODE) {
+			if (!KEYS.ARCANEA) {
 				return
 			}
-			allowNetConnect("api.kilocode.ai")
+			allowNetConnect("api.arcanea.ai")
 			const apiHandler = buildApiHandler({
-				apiProvider: "kilocode",
-				kilocodeModel: "mistralai/codestral-2501",
-				kilocodeToken: KEYS.KILOCODE,
+				apiProvider: "arcanea",
+				arcaneaModel: "mistralai/codestral-2501",
+				arcaneaToken: KEYS.ARCANEA,
 			})
 			await performTestBattery(apiHandler)
 		})

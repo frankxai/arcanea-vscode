@@ -6,8 +6,8 @@ import type {
 	PromptComponent,
 	CustomModePrompts,
 	TodoItem,
-	Experiments, // kilocode_change
-} from "@roo-code/types"
+	Experiments, // arcanea_change
+} from "@arcanea/types"
 
 import type { SystemPromptSettings } from "./types"
 
@@ -34,7 +34,7 @@ import {
 	addCustomInstructions,
 	markdownFormattingSection,
 } from "./sections"
-import { type ClineProviderState } from "../webview/ClineProvider" // kilocode_change
+import { type ClineProviderState } from "../webview/ClineProvider" // arcanea_change
 
 // Helper function to get prompt component, filtering out empty objects
 export function getPromptComponent(
@@ -69,7 +69,7 @@ async function generatePrompt(
 	settings?: SystemPromptSettings,
 	todoList?: TodoItem[],
 	modelId?: string,
-	clineProviderState?: ClineProviderState, // kilocode_change
+	clineProviderState?: ClineProviderState, // arcanea_change
 ): Promise<string> {
 	if (!context) {
 		throw new Error("Extension context is required for generating system prompt")
@@ -116,18 +116,18 @@ ${getToolDescriptionsForMode(
 	settings,
 	enableMcpServerCreation,
 	modelId,
-	clineProviderState, // kilocode_change
+	clineProviderState, // arcanea_change
 )}
 
 ${getToolUseGuidelinesSection(codeIndexManager)}
 
 ${mcpServersSection}
 
-${getCapabilitiesSection(cwd, supportsComputerUse, shouldIncludeMcp ? mcpHub : undefined, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
+${getCapabilitiesSection(cwd, supportsComputerUse, shouldIncludeMcp ? mcpHub : undefined, effectiveDiffStrategy, codeIndexManager, clineProviderState /* arcanea_change */)}
 
 ${modesSection}
 
-${getRulesSection(cwd, supportsComputerUse, effectiveDiffStrategy, codeIndexManager, clineProviderState /* kilocode_change */)}
+${getRulesSection(cwd, supportsComputerUse, effectiveDiffStrategy, codeIndexManager, clineProviderState /* arcanea_change */)}
 
 ${getSystemInfoSection(cwd)}
 
@@ -136,8 +136,8 @@ ${getObjectiveSection(codeIndexManager, experiments)}
 ${await addCustomInstructions(baseInstructions, globalCustomInstructions || "", cwd, mode, {
 	language: language ?? formatLanguage(vscode.env.language),
 	rooIgnoreInstructions,
-	localRulesToggleState: context.workspaceState.get("localRulesToggles"), // kilocode_change
-	globalRulesToggleState: context.globalState.get("globalRulesToggles"), // kilocode_change
+	localRulesToggleState: context.workspaceState.get("localRulesToggles"), // arcanea_change
+	globalRulesToggleState: context.globalState.get("globalRulesToggles"), // arcanea_change
 	settings,
 })}`
 
@@ -151,12 +151,12 @@ export const SYSTEM_PROMPT = async (
 	mcpHub?: McpHub,
 	diffStrategy?: DiffStrategy,
 	browserViewportSize?: string,
-	inputMode: Mode = defaultModeSlug, // kilocode_change: name changed to inputMode
+	inputMode: Mode = defaultModeSlug, // arcanea_change: name changed to inputMode
 	customModePrompts?: CustomModePrompts,
 	customModes?: ModeConfig[],
 	globalCustomInstructions?: string,
 	diffEnabled?: boolean,
-	experiments?: Experiments, // kilocode_change: type
+	experiments?: Experiments, // arcanea_change: type
 	enableMcpServerCreation?: boolean,
 	language?: string,
 	rooIgnoreInstructions?: string,
@@ -164,14 +164,14 @@ export const SYSTEM_PROMPT = async (
 	settings?: SystemPromptSettings,
 	todoList?: TodoItem[],
 	modelId?: string,
-	clineProviderState?: ClineProviderState, // kilocode_change
+	clineProviderState?: ClineProviderState, // arcanea_change
 ): Promise<string> => {
 	if (!context) {
 		throw new Error("Extension context is required for generating system prompt")
 	}
 
 	const mode =
-		getModeBySlug(inputMode, customModes)?.slug || modes.find((m) => m.slug === inputMode)?.slug || defaultModeSlug // kilocode_change: don't try to use non-existent modes
+		getModeBySlug(inputMode, customModes)?.slug || modes.find((m) => m.slug === inputMode)?.slug || defaultModeSlug // arcanea_change: don't try to use non-existent modes
 
 	// Try to load custom system prompt from file
 	const variablesForPrompt: PromptVariables = {
@@ -240,6 +240,6 @@ ${customInstructions}`
 		settings,
 		todoList,
 		modelId,
-		clineProviderState, // kilocode_change
+		clineProviderState, // arcanea_change
 	)
 }

@@ -8,14 +8,14 @@ import * as fs from "fs/promises"
 import * as yaml from "yaml"
 import * as vscode from "vscode"
 
-import type { ModeConfig } from "@roo-code/types"
+import type { ModeConfig } from "@arcanea/types"
 
 import { fileExistsAtPath } from "../../../utils/fs"
 import { getWorkspacePath, arePathsEqual } from "../../../utils/path"
 import { GlobalFileNames } from "../../../shared/globalFileNames"
 
 import { CustomModesManager } from "../CustomModesManager"
-import { getProjectRooDirectoryForCwd } from "../../../services/roo-config" // kilocode_change
+import { getProjectRooDirectoryForCwd } from "../../../services/roo-config" // arcanea_change
 
 vi.mock("vscode", () => ({
 	workspace: {
@@ -1087,7 +1087,7 @@ describe("CustomModesManager", () => {
 				writtenRuleFiles.forEach((filePath) => {
 					const normalizedPath = path.normalize(filePath)
 					const expectedBasePath = path.normalize(
-						getProjectRooDirectoryForCwd(mockWorkspacePath), // kilocode_change
+						getProjectRooDirectoryForCwd(mockWorkspacePath), // arcanea_change
 					)
 					expect(normalizedPath.startsWith(expectedBasePath)).toBe(true)
 				})
@@ -1168,7 +1168,7 @@ describe("CustomModesManager", () => {
 				expect(result.success).toBe(true)
 
 				// Verify that fs.rm was called to remove the existing rules folder
-				expect(fs.rm).toHaveBeenCalledWith(expect.stringContaining(path.join(".kilocode", "rules-test-mode")), {
+				expect(fs.rm).toHaveBeenCalledWith(expect.stringContaining(path.join(".arcanea", "rules-test-mode")), {
 					recursive: true,
 					force: true,
 				})
@@ -1226,7 +1226,7 @@ describe("CustomModesManager", () => {
 				expect(result.success).toBe(true)
 
 				// Verify that fs.rm was called to remove the existing rules folder
-				expect(fs.rm).toHaveBeenCalledWith(expect.stringContaining(path.join(".kilocode", "rules-test-mode")), {
+				expect(fs.rm).toHaveBeenCalledWith(expect.stringContaining(path.join(".arcanea", "rules-test-mode")), {
 					recursive: true,
 					force: true,
 				})

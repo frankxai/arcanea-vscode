@@ -12,7 +12,7 @@ import {
 	TaskBridgeCommandName,
 	TaskSocketEvents,
 	TaskStatus,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { TaskChannel } from "../TaskChannel.js"
 
@@ -29,13 +29,13 @@ describe("TaskChannel", () => {
 		vscodeVersion: "1.0.0",
 		platform: "darwin",
 		editorName: "Roo Code",
-		// kilocode_change start
+		// arcanea_change start
 		wrapped: false,
 		wrapper: null,
 		wrapperTitle: null,
 		wrapperCode: null,
 		wrapperVersion: null,
-		// kilocode_change end
+		// arcanea_change end
 		hostname: "test-host",
 	}
 

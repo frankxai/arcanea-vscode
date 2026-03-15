@@ -2,7 +2,7 @@ import axios from "axios"
 import { z } from "zod"
 import { useQuery, UseQueryOptions } from "@tanstack/react-query"
 
-import type { ModelInfo } from "@roo-code/types"
+import type { ModelInfo } from "@arcanea/types"
 
 import { parseApiPrice } from "@roo/cost"
 
@@ -23,9 +23,9 @@ const openRouterEndpointsSchema = z.object({
 		endpoints: z.array(
 			z.object({
 				name: z.string(),
-				// kilocode_change start
+				// arcanea_change start
 				provider_name: z.string(),
-				// kilocode_change end
+				// arcanea_change end
 				tag: z.string().optional(),
 				context_length: z.number(),
 				max_completion_tokens: z.number().nullish(),
@@ -46,17 +46,17 @@ type OpenRouterModelProvider = ModelInfo & {
 	label: string
 }
 
-// kilocode_change: baseUrl, apiKey
+// arcanea_change: baseUrl, apiKey
 async function getOpenRouterProvidersForModel(modelId: string, baseUrl?: string, apiKey?: string) {
 	const models: Record<string, OpenRouterModelProvider> = {}
 
 	try {
-		// kilocode_change start: baseUrl, apiKey
+		// arcanea_change start: baseUrl, apiKey
 		const response = await axios.get(
 			`${baseUrl?.trim() || "https://openrouter.ai/api/v1"}/models/${modelId}/endpoints`,
 			apiKey ? { headers: { Authorization: `Bearer ${apiKey}` } } : undefined,
 		)
-		// kilocode_change end
+		// arcanea_change end
 		const result = openRouterEndpointsSchema.safeParse(response.data)
 
 		if (!result.success) {
@@ -72,7 +72,7 @@ async function getOpenRouterProvidersForModel(modelId: string, baseUrl?: string,
 		}
 
 		for (const endpoint of endpoints) {
-			const providerName = endpoint.tag ?? endpoint.provider_name // kilocode_change
+			const providerName = endpoint.tag ?? endpoint.provider_name // arcanea_change
 			const inputPrice = parseApiPrice(endpoint.pricing?.prompt)
 			const outputPrice = parseApiPrice(endpoint.pricing?.completion)
 			const cacheReadsPrice = parseApiPrice(endpoint.pricing?.input_cache_read)
@@ -109,13 +109,13 @@ async function getOpenRouterProvidersForModel(modelId: string, baseUrl?: string,
 					modelInfo.cacheReadsPrice = 0.3
 					modelInfo.maxTokens = 8192
 					break
-				// kilocode_change start
+				// arcanea_change start
 				//default:
 				//	modelInfo.supportsPromptCache = true
 				//	modelInfo.cacheWritesPrice = 0.3
 				//	modelInfo.cacheReadsPrice = 0.03
 				//	break
-				// kilocode_change end
+				// arcanea_change end
 			}
 
 			models[providerName] = modelInfo
@@ -136,7 +136,7 @@ type UseOpenRouterModelProvidersOptions = Omit<
 	"queryKey" | "queryFn"
 >
 
-// kilocode_change start: baseUrl, apiKey, organizationId
+// arcanea_change start: baseUrl, apiKey, organizationId
 export const useOpenRouterModelProviders = (
 	modelId?: string,
 	baseUrl?: string,
@@ -149,4 +149,4 @@ export const useOpenRouterModelProviders = (
 		queryFn: () => (modelId ? getOpenRouterProvidersForModel(modelId, baseUrl, apiKey) : {}),
 		...options,
 	})
-// kilocode_change end
+// arcanea_change end

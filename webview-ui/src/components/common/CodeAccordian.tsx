@@ -1,11 +1,11 @@
 import { memo, useMemo } from "react"
 import { VSCodeProgressRing } from "@vscode/webview-ui-toolkit/react"
-import { type ToolProgressStatus } from "@roo-code/types"
+import { type ToolProgressStatus } from "@arcanea/types"
 import { getLanguageFromPath } from "@src/utils/getLanguageFromPath"
 import { removeLeadingNonAlphanumeric } from "@src/utils/removeLeadingNonAlphanumeric"
 
 import { ToolUseBlock, ToolUseBlockHeader } from "./ToolUseBlock"
-import CodeBlock from "../kilocode/common/CodeBlock" // kilocode_change
+import CodeBlock from "../arcanea/common/CodeBlock" // arcanea_change
 
 interface CodeAccordianProps {
 	path?: string

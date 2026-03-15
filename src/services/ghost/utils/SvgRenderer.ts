@@ -1,4 +1,4 @@
-// kilocode_change - new file: SvgRenderer class for Shiki HTML-to-SVG conversion with diff highlighting
+// arcanea_change - new file: SvgRenderer class for Shiki HTML-to-SVG conversion with diff highlighting
 import { escapeHtml } from "../../../shared/utils/escapeHtml"
 import { parseHtmlDocument } from "./htmlParser"
 import { calculateTextWidth } from "./textMeasurement"

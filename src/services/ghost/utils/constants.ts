@@ -1,4 +1,4 @@
-// kilocode_change - new file: Language mapping constants for SVG syntax highlighting
+// arcanea_change - new file: Language mapping constants for SVG syntax highlighting
 export const VS_CODE_TO_SHIKI_LANGUAGE_MAP: Record<string, string> = {
 	typescript: "typescript",
 	javascript: "javascript",

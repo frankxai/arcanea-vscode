@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { kiloLanguages } from "./kiloLanguages.js"
+import { arcaneaLanguages } from "./arcaneaLanguages.js"
 
 /**
  * CodeAction
@@ -52,15 +52,15 @@ export const commandIds = [
 	"setCustomStoragePath",
 	"importSettings",
 
-	// "focusInput", // kilocode_change
+	// "focusInput", // arcanea_change
 	"acceptInput",
-	"profileButtonClicked", // kilocode_change
-	"helpButtonClicked", // kilocode_change
-	"focusChatInput", // kilocode_change
-	"importSettings", // kilocode_change
-	"exportSettings", // kilocode_change
-	"generateTerminalCommand", // kilocode_change
-	"handleExternalUri", // kilocode_change - for JetBrains plugin URL forwarding
+	"profileButtonClicked", // arcanea_change
+	"helpButtonClicked", // arcanea_change
+	"focusChatInput", // arcanea_change
+	"importSettings", // arcanea_change
+	"exportSettings", // arcanea_change
+	"generateTerminalCommand", // arcanea_change
+	"handleExternalUri", // arcanea_change - for JetBrains plugin URL forwarding
 	"focusPanel",
 ] as const
 
@@ -71,7 +71,7 @@ export type CommandId = (typeof commandIds)[number]
  */
 
 export const languages = [
-	...kiloLanguages,
+	...arcaneaLanguages,
 	"ca",
 	"de",
 	"en",

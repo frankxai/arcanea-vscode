@@ -1289,7 +1289,7 @@ describe.skip("ChatView - Version Indicator Tests", () => {
 	})
 })
 
-// kilocode_change skip
+// arcanea_change skip
 it.skip("ChatView - RooCloudCTA Display Tests", () => {
 	beforeEach(() => vi.clearAllMocks())
 
@@ -1330,7 +1330,7 @@ it.skip("ChatView - RooCloudCTA Display Tests", () => {
 		expect(queryByTestId("dismissible-upsell")).not.toBeInTheDocument()
 	})
 
-	// kilocode_change skip
+	// arcanea_change skip
 	it.skip("shows RooCloudCTA when user is not authenticated and has run 4 or more tasks", async () => {
 		const { getByTestId } = renderChatView()
 
@@ -1352,7 +1352,7 @@ it.skip("ChatView - RooCloudCTA Display Tests", () => {
 		})
 	})
 
-	// kilocode_change skip
+	// arcanea_change skip
 	it.skip("shows RooCloudCTA when user is not authenticated and has run 5 tasks", async () => {
 		const { getByTestId } = renderChatView()
 
@@ -1408,7 +1408,7 @@ it.skip("ChatView - RooCloudCTA Display Tests", () => {
 		})
 	})
 
-	// kilocode_change skip
+	// arcanea_change skip
 	it.skip("shows RooTips when user is authenticated (instead of RooCloudCTA)", () => {
 		const { queryByTestId, getByTestId } = renderChatView()
 
@@ -1429,7 +1429,7 @@ it.skip("ChatView - RooCloudCTA Display Tests", () => {
 		expect(getByTestId("roo-tips")).toBeInTheDocument()
 	})
 
-	// kilocode_change skip
+	// arcanea_change skip
 	it.skip("shows RooTips when user has fewer than 4 tasks (instead of RooCloudCTA)", () => {
 		const { queryByTestId, getByTestId } = renderChatView()
 

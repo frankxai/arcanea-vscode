@@ -1,4 +1,4 @@
-import type { ToolName, ModeConfig } from "@roo-code/types"
+import type { ToolName, ModeConfig } from "@arcanea/types"
 
 import { TOOL_GROUPS, ALWAYS_AVAILABLE_TOOLS, DiffStrategy } from "../../../shared/tools"
 import { McpHub } from "../../../services/mcp/McpHub"
@@ -9,7 +9,7 @@ import { getExecuteCommandDescription } from "./execute-command"
 import { getReadFileDescription } from "./read-file"
 import { getSimpleReadFileDescription } from "./simple-read-file"
 import { getFetchInstructionsDescription } from "./fetch-instructions"
-import { shouldUseSingleFileRead } from "@roo-code/types"
+import { shouldUseSingleFileRead } from "@arcanea/types"
 import { getWriteToFileDescription } from "./write-to-file"
 import { getSearchFilesDescription } from "./search-files"
 import { getListFilesDescription } from "./list-files"
@@ -30,10 +30,10 @@ import { getGenerateImageDescription } from "./generate-image"
 import { CodeIndexManager } from "../../../services/code-index/manager"
 import { isMorphAvailable } from "../../tools/editFileTool"
 
-// kilocode_change start: Morph fast apply
+// arcanea_change start: Morph fast apply
 import { getEditFileDescription } from "./edit-file"
 import { type ClineProviderState } from "../../webview/ClineProvider"
-// kilocode_change end
+// arcanea_change end
 
 // Map of tool names to their description functions
 const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined> = {
@@ -61,7 +61,7 @@ const toolDescriptionMap: Record<string, (args: ToolArgs) => string | undefined>
 	new_task: (args) => getNewTaskDescription(args),
 	insert_content: (args) => getInsertContentDescription(args),
 	search_and_replace: (args) => getSearchAndReplaceDescription(args),
-	edit_file: () => getEditFileDescription(), // kilocode_change: Morph fast apply
+	edit_file: () => getEditFileDescription(), // arcanea_change: Morph fast apply
 	apply_diff: (args) =>
 		args.diffStrategy ? args.diffStrategy.getToolDescription({ cwd: args.cwd, toolOptions: args.toolOptions }) : "",
 	update_todo_list: (args) => getUpdateTodoListDescription(args),
@@ -83,7 +83,7 @@ export function getToolDescriptionsForMode(
 	settings?: Record<string, any>,
 	enableMcpServerCreation?: boolean,
 	modelId?: string,
-	clineProviderState?: ClineProviderState, // kilocode_change
+	clineProviderState?: ClineProviderState, // arcanea_change
 ): string {
 	const config = getModeConfig(mode, customModes)
 	const args: ToolArgs = {
@@ -136,7 +136,7 @@ export function getToolDescriptionsForMode(
 		tools.delete("codebase_search")
 	}
 
-	// kilocode_change start: Morph fast apply
+	// arcanea_change start: Morph fast apply
 	if (isMorphAvailable(clineProviderState)) {
 		// When Morph is enabled, disable traditional editing tools
 		const traditionalEditingTools = ["apply_diff", "write_to_file", "insert_content", "search_and_replace"]
@@ -144,7 +144,7 @@ export function getToolDescriptionsForMode(
 	} else {
 		tools.delete("edit_file")
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	// Conditionally exclude update_todo_list if disabled in settings
 	if (settings?.todoListEnabled === false) {
@@ -195,7 +195,7 @@ export {
 	getSwitchModeDescription,
 	getInsertContentDescription,
 	getSearchAndReplaceDescription,
-	getEditFileDescription, // kilocode_change: Morph fast apply
+	getEditFileDescription, // arcanea_change: Morph fast apply
 	getCodebaseSearchDescription,
 	getRunSlashCommandDescription,
 	getGenerateImageDescription,

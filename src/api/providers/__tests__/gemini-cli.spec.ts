@@ -1,8 +1,8 @@
-// kilocode_change new file
+// arcanea_change new file
 
 import { describe, it, expect, vi, beforeEach } from "vitest"
 import { GeminiCliHandler } from "../gemini-cli"
-import { geminiCliDefaultModelId, geminiCliModels } from "@roo-code/types"
+import { geminiCliDefaultModelId, geminiCliModels } from "@arcanea/types"
 import * as fs from "fs/promises"
 import axios from "axios"
 

@@ -1,6 +1,6 @@
 import * as vscode from "vscode"
 
-import { CloudService } from "@roo-code/cloud"
+import { CloudService } from "@arcanea/cloud"
 
 import { ClineProvider } from "../core/webview/ClineProvider"
 
@@ -28,15 +28,15 @@ export const handleUri = async (uri: vscode.Uri) => {
 			}
 			break
 		}
-		case "/kilocode": {
+		case "/arcanea": {
 			const token = query.get("token")
 			if (token) {
-				await visibleProvider.handleKiloCodeCallback(token)
+				await visibleProvider.handleArcaneaCallback(token)
 			}
 			break
 		}
-		// kilocode_change start
-		case "/kilocode/profile": {
+		// arcanea_change start
+		case "/arcanea/profile": {
 			await visibleProvider.postMessageToWebview({
 				type: "action",
 				action: "profileButtonClicked",
@@ -46,7 +46,7 @@ export const handleUri = async (uri: vscode.Uri) => {
 			})
 			break
 		}
-		// kilocode_change end
+		// arcanea_change end
 		case "/requesty": {
 			const code = query.get("code")
 			if (code) {

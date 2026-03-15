@@ -1,11 +1,11 @@
 import * as assert from "assert"
 
-import { RooCodeEventName, type ClineMessage } from "@roo-code/types"
+import { RooCodeEventName, type ClineMessage } from "@arcanea/types"
 
 import { waitUntilCompleted } from "./utils"
 import { setDefaultSuiteTimeout } from "./test-utils"
 
-suite("Kilo Code Task", function () {
+suite("Arcanea Task", function () {
 	setDefaultSuiteTimeout(this)
 
 	test("Should handle prompt and response correctly", async () => {
@@ -28,9 +28,9 @@ suite("Kilo Code Task", function () {
 
 		assert.ok(
 			!!messages.find(
-				({ say, text }) => (say === "completion_result" || say === "text") && text?.includes("My name is Kilo"),
+				({ say, text }) => (say === "completion_result" || say === "text") && text?.includes("My name is Arcanea"),
 			),
-			`Completion should include "My name is Kilo"`,
+			`Completion should include "My name is Arcanea"`,
 		)
 	})
 })

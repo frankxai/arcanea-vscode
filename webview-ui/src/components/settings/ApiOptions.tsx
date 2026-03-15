@@ -1,8 +1,8 @@
-import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from "react" // kilocode_change Fragment
+import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from "react" // arcanea_change Fragment
 import { convertHeadersToObject } from "./utils/headers"
 import { useDebounce } from "react-use"
 import { VSCodeLink, VSCodeButton } from "@vscode/webview-ui-toolkit/react"
-// import { ExternalLinkIcon } from "@radix-ui/react-icons" // kilocode_change
+// import { ExternalLinkIcon } from "@radix-ui/react-icons" // arcanea_change
 
 import {
 	type ProviderName,
@@ -38,7 +38,7 @@ import {
 	rooDefaultModelId,
 	vercelAiGatewayDefaultModelId,
 	deepInfraDefaultModelId,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { vscode } from "@src/utils/vscode"
 import { validateApiConfigurationExcludingModelErrors, getModelValidationError } from "@src/utils/validate"
@@ -46,12 +46,12 @@ import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { useRouterModels } from "@src/components/ui/hooks/useRouterModels"
 import { useSelectedModel } from "@src/components/ui/hooks/useSelectedModel"
 import { useExtensionState } from "@src/context/ExtensionStateContext"
-// kilocode_change start
+// arcanea_change start
 //import {
 //	useOpenRouterModelProviders,
 //	OPENROUTER_DEFAULT_PROVIDER_NAME,
 //} from "@src/components/ui/hooks/useOpenRouterModelProviders"
-// kilocode_change start
+// arcanea_change start
 import { filterModels } from "./utils/organizationFilters"
 import {
 	Select,
@@ -93,10 +93,10 @@ import {
 	Vertex,
 	VSCodeLM,
 	XAI,
-	// kilocode_change start
+	// arcanea_change start
 	GeminiCli,
 	VirtualQuotaFallbackProvider,
-	// kilocode_change end
+	// arcanea_change end
 	ZAi,
 	Fireworks,
 	Featherless,
@@ -106,7 +106,7 @@ import {
 
 import { MODELS_BY_PROVIDER, PROVIDERS } from "./constants"
 import { inputEventTransform, noTransform } from "./transforms"
-// import { ModelPicker } from "./ModelPicker" // kilocode_change
+// import { ModelPicker } from "./ModelPicker" // arcanea_change
 import { ModelInfoView } from "./ModelInfoView"
 import { ApiErrorMessage } from "./ApiErrorMessage"
 import { ThinkingBudget } from "./ThinkingBudget"
@@ -117,10 +117,10 @@ import { TemperatureControl } from "./TemperatureControl"
 import { RateLimitSecondsControl } from "./RateLimitSecondsControl"
 import { ConsecutiveMistakeLimitControl } from "./ConsecutiveMistakeLimitControl"
 import { BedrockCustomArn } from "./providers/BedrockCustomArn"
-import { KiloCode } from "../kilocode/settings/providers/KiloCode" // kilocode_change
+import { Arcanea } from "../arcanea/settings/providers/Arcanea" // arcanea_change
 import { buildDocLink } from "@src/utils/docLinks"
-import { KiloProviderRouting, KiloProviderRoutingManagedByOrganization } from "./providers/KiloProviderRouting"
-import { OpenRouterMarkupInfoView } from "../kilocode/FreeModelsLink"
+import { ArcaneaProviderRouting, ArcaneaProviderRoutingManagedByOrganization } from "./providers/ArcaneaProviderRouting"
+import { OpenRouterMarkupInfoView } from "../arcanea/FreeModelsLink"
 
 export interface ApiOptionsProps {
 	uriScheme: string | undefined
@@ -133,8 +133,8 @@ export interface ApiOptionsProps {
 	fromWelcomeView?: boolean
 	errorMessage: string | undefined
 	setErrorMessage: React.Dispatch<React.SetStateAction<string | undefined>>
-	hideKiloCodeButton?: boolean // kilocode_change
-	currentApiConfigName?: string // kilocode_change
+	hideArcaneaButton?: boolean // arcanea_change
+	currentApiConfigName?: string // arcanea_change
 }
 
 const ApiOptions = ({
@@ -144,15 +144,15 @@ const ApiOptions = ({
 	fromWelcomeView,
 	errorMessage,
 	setErrorMessage,
-	hideKiloCodeButton = false,
-	currentApiConfigName, // kilocode_change
+	hideArcaneaButton = false,
+	currentApiConfigName, // arcanea_change
 }: ApiOptionsProps) => {
 	const { t } = useAppTranslation()
 	const {
 		organizationAllowList,
-		uiKind, // kilocode_change
-		kiloCodeWrapperProperties, // kilocode_change
-		kilocodeDefaultModel,
+		uiKind, // arcanea_change
+		arcaneaWrapperProperties, // arcanea_change
+		arcaneaDefaultModel,
 		cloudIsAuthenticated,
 	} = useExtensionState()
 
@@ -207,11 +207,11 @@ const ApiOptions = ({
 		info: selectedModelInfo,
 	} = useSelectedModel(apiConfiguration)
 
-	// kilocode_change start: queryKey
+	// arcanea_change start: queryKey
 	const { data: routerModels, refetch: refetchRouterModels } = useRouterModels({
 		openRouterBaseUrl: apiConfiguration?.openRouterBaseUrl,
 		openRouterApiKey: apiConfiguration?.openRouterApiKey,
-		kilocodeOrganizationId: apiConfiguration?.kilocodeOrganizationId ?? "personal",
+		arcaneaOrganizationId: apiConfiguration?.arcaneaOrganizationId ?? "personal",
 		deepInfraApiKey: apiConfiguration?.deepInfraApiKey,
 	})
 
@@ -227,7 +227,7 @@ const ApiOptions = ({
 	//			apiConfiguration.openRouterModelId in routerModels.openrouter,
 	//	},
 	//)
-	// kilocode_change end
+	// arcanea_change end
 
 	// Update `apiModelId` whenever `selectedModelId` changes.
 	useEffect(() => {
@@ -381,10 +381,10 @@ const ApiOptions = ({
 				openai: { field: "openAiModelId" },
 				ollama: { field: "ollamaModelId" },
 				lmstudio: { field: "lmStudioModelId" },
-				// kilocode_change start
-				kilocode: { field: "kilocodeModel", default: kilocodeDefaultModel },
+				// arcanea_change start
+				arcanea: { field: "arcaneaModel", default: arcaneaDefaultModel },
 				"gemini-cli": { field: "apiModelId", default: geminiCliDefaultModelId },
-				// kilocode_change end
+				// arcanea_change end
 			}
 
 			const config = PROVIDER_MODEL_CONFIG[value]
@@ -396,7 +396,7 @@ const ApiOptions = ({
 				)
 			}
 		},
-		[setApiConfigurationField, apiConfiguration, kilocodeDefaultModel],
+		[setApiConfigurationField, apiConfiguration, arcaneaDefaultModel],
 	)
 
 	const modelValidationError = useMemo(() => {
@@ -411,7 +411,7 @@ const ApiOptions = ({
 			return undefined
 		}
 
-		// kilocode_change start
+		// arcanea_change start
 		// Providers that don't have documentation pages yet
 		const excludedProviders = ["gemini-cli", "moonshot", "chutes", "cerebras", "litellm", "zai", "qwen-code"]
 
@@ -419,7 +419,7 @@ const ApiOptions = ({
 		if (excludedProviders.includes(selectedProvider)) {
 			return undefined
 		}
-		// kilocode_change end
+		// arcanea_change end
 
 		// Get the URL slug - use custom mapping if available, otherwise use the provider key.
 		const slugs: Record<string, string> = {
@@ -435,7 +435,7 @@ const ApiOptions = ({
 	}, [selectedProvider])
 
 	// Convert providers to SearchableSelect options
-	// kilocode_change start: no organizationAllowList
+	// arcanea_change start: no organizationAllowList
 	const providerOptions = useMemo(
 		() =>
 			PROVIDERS.map(({ value, label }) => {
@@ -443,7 +443,7 @@ const ApiOptions = ({
 			}),
 		[],
 	)
-	// kilocode_change end
+	// arcanea_change end
 
 	return (
 		<div className="flex flex-col gap-3">
@@ -471,31 +471,31 @@ const ApiOptions = ({
 			</div>
 
 			{
-				// kilocode_change start
+				// arcanea_change start
 				selectedProvider === "openrouter" && (
 					<OpenRouterMarkupInfoView setApiConfigurationField={setApiConfigurationField} />
 				)
-				// kilocode_change end
+				// arcanea_change end
 			}
 
 			{errorMessage && <ApiErrorMessage errorMessage={errorMessage} />}
 
-			{/* kilocode_change start */}
-			{selectedProvider === "kilocode" && (
-				<KiloCode
+			{/* arcanea_change start */}
+			{selectedProvider === "arcanea" && (
+				<Arcanea
 					apiConfiguration={apiConfiguration}
 					setApiConfigurationField={setApiConfigurationField}
-					hideKiloCodeButton={hideKiloCodeButton}
+					hideArcaneaButton={hideArcaneaButton}
 					currentApiConfigName={currentApiConfigName}
 					routerModels={routerModels}
 					organizationAllowList={organizationAllowList}
 					uriScheme={uriScheme}
 					uiKind={uiKind}
-					kiloCodeWrapperProperties={kiloCodeWrapperProperties}
-					kilocodeDefaultModel={kilocodeDefaultModel}
+					arcaneaWrapperProperties={arcaneaWrapperProperties}
+					arcaneaDefaultModel={arcaneaDefaultModel}
 				/>
 			)}
-			{/* kilocode_change end */}
+			{/* arcanea_change end */}
 
 			{selectedProvider === "openrouter" && (
 				<OpenRouter
@@ -655,7 +655,7 @@ const ApiOptions = ({
 				<Chutes apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
 			)}
 
-			{/* kilocode_change start */}
+			{/* arcanea_change start */}
 
 			{selectedProvider === "gemini-cli" && (
 				<GeminiCli apiConfiguration={apiConfiguration} setApiConfigurationField={setApiConfigurationField} />
@@ -667,7 +667,7 @@ const ApiOptions = ({
 					setApiConfigurationField={setApiConfigurationField}
 				/>
 			)}
-			{/* kilocode_change end */}
+			{/* arcanea_change end */}
 
 			{selectedProvider === "litellm" && (
 				<LiteLLM
@@ -813,18 +813,18 @@ const ApiOptions = ({
 			)}
 
 			{
-				// kilocode_change start
-				(selectedProvider === "kilocode" || selectedProvider === "openrouter") &&
-					(apiConfiguration.kilocodeOrganizationId ? (
-						<KiloProviderRoutingManagedByOrganization />
+				// arcanea_change start
+				(selectedProvider === "arcanea" || selectedProvider === "openrouter") &&
+					(apiConfiguration.arcaneaOrganizationId ? (
+						<ArcaneaProviderRoutingManagedByOrganization />
 					) : (
-						<KiloProviderRouting
+						<ArcaneaProviderRouting
 							apiConfiguration={apiConfiguration}
 							setApiConfigurationField={setApiConfigurationField}
-							kilocodeDefaultModel={kilocodeDefaultModel}
+							arcaneaDefaultModel={arcaneaDefaultModel}
 						/>
 					))
-				// kilocode_change end
+				// arcanea_change end
 			}
 
 			{!fromWelcomeView && (
@@ -862,7 +862,7 @@ const ApiOptions = ({
 							}
 							onChange={(value) => setApiConfigurationField("consecutiveMistakeLimit", value)}
 						/>
-						{/* kilocode_change start
+						{/* arcanea_change start
 						selectedProvider === "openrouter" &&
 							openRouterModelProviders &&
 							Object.keys(openRouterModelProviders).length > 0 && (
@@ -905,7 +905,7 @@ const ApiOptions = ({
 									</div>
 								</div>
 							)
-							kilocode_change end */}
+							arcanea_change end */}
 					</CollapsibleContent>
 				</Collapsible>
 			)}

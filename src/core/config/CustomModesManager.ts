@@ -6,11 +6,11 @@ import * as os from "os"
 import * as yaml from "yaml"
 import stripBom from "strip-bom"
 
-import { type ModeConfig, type PromptComponent, customModesSettingsSchema, modeConfigSchema } from "@roo-code/types"
+import { type ModeConfig, type PromptComponent, customModesSettingsSchema, modeConfigSchema } from "@arcanea/types"
 
 import { fileExistsAtPath } from "../../utils/fs"
 import { getWorkspacePath } from "../../utils/path"
-import { getGlobalRooDirectory, getProjectRooDirectoryForCwd /*kilocode_change*/ } from "../../services/roo-config"
+import { getGlobalRooDirectory, getProjectRooDirectoryForCwd /*arcanea_change*/ } from "../../services/roo-config"
 import { logger } from "../../utils/logging"
 import { GlobalFileNames } from "../../shared/globalFileNames"
 import { ensureSettingsDirectoryExists } from "../../utils/globalContext"
@@ -666,7 +666,7 @@ export class CustomModesManager {
 					return false
 				}
 				modeRulesDir = path.join(
-					getProjectRooDirectoryForCwd(workspacePath) /* kilocode_change */,
+					getProjectRooDirectoryForCwd(workspacePath) /* arcanea_change */,
 					`rules-${slug}`,
 				)
 			}
@@ -774,7 +774,7 @@ export class CustomModesManager {
 			// Check for .roo/rules-{slug}/ directory (or rules-{slug}/ for global)
 			const modeRulesDir = isGlobalMode
 				? path.join(baseDir, `rules-${slug}`)
-				: path.join(getProjectRooDirectoryForCwd(baseDir) /* kilocode_change */, `rules-${slug}`)
+				: path.join(getProjectRooDirectoryForCwd(baseDir) /* arcanea_change */, `rules-${slug}`)
 
 			let rulesFiles: RuleFile[] = []
 			try {
@@ -858,7 +858,7 @@ export class CustomModesManager {
 			rulesFolderPath = path.join(baseDir, `rules-${importMode.slug}`)
 		} else {
 			const workspacePath = getWorkspacePath()
-			baseDir = getProjectRooDirectoryForCwd(workspacePath) // kilocode_change
+			baseDir = getProjectRooDirectoryForCwd(workspacePath) // arcanea_change
 			rulesFolderPath = path.join(baseDir, `rules-${importMode.slug}`)
 		}
 

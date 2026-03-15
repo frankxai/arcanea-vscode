@@ -1,4 +1,4 @@
-import type { ClineMessage } from "@roo-code/types"
+import type { ClineMessage } from "@arcanea/types"
 import { forwardRef, memo, useCallback, useEffect, useMemo, useRef } from "react"
 import { useDrag } from "@use-gesture/react"
 import { Virtuoso, type VirtuosoHandle } from "react-virtuoso"

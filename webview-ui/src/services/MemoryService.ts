@@ -1,6 +1,6 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import { telemetryClient } from "../utils/TelemetryClient"
-import { TelemetryEventName } from "@roo-code/types"
+import { TelemetryEventName } from "@arcanea/types"
 import { createSampledFunction } from "../utils/sampling"
 
 interface PerformanceMemory {

@@ -53,7 +53,7 @@
 			"label": "watch:webview",
 			"dependsOn": ["watch:pnpm"],
 			"type": "shell",
-			"command": "pnpm --filter @roo-code/vscode-webview dev",
+			"command": "pnpm --filter @arcanea/vscode-webview dev",
 			"group": "build",
 			"problemMatcher": {
 				"owner": "vite",
@@ -131,7 +131,7 @@
 		{
 			"label": "install-dev-extension",
 			"type": "shell",
-			"command": "pnpm i && npm run build && code --install-extension \"$(ls -1v bin/kilo-code-*.vsix | tail -n1)\"",
+			"command": "pnpm i && npm run build && code --install-extension \"$(ls -1v bin/arcanea-*.vsix | tail -n1)\"",
 			"group": "build",
 			"presentation": {
 				"echo": true,

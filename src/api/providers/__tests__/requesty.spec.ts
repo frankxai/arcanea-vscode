@@ -58,10 +58,10 @@ describe("RequestyHandler", () => {
 			baseURL: "https://router.requesty.ai/v1",
 			apiKey: mockOptions.requestyApiKey,
 			defaultHeaders: {
-				"HTTP-Referer": "https://kilocode.ai",
+				"HTTP-Referer": "https://arcanea.ai",
 				"X-Title": "Arcanea",
-				"X-KiloCode-Version": Package.version,
-				"User-Agent": `Kilo-Code/${Package.version}`,
+				"X-Arcanea-Version": Package.version,
+				"User-Agent": `Arcanea-Code/${Package.version}`,
 			},
 		})
 	})
@@ -74,10 +74,10 @@ describe("RequestyHandler", () => {
 			baseURL: "https://custom.requesty.ai/v1",
 			apiKey: mockOptions.requestyApiKey,
 			defaultHeaders: {
-				"HTTP-Referer": "https://kilocode.ai",
+				"HTTP-Referer": "https://arcanea.ai",
 				"X-Title": "Arcanea",
-				"X-KiloCode-Version": Package.version,
-				"User-Agent": `Kilo-Code/${Package.version}`,
+				"X-Arcanea-Version": Package.version,
+				"User-Agent": `Arcanea-Code/${Package.version}`,
 			},
 		})
 	})

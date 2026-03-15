@@ -24,7 +24,7 @@ importers:
       '@dotenvx/dotenvx':
         specifier: ^1.34.0
         version: 1.44.2
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:packages/config-typescript
       '@types/glob':
@@ -79,7 +79,7 @@ importers:
         specifier: ^5.4.5
         version: 5.8.3
 
-  apps/kilocode-docs:
+  apps/arcanea-docs:
     dependencies:
       '@docusaurus/core':
         specifier: ^3.8.1
@@ -155,13 +155,13 @@ importers:
       '@playwright/test':
         specifier: ^1.53.1
         version: 1.55.0
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../../packages/config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../../packages/config-typescript
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
       '@types/node':
@@ -185,7 +185,7 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.1.2
         version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
       '@vscode/codicons':
@@ -285,13 +285,13 @@ importers:
 
   apps/vscode-e2e:
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../../packages/config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../../packages/config-typescript
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
       '@types/mocha':
@@ -324,7 +324,7 @@ importers:
 
   apps/vscode-nightly:
     devDependencies:
-      '@roo-code/build':
+      '@arcanea/build':
         specifier: workspace:^
         version: link:../../packages/build
 
@@ -369,10 +369,10 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.8
         version: 1.2.8(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@roo-code/evals':
+      '@arcanea/evals':
         specifier: workspace:^
         version: link:../../packages/evals
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
       '@tanstack/react-query':
@@ -433,10 +433,10 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../../packages/config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../../packages/config-typescript
       '@tailwindcss/postcss':
@@ -466,10 +466,10 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.2.3
         version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
-      '@roo-code/evals':
+      '@arcanea/evals':
         specifier: workspace:^
         version: link:../../packages/evals
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
       '@tanstack/react-query':
@@ -527,10 +527,10 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../../packages/config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../../packages/config-typescript
       '@tailwindcss/typography':
@@ -711,7 +711,7 @@ importers:
       '@playwright/test':
         specifier: ^1.50.0
         version: 1.55.0
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: file:../../packages/config-eslint
         version: link:../../packages/config-eslint
       '@types/cookie':
@@ -1018,10 +1018,10 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../config-typescript
       '@types/node':
@@ -1033,7 +1033,7 @@ importers:
 
   packages/cloud:
     dependencies:
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../types
       ioredis:
@@ -1052,10 +1052,10 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../config-typescript
       '@types/node':
@@ -1108,10 +1108,10 @@ importers:
 
   packages/evals:
     dependencies:
-      '@roo-code/ipc':
+      '@arcanea/ipc':
         specifier: workspace:^
         version: link:../ipc
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../types
       cmd-ts:
@@ -1148,10 +1148,10 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../config-typescript
       '@types/node':
@@ -1175,17 +1175,17 @@ importers:
 
   packages/ipc:
     dependencies:
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../types
       node-ipc:
         specifier: ^12.0.0
         version: 12.0.0
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../config-typescript
       '@types/node':
@@ -1200,7 +1200,7 @@ importers:
 
   packages/telemetry:
     dependencies:
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../types
       posthog-node:
@@ -1210,10 +1210,10 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../config-typescript
       '@types/node':
@@ -1232,10 +1232,10 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../config-typescript
       '@types/node':
@@ -1286,16 +1286,16 @@ importers:
       '@qdrant/js-client-rest':
         specifier: ^1.14.0
         version: 1.14.0(typescript@5.8.3)
-      '@roo-code/cloud':
+      '@arcanea/cloud':
         specifier: workspace:^
         version: link:../packages/cloud
-      '@roo-code/ipc':
+      '@arcanea/ipc':
         specifier: workspace:^
         version: link:../packages/ipc
-      '@roo-code/telemetry':
+      '@arcanea/telemetry':
         specifier: workspace:^
         version: link:../packages/telemetry
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../packages/types
       '@vscode/codicons':
@@ -1503,13 +1503,13 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/build':
+      '@arcanea/build':
         specifier: workspace:^
         version: link:../packages/build
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../packages/config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../packages/config-typescript
       '@types/clone-deep':
@@ -1659,7 +1659,7 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.8
         version: 1.2.6(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@roo-code/types':
+      '@arcanea/types':
         specifier: workspace:^
         version: link:../packages/types
       '@tailwindcss/vite':
@@ -1828,10 +1828,10 @@ importers:
         specifier: ^3.25.61
         version: 3.25.61
     devDependencies:
-      '@roo-code/config-eslint':
+      '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../packages/config-eslint
-      '@roo-code/config-typescript':
+      '@arcanea/config-typescript':
         specifier: workspace:^
         version: link:../packages/config-typescript
       '@storybook/addon-essentials':

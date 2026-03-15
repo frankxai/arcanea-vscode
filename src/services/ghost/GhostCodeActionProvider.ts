@@ -14,7 +14,7 @@ export class GhostCodeActionProvider implements vscode.CodeActionProvider {
 		token: vscode.CancellationToken,
 	): vscode.ProviderResult<(vscode.CodeAction | vscode.Command)[]> {
 		const action = new vscode.CodeAction(
-			t("kilocode:ghost.codeAction.title"),
+			t("arcanea:ghost.codeAction.title"),
 			this.providedCodeActionKinds["quickfix"],
 		)
 		action.command = {

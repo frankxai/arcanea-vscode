@@ -3,7 +3,7 @@ import {
 	type ProviderSettings,
 	ANTHROPIC_DEFAULT_MAX_TOKENS,
 	CLAUDE_CODE_DEFAULT_MAX_OUTPUT_TOKENS,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 // ApiHandlerOptions
 // Extend ProviderSettings (minus apiProvider) with handler-specific toggles.
@@ -24,7 +24,7 @@ const routerNames = [
 	"glama",
 	"unbound",
 	"litellm",
-	"kilocode-openrouter",
+	"arcanea-openrouter",
 	"ollama",
 	"lmstudio",
 	"io-intelligence",
@@ -110,7 +110,7 @@ export const getModelMaxOutputTokens = ({
 		(format === "openrouter" && modelId.startsWith("anthropic/"))
 
 	// For "Hybrid" reasoning models, discard the model's actual maxTokens for Anthropic contexts
-	/* kilocode_change: don't limit Anthropic model output, no idea why this was done before
+	/* arcanea_change: don't limit Anthropic model output, no idea why this was done before
 	if (model.supportsReasoningBudget && isAnthropicContext) {
 		return ANTHROPIC_DEFAULT_MAX_TOKENS
 	}*/
@@ -147,13 +147,13 @@ export const getModelMaxOutputTokens = ({
 // GetModelsOptions
 
 export type GetModelsOptions =
-	| { provider: "openrouter"; apiKey?: string; baseUrl?: string } // kilocode_change: add apiKey, baseUrl
+	| { provider: "openrouter"; apiKey?: string; baseUrl?: string } // arcanea_change: add apiKey, baseUrl
 	| { provider: "glama" }
 	| { provider: "requesty"; apiKey?: string; baseUrl?: string }
 	| { provider: "unbound"; apiKey?: string }
 	| { provider: "litellm"; apiKey: string; baseUrl: string }
-	| { provider: "kilocode-openrouter"; kilocodeToken?: string; kilocodeOrganizationId?: string } // kilocode_change
-	| { provider: "cerebras"; cerebrasApiKey?: string } // kilocode_change
+	| { provider: "arcanea-openrouter"; arcaneaToken?: string; arcaneaOrganizationId?: string } // arcanea_change
+	| { provider: "cerebras"; cerebrasApiKey?: string } // arcanea_change
 	| { provider: "ollama"; baseUrl?: string; apiKey?: string }
 	| { provider: "lmstudio"; baseUrl?: string }
 	| { provider: "deepinfra"; apiKey?: string; baseUrl?: string }

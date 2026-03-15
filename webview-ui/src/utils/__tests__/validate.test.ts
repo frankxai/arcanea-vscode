@@ -1,4 +1,4 @@
-import type { ProviderSettings, OrganizationAllowList } from "@roo-code/types"
+import type { ProviderSettings, OrganizationAllowList } from "@arcanea/types"
 
 import { RouterModels } from "@roo/api"
 
@@ -24,7 +24,7 @@ describe("Model Validation Functions", () => {
 				outputPrice: 5.0,
 			},
 		},
-		"kilocode-openrouter": {
+		"arcanea-openrouter": {
 			"valid-model": {
 				maxTokens: 8192,
 				contextWindow: 200000,

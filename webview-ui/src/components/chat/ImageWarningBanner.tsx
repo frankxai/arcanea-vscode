@@ -1,4 +1,4 @@
-// kilocode_change - new file
+// arcanea_change - new file
 import React, { useEffect } from "react"
 import { TriangleAlert, X } from "lucide-react"
 

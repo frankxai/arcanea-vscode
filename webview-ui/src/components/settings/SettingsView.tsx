@@ -21,17 +21,17 @@ import {
 	AlertTriangle,
 	Globe,
 	Info,
-	Server, // kilocode_change
-	Bot, // kilocode_change
+	Server, // arcanea_change
+	Bot, // arcanea_change
 	MessageSquare,
 	Monitor,
 	LucideIcon,
 } from "lucide-react"
 
-// kilocode_change
+// arcanea_change
 import { ensureBodyPointerEventsRestored } from "@/utils/fixPointerEvents"
 
-import type { ProviderSettings, ExperimentId, TelemetrySetting } from "@roo-code/types"
+import type { ProviderSettings, ExperimentId, TelemetrySetting } from "@arcanea/types"
 
 import { vscode } from "@src/utils/vscode"
 import { cn } from "@src/lib/utils"
@@ -62,7 +62,7 @@ import ApiOptions from "./ApiOptions"
 import { AutoApproveSettings } from "./AutoApproveSettings"
 import { BrowserSettings } from "./BrowserSettings"
 import { CheckpointSettings } from "./CheckpointSettings"
-import { DisplaySettings } from "./DisplaySettings" // kilocode_change
+import { DisplaySettings } from "./DisplaySettings" // arcanea_change
 import { NotificationSettings } from "./NotificationSettings"
 import { ContextManagementSettings } from "./ContextManagementSettings"
 import { TerminalSettings } from "./TerminalSettings"
@@ -71,9 +71,9 @@ import { LanguageSettings } from "./LanguageSettings"
 import { About } from "./About"
 import { Section } from "./Section"
 import PromptsSettings from "./PromptsSettings"
-import McpView from "../kilocodeMcp/McpView" // kilocode_change
-import deepEqual from "fast-deep-equal" // kilocode_change
-import { GhostServiceSettingsView } from "../kilocode/settings/GhostServiceSettings" // kilocode_change
+import McpView from "../arcaneaMcp/McpView" // arcanea_change
+import deepEqual from "fast-deep-equal" // arcanea_change
+import { GhostServiceSettingsView } from "../arcanea/settings/GhostServiceSettings" // arcanea_change
 
 export const settingsTabsContainer = "flex flex-1 overflow-hidden [&.narrow_.tab-label]:hidden"
 export const settingsTabList =
@@ -90,8 +90,8 @@ const sectionNames = [
 	"autoApprove",
 	"browser",
 	"checkpoints",
-	"ghost", // kilocode_change
-	"display", // kilocode_change
+	"ghost", // arcanea_change
+	"display", // arcanea_change
 	"notifications",
 	"contextManagement",
 	"terminal",
@@ -102,7 +102,7 @@ const sectionNames = [
 	"about",
 ] as const
 
-type SectionName = (typeof sectionNames)[number] // kilocode_change
+type SectionName = (typeof sectionNames)[number] // arcanea_change
 
 type SettingsViewProps = {
 	onDone: () => void
@@ -117,7 +117,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		currentApiConfigName,
 		listApiConfigMeta,
 		uriScheme,
-		kiloCodeWrapperProperties, // kilocode_change
+		arcaneaWrapperProperties, // arcanea_change
 		settingsImportedAt,
 	} = extensionState
 
@@ -140,7 +140,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 
 	const [cachedState, setCachedState] = useState(extensionState)
 
-	// kilocode_change begin
+	// arcanea_change begin
 	useEffect(() => {
 		ensureBodyPointerEventsRestored()
 	}, [isDiscardDialogShow])
@@ -148,7 +148,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 	useEffect(() => {
 		setChangeDetected(JSON.stringify(cachedState) !== JSON.stringify(extensionState))
 	}, [cachedState, extensionState])
-	// kilocode_change end
+	// arcanea_change end
 
 	const {
 		alwaysAllowReadOnly,
@@ -174,7 +174,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		enableCheckpoints,
 		diffEnabled,
 		experiments,
-		morphApiKey, // kilocode_change
+		morphApiKey, // arcanea_change
 		fuzzyMatchThreshold,
 		maxOpenTabsContext,
 		maxWorkspaceFiles,
@@ -201,28 +201,28 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		showRooIgnoredFiles,
 		remoteBrowserEnabled,
 		maxReadFileLine,
-		showAutoApproveMenu, // kilocode_change
-		showTaskTimeline, // kilocode_change
+		showAutoApproveMenu, // arcanea_change
+		showTaskTimeline, // arcanea_change
 		maxImageFileSize,
 		maxTotalImageSize,
 		terminalCompressProgressBar,
 		maxConcurrentFileReads,
-		allowVeryLargeReads, // kilocode_change
-		terminalCommandApiConfigId, // kilocode_change
+		allowVeryLargeReads, // arcanea_change
+		terminalCommandApiConfigId, // arcanea_change
 		condensingApiConfigId,
 		customCondensingPrompt,
 		customSupportPrompts,
 		profileThresholds,
-		systemNotificationsEnabled, // kilocode_change
+		systemNotificationsEnabled, // arcanea_change
 		alwaysAllowFollowupQuestions,
 		alwaysAllowUpdateTodoList,
 		followupAutoApproveTimeoutMs,
-		ghostServiceSettings, // kilocode_change
+		ghostServiceSettings, // arcanea_change
 		includeDiagnosticMessages,
 		maxDiagnosticMessages,
 		includeTaskHistoryInEnhance,
 		openRouterImageApiKey,
-		kiloCodeImageApiKey,
+		arcaneaImageApiKey,
 		openRouterImageGenerationSelectedModel,
 	} = cachedState
 
@@ -240,10 +240,10 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		setChangeDetected(false)
 	}, [currentApiConfigName, extensionState, isChangeDetected])
 
-	// kilocode_change start
+	// arcanea_change start
 	// Temporary way of making sure that the Settings view updates its local state properly when receiving
 	// api keys from providers that support url callbacks. This whole Settings View needs proper with this local state thing later
-	const { kilocodeToken, openRouterApiKey, glamaApiKey, requestyApiKey } = extensionState.apiConfiguration ?? {}
+	const { arcaneaToken, openRouterApiKey, glamaApiKey, requestyApiKey } = extensionState.apiConfiguration ?? {}
 	useEffect(() => {
 		setCachedState((prevCachedState) => ({
 			...prevCachedState,
@@ -251,13 +251,13 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 				...prevCachedState.apiConfiguration,
 				// Only set specific tokens/keys instead of spreading the entire
 				// `prevCachedState.apiConfiguration` since it may contain unsaved changes
-				kilocodeToken,
+				arcaneaToken,
 				openRouterApiKey,
 				glamaApiKey,
 				requestyApiKey,
 			},
 		}))
-	}, [kilocodeToken, openRouterApiKey, glamaApiKey, requestyApiKey])
+	}, [arcaneaToken, openRouterApiKey, glamaApiKey, requestyApiKey])
 
 	useEffect(() => {
 		// Only update if we're not already detecting changes
@@ -266,7 +266,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			setCachedState(extensionState)
 		}
 	}, [extensionState, isChangeDetected])
-	// kilocode_change end
+	// arcanea_change end
 
 	// Bust the cache when settings are imported.
 	useEffect(() => {
@@ -278,11 +278,11 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 
 	const setCachedStateField: SetCachedStateField<keyof ExtensionStateContextType> = useCallback((field, value) => {
 		setCachedState((prevState) => {
-			// kilocode_change start
+			// arcanea_change start
 			if (deepEqual(prevState[field], value)) {
 				return prevState
 			}
-			// kilocode_change end
+			// arcanea_change end
 
 			setChangeDetected(true)
 			return { ...prevState, [field]: value }
@@ -340,10 +340,10 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 		})
 	}, [])
 
-	const setKiloCodeImageApiKey = useCallback((apiKey: string) => {
+	const setArcaneaImageApiKey = useCallback((apiKey: string) => {
 		setCachedState((prevState) => {
 			setChangeDetected(true)
-			return { ...prevState, kiloCodeImageApiKey: apiKey }
+			return { ...prevState, arcaneaImageApiKey: apiKey }
 		})
 	}, [])
 
@@ -411,26 +411,26 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			vscode.postMessage({ type: "terminalZshP10k", bool: terminalZshP10k })
 			vscode.postMessage({ type: "terminalZdotdir", bool: terminalZdotdir })
 			vscode.postMessage({ type: "terminalCompressProgressBar", bool: terminalCompressProgressBar })
-			vscode.postMessage({ type: "terminalCommandApiConfigId", text: terminalCommandApiConfigId || "" }) // kilocode_change
+			vscode.postMessage({ type: "terminalCommandApiConfigId", text: terminalCommandApiConfigId || "" }) // arcanea_change
 			vscode.postMessage({ type: "mcpEnabled", bool: mcpEnabled })
 			vscode.postMessage({ type: "alwaysApproveResubmit", bool: alwaysApproveResubmit })
 			vscode.postMessage({ type: "requestDelaySeconds", value: requestDelaySeconds })
 			vscode.postMessage({ type: "maxOpenTabsContext", value: maxOpenTabsContext })
 			vscode.postMessage({ type: "maxWorkspaceFiles", value: maxWorkspaceFiles ?? 200 })
 			vscode.postMessage({ type: "showRooIgnoredFiles", bool: showRooIgnoredFiles })
-			vscode.postMessage({ type: "showAutoApproveMenu", bool: showAutoApproveMenu }) // kilocode_change
+			vscode.postMessage({ type: "showAutoApproveMenu", bool: showAutoApproveMenu }) // arcanea_change
 			vscode.postMessage({ type: "maxReadFileLine", value: maxReadFileLine ?? -1 })
 			vscode.postMessage({ type: "maxImageFileSize", value: maxImageFileSize ?? 5 })
 			vscode.postMessage({ type: "maxTotalImageSize", value: maxTotalImageSize ?? 20 })
 			vscode.postMessage({ type: "maxConcurrentFileReads", value: cachedState.maxConcurrentFileReads ?? 5 })
-			vscode.postMessage({ type: "allowVeryLargeReads", bool: allowVeryLargeReads }) // kilocode_change
+			vscode.postMessage({ type: "allowVeryLargeReads", bool: allowVeryLargeReads }) // arcanea_change
 			vscode.postMessage({ type: "includeDiagnosticMessages", bool: includeDiagnosticMessages })
 			vscode.postMessage({ type: "maxDiagnosticMessages", value: maxDiagnosticMessages ?? 50 })
 			vscode.postMessage({ type: "currentApiConfigName", text: currentApiConfigName })
 			vscode.postMessage({ type: "updateExperimental", values: experiments })
 			vscode.postMessage({ type: "alwaysAllowModeSwitch", bool: alwaysAllowModeSwitch })
 			vscode.postMessage({ type: "alwaysAllowSubtasks", bool: alwaysAllowSubtasks })
-			vscode.postMessage({ type: "showTaskTimeline", bool: showTaskTimeline }) // kilocode_change
+			vscode.postMessage({ type: "showTaskTimeline", bool: showTaskTimeline }) // arcanea_change
 			vscode.postMessage({ type: "alwaysAllowFollowupQuestions", bool: alwaysAllowFollowupQuestions })
 			vscode.postMessage({ type: "alwaysAllowUpdateTodoList", bool: alwaysAllowUpdateTodoList })
 			vscode.postMessage({ type: "followupAutoApproveTimeoutMs", value: followupAutoApproveTimeoutMs })
@@ -441,11 +441,11 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			vscode.postMessage({ type: "upsertApiConfiguration", text: currentApiConfigName, apiConfiguration })
 			vscode.postMessage({ type: "telemetrySetting", text: telemetrySetting })
 			vscode.postMessage({ type: "profileThresholds", values: profileThresholds })
-			vscode.postMessage({ type: "systemNotificationsEnabled", bool: systemNotificationsEnabled }) // kilocode_change
-			vscode.postMessage({ type: "ghostServiceSettings", values: ghostServiceSettings }) // kilocode_change
-			vscode.postMessage({ type: "morphApiKey", text: morphApiKey }) // kilocode_change
+			vscode.postMessage({ type: "systemNotificationsEnabled", bool: systemNotificationsEnabled }) // arcanea_change
+			vscode.postMessage({ type: "ghostServiceSettings", values: ghostServiceSettings }) // arcanea_change
+			vscode.postMessage({ type: "morphApiKey", text: morphApiKey }) // arcanea_change
 			vscode.postMessage({ type: "openRouterImageApiKey", text: openRouterImageApiKey })
-			vscode.postMessage({ type: "kiloCodeImageApiKey", text: kiloCodeImageApiKey })
+			vscode.postMessage({ type: "arcaneaImageApiKey", text: arcaneaImageApiKey })
 			vscode.postMessage({
 				type: "openRouterImageGenerationSelectedModel",
 				text: openRouterImageGenerationSelectedModel,
@@ -470,7 +470,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 
 	useImperativeHandle(ref, () => ({ checkUnsaveChanges }), [checkUnsaveChanges])
 
-	// kilocode_change start
+	// arcanea_change start
 	const onConfirmDialogResult = useCallback(
 		(confirm: boolean) => {
 			if (confirm) {
@@ -501,7 +501,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			}
 		}
 	}, [isChangeDetected, onConfirmDialogResult])
-	// kilocode_change end
+	// arcanea_change end
 
 	// Handle tab changes with unsaved changes check
 	const handleTabChange = useCallback(
@@ -553,8 +553,8 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			{ id: "autoApprove", icon: CheckCheck },
 			{ id: "browser", icon: SquareMousePointer },
 			{ id: "checkpoints", icon: GitBranch },
-			{ id: "display", icon: Monitor }, // kilocode_change
-			...(kiloCodeWrapperProperties?.kiloCodeWrapped ? [] : [{ id: "ghost" as const, icon: Bot }]), // kilocode_change
+			{ id: "display", icon: Monitor }, // arcanea_change
+			...(arcaneaWrapperProperties?.arcaneaWrapped ? [] : [{ id: "ghost" as const, icon: Bot }]), // arcanea_change
 			{ id: "notifications", icon: Bell },
 			{ id: "contextManagement", icon: Database },
 			{ id: "terminal", icon: SquareTerminal },
@@ -564,14 +564,14 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 			{ id: "mcp", icon: Server },
 			{ id: "about", icon: Info },
 		],
-		[kiloCodeWrapperProperties?.kiloCodeWrapped], // kilocode_change
+		[arcaneaWrapperProperties?.arcaneaWrapped], // arcanea_change
 	)
 	// Update target section logic to set active tab
 	useEffect(() => {
 		if (targetSection && sectionNames.includes(targetSection as SectionName)) {
 			setActiveTab(targetSection as SectionName)
 		}
-	}, [targetSection]) // kilocode_change
+	}, [targetSection]) // arcanea_change
 
 	// Function to scroll the active tab into view for vertical layout
 	const scrollToActiveTab = useCallback(() => {
@@ -670,9 +670,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 									<Icon className="w-4 h-4" />
 									<span className="tab-label">
 										{id === "mcp"
-											? t(`kilocode:settings.sections.mcp`)
+											? t(`arcanea:settings.sections.mcp`)
 											: id === "ghost"
-												? t(`kilocode:ghost.title`)
+												? t(`arcanea:ghost.title`)
 												: t(`settings:sections.${id}`)}
 									</span>
 								</div>
@@ -691,9 +691,9 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 										<TooltipContent side="right" className="text-base">
 											<p className="m-0">
 												{id === "mcp"
-													? t(`kilocode:settings.sections.mcp`)
+													? t(`arcanea:settings.sections.mcp`)
 													: id === "ghost"
-														? t(`kilocode:ghost.title`)
+														? t(`arcanea:ghost.title`)
 														: t(`settings:sections.${id}`)}
 											</p>
 										</TooltipContent>
@@ -763,7 +763,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 					{/* Auto-Approve Section */}
 					{activeTab === "autoApprove" && (
 						<AutoApproveSettings
-							showAutoApproveMenu={showAutoApproveMenu} // kilocode_change
+							showAutoApproveMenu={showAutoApproveMenu} // arcanea_change
 							alwaysAllowReadOnly={alwaysAllowReadOnly}
 							alwaysAllowReadOnlyOutsideWorkspace={alwaysAllowReadOnlyOutsideWorkspace}
 							alwaysAllowWrite={alwaysAllowWrite}
@@ -807,7 +807,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 						/>
 					)}
 
-					{/* kilocode_change start display section */}
+					{/* arcanea_change start display section */}
 					{activeTab === "display" && (
 						<DisplaySettings
 							showTaskTimeline={showTaskTimeline}
@@ -820,7 +820,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 							setCachedStateField={setCachedStateField}
 						/>
 					)}
-					{/* kilocode_change end display section */}
+					{/* arcanea_change end display section */}
 
 					{/* Notifications Section */}
 					{activeTab === "notifications" && (
@@ -848,7 +848,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 							maxImageFileSize={maxImageFileSize}
 							maxTotalImageSize={maxTotalImageSize}
 							maxConcurrentFileReads={maxConcurrentFileReads}
-							allowVeryLargeReads={allowVeryLargeReads /* kilocode_change */}
+							allowVeryLargeReads={allowVeryLargeReads /* arcanea_change */}
 							profileThresholds={profileThresholds}
 							includeDiagnosticMessages={includeDiagnosticMessages}
 							maxDiagnosticMessages={maxDiagnosticMessages}
@@ -871,7 +871,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 							terminalZshP10k={terminalZshP10k}
 							terminalZdotdir={terminalZdotdir}
 							terminalCompressProgressBar={terminalCompressProgressBar}
-							terminalCommandApiConfigId={terminalCommandApiConfigId} // kilocode_change
+							terminalCommandApiConfigId={terminalCommandApiConfigId} // arcanea_change
 							setCachedStateField={setCachedStateField}
 						/>
 					)}
@@ -893,21 +893,21 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 						<ExperimentalSettings
 							setExperimentEnabled={setExperimentEnabled}
 							experiments={experiments}
-							// kilocode_change start
+							// arcanea_change start
 							setCachedStateField={setCachedStateField}
 							morphApiKey={morphApiKey}
-							// kilocode_change end
+							// arcanea_change end
 							apiConfiguration={apiConfiguration}
 							setApiConfigurationField={setApiConfigurationField}
 							openRouterImageApiKey={openRouterImageApiKey as string | undefined}
-							kiloCodeImageApiKey={kiloCodeImageApiKey}
+							arcaneaImageApiKey={arcaneaImageApiKey}
 							openRouterImageGenerationSelectedModel={
 								openRouterImageGenerationSelectedModel as string | undefined
 							}
 							setOpenRouterImageApiKey={setOpenRouterImageApiKey}
-							setKiloCodeImageApiKey={setKiloCodeImageApiKey}
+							setArcaneaImageApiKey={setArcaneaImageApiKey}
 							setImageGenerationSelectedModel={setImageGenerationSelectedModel}
-							currentProfileKilocodeToken={apiConfiguration.kilocodeToken}
+							currentProfileArcaneacodeToken={apiConfiguration.arcaneaToken}
 						/>
 					)}
 
@@ -916,7 +916,7 @@ const SettingsView = forwardRef<SettingsViewRef, SettingsViewProps>(({ onDone, t
 						<LanguageSettings language={language || "en"} setCachedStateField={setCachedStateField} />
 					)}
 
-					{/* kilocode_change */}
+					{/* arcanea_change */}
 					{/* MCP Section */}
 					{activeTab === "mcp" && <McpView />}
 

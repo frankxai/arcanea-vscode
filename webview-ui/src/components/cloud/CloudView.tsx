@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { VSCodeButton, VSCodeProgressRing, VSCodeTextField } from "@vscode/webview-ui-toolkit/react"
 
-import { type CloudUserInfo, TelemetryEventName } from "@roo-code/types"
+import { type CloudUserInfo, TelemetryEventName } from "@arcanea/types"
 
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { useExtensionState } from "@src/context/ExtensionStateContext"

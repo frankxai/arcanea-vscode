@@ -1,7 +1,7 @@
 import OpenAI from "openai"
 import { Anthropic } from "@anthropic-ai/sdk" // Keep for type usage only
 
-import { litellmDefaultModelId, litellmDefaultModelInfo } from "@roo-code/types"
+import { litellmDefaultModelId, litellmDefaultModelInfo } from "@arcanea/types"
 
 import { calculateApiCostOpenAI } from "../../shared/cost"
 
@@ -109,7 +109,7 @@ export class LiteLLMHandler extends RouterProvider implements SingleCompletionHa
 
 		const requestOptions: OpenAI.Chat.Completions.ChatCompletionCreateParamsStreaming = {
 			model: modelId,
-			max_completion_tokens: maxTokens, // kilocode_change
+			max_completion_tokens: maxTokens, // arcanea_change
 			messages: [systemMessage, ...enhancedMessages],
 			stream: true,
 			stream_options: {
@@ -189,7 +189,7 @@ export class LiteLLMHandler extends RouterProvider implements SingleCompletionHa
 				requestOptions.temperature = this.options.modelTemperature ?? 0
 			}
 
-			requestOptions.max_completion_tokens = info.maxTokens // kilocode_change
+			requestOptions.max_completion_tokens = info.maxTokens // arcanea_change
 
 			const response = await this.client.chat.completions.create(requestOptions)
 			return response.choices[0]?.message.content || ""

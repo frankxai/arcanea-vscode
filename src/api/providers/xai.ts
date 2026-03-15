@@ -1,7 +1,7 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 import OpenAI from "openai"
 
-import { type XAIModelId, xaiDefaultModelId, xaiModels } from "@roo-code/types"
+import { type XAIModelId, xaiDefaultModelId, xaiModels } from "@arcanea/types"
 
 import type { ApiHandlerOptions } from "../../shared/api"
 
@@ -12,7 +12,7 @@ import { getModelParams } from "../transform/model-params"
 import { DEFAULT_HEADERS } from "./constants"
 import { BaseProvider } from "./base-provider"
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
-import { verifyFinishReason } from "./kilocode/verifyFinishReason" // kilocode_change
+import { verifyFinishReason } from "./arcanea/verifyFinishReason" // arcanea_change
 import { handleOpenAIError } from "./utils/openai-error-handler"
 
 const XAI_DEFAULT_TEMPERATURE = 0
@@ -70,7 +70,7 @@ export class XAIHandler extends BaseProvider implements SingleCompletionHandler 
 		}
 
 		for await (const chunk of stream) {
-			verifyFinishReason(chunk.choices[0]) // kilocode_change
+			verifyFinishReason(chunk.choices[0]) // arcanea_change
 			const delta = chunk.choices[0]?.delta
 
 			if (delta?.content) {

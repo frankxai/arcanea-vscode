@@ -8,7 +8,7 @@ import OpenAI from "openai"
 
 import { VercelAiGatewayHandler } from "../vercel-ai-gateway"
 import { ApiHandlerOptions } from "../../../shared/api"
-import { vercelAiGatewayDefaultModelId, VERCEL_AI_GATEWAY_DEFAULT_TEMPERATURE } from "@roo-code/types"
+import { vercelAiGatewayDefaultModelId, VERCEL_AI_GATEWAY_DEFAULT_TEMPERATURE } from "@arcanea/types"
 
 // Mock dependencies
 vitest.mock("openai")
@@ -97,13 +97,13 @@ describe("VercelAiGatewayHandler", () => {
 		expect(OpenAI).toHaveBeenCalledWith({
 			baseURL: "https://ai-gateway.vercel.sh/v1",
 			apiKey: mockOptions.vercelAiGatewayApiKey,
-			// kilocode_change start
+			// arcanea_change start
 			defaultHeaders: expect.objectContaining({
-				"HTTP-Referer": "https://kilocode.ai",
+				"HTTP-Referer": "https://arcanea.ai",
 				"X-Title": "Arcanea",
-				"User-Agent": expect.stringContaining("Kilo-Code/"),
+				"User-Agent": expect.stringContaining("Arcanea-Code/"),
 			}),
-			// kilocode_change end
+			// arcanea_change end
 		})
 	})
 

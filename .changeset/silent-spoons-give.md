@@ -1,5 +1,5 @@
 ---
-"kilo-code": patch
+"arcanea": patch
 ---
 
 Fix env path resolution for custom gemini cli oauth path

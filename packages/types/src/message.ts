@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { kiloCodeMetaDataSchema } from "./kilocode.js"
+import { arcaneaMetaDataSchema } from "./arcanea.js"
 
 /**
  * ClineAsk
@@ -39,12 +39,12 @@ export const clineAsks = [
 	"browser_action_launch",
 	"use_mcp_server",
 	"auto_approval_max_req_reached",
-	// kilocode_change start
+	// arcanea_change start
 	"payment_required_prompt", // Added for the low credits dialog
 	"invalid_model",
 	"report_bug",
 	"condense",
-	// kilocode_change end
+	// arcanea_change end
 ] as const
 
 export const clineAskSchema = z.enum(clineAsks)
@@ -231,7 +231,7 @@ export const clineMessageSchema = z.object({
 					reasoning_summary: z.string().optional(),
 				})
 				.optional(),
-			kiloCode: kiloCodeMetaDataSchema.optional(),
+			arcanea: arcaneaMetaDataSchema.optional(),
 		})
 		.optional(),
 })

@@ -1,10 +1,10 @@
 import { render, screen } from "@/utils/test-utils"
 
-import type { HistoryItem } from "@roo-code/types"
+import type { HistoryItem } from "@arcanea/types"
 
 import HistoryPreview from "../HistoryPreview"
 
-vi.mock("@/kilocode/hooks/useTaskHistory")
+vi.mock("@/arcanea/hooks/useTaskHistory")
 
 vi.mock("../TaskItem", () => {
 	return {
@@ -19,9 +19,9 @@ vi.mock("../TaskItem", () => {
 import { useTaskSearch } from "../useTaskSearch"
 import TaskItem from "../TaskItem"
 
-import { useTaskHistory } from "@/kilocode/hooks/useTaskHistory"
+import { useTaskHistory } from "@/arcanea/hooks/useTaskHistory"
 
-function kiloCodeSetUpUseTaskHistoryMock(useTaskSearchReturnValue: Partial<ReturnType<typeof useTaskSearch>>) {
+function arcaneaSetUpUseTaskHistoryMock(useTaskSearchReturnValue: Partial<ReturnType<typeof useTaskSearch>>) {
 	;(useTaskHistory as ReturnType<typeof vi.fn>).mockReturnValue({
 		data: {
 			requestId: "",
@@ -91,7 +91,7 @@ const mockTasks: HistoryItem[] = [
 	},
 ]
 
-const mockKiloCodeTaskHistoryVersion = 0
+const mockArcaneaTaskHistoryVersion = 0
 
 describe("HistoryPreview", () => {
 	beforeEach(() => {
@@ -99,7 +99,7 @@ describe("HistoryPreview", () => {
 	})
 
 	it("renders nothing when no tasks are available", () => {
-		kiloCodeSetUpUseTaskHistoryMock({
+		arcaneaSetUpUseTaskHistoryMock({
 			tasks: [],
 			searchQuery: "",
 			setSearchQuery: vi.fn(),
@@ -111,7 +111,7 @@ describe("HistoryPreview", () => {
 			setShowAllWorkspaces: vi.fn(),
 		})
 
-		const { container } = render(<HistoryPreview taskHistoryVersion={mockKiloCodeTaskHistoryVersion} />)
+		const { container } = render(<HistoryPreview taskHistoryVersion={mockArcaneaTaskHistoryVersion} />)
 
 		// Should render the container but no task items
 		expect(container.firstChild).toHaveClass("flex", "flex-col", "gap-3")
@@ -119,7 +119,7 @@ describe("HistoryPreview", () => {
 	})
 
 	it("renders up to 3 tasks when tasks are available", () => {
-		kiloCodeSetUpUseTaskHistoryMock({
+		arcaneaSetUpUseTaskHistoryMock({
 			tasks: mockTasks,
 			searchQuery: "",
 			setSearchQuery: vi.fn(),
@@ -131,7 +131,7 @@ describe("HistoryPreview", () => {
 			setShowAllWorkspaces: vi.fn(),
 		})
 
-		render(<HistoryPreview taskHistoryVersion={mockKiloCodeTaskHistoryVersion} />)
+		render(<HistoryPreview taskHistoryVersion={mockArcaneaTaskHistoryVersion} />)
 
 		// Should render only the first 3 tasks
 		expect(screen.getByTestId("task-item-task-1")).toBeInTheDocument()
@@ -144,7 +144,7 @@ describe("HistoryPreview", () => {
 
 	it("renders all tasks when there are 3 or fewer", () => {
 		const threeTasks = mockTasks.slice(0, 3)
-		kiloCodeSetUpUseTaskHistoryMock({
+		arcaneaSetUpUseTaskHistoryMock({
 			tasks: threeTasks,
 			searchQuery: "",
 			setSearchQuery: vi.fn(),
@@ -156,7 +156,7 @@ describe("HistoryPreview", () => {
 			setShowAllWorkspaces: vi.fn(),
 		})
 
-		render(<HistoryPreview taskHistoryVersion={mockKiloCodeTaskHistoryVersion} />)
+		render(<HistoryPreview taskHistoryVersion={mockArcaneaTaskHistoryVersion} />)
 
 		expect(screen.getByTestId("task-item-task-1")).toBeInTheDocument()
 		expect(screen.getByTestId("task-item-task-2")).toBeInTheDocument()
@@ -168,7 +168,7 @@ describe("HistoryPreview", () => {
 
 	it("renders only 1 task when there is only 1 task", () => {
 		const oneTask = mockTasks.slice(0, 1)
-		kiloCodeSetUpUseTaskHistoryMock({
+		arcaneaSetUpUseTaskHistoryMock({
 			tasks: oneTask,
 			searchQuery: "",
 			setSearchQuery: vi.fn(),
@@ -180,14 +180,14 @@ describe("HistoryPreview", () => {
 			setShowAllWorkspaces: vi.fn(),
 		})
 
-		render(<HistoryPreview taskHistoryVersion={mockKiloCodeTaskHistoryVersion} />)
+		render(<HistoryPreview taskHistoryVersion={mockArcaneaTaskHistoryVersion} />)
 
 		expect(screen.getByTestId("task-item-task-1")).toBeInTheDocument()
 		expect(screen.queryByTestId("task-item-task-2")).not.toBeInTheDocument()
 	})
 
 	it("passes correct props to TaskItem components", () => {
-		kiloCodeSetUpUseTaskHistoryMock({
+		arcaneaSetUpUseTaskHistoryMock({
 			tasks: mockTasks.slice(0, 3),
 			searchQuery: "",
 			setSearchQuery: vi.fn(),
@@ -199,7 +199,7 @@ describe("HistoryPreview", () => {
 			setShowAllWorkspaces: vi.fn(),
 		})
 
-		render(<HistoryPreview taskHistoryVersion={mockKiloCodeTaskHistoryVersion} />)
+		render(<HistoryPreview taskHistoryVersion={mockArcaneaTaskHistoryVersion} />)
 
 		// Verify TaskItem was called with correct props for first 3 tasks
 		expect(mockTaskItem).toHaveBeenCalledWith(
@@ -226,7 +226,7 @@ describe("HistoryPreview", () => {
 	})
 
 	it("renders with correct container classes", () => {
-		kiloCodeSetUpUseTaskHistoryMock({
+		arcaneaSetUpUseTaskHistoryMock({
 			tasks: mockTasks.slice(0, 1),
 			searchQuery: "",
 			setSearchQuery: vi.fn(),
@@ -238,7 +238,7 @@ describe("HistoryPreview", () => {
 			setShowAllWorkspaces: vi.fn(),
 		})
 
-		const { container } = render(<HistoryPreview taskHistoryVersion={mockKiloCodeTaskHistoryVersion} />)
+		const { container } = render(<HistoryPreview taskHistoryVersion={mockArcaneaTaskHistoryVersion} />)
 
 		expect(container.firstChild).toHaveClass("flex", "flex-col", "gap-3")
 	})

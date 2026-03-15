@@ -2,14 +2,14 @@
 
 // npx vitest run src/__tests__/TelemetryClient.test.ts
 
-import { type TelemetryPropertiesProvider, TelemetryEventName } from "@roo-code/types"
+import { type TelemetryPropertiesProvider, TelemetryEventName } from "@arcanea/types"
 
 import { CloudTelemetryClient as TelemetryClient } from "../TelemetryClient.js"
 
 const mockFetch = vi.fn()
 global.fetch = mockFetch as any
 
-// kilocode_change - skip these tests since we don't use this code
+// arcanea_change - skip these tests since we don't use this code
 describe.skip("TelemetryClient", () => {
 	const getPrivateProperty = <T>(instance: any, propertyName: string): T => {
 		return instance[propertyName]

@@ -15,8 +15,8 @@ import {
 	providerSettingsSchema,
 	globalSettingsSchema,
 	isSecretStateKey,
-} from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
+} from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
 
 import { logger } from "../../utils/logging"
 
@@ -245,7 +245,7 @@ export class ContextProxy {
 		])
 	}
 
-	// kilocode_change start
+	// arcanea_change start
 	/**
 	 * WorkspaceState
 	 */
@@ -256,7 +256,7 @@ export class ContextProxy {
 	async getWorkspaceState(context: vscode.ExtensionContext, key: string) {
 		return await context.workspaceState.get(key)
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	/**
 	 * GlobalSettings

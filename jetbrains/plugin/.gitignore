@@ -43,7 +43,7 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-src/main/resources/ai/kilocode/jetbrains/plugin/config/plugin.properties
+src/main/resources/ai/arcanea/jetbrains/plugin/config/plugin.properties
 
 ### Deps ###
 prodDep.txt

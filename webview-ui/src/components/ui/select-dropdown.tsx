@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 import { useRooPortal } from "./hooks/useRooPortal"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui"
 import { StandardTooltip } from "@/components/ui"
-import { IconProps } from "@radix-ui/react-icons/dist/types" // kilocode_change
+import { IconProps } from "@radix-ui/react-icons/dist/types" // arcanea_change
 
 export enum DropdownOptionType {
 	ITEM = "item",
@@ -20,8 +20,8 @@ export enum DropdownOptionType {
 export interface DropdownOption {
 	value: string
 	label: string
-	codicon?: string // kilocode_change
-	description?: string // kilocode_change
+	codicon?: string // arcanea_change
+	description?: string // arcanea_change
 	disabled?: boolean
 	type?: DropdownOptionType
 	pinned?: boolean
@@ -32,7 +32,7 @@ export interface SelectDropdownProps {
 	options: DropdownOption[]
 	onChange: (value: string) => void
 	disabled?: boolean
-	initiallyOpen?: boolean // kilocode_change
+	initiallyOpen?: boolean // arcanea_change
 	title?: string
 	triggerClassName?: string
 	contentClassName?: string
@@ -43,7 +43,7 @@ export interface SelectDropdownProps {
 	shortcutText?: string
 	renderItem?: (option: DropdownOption) => React.ReactNode
 	disableSearch?: boolean
-	triggerIcon?: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>> | boolean | undefined // kilocode_change
+	triggerIcon?: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>> | boolean | undefined // arcanea_change
 }
 
 export const SelectDropdown = React.memo(
@@ -54,7 +54,7 @@ export const SelectDropdown = React.memo(
 				options,
 				onChange,
 				disabled = false,
-				initiallyOpen = false, // kilocode_change
+				initiallyOpen = false, // arcanea_change
 				title = "",
 				triggerClassName = "",
 				contentClassName = "",
@@ -65,19 +65,19 @@ export const SelectDropdown = React.memo(
 				shortcutText = "",
 				renderItem,
 				disableSearch = false,
-				triggerIcon = CaretUpIcon, // kilocode_change
+				triggerIcon = CaretUpIcon, // arcanea_change
 			},
 			ref,
 		) => {
 			const { t } = useTranslation()
-			const [open, setOpen] = React.useState(initiallyOpen) // kilocode_change
+			const [open, setOpen] = React.useState(initiallyOpen) // arcanea_change
 			const [searchValue, setSearchValue] = React.useState("")
 			const searchInputRef = React.useRef<HTMLInputElement>(null)
 			const portalContainer = useRooPortal("roo-portal")
 
-			// kilocode_change start
+			// arcanea_change start
 			const TriggerIcon = triggerIcon === false ? null : triggerIcon === true ? CaretUpIcon : triggerIcon
-			// kilocode_change end
+			// arcanea_change end
 
 			// Memoize the selected option to prevent unnecessary calculations
 			const selectedOption = React.useMemo(
@@ -211,11 +211,11 @@ export const SelectDropdown = React.memo(
 							: "opacity-90 hover:opacity-100 hover:bg-[rgba(255,255,255,0.03)] hover:border-[rgba(255,255,255,0.15)] cursor-pointer",
 						triggerClassName,
 					)}>
-					{/* kilocode_change start */}
+					{/* arcanea_change start */}
 					{TriggerIcon && <TriggerIcon className="pointer-events-none opacity-80 flex-shrink-0 size-3" />}
-					{/* kilocode_change end */}
+					{/* arcanea_change end */}
 
-					{/* kilocode_change start */}
+					{/* arcanea_change start */}
 					{selectedOption?.codicon && (
 						<span
 							slot="start"
@@ -223,7 +223,7 @@ export const SelectDropdown = React.memo(
 							className={cn("codicon opacity-80 mr", selectedOption?.codicon)}
 						/>
 					)}
-					{/* kilocode_change end */}
+					{/* arcanea_change end */}
 					<span className="truncate">{displayText}</span>
 				</PopoverTrigger>
 			)
@@ -260,7 +260,7 @@ export const SelectDropdown = React.memo(
 							)}
 
 							{/* Dropdown items - Use windowing for large lists */}
-							{/* kilocode_change: different max height: max-h-82 */}
+							{/* arcanea_change: different max height: max-h-82 */}
 							<div className="max-h-82 overflow-y-auto">
 								{groupedOptions.length === 0 && searchValue ? (
 									<div className="py-2 px-3 text-sm text-vscode-foreground/70">No results found</div>
@@ -299,7 +299,7 @@ export const SelectDropdown = React.memo(
 													key={itemKey}
 													onClick={() => !option.disabled && handleSelect(option.value)}
 													className={cn(
-														"text-sm cursor-pointer flex items-center", // kilocode_change
+														"text-sm cursor-pointer flex items-center", // arcanea_change
 														option.disabled
 															? "opacity-50 cursor-not-allowed"
 															: "hover:bg-vscode-list-hoverBackground",
@@ -313,7 +313,7 @@ export const SelectDropdown = React.memo(
 														renderItem(option)
 													) : (
 														<>
-															{/* kilocode_change start */}
+															{/* arcanea_change start */}
 															<div className="flex items-center flex-1 py-1.5 px-3 hover:bg-vscode-list-hoverBackground">
 																<span
 																	slot="start"
@@ -331,7 +331,7 @@ export const SelectDropdown = React.memo(
 																		</div>
 																	)}
 																</div>
-																{/* kilocode_change end */}
+																{/* arcanea_change end */}
 																{option.value === value && (
 																	<Check className="ml-auto size-4 p-0.5" />
 																)}

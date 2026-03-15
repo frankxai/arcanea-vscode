@@ -1,4 +1,4 @@
-// kilocode_change - new file: SVG-based syntax highlighting for ghost decorations
+// arcanea_change - new file: SVG-based syntax highlighting for ghost decorations
 import * as vscode from "vscode"
 import { getSingletonHighlighter, type Highlighter, type ThemedToken, type BundledLanguage } from "shiki"
 import { VS_CODE_TO_SHIKI_LANGUAGE_MAP } from "./constants"

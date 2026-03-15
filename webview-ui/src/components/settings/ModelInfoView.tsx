@@ -1,6 +1,6 @@
 import { VSCodeLink } from "@vscode/webview-ui-toolkit/react"
 
-import type { ModelInfo } from "@roo-code/types"
+import type { ModelInfo } from "@arcanea/types"
 
 import { formatPrice } from "@src/utils/formatPrice"
 import { cn } from "@src/lib/utils"
@@ -49,7 +49,7 @@ export const ModelInfoView = ({
 			supportsLabel={t("settings:modelInfo.supportsImages")}
 			doesNotSupportLabel={t("settings:modelInfo.noImages")}
 		/>,
-		/* kilocode_change: supports computer use => supports browser
+		/* arcanea_change: supports computer use => supports browser
 		<ModelInfoSupportsItem
 			isSupported={modelInfo?.supportsComputerUse ?? false}
 			supportsLabel={t("settings:modelInfo.supportsComputerUse")}
@@ -202,7 +202,7 @@ export const ModelInfoView = ({
 	)
 }
 
-export /*kilocode_change*/ const ModelInfoSupportsItem = ({
+export /*arcanea_change*/ const ModelInfoSupportsItem = ({
 	isSupported,
 	supportsLabel,
 	doesNotSupportLabel,

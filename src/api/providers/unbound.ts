@@ -1,7 +1,7 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 import OpenAI from "openai"
 
-import { unboundDefaultModelId, unboundDefaultModelInfo } from "@roo-code/types"
+import { unboundDefaultModelId, unboundDefaultModelInfo } from "@arcanea/types"
 
 import type { ApiHandlerOptions } from "../../shared/api"
 
@@ -17,7 +17,7 @@ import { RouterProvider } from "./router-provider"
 const ORIGIN_APP = "roo-code"
 
 const DEFAULT_HEADERS = {
-	"X-Unbound-Metadata": JSON.stringify({ labels: [{ key: "app", value: "kilo-code" }] }),
+	"X-Unbound-Metadata": JSON.stringify({ labels: [{ key: "app", value: "arcanea" }] }),
 }
 
 interface UnboundUsage extends OpenAI.CompletionUsage {

@@ -1,6 +1,6 @@
 // npx vitest run src/shared/__tests__/experiments.spec.ts
 
-import type { ExperimentId } from "@roo-code/types"
+import type { ExperimentId } from "@arcanea/types"
 
 import { EXPERIMENT_IDS, experimentConfigsMap, experiments as Experiments } from "../experiments"
 
@@ -26,7 +26,7 @@ describe("experiments", () => {
 	describe("isEnabled", () => {
 		it("returns false when POWER_STEERING experiment is not enabled", () => {
 			const experiments: Record<ExperimentId, boolean> = {
-				morphFastApply: false, // kilocode_change
+				morphFastApply: false, // arcanea_change
 				powerSteering: false,
 				multiFileApplyDiff: false,
 				preventFocusDisruption: false,
@@ -38,7 +38,7 @@ describe("experiments", () => {
 
 		it("returns true when experiment POWER_STEERING is enabled", () => {
 			const experiments: Record<ExperimentId, boolean> = {
-				morphFastApply: false, // kilocode_change
+				morphFastApply: false, // arcanea_change
 				powerSteering: true,
 				multiFileApplyDiff: false,
 				preventFocusDisruption: false,
@@ -50,7 +50,7 @@ describe("experiments", () => {
 
 		it("returns false when experiment is not present", () => {
 			const experiments: Record<ExperimentId, boolean> = {
-				morphFastApply: false, // kilocode_change
+				morphFastApply: false, // arcanea_change
 				powerSteering: false,
 				multiFileApplyDiff: false,
 				preventFocusDisruption: false,

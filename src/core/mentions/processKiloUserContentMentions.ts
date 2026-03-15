@@ -4,16 +4,16 @@ import { UrlContentFetcher } from "../../services/browser/UrlContentFetcher"
 import { FileContextTracker } from "../context-tracking/FileContextTracker"
 
 import { GlobalFileNames } from "../../shared/globalFileNames"
-import { ensureLocalKilorulesDirExists } from "../context/instructions/kilo-rules"
-import { parseKiloSlashCommands } from "../slash-commands/kilo"
-import { refreshWorkflowToggles } from "../context/instructions/workflows" // kilocode_change
+import { ensureLocalArcanearulesDirExists } from "../context/instructions/arcanea-rules"
+import { parseArcaneaSlashCommands } from "../slash-commands/arcanea"
+import { refreshWorkflowToggles } from "../context/instructions/workflows" // arcanea_change
 
-import * as vscode from "vscode" // kilocode_change
+import * as vscode from "vscode" // arcanea_change
 
 // This function is a duplicate of processUserContentMentions, but it adds a check for the newrules command
-// and processes Kilo-specific slash commands. It should be merged with processUserContentMentions in the future.
-export async function processKiloUserContentMentions({
-	context, // kilocode_change
+// and processes Arcanea-specific slash commands. It should be merged with processUserContentMentions in the future.
+export async function processArcaneaUserContentMentions({
+	context, // arcanea_change
 	userContent,
 	cwd,
 	urlContentFetcher,
@@ -24,7 +24,7 @@ export async function processKiloUserContentMentions({
 	maxDiagnosticMessages = 50,
 	maxReadFileLine,
 }: {
-	context: vscode.ExtensionContext // kilocode_change
+	context: vscode.ExtensionContext // arcanea_change
 	userContent: Anthropic.Messages.ContentBlockParam[]
 	cwd: string
 	urlContentFetcher: UrlContentFetcher
@@ -35,7 +35,7 @@ export async function processKiloUserContentMentions({
 	maxDiagnosticMessages?: number
 	maxReadFileLine?: number
 }): Promise<[Anthropic.Messages.ContentBlockParam[], boolean]> {
-	// Track if we need to check kilorules file
+	// Track if we need to check arcanearules file
 	let needsRulesFileCheck = false
 
 	/**
@@ -53,7 +53,7 @@ export async function processKiloUserContentMentions({
 		// these tags so they can effectively be used as markers for when we
 		// should parse mentions).
 
-		const { localWorkflowToggles, globalWorkflowToggles } = await refreshWorkflowToggles(context, cwd) // kilocode_change
+		const { localWorkflowToggles, globalWorkflowToggles } = await refreshWorkflowToggles(context, cwd) // arcanea_change
 
 		return await Promise.all(
 			userContent.map(async (block) => {
@@ -61,7 +61,7 @@ export async function processKiloUserContentMentions({
 
 				if (block.type === "text") {
 					if (shouldProcessMentions(block.text)) {
-						// kilocode_change begin: pull slash commands from Cline
+						// arcanea_change begin: pull slash commands from Cline
 						const parsedText = await parseMentions(
 							block.text,
 							cwd,
@@ -75,10 +75,10 @@ export async function processKiloUserContentMentions({
 						)
 
 						// when parsing slash commands, we still want to allow the user to provide their desired context
-						const { processedText, needsRulesFileCheck: needsCheck } = await parseKiloSlashCommands(
+						const { processedText, needsRulesFileCheck: needsCheck } = await parseArcaneaSlashCommands(
 							parsedText,
-							localWorkflowToggles, // kilocode_change
-							globalWorkflowToggles, // kilocode_change
+							localWorkflowToggles, // arcanea_change
+							globalWorkflowToggles, // arcanea_change
 						)
 
 						if (needsCheck) {
@@ -89,7 +89,7 @@ export async function processKiloUserContentMentions({
 							...block,
 							text: processedText,
 						}
-						// kilocode_change end
+						// arcanea_change end
 					}
 
 					return block
@@ -150,9 +150,9 @@ export async function processKiloUserContentMentions({
 
 	const processedUserContent = await processUserContentMentions()
 
-	let kilorulesError = false
+	let arcanearulesError = false
 	if (needsRulesFileCheck) {
-		kilorulesError = await ensureLocalKilorulesDirExists(cwd, GlobalFileNames.kiloRules)
+		arcanearulesError = await ensureLocalArcanearulesDirExists(cwd, GlobalFileNames.arcaneaRules)
 	}
-	return [processedUserContent, kilorulesError]
+	return [processedUserContent, arcanearulesError]
 }

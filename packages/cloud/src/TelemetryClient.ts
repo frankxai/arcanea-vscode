@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */ /* kilocode_change this file is meant to be a stub */
+/* eslint-disable @typescript-eslint/no-unused-vars */ /* arcanea_change this file is meant to be a stub */
 import {
 	type TelemetryClient,
 	type TelemetryEvent,
@@ -9,7 +9,7 @@ import {
 	rooCodeTelemetryEventSchema,
 	TelemetryPropertiesProvider,
 	TelemetryEventSubscription,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { getRooCodeApiUrl } from "./config.js"
 
@@ -77,7 +77,7 @@ abstract class BaseTelemetryClient implements TelemetryClient {
 
 	public abstract captureException(error: Error, properties?: Record<string | number, unknown>): void
 
-	public abstract updateIdentity(kilocodeToken: string): Promise<void>
+	public abstract updateIdentity(arcaneaToken: string): Promise<void>
 
 	public isTelemetryEnabled(): boolean {
 		return this.telemetryEnabled
@@ -101,7 +101,7 @@ export class CloudTelemetryClient extends BaseTelemetryClient {
 		)
 	}
 
-	// kilocode_change
+	// arcanea_change
 	private async fetch(path: string, options: RequestInit) {
 		if (!this.authService.isAuthenticated()) {
 			return
@@ -114,7 +114,7 @@ export class CloudTelemetryClient extends BaseTelemetryClient {
 			return
 		}
 
-		/* kilocode_change
+		/* arcanea_change
 		const response = await fetch(`${getRooCodeApiUrl()}/api/${path}`, {
 			...options,
 			headers: {
@@ -132,7 +132,7 @@ export class CloudTelemetryClient extends BaseTelemetryClient {
 	}
 
 	public override async capture(event: TelemetryEvent) {
-		/* kilocode_change
+		/* arcanea_change
 
 		if (!this.isTelemetryEnabled() || !this.isEventCapturable(event.event)) {
 			if (this.debug) {
@@ -173,7 +173,7 @@ export class CloudTelemetryClient extends BaseTelemetryClient {
 	}
 
 	public async backfillMessages(messages: ClineMessage[], taskId: string): Promise<void> {
-		/* kilocode_change
+		/* arcanea_change
 		if (!this.authService.isAuthenticated()) {
 			if (this.debug) {
 				console.info(`[TelemetryClient#backfillMessages] Skipping: Not authenticated`)
@@ -255,9 +255,9 @@ export class CloudTelemetryClient extends BaseTelemetryClient {
 		return true
 	}
 
-	public override captureException(error: Error, properties?: Record<string | number, unknown>): void {} // kilocode_change
+	public override captureException(error: Error, properties?: Record<string | number, unknown>): void {} // arcanea_change
 
-	public override async updateIdentity(kilocodeToken: string): Promise<void> {} // kilocode_change
+	public override async updateIdentity(arcaneaToken: string): Promise<void> {} // arcanea_change
 
 	public override async shutdown() {}
 }

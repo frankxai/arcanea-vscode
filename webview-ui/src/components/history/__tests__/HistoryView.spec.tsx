@@ -13,8 +13,8 @@ vi.mock("@src/i18n/TranslationContext", () => ({
 	}),
 }))
 
-vi.mock("@/kilocode/hooks/useTaskHistory")
-import { useTaskHistory } from "@/kilocode/hooks/useTaskHistory"
+vi.mock("@/arcanea/hooks/useTaskHistory")
+import { useTaskHistory } from "@/arcanea/hooks/useTaskHistory"
 
 const mockTaskHistory = [
 	{
@@ -45,7 +45,7 @@ describe("HistoryView", () => {
 			cwd: "/test/workspace",
 		})
 
-		// kilocode_code start
+		// arcanea_code start
 		;(useTaskHistory as ReturnType<typeof vi.fn>).mockReturnValue({
 			data: {
 				requestId: "",
@@ -54,7 +54,7 @@ describe("HistoryView", () => {
 				pageCount: 1,
 			},
 		})
-		// kilocode_code end
+		// arcanea_code end
 	})
 
 	it("renders the history interface", () => {

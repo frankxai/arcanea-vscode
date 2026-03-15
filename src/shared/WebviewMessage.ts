@@ -9,11 +9,11 @@ import {
 	type ShareVisibility,
 	type QueuedMessage,
 	marketplaceItemSchema,
-	// kilocode_change start
+	// arcanea_change start
 	CommitRange,
 	HistoryItem,
-	// kilocode_change end
-} from "@roo-code/types"
+	// arcanea_change end
+} from "@arcanea/types"
 
 import { Mode } from "./modes"
 
@@ -22,7 +22,7 @@ export type ClineAskResponse =
 	| "noButtonClicked"
 	| "messageResponse"
 	| "objectResponse"
-	| "retry_clicked" // kilocode_change: Added retry_clicked for payment required dialog
+	| "retry_clicked" // arcanea_change: Added retry_clicked for payment required dialog
 
 export type PromptMode = Mode | "enhance"
 
@@ -125,7 +125,7 @@ export interface WebviewMessage {
 		| "toggleMcpServer"
 		| "updateMcpTimeout"
 		| "fuzzyMatchThreshold"
-		| "morphApiKey" // kilocode_change: Morph fast apply - global setting
+		| "morphApiKey" // arcanea_change: Morph fast apply - global setting
 		| "writeDelayMs"
 		| "diagnosticsEnabled"
 		| "enhancePrompt"
@@ -161,9 +161,9 @@ export interface WebviewMessage {
 		| "copySystemPrompt"
 		| "systemPrompt"
 		| "enhancementApiConfigId"
-		| "commitMessageApiConfigId" // kilocode_change
-		| "terminalCommandApiConfigId" // kilocode_change
-		| "ghostServiceSettings" // kilocode_change
+		| "commitMessageApiConfigId" // arcanea_change
+		| "terminalCommandApiConfigId" // arcanea_change
+		| "ghostServiceSettings" // arcanea_change
 		| "includeTaskHistoryInEnhance"
 		| "updateExperimental"
 		| "autoApprovalEnabled"
@@ -173,13 +173,13 @@ export interface WebviewMessage {
 		| "openCustomModesSettings"
 		| "checkpointDiff"
 		| "checkpointRestore"
-		| "seeNewChanges" // kilocode_change
+		| "seeNewChanges" // arcanea_change
 		| "deleteMcpServer"
 		| "maxOpenTabsContext"
 		| "maxWorkspaceFiles"
 		| "humanRelayResponse"
 		| "humanRelayCancel"
-		| "insertTextToChatArea" // kilocode_change
+		| "insertTextToChatArea" // arcanea_change
 		| "browserToolEnabled"
 		| "codebaseIndexEnabled"
 		| "telemetrySetting"
@@ -192,33 +192,33 @@ export interface WebviewMessage {
 		| "maxImageFileSize"
 		| "maxTotalImageSize"
 		| "maxConcurrentFileReads"
-		| "allowVeryLargeReads" // kilocode_change
+		| "allowVeryLargeReads" // arcanea_change
 		| "includeDiagnosticMessages"
 		| "maxDiagnosticMessages"
 		| "searchFiles"
 		| "setHistoryPreviewCollapsed"
-		| "showFeedbackOptions" // kilocode_change
+		| "showFeedbackOptions" // arcanea_change
 		| "toggleApiConfigPin"
-		| "fetchMcpMarketplace" // kilocode_change
-		| "silentlyRefreshMcpMarketplace" // kilocode_change
-		| "fetchLatestMcpServersFromHub" // kilocode_change
-		| "downloadMcp" // kilocode_change
-		| "showSystemNotification" // kilocode_change
-		| "showAutoApproveMenu" // kilocode_change
-		| "reportBug" // kilocode_change
-		| "profileButtonClicked" // kilocode_change
-		| "fetchProfileDataRequest" // kilocode_change
-		| "profileDataResponse" // kilocode_change
-		| "fetchBalanceDataRequest" // kilocode_change
-		| "shopBuyCredits" // kilocode_change
-		| "balanceDataResponse" // kilocode_change
-		| "updateProfileData" // kilocode_change
-		| "condense" // kilocode_change
-		| "toggleWorkflow" // kilocode_change
-		| "refreshRules" // kilocode_change
-		| "toggleRule" // kilocode_change
-		| "createRuleFile" // kilocode_change
-		| "deleteRuleFile" // kilocode_change
+		| "fetchMcpMarketplace" // arcanea_change
+		| "silentlyRefreshMcpMarketplace" // arcanea_change
+		| "fetchLatestMcpServersFromHub" // arcanea_change
+		| "downloadMcp" // arcanea_change
+		| "showSystemNotification" // arcanea_change
+		| "showAutoApproveMenu" // arcanea_change
+		| "reportBug" // arcanea_change
+		| "profileButtonClicked" // arcanea_change
+		| "fetchProfileDataRequest" // arcanea_change
+		| "profileDataResponse" // arcanea_change
+		| "fetchBalanceDataRequest" // arcanea_change
+		| "shopBuyCredits" // arcanea_change
+		| "balanceDataResponse" // arcanea_change
+		| "updateProfileData" // arcanea_change
+		| "condense" // arcanea_change
+		| "toggleWorkflow" // arcanea_change
+		| "refreshRules" // arcanea_change
+		| "toggleRule" // arcanea_change
+		| "createRuleFile" // arcanea_change
+		| "deleteRuleFile" // arcanea_change
 		| "hasOpenedModeSelector"
 		| "cloudButtonClicked"
 		| "rooCloudSignIn"
@@ -233,15 +233,15 @@ export interface WebviewMessage {
 		| "focusPanelRequest"
 		| "profileThresholds"
 		| "setHistoryPreviewCollapsed"
-		| "clearUsageData" // kilocode_change
-		| "getUsageData" // kilocode_change
-		| "usageDataResponse" // kilocode_change
-		| "showTaskTimeline" // kilocode_change
-		| "toggleTaskFavorite" // kilocode_change
-		| "fixMermaidSyntax" // kilocode_change
-		| "mermaidFixResponse" // kilocode_change
-		| "openGlobalKeybindings" // kilocode_change
-		| "getKeybindings" // kilocode_change
+		| "clearUsageData" // arcanea_change
+		| "getUsageData" // arcanea_change
+		| "usageDataResponse" // arcanea_change
+		| "showTaskTimeline" // arcanea_change
+		| "toggleTaskFavorite" // arcanea_change
+		| "fixMermaidSyntax" // arcanea_change
+		| "mermaidFixResponse" // arcanea_change
+		| "openGlobalKeybindings" // arcanea_change
+		| "getKeybindings" // arcanea_change
 		| "openExternal"
 		| "filterMarketplaceItems"
 		| "mcpButtonClicked"
@@ -254,11 +254,11 @@ export interface WebviewMessage {
 		| "fetchMarketplaceData"
 		| "switchTab"
 		| "profileThresholds"
-		| "editMessage" // kilocode_change
-		| "systemNotificationsEnabled" // kilocode_change
-		| "dismissNotificationId" // kilocode_change
-		| "tasksByIdRequest" // kilocode_change
-		| "taskHistoryRequest" // kilocode_change
+		| "editMessage" // arcanea_change
+		| "systemNotificationsEnabled" // arcanea_change
+		| "dismissNotificationId" // arcanea_change
+		| "tasksByIdRequest" // arcanea_change
+		| "taskHistoryRequest" // arcanea_change
 		| "shareTaskSuccess"
 		| "exportMode"
 		| "exportModeResult"
@@ -268,7 +268,7 @@ export interface WebviewMessage {
 		| "checkRulesDirectoryResult"
 		| "saveCodeIndexSettingsAtomic"
 		| "requestCodeIndexSecretStatus"
-		| "fetchKilocodeNotifications"
+		| "fetchArcaneacodeNotifications"
 		| "requestCommands"
 		| "openCommandFile"
 		| "deleteCommand"
@@ -277,7 +277,7 @@ export interface WebviewMessage {
 		| "showMdmAuthRequiredNotification"
 		| "imageGenerationSettings"
 		| "openRouterImageApiKey"
-		| "kiloCodeImageApiKey"
+		| "arcaneaImageApiKey"
 		| "openRouterImageGenerationSelectedModel"
 		| "queueMessage"
 		| "removeQueuedMessage"
@@ -297,7 +297,7 @@ export interface WebviewMessage {
 	value?: number
 	commands?: string[]
 	audioType?: AudioType
-	// kilocode_change begin
+	// arcanea_change begin
 	notificationOptions?: {
 		title?: string
 		subtitle?: string
@@ -306,15 +306,15 @@ export interface WebviewMessage {
 	mcpId?: string
 	toolNames?: string[]
 	autoApprove?: boolean
-	workflowPath?: string // kilocode_change
-	enabled?: boolean // kilocode_change
-	rulePath?: string // kilocode_change
-	isGlobal?: boolean // kilocode_change
-	filename?: string // kilocode_change
-	ruleType?: string // kilocode_change
-	notificationId?: string // kilocode_change
-	commandIds?: string[] // kilocode_change: For getKeybindings
-	// kilocode_change end
+	workflowPath?: string // arcanea_change
+	enabled?: boolean // arcanea_change
+	rulePath?: string // arcanea_change
+	isGlobal?: boolean // arcanea_change
+	filename?: string // arcanea_change
+	ruleType?: string // arcanea_change
+	notificationId?: string // arcanea_change
+	commandIds?: string[] // arcanea_change: For getKeybindings
+	// arcanea_change end
 	serverName?: string
 	toolName?: string
 	alwaysAllow?: boolean
@@ -377,7 +377,7 @@ export interface WebviewMessage {
 	}
 }
 
-// kilocode_change begin
+// arcanea_change begin
 export type OrganizationRole = "owner" | "admin" | "member"
 
 export type UserOrganizationWithApiKey = {
@@ -389,7 +389,7 @@ export type UserOrganizationWithApiKey = {
 }
 
 export type ProfileData = {
-	kilocodeToken: string
+	arcaneaToken: string
 	user: {
 		id: string
 		name: string
@@ -441,7 +441,7 @@ export interface TaskHistoryResponsePayload {
 	pageIndex: number
 	pageCount: number
 }
-// kilocode_change end
+// arcanea_change end
 
 export const checkoutDiffPayloadSchema = z.object({
 	ts: z.number(),
@@ -480,13 +480,13 @@ export type InstallMarketplaceItemWithParametersPayload = z.infer<
 >
 
 export type WebViewMessagePayload =
-	// kilocode_change start
+	// arcanea_change start
 	| ProfileDataResponsePayload
 	| BalanceDataResponsePayload
 	| SeeNewChangesPayload
 	| TasksByIdRequestPayload
 	| TaskHistoryRequestPayload
-	// kilocode_change end
+	// arcanea_change end
 	| CheckpointDiffPayload
 	| CheckpointRestorePayload
 	| IndexingStatusPayload

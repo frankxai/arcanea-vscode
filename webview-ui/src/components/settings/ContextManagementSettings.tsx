@@ -23,7 +23,7 @@ type ContextManagementSettingsProps = HTMLAttributes<HTMLDivElement> & {
 	maxImageFileSize?: number
 	maxTotalImageSize?: number
 	maxConcurrentFileReads?: number
-	allowVeryLargeReads?: boolean // kilocode_change
+	allowVeryLargeReads?: boolean // arcanea_change
 	profileThresholds?: Record<string, number>
 	includeDiagnosticMessages?: boolean
 	maxDiagnosticMessages?: number
@@ -38,7 +38,7 @@ type ContextManagementSettingsProps = HTMLAttributes<HTMLDivElement> & {
 		| "maxImageFileSize"
 		| "maxTotalImageSize"
 		| "maxConcurrentFileReads"
-		| "allowVeryLargeReads" // kilocode_change
+		| "allowVeryLargeReads" // arcanea_change
 		| "profileThresholds"
 		| "includeDiagnosticMessages"
 		| "maxDiagnosticMessages"
@@ -58,7 +58,7 @@ export const ContextManagementSettings = ({
 	maxImageFileSize,
 	maxTotalImageSize,
 	maxConcurrentFileReads,
-	allowVeryLargeReads, // kilocode_change
+	allowVeryLargeReads, // arcanea_change
 	profileThresholds = {},
 	includeDiagnosticMessages,
 	maxDiagnosticMessages,
@@ -214,20 +214,20 @@ export const ContextManagementSettings = ({
 						{t("settings:contextManagement.maxReadFile.description")}
 					</div>
 				</div>
-				{/*kilocode_change start*/}
+				{/*arcanea_change start*/}
 				<div>
 					<VSCodeCheckbox
 						checked={allowVeryLargeReads}
 						onChange={(e: any) => setCachedStateField("allowVeryLargeReads", e.target.checked)}>
 						<label className="block font-medium mb-1">
-							{t("kilocode:settings.contextManagement.allowVeryLargeReads.label")}
+							{t("arcanea:settings.contextManagement.allowVeryLargeReads.label")}
 						</label>
 					</VSCodeCheckbox>
 					<div className="text-vscode-descriptionForeground text-sm mt-1 mb-3">
-						{t("kilocode:settings.contextManagement.allowVeryLargeReads.description")}
+						{t("arcanea:settings.contextManagement.allowVeryLargeReads.description")}
 					</div>
 				</div>
-				{/*kilocode_change end*/}
+				{/*arcanea_change end*/}
 
 				<div>
 					<div className="flex flex-col gap-2">

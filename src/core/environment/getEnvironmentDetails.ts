@@ -5,8 +5,8 @@ import * as vscode from "vscode"
 import pWaitFor from "p-wait-for"
 import delay from "delay"
 
-import type { ExperimentId } from "@roo-code/types"
-import { DEFAULT_TERMINAL_OUTPUT_CHARACTER_LIMIT } from "@roo-code/types"
+import type { ExperimentId } from "@arcanea/types"
+import { DEFAULT_TERMINAL_OUTPUT_CHARACTER_LIMIT } from "@arcanea/types"
 
 import { EXPERIMENT_IDS, experiments as Experiments } from "../../shared/experiments"
 import { formatLanguage } from "../../shared/language"
@@ -21,12 +21,12 @@ import { formatResponse } from "../prompts/responses"
 import { Task } from "../task/Task"
 import { formatReminderSection } from "./reminder"
 
-// kilocode_change start
+// arcanea_change start
 import { OpenRouterHandler } from "../../api/providers/openrouter"
-import { TelemetryService } from "@roo-code/telemetry"
+import { TelemetryService } from "@arcanea/telemetry"
 import { t } from "../../i18n"
 import { NativeOllamaHandler } from "../../api/providers/native-ollama"
-// kilocode_change end
+// arcanea_change end
 
 export async function getEnvironmentDetails(cline: Task, includeFileDetails: boolean = false) {
 	let details = ""
@@ -210,7 +210,7 @@ export async function getEnvironmentDetails(cline: Task, includeFileDetails: boo
 	// Add context tokens information.
 	const { contextTokens, totalCost } = getApiMetrics(cline.clineMessages)
 
-	// kilocode_change start
+	// arcanea_change start
 	// Be sure to fetch the model information before we need it.
 	if (cline.api instanceof OpenRouterHandler || cline.api instanceof NativeOllamaHandler) {
 		try {
@@ -219,12 +219,12 @@ export async function getEnvironmentDetails(cline: Task, includeFileDetails: boo
 			TelemetryService.instance.captureException(e, { context: "getEnvironmentDetails" })
 			await cline.say(
 				"error",
-				t("kilocode:task.notLoggedInError", { error: e instanceof Error ? e.message : String(e) }),
+				t("arcanea:task.notLoggedInError", { error: e instanceof Error ? e.message : String(e) }),
 			)
 			return `<environment_details>\n${details.trim()}\n</environment_details>`
 		}
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	const { id: modelId, info: modelInfo } = cline.api.getModel()
 
@@ -246,7 +246,7 @@ export async function getEnvironmentDetails(cline: Task, includeFileDetails: boo
 		language: language ?? formatLanguage(vscode.env.language),
 	})
 
-	const currentMode = modeDetails.slug ?? mode // kilocode_change: don't try to use non-existent modes
+	const currentMode = modeDetails.slug ?? mode // arcanea_change: don't try to use non-existent modes
 
 	details += `\n\n# Current Mode\n`
 	details += `<slug>${currentMode}</slug>\n`

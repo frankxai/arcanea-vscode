@@ -50,7 +50,7 @@ vi.mock("../../../utils/safeWriteJson", () => ({
 }))
 
 // Mock NotificationService
-vi.mock("../kilocode/NotificationService", () => ({
+vi.mock("../arcanea/NotificationService", () => ({
 	NotificationService: vi.fn().mockImplementation(() => ({
 		connect: vi.fn(),
 	})),

@@ -23,7 +23,7 @@ import {
 	DialogDescription,
 	DialogFooter,
 	ToggleSwitch,
-	// StandardTooltip, // kilocode_change: not used
+	// StandardTooltip, // arcanea_change: not used
 } from "@src/components/ui"
 import { buildDocLink } from "@src/utils/docLinks"
 
@@ -31,12 +31,12 @@ import { Tab, TabContent, TabHeader } from "../common/Tab"
 
 import McpToolRow from "./McpToolRow"
 import McpResourceRow from "./McpResourceRow"
-// import McpEnabledToggle from "./McpEnabledToggle" // kilocode_change not used
+// import McpEnabledToggle from "./McpEnabledToggle" // arcanea_change not used
 import { McpErrorRow } from "./McpErrorRow"
 
 type McpViewProps = {
 	onDone: () => void
-	hideHeader?: boolean // kilocode_change
+	hideHeader?: boolean // arcanea_change
 }
 
 const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
@@ -51,9 +51,9 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 	const { t } = useAppTranslation()
 
 	return (
-		// kilocode_change: add relative className
+		// arcanea_change: add relative className
 		<Tab className="relative">
-			{/*  kilocode_change: display header conditionally */}
+			{/*  arcanea_change: display header conditionally */}
 			<TabHeader style={{ display: hideHeader ? "none" : "flex" }} className="flex justify-between items-center">
 				<h3 className="text-vscode-foreground m-0">{t("mcp:title")}</h3>
 				<Button onClick={onDone}>{t("mcp:done")}</Button>
@@ -69,18 +69,18 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 					}}>
 					<Trans i18nKey="mcp:description">
 						<VSCodeLink
-							href={buildDocLink("features/mcp/using-mcp-in-kilo-code", "mcp_settings")}
+							href={buildDocLink("features/mcp/using-mcp-in-arcanea", "mcp_settings")}
 							style={{ display: "inline" }}>
 							Learn More
 						</VSCodeLink>
 					</Trans>
 				</div>
 
-				{/* <McpEnabledToggle /> kilocode_change: we always enable MCP */}
+				{/* <McpEnabledToggle /> arcanea_change: we always enable MCP */}
 
 				{mcpEnabled && (
 					<>
-						{/* kilocode_change: display: none; we always allow mcp server creation */}
+						{/* arcanea_change: display: none; we always allow mcp server creation */}
 						<div style={{ display: "none", marginBottom: 15 }}>
 							<VSCodeCheckbox
 								checked={enableMcpServerCreation}
@@ -99,7 +99,7 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 								<Trans i18nKey="mcp:enableServerCreation.description">
 									<VSCodeLink
 										href={buildDocLink(
-											"features/mcp/using-mcp-in-kilo-code#how-to-use-kilo-code-to-create-an-mcp-server",
+											"features/mcp/using-mcp-in-arcanea#how-to-use-arcanea-to-create-an-mcp-server",
 											"mcp_server_creation",
 										)}
 										style={{ display: "inline" }}>
@@ -160,7 +160,7 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 								<span className="codicon codicon-refresh" style={{ marginRight: "6px" }}></span>
 								{t("mcp:refreshMCP")}
 							</Button>
-							{/* kilocode_change
+							{/* arcanea_change
 							<StandardTooltip content={t("mcp:marketplace")}>
 								<Button
 									variant="secondary"
@@ -181,11 +181,11 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 							</StandardTooltip>
 							*/}
 						</div>
-						{/* kilocode_change start */}
+						{/* arcanea_change start */}
 						<div className="mt-5">
 							You can find the MCP Marketplace under Settings &gt; MCP Servers &gt; Marketplace
 						</div>
-						{/* kilocode_change end */}
+						{/* arcanea_change end */}
 						<div
 							style={{
 								marginTop: "15px",
@@ -194,7 +194,7 @@ const McpView = ({ onDone, hideHeader = false }: McpViewProps) => {
 							}}>
 							<VSCodeLink
 								href={buildDocLink(
-									"features/mcp/using-mcp-in-kilo-code#editing-mcp-settings-files",
+									"features/mcp/using-mcp-in-arcanea#editing-mcp-settings-files",
 									"mcp_edit_settings",
 								)}
 								style={{ display: "inline" }}>

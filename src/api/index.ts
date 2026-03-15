@@ -1,6 +1,6 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 
-import type { ProviderSettings, ModelInfo } from "@roo-code/types"
+import type { ProviderSettings, ModelInfo } from "@arcanea/types"
 
 import { ApiStream } from "./transform/stream"
 
@@ -29,10 +29,10 @@ import {
 	HuggingFaceHandler,
 	ChutesHandler,
 	LiteLLMHandler,
-	// kilocode_change start
+	// arcanea_change start
 	VirtualQuotaFallbackHandler,
 	GeminiCliHandler,
-	// kilocode_change end
+	// arcanea_change end
 	ClaudeCodeHandler,
 	QwenCodeHandler,
 	SambaNovaHandler,
@@ -45,9 +45,9 @@ import {
 	VercelAiGatewayHandler,
 	DeepInfraHandler,
 } from "./providers"
-// kilocode_change start
-import { KilocodeOpenrouterHandler } from "./providers/kilocode-openrouter"
-// kilocode_change end
+// arcanea_change start
+import { ArcaneacodeOpenrouterHandler } from "./providers/arcanea-openrouter"
+// arcanea_change end
 import { NativeOllamaHandler } from "./providers/native-ollama"
 
 export interface SingleCompletionHandler {
@@ -98,14 +98,14 @@ export function buildApiHandler(configuration: ProviderSettings): ApiHandler {
 	const { apiProvider, ...options } = configuration
 
 	switch (apiProvider) {
-		// kilocode_change start
-		case "kilocode":
-			return new KilocodeOpenrouterHandler(options)
+		// arcanea_change start
+		case "arcanea":
+			return new ArcaneacodeOpenrouterHandler(options)
 		case "gemini-cli":
 			return new GeminiCliHandler(options)
 		case "virtual-quota-fallback":
 			return new VirtualQuotaFallbackHandler(options)
-		// kilocode_change end
+		// arcanea_change end
 		case "anthropic":
 			return new AnthropicHandler(options)
 		case "claude-code":

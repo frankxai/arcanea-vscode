@@ -48,8 +48,8 @@ export async function reportBugTool(
 
 			// Derive system information values algorithmically
 			const operatingSystem = os.platform() + " " + os.release()
-			const kilocodeVersion =
-				vscode.extensions.getExtension("kilocode.kilo-code")?.packageJSON.version || "Unknown"
+			const arcaneaVersion =
+				vscode.extensions.getExtension("arcanea.arcanea")?.packageJSON.version || "Unknown"
 			const systemInfo = `VSCode: ${vscode.version}, Node.js: ${process.version}, Architecture: ${os.arch()}`
 			const providerAndModel = `${(await cline.providerRef.deref()?.contextProxy.getGlobalState("apiProvider")) as string} / ${cline.api.getModel().id}`
 
@@ -61,7 +61,7 @@ export async function reportBugTool(
 				provider_and_model: providerAndModel,
 				operating_system: operatingSystem,
 				system_info: systemInfo,
-				kilocode_version: kilocodeVersion,
+				arcanea_version: arcaneaVersion,
 			})
 
 			const { text, images } = await cline.ask("report_bug", bugReportData, false)
@@ -85,12 +85,12 @@ export async function reportBugTool(
 					params.set("title", title)
 					params.set(
 						"description",
-						`${description}\n\n**System Information:**\n- Provider & Model: ${providerAndModel}\n- Operating System: ${operatingSystem}\n- Arcanea Version: ${kilocodeVersion}\n- ${systemInfo}`,
+						`${description}\n\n**System Information:**\n- Provider & Model: ${providerAndModel}\n- Operating System: ${operatingSystem}\n- Arcanea Version: ${arcaneaVersion}\n- ${systemInfo}`,
 					)
 
 					// Use our utility function to create and open the GitHub issue URL
 					// This bypasses VS Code's URI handling issues with special characters
-					await createAndOpenGitHubIssue("Kilo-Org", "kilocode", "bug_report.yml", params)
+					await createAndOpenGitHubIssue("Arcanea-Org", "arcanea", "bug_report.yml", params)
 				} catch (error) {
 					console.error(`An error occurred while attempting to report the bug: ${error}`)
 				}

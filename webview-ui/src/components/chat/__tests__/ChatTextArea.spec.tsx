@@ -4,8 +4,8 @@ import { render, fireEvent, screen } from "@src/utils/test-utils"
 import { useExtensionState } from "@src/context/ExtensionStateContext"
 import { vscode } from "@src/utils/vscode"
 import * as pathMentions from "@src/utils/path-mentions"
-import { useQuery } from "@tanstack/react-query" // kilocode_change
-import { HistoryItem } from "@roo-code/types" // kilocode_change
+import { useQuery } from "@tanstack/react-query" // arcanea_change
+import { HistoryItem } from "@arcanea/types" // arcanea_change
 
 import { ChatTextArea } from "../ChatTextArea"
 
@@ -35,13 +35,13 @@ const mockConvertToMentionPath = pathMentions.convertToMentionPath as ReturnType
 // Mock ExtensionStateContext
 vi.mock("@src/context/ExtensionStateContext")
 
-// kilocode_change start
+// arcanea_change start
 vi.mock("@tanstack/react-query")
 
-function kiloCodeSetUpUseQueryMock(historyItems: Partial<HistoryItem>[]) {
+function arcaneaSetUpUseQueryMock(historyItems: Partial<HistoryItem>[]) {
 	;(useQuery as ReturnType<typeof vi.fn>).mockReturnValue({ data: { historyItems } })
 }
-// kilocode_change end
+// arcanea_change end
 
 vi.mock("@src/components/ui/hooks/useSelectedModel", () => ({
 	useSelectedModel: vi.fn(() => ({
@@ -90,7 +90,7 @@ describe("ChatTextArea", () => {
 			cwd: "/test/workspace",
 		})
 
-		kiloCodeSetUpUseQueryMock([])
+		arcaneaSetUpUseQueryMock([])
 	})
 
 	describe("enhance prompt button", () => {
@@ -771,7 +771,7 @@ describe("ChatTextArea", () => {
 					cwd: "/test/workspace",
 				})
 
-				kiloCodeSetUpUseQueryMock(mockTaskHistory)
+				arcaneaSetUpUseQueryMock(mockTaskHistory)
 
 				const setInputValue = vi.fn()
 				const { container } = render(
@@ -810,7 +810,7 @@ describe("ChatTextArea", () => {
 					cwd: "/test/workspace",
 				})
 
-				kiloCodeSetUpUseQueryMock([
+				arcaneaSetUpUseQueryMock([
 					{ task: "Task 1", workspace: "/test/workspace" },
 					{ task: "Task 2", workspace: "/test/workspace" },
 				])
@@ -928,7 +928,7 @@ describe("ChatTextArea", () => {
 		})
 	})
 
-	// kilocode_change: skip because we have our own slash commands
+	// arcanea_change: skip because we have our own slash commands
 	describe.skip("slash command highlighting", () => {
 		const mockCommands = [
 			{ name: "setup", source: "project", description: "Setup the project" },
@@ -1067,7 +1067,7 @@ describe("ChatTextArea", () => {
 		})
 	})
 
-	// kilocode_change: removed in kilocode
+	// arcanea_change: removed in arcanea
 	describe.skip("selectApiConfig", () => {
 		// Helper function to get the API config dropdown
 		const getApiConfigDropdown = () => {

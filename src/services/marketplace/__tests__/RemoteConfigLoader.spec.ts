@@ -2,22 +2,22 @@
 
 import axios from "axios"
 import { RemoteConfigLoader } from "../RemoteConfigLoader"
-import type { MarketplaceItemType } from "@roo-code/types"
+import type { MarketplaceItemType } from "@arcanea/types"
 
 // Mock axios
 vi.mock("axios")
 const mockedAxios = axios as any
 
 // Mock the cloud config
-vi.mock("@roo-code/cloud", () => ({
+vi.mock("@arcanea/cloud", () => ({
 	getRooCodeApiUrl: () => "https://test.api.com",
 }))
 
-// kilocode_change start
-vi.mock("../../../shared/kilocode/token", () => ({
-	getKiloBaseUriFromToken: () => "https://test.api.com",
+// arcanea_change start
+vi.mock("../../../shared/arcanea/token", () => ({
+	getArcaneaBaseUriFromToken: () => "https://test.api.com",
 }))
-// kilocode_change end
+// arcanea_change end
 
 describe("RemoteConfigLoader", () => {
 	let loader: RemoteConfigLoader

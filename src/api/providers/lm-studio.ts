@@ -2,7 +2,7 @@ import { Anthropic } from "@anthropic-ai/sdk"
 import OpenAI from "openai"
 import axios from "axios"
 
-import { type ModelInfo, openAiModelInfoSaneDefaults, LMSTUDIO_DEFAULT_TEMPERATURE } from "@roo-code/types"
+import { type ModelInfo, openAiModelInfoSaneDefaults, LMSTUDIO_DEFAULT_TEMPERATURE } from "@arcanea/types"
 
 import type { ApiHandlerOptions } from "../../shared/api"
 
@@ -13,9 +13,9 @@ import { ApiStream } from "../transform/stream"
 
 import { BaseProvider } from "./base-provider"
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
-import { fetchWithTimeout } from "./kilocode/fetchWithTimeout"
+import { fetchWithTimeout } from "./arcanea/fetchWithTimeout"
 
-const LMSTUDIO_TIMEOUT_MS = 3_600_000 // kilocode_change
+const LMSTUDIO_TIMEOUT_MS = 3_600_000 // arcanea_change
 import { getModels, getModelsFromCache } from "./fetchers/modelCache"
 import { handleOpenAIError } from "./utils/openai-error-handler"
 
@@ -30,8 +30,8 @@ export class LmStudioHandler extends BaseProvider implements SingleCompletionHan
 		this.client = new OpenAI({
 			baseURL: (this.options.lmStudioBaseUrl || "http://localhost:1234") + "/v1",
 			apiKey: "noop",
-			timeout: LMSTUDIO_TIMEOUT_MS, // kilocode_change
-			fetch: fetchWithTimeout(LMSTUDIO_TIMEOUT_MS), // kilocode_change
+			timeout: LMSTUDIO_TIMEOUT_MS, // arcanea_change
+			fetch: fetchWithTimeout(LMSTUDIO_TIMEOUT_MS), // arcanea_change
 		})
 	}
 

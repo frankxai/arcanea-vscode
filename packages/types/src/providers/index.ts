@@ -8,9 +8,9 @@ export * from "./doubao.js"
 export * from "./featherless.js"
 export * from "./fireworks.js"
 export * from "./gemini.js"
-// kilocode_change start
+// arcanea_change start
 export * from "./gemini-cli.js"
-// kilocode_change end
+// arcanea_change end
 export * from "./glama.js"
 export * from "./groq.js"
 export * from "./huggingface.js"

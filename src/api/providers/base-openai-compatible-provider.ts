@@ -1,7 +1,7 @@
 import { Anthropic } from "@anthropic-ai/sdk"
 import OpenAI from "openai"
 
-import type { ModelInfo } from "@roo-code/types"
+import type { ModelInfo } from "@arcanea/types"
 
 import type { ApiHandlerOptions } from "../../shared/api"
 import { ApiStream } from "../transform/stream"
@@ -10,7 +10,7 @@ import { convertToOpenAiMessages } from "../transform/openai-format"
 import type { SingleCompletionHandler, ApiHandlerCreateMessageMetadata } from "../index"
 import { DEFAULT_HEADERS } from "./constants"
 import { BaseProvider } from "./base-provider"
-import { verifyFinishReason } from "./kilocode/verifyFinishReason"
+import { verifyFinishReason } from "./arcanea/verifyFinishReason"
 import { handleOpenAIError } from "./utils/openai-error-handler"
 
 type BaseOpenAiCompatibleProviderOptions<ModelName extends string> = ApiHandlerOptions & {
@@ -101,7 +101,7 @@ export abstract class BaseOpenAiCompatibleProvider<ModelName extends string>
 		const stream = await this.createStream(systemPrompt, messages, metadata)
 
 		for await (const chunk of stream) {
-			verifyFinishReason(chunk.choices[0]) // kilocode_change
+			verifyFinishReason(chunk.choices[0]) // arcanea_change
 			const delta = chunk.choices[0]?.delta
 
 			if (delta?.content) {

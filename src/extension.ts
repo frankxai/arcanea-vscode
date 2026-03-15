@@ -12,9 +12,9 @@ try {
 	console.warn("Failed to load environment variables:", e)
 }
 
-import type { CloudUserInfo, AuthState } from "@roo-code/types"
-import { CloudService, BridgeOrchestrator } from "@roo-code/cloud"
-import { TelemetryService, PostHogTelemetryClient } from "@roo-code/telemetry"
+import type { CloudUserInfo, AuthState } from "@arcanea/types"
+import { CloudService, BridgeOrchestrator } from "@arcanea/cloud"
+import { TelemetryService, PostHogTelemetryClient } from "@arcanea/telemetry"
 
 import "./utils/path" // Necessary to have access to String.prototype.toPosix.
 import { createOutputChannelLogger, createDualLogger } from "./utils/outputChannelLogger"
@@ -42,9 +42,9 @@ import {
 	CodeActionProvider,
 } from "./activate"
 import { initializeI18n } from "./i18n"
-import { registerGhostProvider } from "./services/ghost" // kilocode_change
-import { registerMainThreadForwardingLogger } from "./utils/fowardingLogger" // kilocode_change
-import { getKiloCodeWrapperProperties } from "./core/kilocode/wrapper" // kilocode_change
+import { registerGhostProvider } from "./services/ghost" // arcanea_change
+import { registerMainThreadForwardingLogger } from "./utils/fowardingLogger" // arcanea_change
+import { getArcaneaWrapperProperties } from "./core/arcanea-core/wrapper" // arcanea_change
 
 /**
  * Built using https://github.com/microsoft/vscode-webview-ui-toolkit
@@ -66,7 +66,7 @@ let userInfoHandler: ((data: { userInfo: CloudUserInfo }) => Promise<void>) | un
 // Your extension is activated the very first time the command is executed.
 export async function activate(context: vscode.ExtensionContext) {
 	extensionContext = context
-	outputChannel = vscode.window.createOutputChannel("Kilo-Code")
+	outputChannel = vscode.window.createOutputChannel("Arcanea-Code")
 	context.subscriptions.push(outputChannel)
 	outputChannel.appendLine(`${Package.name} extension activated - ${JSON.stringify(Package)}`)
 
@@ -85,7 +85,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Create logger for cloud services.
 	const cloudLogger = createDualLogger(createOutputChannelLogger(outputChannel))
 
-	// kilocode_change start: no Roo cloud service
+	// arcanea_change start: no Roo cloud service
 	// Initialize Roo Code Cloud service.
 	// const cloudService = await CloudService.createInstance(context, cloudLogger)
 
@@ -109,7 +109,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	// // Add to subscriptions for proper cleanup on deactivate
 	// context.subscriptions.push(cloudService)
-	// kilocode_change end
+	// arcanea_change end
 
 	// Initialize MDM service
 	const mdmService = await MdmService.createInstance(cloudLogger)
@@ -214,7 +214,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	try {
 		if (cloudService.telemetryClient) {
-			// TelemetryService.instance.register(cloudService.telemetryClient) kilocode_change
+			// TelemetryService.instance.register(cloudService.telemetryClient) arcanea_change
 		}
 	} catch (error) {
 		outputChannel.appendLine(
@@ -243,7 +243,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		}),
 	)
 
-	// kilocode_change start
+	// arcanea_change start
 	if (!context.globalState.get("firstInstallCompleted")) {
 		outputChannel.appendLine("First installation detected, opening Arcanea sidebar!")
 		try {
@@ -255,7 +255,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			// https://discord.com/channels/1349288496988160052/1395865796026040470
 			await vscode.commands.executeCommand(
 				"workbench.action.openWalkthrough",
-				"kilocode.kilo-code#kiloCodeWalkthrough",
+				"arcanea.arcanea#arcaneaWalkthrough",
 				false,
 			)
 		} catch (error) {
@@ -264,7 +264,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			await context.globalState.update("firstInstallCompleted", true)
 		}
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	// Auto-import configuration if specified in settings
 	try {
@@ -316,17 +316,17 @@ export async function activate(context: vscode.ExtensionContext) {
 		}),
 	)
 
-	// kilocode_change start - Arcanea specific registrations
-	const { kiloCodeWrapped } = getKiloCodeWrapperProperties()
-	if (!kiloCodeWrapped) {
+	// arcanea_change start - Arcanea specific registrations
+	const { arcaneaWrapped } = getArcaneaWrapperProperties()
+	if (!arcaneaWrapped) {
 		// Only use autocomplete in VS Code
 		registerGhostProvider(context, provider)
 	} else {
 		// Only foward logs in Jetbrains
 		registerMainThreadForwardingLogger(context)
 	}
-	registerCommitMessageProvider(context, outputChannel) // kilocode_change
-	// kilocode_change end - Arcanea specific registrations
+	registerCommitMessageProvider(context, outputChannel) // arcanea_change
+	// arcanea_change end - Arcanea specific registrations
 
 	registerCodeActions(context)
 	registerTerminalActions(context)
@@ -335,7 +335,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	vscode.commands.executeCommand(`${Package.name}.activationCompleted`)
 
 	// Implements the `RooCodeAPI` interface.
-	const socketPath = process.env.KILO_IPC_SOCKET_PATH ?? process.env.ROO_CODE_IPC_SOCKET_PATH // kilocode_change
+	const socketPath = process.env.ARCANEA_IPC_SOCKET_PATH ?? process.env.ROO_CODE_IPC_SOCKET_PATH // arcanea_change
 	const enableLogging = typeof socketPath === "string"
 
 	// Watch the core files and automatically reload the extension host.
@@ -344,7 +344,7 @@ export async function activate(context: vscode.ExtensionContext) {
 			{ path: context.extensionPath, pattern: "**/*.ts" },
 			{ path: path.join(context.extensionPath, "../packages/types"), pattern: "**/*.ts" },
 			{ path: path.join(context.extensionPath, "../packages/telemetry"), pattern: "**/*.ts" },
-			{ path: path.join(context.extensionPath, "node_modules/@roo-code/cloud"), pattern: "**/*" },
+			{ path: path.join(context.extensionPath, "node_modules/@arcanea/cloud"), pattern: "**/*" },
 		]
 
 		console.log(
@@ -390,7 +390,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		})
 	}
 
-	await checkAndRunAutoLaunchingTask(context) // kilocode_change
+	await checkAndRunAutoLaunchingTask(context) // arcanea_change
 
 	return new API(outputChannel, provider, socketPath, enableLogging)
 }

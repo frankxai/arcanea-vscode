@@ -3,7 +3,7 @@ import {
 	openRouterProviderSortSchema,
 	openRouterProviderDataCollectionSchema,
 	OPENROUTER_DEFAULT_PROVIDER_NAME,
-} from "@roo-code/types"
+} from "@arcanea/types"
 
 import { useAppTranslation } from "@src/i18n/TranslationContext"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectSeparator } from "@src/components/ui"
@@ -34,28 +34,28 @@ const getProviderPreference = (apiConfiguration: ProviderSettings): ProviderPref
 interface Props {
 	apiConfiguration: ProviderSettings
 	setApiConfigurationField: <K extends keyof ProviderSettings>(field: K, value: ProviderSettings[K]) => void
-	kilocodeDefaultModel: string
+	arcaneaDefaultModel: string
 }
 
-export const KiloProviderRoutingManagedByOrganization = () => {
+export const ArcaneaProviderRoutingManagedByOrganization = () => {
 	const { t } = useAppTranslation()
 	return (
 		<div className="flex flex-col gap-1">
 			<div className="flex justify-between items-center">
 				<label className="block font-medium mb-1">
-					{t("kilocode:settings.provider.providerRouting.title")}
+					{t("arcanea:settings.provider.providerRouting.title")}
 				</label>
 			</div>
 			<div className="text-sm text-vscode-descriptionForeground">
-				{t("kilocode:settings.provider.providerRouting.managedByOrganization")}
+				{t("arcanea:settings.provider.providerRouting.managedByOrganization")}
 			</div>
 		</div>
 	)
 }
 
-export const KiloProviderRouting = ({ apiConfiguration, setApiConfigurationField, kilocodeDefaultModel }: Props) => {
+export const ArcaneaProviderRouting = ({ apiConfiguration, setApiConfigurationField, arcaneaDefaultModel }: Props) => {
 	const { t } = useAppTranslation()
-	const providers = Object.values(useModelProviders(kilocodeDefaultModel, apiConfiguration).data ?? {})
+	const providers = Object.values(useModelProviders(arcaneaDefaultModel, apiConfiguration).data ?? {})
 
 	const onValueChange = (value: string) => {
 		const preference = safeJsonParse<ProviderPreference>(value)
@@ -79,7 +79,7 @@ export const KiloProviderRouting = ({ apiConfiguration, setApiConfigurationField
 		<div className="flex flex-col gap-1">
 			<div className="flex justify-between items-center">
 				<label className="block font-medium mb-1">
-					{t("kilocode:settings.provider.providerRouting.title")}
+					{t("arcanea:settings.provider.providerRouting.title")}
 				</label>
 			</div>
 			<Select value={JSON.stringify(getProviderPreference(apiConfiguration))} onValueChange={onValueChange}>
@@ -88,16 +88,16 @@ export const KiloProviderRouting = ({ apiConfiguration, setApiConfigurationField
 				</SelectTrigger>
 				<SelectContent>
 					<ProviderSelectItem value={{ type: "default" }}>
-						{t("kilocode:settings.provider.providerRouting.sorting.default")}
+						{t("arcanea:settings.provider.providerRouting.sorting.default")}
 					</ProviderSelectItem>
 					<ProviderSelectItem value={{ type: openRouterProviderSortSchema.Values.price }}>
-						{t("kilocode:settings.provider.providerRouting.sorting.price")}
+						{t("arcanea:settings.provider.providerRouting.sorting.price")}
 					</ProviderSelectItem>
 					<ProviderSelectItem value={{ type: openRouterProviderSortSchema.Values.throughput }}>
-						{t("kilocode:settings.provider.providerRouting.sorting.throughput")}
+						{t("arcanea:settings.provider.providerRouting.sorting.throughput")}
 					</ProviderSelectItem>
 					<ProviderSelectItem value={{ type: openRouterProviderSortSchema.Values.latency }}>
-						{t("kilocode:settings.provider.providerRouting.sorting.latency")}
+						{t("arcanea:settings.provider.providerRouting.sorting.latency")}
 					</ProviderSelectItem>
 					<SelectSeparator />
 					{specificProviderIsInvalid && (
@@ -127,13 +127,13 @@ export const KiloProviderRouting = ({ apiConfiguration, setApiConfigurationField
 				</SelectTrigger>
 				<SelectContent>
 					<SelectItem value="default">
-						{t("kilocode:settings.provider.providerRouting.dataCollection.default")}
+						{t("arcanea:settings.provider.providerRouting.dataCollection.default")}
 					</SelectItem>
 					<SelectItem value={openRouterProviderDataCollectionSchema.Values.allow}>
-						{t("kilocode:settings.provider.providerRouting.dataCollection.allow")}
+						{t("arcanea:settings.provider.providerRouting.dataCollection.allow")}
 					</SelectItem>
 					<SelectItem value={openRouterProviderDataCollectionSchema.Values.deny}>
-						{t("kilocode:settings.provider.providerRouting.dataCollection.deny")}
+						{t("arcanea:settings.provider.providerRouting.dataCollection.deny")}
 					</SelectItem>
 				</SelectContent>
 			</Select>

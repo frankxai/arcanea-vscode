@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react" // kilocode_change
+import { HTMLAttributes } from "react" // arcanea_change
 import { useAppTranslation } from "@/i18n/TranslationContext"
 import { VSCodeCheckbox } from "@vscode/webview-ui-toolkit/react"
 import { Bell } from "lucide-react"
@@ -15,8 +15,8 @@ type NotificationSettingsProps = HTMLAttributes<HTMLDivElement> & {
 	ttsSpeed?: number
 	soundEnabled?: boolean
 	soundVolume?: number
-	systemNotificationsEnabled?: boolean // kilocode_change
-	areSettingsCommitted?: boolean // kilocode_change
+	systemNotificationsEnabled?: boolean // arcanea_change
+	areSettingsCommitted?: boolean // arcanea_change
 	setCachedStateField: SetCachedStateField<
 		"ttsEnabled" | "ttsSpeed" | "soundEnabled" | "soundVolume" | "systemNotificationsEnabled"
 	>
@@ -27,25 +27,25 @@ export const NotificationSettings = ({
 	ttsSpeed,
 	soundEnabled,
 	soundVolume,
-	systemNotificationsEnabled, // kilocode_change
-	areSettingsCommitted, // kilocode_change
+	systemNotificationsEnabled, // arcanea_change
+	areSettingsCommitted, // arcanea_change
 	setCachedStateField,
 	...props
 }: NotificationSettingsProps) => {
 	const { t } = useAppTranslation()
 
-	// kilocode_change start
+	// arcanea_change start
 	const onTestNotificationClick = () => {
 		vscode.postMessage({
 			type: "showSystemNotification",
 			notificationOptions: {
-				title: t("kilocode:settings.systemNotifications.testTitle"),
-				message: t("kilocode:settings.systemNotifications.testMessage"),
+				title: t("arcanea:settings.systemNotifications.testTitle"),
+				message: t("arcanea:settings.systemNotifications.testMessage"),
 			},
 			alwaysAllow: true,
 		})
 	}
-	// kilocode_change end
+	// arcanea_change end
 
 	return (
 		<div {...props}>
@@ -123,16 +123,16 @@ export const NotificationSettings = ({
 					</div>
 				)}
 
-				{/* kilocode_change start */}
+				{/* arcanea_change start */}
 				<div>
 					<VSCodeCheckbox
 						checked={systemNotificationsEnabled}
 						onChange={(e: any) => setCachedStateField("systemNotificationsEnabled", e.target.checked)}
 						data-testid="system-notifications-enabled-checkbox">
-						<span className="font-medium">{t("kilocode:settings.systemNotifications.label")}</span>
+						<span className="font-medium">{t("arcanea:settings.systemNotifications.label")}</span>
 					</VSCodeCheckbox>
 					<div className="text-vscode-descriptionForeground text-sm mt-1">
-						{t("kilocode:settings.systemNotifications.description")}
+						{t("arcanea:settings.systemNotifications.description")}
 					</div>
 				</div>
 				{systemNotificationsEnabled && (
@@ -140,11 +140,11 @@ export const NotificationSettings = ({
 						<Button
 							className="w-fit text-vscode-button-background hover:text-vscode-button-hoverBackground"
 							onClick={onTestNotificationClick}>
-							{t("kilocode:settings.systemNotifications.testButton")}
+							{t("arcanea:settings.systemNotifications.testButton")}
 						</Button>
 					</div>
 				)}
-				{/* kilocode_change end */}
+				{/* arcanea_change end */}
 			</Section>
 		</div>
 	)

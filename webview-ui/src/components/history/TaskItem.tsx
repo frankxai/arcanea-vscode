@@ -1,5 +1,5 @@
 import { memo } from "react"
-import type { HistoryItem } from "@roo-code/types"
+import type { HistoryItem } from "@arcanea/types"
 
 import { vscode } from "@/utils/vscode"
 import { cn } from "@/lib/utils"
@@ -49,8 +49,8 @@ const TaskItem = ({
 			className={cn(
 				"cursor-pointer group bg-vscode-editor-background rounded relative overflow-hidden border border-transparent hover:bg-vscode-list-hoverBackground transition-colors",
 				{
-					"bg-red-900 text-white": item.fileNotfound, // kilocode_change added this state instead of removing
-					"bg-vscode-editor-background": !item.fileNotfound, //kilocode_change this is the default normally in the regular classname list
+					"bg-red-900 text-white": item.fileNotfound, // arcanea_change added this state instead of removing
+					"bg-vscode-editor-background": !item.fileNotfound, //arcanea_change this is the default normally in the regular classname list
 				},
 				className,
 			)}

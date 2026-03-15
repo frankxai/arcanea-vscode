@@ -1,0 +1,60 @@
+name: Arcanea Build
+
+on:
+    push:
+        branches: [arcanea-integration]
+    workflow_dispatch:
+
+env:
+    NODE_VERSION: 20.19.2
+    PNPM_VERSION: 10.8.1
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: ${{ env.PNPM_VERSION }}
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: ${{ env.NODE_VERSION }}
+                  cache: "pnpm"
+
+            - name: Turbo cache setup
+              uses: actions/cache@v4
+              with:
+                  path: .turbo
+                  key: ${{ runner.os }}-turbo-${{ github.sha }}
+                  restore-keys: |
+                      ${{ runner.os }}-turbo-
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile || pnpm install
+
+            - name: Build VSIX
+              run: pnpm vsix
+
+            - name: Run extension tests
+              working-directory: src
+              run: pnpm test
+              continue-on-error: true
+
+            - name: Run webview tests
+              working-directory: webview-ui
+              run: pnpm test
+              continue-on-error: true
+
+            - name: Upload VSIX artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: arcanea-vsix
+                  path: "**/*.vsix"
+                  if-no-files-found: warn
+                  retention-days: 30

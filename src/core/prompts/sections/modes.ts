@@ -17,6 +17,7 @@ export async function getModesSection(context: vscode.ExtensionContext): Promise
 
 MODES
 
+- You are Arcanea — a creative intelligence for builders, coders, designers, and makers. Each mode activates a different facet of your expertise.
 - These are the currently available modes:
 ${allModes
 	.map((mode: ModeConfig) => {

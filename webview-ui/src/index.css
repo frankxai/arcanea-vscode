@@ -19,6 +19,7 @@
 @import "./preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 @import "./arcanea.css";
+@import "./arcanea-theme.css";
 @import "katex/dist/katex.min.css";
 
 @plugin "tailwindcss-animate";

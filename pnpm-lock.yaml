@@ -15,6 +15,9 @@ importers:
 
   .:
     devDependencies:
+      '@arcanea/config-typescript':
+        specifier: workspace:^
+        version: link:packages/config-typescript
       '@changesets/changelog-github':
         specifier: ^0.5.1
         version: 0.5.1
@@ -24,9 +27,6 @@ importers:
       '@dotenvx/dotenvx':
         specifier: ^1.34.0
         version: 1.44.2
-      '@arcanea/config-typescript':
-        specifier: workspace:^
-        version: link:packages/config-typescript
       '@types/glob':
         specifier: ^9.0.0
         version: 9.0.0
@@ -152,9 +152,6 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
     devDependencies:
-      '@playwright/test':
-        specifier: ^1.53.1
-        version: 1.55.0
       '@arcanea/config-eslint':
         specifier: workspace:^
         version: link:../../packages/config-eslint
@@ -164,6 +161,9 @@ importers:
       '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
+      '@playwright/test':
+        specifier: ^1.53.1
+        version: 1.55.0
       '@types/node':
         specifier: ^22.15.29
         version: 22.18.0
@@ -182,12 +182,12 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@radix-ui/react-slot':
-        specifier: ^1.1.2
-        version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
       '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
+      '@radix-ui/react-slot':
+        specifier: ^1.1.2
+        version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
       '@vscode/codicons':
         specifier: ^0.0.36
         version: 0.0.36
@@ -330,6 +330,12 @@ importers:
 
   apps/web-evals:
     dependencies:
+      '@arcanea/evals':
+        specifier: workspace:^
+        version: link:../../packages/evals
+      '@arcanea/types':
+        specifier: workspace:^
+        version: link:../../packages/types
       '@hookform/resolvers':
         specifier: ^5.1.1
         version: 5.1.1(react-hook-form@7.57.0(react@18.3.1))
@@ -369,12 +375,6 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.8
         version: 1.2.8(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@arcanea/evals':
-        specifier: workspace:^
-        version: link:../../packages/evals
-      '@arcanea/types':
-        specifier: workspace:^
-        version: link:../../packages/types
       '@tanstack/react-query':
         specifier: ^5.69.0
         version: 5.76.1(react@18.3.1)
@@ -460,18 +460,18 @@ importers:
 
   apps/web-roo-code:
     dependencies:
-      '@radix-ui/react-dialog':
-        specifier: ^1.1.14
-        version: 1.1.14(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@radix-ui/react-slot':
-        specifier: ^1.2.3
-        version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
       '@arcanea/evals':
         specifier: workspace:^
         version: link:../../packages/evals
       '@arcanea/types':
         specifier: workspace:^
         version: link:../../packages/types
+      '@radix-ui/react-dialog':
+        specifier: ^1.1.14
+        version: 1.1.14(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@radix-ui/react-slot':
+        specifier: ^1.2.3
+        version: 1.2.3(@types/react@18.3.23)(react@18.3.1)
       '@tanstack/react-query':
         specifier: ^5.79.0
         version: 5.80.2(react@18.3.1)
@@ -708,12 +708,12 @@ importers:
         specifier: ^2.4.3
         version: 2.5.1
     devDependencies:
-      '@playwright/test':
-        specifier: ^1.50.0
-        version: 1.55.0
       '@arcanea/config-eslint':
         specifier: file:../../packages/config-eslint
         version: link:../../packages/config-eslint
+      '@playwright/test':
+        specifier: ^1.50.0
+        version: 1.55.0
       '@types/cookie':
         specifier: ^0.3.3
         version: 0.3.3
@@ -1262,6 +1262,18 @@ importers:
       '@anthropic-ai/vertex-sdk':
         specifier: ^0.11.3
         version: 0.11.5
+      '@arcanea/cloud':
+        specifier: workspace:^
+        version: link:../packages/cloud
+      '@arcanea/ipc':
+        specifier: workspace:^
+        version: link:../packages/ipc
+      '@arcanea/telemetry':
+        specifier: workspace:^
+        version: link:../packages/telemetry
+      '@arcanea/types':
+        specifier: workspace:^
+        version: link:../packages/types
       '@aws-sdk/client-bedrock-runtime':
         specifier: ^3.812.0
         version: 3.848.0
@@ -1286,18 +1298,6 @@ importers:
       '@qdrant/js-client-rest':
         specifier: ^1.14.0
         version: 1.14.0(typescript@5.8.3)
-      '@arcanea/cloud':
-        specifier: workspace:^
-        version: link:../packages/cloud
-      '@arcanea/ipc':
-        specifier: workspace:^
-        version: link:../packages/ipc
-      '@arcanea/telemetry':
-        specifier: workspace:^
-        version: link:../packages/telemetry
-      '@arcanea/types':
-        specifier: workspace:^
-        version: link:../packages/types
       '@vscode/codicons':
         specifier: ^0.0.36
         version: 0.0.36
@@ -1617,6 +1617,9 @@ importers:
 
   webview-ui:
     dependencies:
+      '@arcanea/types':
+        specifier: workspace:^
+        version: link:../packages/types
       '@radix-ui/react-alert-dialog':
         specifier: ^1.1.6
         version: 1.1.13(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1659,9 +1662,6 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.1.8
         version: 1.2.6(@types/react-dom@18.3.7(@types/react@18.3.23))(@types/react@18.3.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@arcanea/types':
-        specifier: workspace:^
-        version: link:../packages/types
       '@tailwindcss/vite':
         specifier: ^4.0.0
         version: 4.1.6(vite@6.3.5(@types/node@20.17.57)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1)(tsx@4.19.4)(yaml@2.8.0))
@@ -2931,10 +2931,6 @@ packages:
 
   '@babel/runtime@7.27.4':
     resolution: {integrity: sha512-t3yaEOuGu9NlIZ+hIeGbBjFtZT7j2cb2tg0fuaJKeGotchRjjLfrBA9Kwf8quhpP1EUuxModQg04q/mBwyg8uA==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/runtime@7.28.3':
-    resolution: {integrity: sha512-9uIQ10o0WGdpP6GDhXcdOJPJuDgFtIDtN/9+ArJQ2NAfAmiuhTQdzkaTGR33v43GYS2UrSA0eX2pPPHoFVvpxA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/runtime@7.28.4':
@@ -19988,8 +19984,6 @@ snapshots:
 
   '@babel/runtime@7.27.4': {}
 
-  '@babel/runtime@7.28.3': {}
-
   '@babel/runtime@7.28.4': {}
 
   '@babel/template@7.27.2':
@@ -20563,7 +20557,7 @@ snapshots:
       '@babel/preset-env': 7.28.3(@babel/core@7.28.3)
       '@babel/preset-react': 7.27.1(@babel/core@7.28.3)
       '@babel/preset-typescript': 7.27.1(@babel/core@7.28.3)
-      '@babel/runtime': 7.28.3
+      '@babel/runtime': 7.28.4
       '@babel/runtime-corejs3': 7.28.3
       '@babel/traverse': 7.28.3
       '@docusaurus/logger': 3.8.1
@@ -22193,7 +22187,7 @@ snapshots:
 
   '@manypkg/get-packages@1.1.3':
     dependencies:
-      '@babel/runtime': 7.28.3
+      '@babel/runtime': 7.28.4
       '@changesets/types': 4.1.0
       '@manypkg/find-root': 1.1.0
       fs-extra: 8.1.0
@@ -35390,7 +35384,7 @@ snapshots:
 
   react-loadable-ssr-addon-v5-slorber@1.0.1(@docusaurus/react-loadable@6.0.0(react@19.1.1))(webpack@5.101.3(esbuild@0.25.9)):
     dependencies:
-      '@babel/runtime': 7.28.3
+      '@babel/runtime': 7.28.4
       react-loadable: '@docusaurus/react-loadable@6.0.0(react@19.1.1)'
       webpack: 5.101.3(esbuild@0.25.9)
 
@@ -35445,13 +35439,13 @@ snapshots:
 
   react-router-config@5.1.1(react-router@5.3.4(react@19.1.1))(react@19.1.1):
     dependencies:
-      '@babel/runtime': 7.28.3
+      '@babel/runtime': 7.28.4
       react: 19.1.1
       react-router: 5.3.4(react@19.1.1)
 
   react-router-dom@5.3.4(react@19.1.1):
     dependencies:
-      '@babel/runtime': 7.28.3
+      '@babel/runtime': 7.28.4
       history: 4.10.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -35462,7 +35456,7 @@ snapshots:
 
   react-router@5.3.4(react@19.1.1):
     dependencies:
-      '@babel/runtime': 7.28.3
+      '@babel/runtime': 7.28.4
       history: 4.10.1
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0

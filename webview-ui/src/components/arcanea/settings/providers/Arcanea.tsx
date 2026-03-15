@@ -40,7 +40,7 @@ export const Arcanea = ({
 	arcaneaDefaultModel,
 }: ArcaneaProps) => {
 	const { t } = useAppTranslation()
-	
+
 	const handleInputChange = useCallback(
 		<K extends keyof ProviderSettings, E>(
 			field: K,
@@ -54,13 +54,13 @@ export const Arcanea = ({
 
 	// Use the existing hook to get user identity
 	const userIdentity = useArcaneaIdentity(apiConfiguration.arcaneaToken || "", "")
-	const isArcaneaAiUser = userIdentity.endsWith("@arcanea.ai")
+	const _isArcaneaAiUser = userIdentity.endsWith("@arcanea.ai")
 
 	const areArcaneacodeWarningsDisabled = apiConfiguration.arcaneaTesterWarningsDisabledUntil
 		? apiConfiguration.arcaneaTesterWarningsDisabledUntil > Date.now()
 		: false
 
-	const handleToggleTesterWarnings = useCallback(() => {
+	const _handleToggleTesterWarnings = useCallback(() => {
 		const newTimestamp = Date.now() + (areArcaneacodeWarningsDisabled ? 0 : 24 * 60 * 60 * 1000)
 		setApiConfigurationField("arcaneaTesterWarningsDisabledUntil", newTimestamp)
 	}, [areArcaneacodeWarningsDisabled, setApiConfigurationField])

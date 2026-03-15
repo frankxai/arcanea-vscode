@@ -1,0 +1,390 @@
+/* ==========================================================================
+   Arcanea Design System v5.0 — Premium Theme Layer
+
+   This file adds Arcanea brand aesthetics WITHOUT overriding VS Code theme
+   variables. All VS Code --vscode-* colors remain untouched. Arcanea classes
+   are opt-in — components use them explicitly.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Brand Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+	/* Core palette */
+	--arcanea-void: #09090b;
+	--arcanea-cyan: #00bcd4;
+	--arcanea-cyan-rgb: 0, 188, 212;
+	--arcanea-ultramarine: #0d47a1;
+	--arcanea-ultramarine-rgb: 13, 71, 161;
+	--arcanea-gold: #ffd700;
+	--arcanea-gold-rgb: 255, 215, 0;
+	--arcanea-peacock: #00897b;
+	--arcanea-peacock-rgb: 0, 137, 123;
+
+	/* Text */
+	--arcanea-text: #e5e5e5;
+	--arcanea-text-muted: #a3a3a3;
+	--arcanea-text-dim: #737373;
+
+	/* Glass surfaces */
+	--arcanea-glass-1: rgba(9, 9, 11, 0.4);
+	--arcanea-glass-2: rgba(9, 9, 11, 0.6);
+	--arcanea-glass-3: rgba(9, 9, 11, 0.8);
+
+	/* Borders */
+	--arcanea-border: rgba(0, 188, 212, 0.1);
+	--arcanea-border-hover: rgba(0, 188, 212, 0.25);
+	--arcanea-border-active: rgba(0, 188, 212, 0.4);
+
+	/* Shadows & glows */
+	--arcanea-glow-cyan: 0 0 12px rgba(0, 188, 212, 0.15);
+	--arcanea-glow-cyan-md: 0 0 20px rgba(0, 188, 212, 0.2);
+	--arcanea-glow-cyan-lg: 0 0 32px rgba(0, 188, 212, 0.25);
+	--arcanea-glow-gold: 0 0 12px rgba(255, 215, 0, 0.15);
+
+	/* Timing */
+	--arcanea-ease: cubic-bezier(0.4, 0, 0.2, 1);
+	--arcanea-duration: 200ms;
+	--arcanea-duration-slow: 400ms;
+
+	/* Guardian mode colors */
+	--arcanea-mode-lumina: #00bcd4;
+	--arcanea-mode-nero: #9c27b0;
+	--arcanea-mode-lyria: #3f51b5;
+	--arcanea-mode-shinkami: #ffd700;
+	--arcanea-mode-arcanea: linear-gradient(135deg, #00bcd4, #0d47a1, #ffd700);
+}
+
+/* --------------------------------------------------------------------------
+   2. Glass Morphism Surfaces
+   -------------------------------------------------------------------------- */
+
+.glass-1 {
+	background: var(--arcanea-glass-1);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	border: 1px solid var(--arcanea-border);
+}
+
+.glass-2 {
+	background: var(--arcanea-glass-2);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+	border: 1px solid var(--arcanea-border);
+}
+
+.glass-3 {
+	background: var(--arcanea-glass-3);
+	backdrop-filter: blur(24px);
+	-webkit-backdrop-filter: blur(24px);
+	border: 1px solid var(--arcanea-border);
+}
+
+.glass-1:hover,
+.glass-2:hover,
+.glass-3:hover {
+	border-color: var(--arcanea-border-hover);
+	transition: border-color var(--arcanea-duration) var(--arcanea-ease);
+}
+
+/* --------------------------------------------------------------------------
+   3. Iridescent & Aurora Effects
+   -------------------------------------------------------------------------- */
+
+.iridescent-border {
+	position: relative;
+	border: 1px solid transparent;
+	background-clip: padding-box;
+}
+
+.iridescent-border::before {
+	content: "";
+	position: absolute;
+	inset: -1px;
+	border-radius: inherit;
+	background: linear-gradient(
+		135deg,
+		rgba(0, 188, 212, 0.3),
+		rgba(13, 71, 161, 0.2),
+		rgba(255, 215, 0, 0.15),
+		rgba(0, 137, 123, 0.2),
+		rgba(0, 188, 212, 0.3)
+	);
+	mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	-webkit-mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	padding: 1px;
+	pointer-events: none;
+	opacity: 0.6;
+	transition: opacity var(--arcanea-duration) var(--arcanea-ease);
+}
+
+.iridescent-border:hover::before {
+	opacity: 1;
+}
+
+.aurora-glow {
+	box-shadow:
+		0 0 15px rgba(0, 188, 212, 0.08),
+		0 0 30px rgba(13, 71, 161, 0.05),
+		0 0 45px rgba(0, 137, 123, 0.03);
+	transition: box-shadow var(--arcanea-duration-slow) var(--arcanea-ease);
+}
+
+.aurora-glow:hover {
+	box-shadow:
+		0 0 20px rgba(0, 188, 212, 0.15),
+		0 0 40px rgba(13, 71, 161, 0.1),
+		0 0 60px rgba(0, 137, 123, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   4. Premium Buttons
+   -------------------------------------------------------------------------- */
+
+.arcanea-btn-primary {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 6px 14px;
+	font-size: var(--vscode-font-size, 13px);
+	font-weight: 500;
+	color: var(--arcanea-void);
+	background: var(--arcanea-cyan);
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition:
+		background-color var(--arcanea-duration) var(--arcanea-ease),
+		box-shadow var(--arcanea-duration) var(--arcanea-ease),
+		transform 100ms var(--arcanea-ease);
+	box-shadow: var(--arcanea-glow-cyan);
+}
+
+.arcanea-btn-primary:hover {
+	background: #26c6da;
+	box-shadow: var(--arcanea-glow-cyan-md);
+}
+
+.arcanea-btn-primary:active {
+	transform: scale(0.98);
+	box-shadow: var(--arcanea-glow-cyan-lg);
+}
+
+.arcanea-btn-primary:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	box-shadow: none;
+}
+
+.arcanea-btn-ghost {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 6px 14px;
+	font-size: var(--vscode-font-size, 13px);
+	font-weight: 500;
+	color: var(--arcanea-text);
+	background: transparent;
+	border: 1px solid var(--arcanea-border);
+	border-radius: 6px;
+	cursor: pointer;
+	transition:
+		background-color var(--arcanea-duration) var(--arcanea-ease),
+		border-color var(--arcanea-duration) var(--arcanea-ease),
+		box-shadow var(--arcanea-duration) var(--arcanea-ease);
+}
+
+.arcanea-btn-ghost:hover {
+	background: rgba(0, 188, 212, 0.08);
+	border-color: var(--arcanea-border-hover);
+	box-shadow: var(--arcanea-glow-cyan);
+}
+
+.arcanea-btn-gold {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 6px 14px;
+	font-size: var(--vscode-font-size, 13px);
+	font-weight: 500;
+	color: var(--arcanea-void);
+	background: var(--arcanea-gold);
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition:
+		background-color var(--arcanea-duration) var(--arcanea-ease),
+		box-shadow var(--arcanea-duration) var(--arcanea-ease);
+	box-shadow: var(--arcanea-glow-gold);
+}
+
+.arcanea-btn-gold:hover {
+	background: #ffdf33;
+	box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   5. Guardian Mode Indicators
+   -------------------------------------------------------------------------- */
+
+.guardian-mode-indicator {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	transition: background-color var(--arcanea-duration) var(--arcanea-ease);
+}
+
+.guardian-mode-indicator--lumina {
+	background-color: var(--arcanea-mode-lumina);
+	box-shadow: 0 0 6px rgba(0, 188, 212, 0.4);
+}
+
+.guardian-mode-indicator--nero {
+	background-color: var(--arcanea-mode-nero);
+	box-shadow: 0 0 6px rgba(156, 39, 176, 0.4);
+}
+
+.guardian-mode-indicator--lyria {
+	background-color: var(--arcanea-mode-lyria);
+	box-shadow: 0 0 6px rgba(63, 81, 181, 0.4);
+}
+
+.guardian-mode-indicator--shinkami {
+	background-color: var(--arcanea-mode-shinkami);
+	box-shadow: 0 0 6px rgba(255, 215, 0, 0.4);
+}
+
+.guardian-mode-indicator--arcanea {
+	background: var(--arcanea-mode-arcanea);
+	box-shadow:
+		0 0 6px rgba(0, 188, 212, 0.3),
+		0 0 6px rgba(255, 215, 0, 0.2);
+}
+
+/* Element colors (for UI accents) */
+.element-fire {
+	color: #ef5350;
+}
+.element-water {
+	color: #42a5f5;
+}
+.element-earth {
+	color: #66bb6a;
+}
+.element-wind {
+	color: #bdbdbd;
+}
+.element-void {
+	color: #ab47bc;
+}
+.element-spirit {
+	color: #ffd700;
+}
+
+/* --------------------------------------------------------------------------
+   6. Subtle Hover & Focus Effects
+   -------------------------------------------------------------------------- */
+
+.arcanea-hover {
+	transition:
+		background-color var(--arcanea-duration) var(--arcanea-ease),
+		border-color var(--arcanea-duration) var(--arcanea-ease);
+}
+
+.arcanea-hover:hover {
+	background-color: rgba(0, 188, 212, 0.06);
+	border-color: var(--arcanea-border-hover);
+}
+
+.arcanea-focus:focus-visible {
+	outline: 1.5px solid var(--arcanea-cyan);
+	outline-offset: 1px;
+	box-shadow: var(--arcanea-glow-cyan);
+}
+
+/* --------------------------------------------------------------------------
+   7. Utility Classes
+   -------------------------------------------------------------------------- */
+
+.arcanea-text-cyan {
+	color: var(--arcanea-cyan);
+}
+.arcanea-text-gold {
+	color: var(--arcanea-gold);
+}
+.arcanea-text-muted {
+	color: var(--arcanea-text-muted);
+}
+.arcanea-text-dim {
+	color: var(--arcanea-text-dim);
+}
+
+.arcanea-bg-void {
+	background-color: var(--arcanea-void);
+}
+
+.arcanea-border-subtle {
+	border: 1px solid var(--arcanea-border);
+}
+.arcanea-border-glow {
+	border: 1px solid var(--arcanea-border-hover);
+}
+
+/* --------------------------------------------------------------------------
+   8. Animations
+   -------------------------------------------------------------------------- */
+
+@keyframes arcanea-shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+.arcanea-shimmer {
+	background: linear-gradient(90deg, transparent 0%, rgba(0, 188, 212, 0.06) 50%, transparent 100%);
+	background-size: 200% 100%;
+	animation: arcanea-shimmer 3s var(--arcanea-ease) infinite;
+}
+
+@keyframes arcanea-pulse-glow {
+	0%,
+	100% {
+		box-shadow: 0 0 8px rgba(0, 188, 212, 0.1);
+	}
+	50% {
+		box-shadow: 0 0 16px rgba(0, 188, 212, 0.2);
+	}
+}
+
+.arcanea-pulse-glow {
+	animation: arcanea-pulse-glow 2s var(--arcanea-ease) infinite;
+}
+
+@keyframes arcanea-fade-up {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.arcanea-fade-up {
+	animation: arcanea-fade-up 0.3s var(--arcanea-ease) forwards;
+}

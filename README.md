@@ -1,6 +1,6 @@
 # Arcanea — The coding agent that has a soul.
 
-Kilo Code's battle-tested agent architecture + Arcanea's intelligence system. Ten Guardians route your intent through a Mixture-of-Experts engine. Every response draws on the right expertise automatically. No configuration required.
+A battle-tested coding agent powered by Arcanea's intelligence system. Ten Guardians route your intent through a Mixture-of-Experts engine. Every response draws on the right expertise automatically. No configuration required.
 
 **BYOK** (Bring Your Own Key) — no account needed. Plug in your API key and go.
 
@@ -10,13 +10,13 @@ Kilo Code's battle-tested agent architecture + Arcanea's intelligence system. Te
 
 ### 5 Guardian Modes
 
-| Mode | Slug | Description | Tools |
-|------|------|-------------|-------|
-| **Lumina** | `lumina` | Write, build, and ship code. Creation mode — acts on clear tasks without asking permission. | read, edit, browser, command, mcp |
-| **Nero** | `nero` | Debug, diagnose, and fix. States hypothesis before changing code. Reproduces first. | read, edit, browser, command, mcp |
-| **Lyria** | `lyria` | Plan, design, and architect. Gathers context thoroughly, presents trade-offs, breaks work into executable steps. | read, edit (markdown only), browser, mcp |
-| **Shinkami** | `shinkami` | Understand, explain, and advise. Leads with the answer, uses concrete examples, recommends clearly. | read, browser, mcp |
-| **Arcanea** | `arcanea` | Orchestrate complex multi-step work. Decomposes tasks and delegates to the right specialist mode. | orchestration (delegates to other modes) |
+| Mode         | Slug       | Description                                                                                                      | Tools                                    |
+| ------------ | ---------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| **Lumina**   | `lumina`   | Write, build, and ship code. Creation mode — acts on clear tasks without asking permission.                      | read, edit, browser, command, mcp        |
+| **Nero**     | `nero`     | Debug, diagnose, and fix. States hypothesis before changing code. Reproduces first.                              | read, edit, browser, command, mcp        |
+| **Lyria**    | `lyria`    | Plan, design, and architect. Gathers context thoroughly, presents trade-offs, breaks work into executable steps. | read, edit (markdown only), browser, mcp |
+| **Shinkami** | `shinkami` | Understand, explain, and advise. Leads with the answer, uses concrete examples, recommends clearly.              | read, browser, mcp                       |
+| **Arcanea**  | `arcanea`  | Orchestrate complex multi-step work. Decomposes tasks and delegates to the right specialist mode.                | orchestration (delegates to other modes) |
 
 ### The Arcanean Code
 
@@ -122,7 +122,7 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for the full development guide.
 
 ## Credits
 
-Built on [Kilo Code](https://github.com/ArcaneaOrg/arcanea) (Apache 2.0). Intelligence by [Arcanea](https://arcanea.ai).
+Built on the Kilo Code open-source agent (Apache 2.0). Intelligence layer by [Arcanea](https://arcanea.ai).
 
 The MoE architecture, Guardian system, and Arcanean Code are original contributions by the Arcanea team.
 

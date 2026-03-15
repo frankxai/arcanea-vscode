@@ -1,6 +1,6 @@
 {
 	"extension": {
-		"name": "Kilo Code",
+		"name": "Arcanea",
 		"description": "Open-Source-KI-Codierungsassistent zum Planen, Erstellen und Korrigieren von Code."
 	},
 	"number_format": {
@@ -94,7 +94,7 @@
 			"processExitedWithError": "Claude Code Prozess wurde mit Code {{exitCode}} beendet. Fehlerausgabe: {{output}}",
 			"stoppedWithReason": "Claude Code wurde mit Grund gestoppt: {{reason}}",
 			"apiKeyModelPlanMismatch": "API-Schlüssel und Abonnement-Pläne erlauben verschiedene Modelle. Stelle sicher, dass das ausgewählte Modell in deinem Plan enthalten ist.",
-			"notFound": "Claude Code ausführbare Datei '{{claudePath}}' nicht gefunden.\n\nBitte installiere Claude Code CLI:\n1. Besuche {{installationUrl}} um Claude Code herunterzuladen\n2. Folge den Installationsanweisungen für dein Betriebssystem\n3. Stelle sicher, dass der 'claude' Befehl in deinem PATH verfügbar ist\n4. Alternativ konfiguriere einen benutzerdefinierten Pfad in den Kilo Code-Einstellungen unter 'Claude Code Pfad'\n\nUrsprünglicher Fehler: {{originalError}}"
+			"notFound": "Claude Code ausführbare Datei '{{claudePath}}' nicht gefunden.\n\nBitte installiere Claude Code CLI:\n1. Besuche {{installationUrl}} um Claude Code herunterzuladen\n2. Folge den Installationsanweisungen für dein Betriebssystem\n3. Stelle sicher, dass der 'claude' Befehl in deinem PATH verfügbar ist\n4. Alternativ konfiguriere einen benutzerdefinierten Pfad in den Arcanea-Einstellungen unter 'Claude Code Pfad'\n\nUrsprünglicher Fehler: {{originalError}}"
 		},
 		"geminiCli": {
 			"oauthLoadFailed": "Fehler beim Laden der OAuth-Anmeldedaten. Bitte authentifiziere dich zuerst: {{error}}",
@@ -147,7 +147,7 @@
 	"warnings": {
 		"no_terminal_content": "Kein Terminal-Inhalt ausgewählt",
 		"missing_task_files": "Die Dateien dieser Aufgabe fehlen. Möchtest du sie aus der Aufgabenliste entfernen?",
-		"auto_import_failed": "Fehler beim automatischen Import der Kilo Code-Einstellungen: {{error}}"
+		"auto_import_failed": "Fehler beim automatischen Import der Arcanea-Einstellungen: {{error}}"
 	},
 	"info": {
 		"no_changes": "Keine Änderungen gefunden.",
@@ -156,7 +156,7 @@
 		"custom_storage_path_set": "Benutzerdefinierter Speicherpfad festgelegt: {{path}}",
 		"default_storage_path": "Auf Standardspeicherpfad zurückgesetzt",
 		"settings_imported": "Einstellungen erfolgreich importiert.",
-		"auto_import_success": "Kilo Code-Einstellungen automatisch importiert aus {{filename}}",
+		"auto_import_success": "Arcanea-Einstellungen automatisch importiert aus {{filename}}",
 		"share_link_copied": "Share-Link in die Zwischenablage kopiert",
 		"image_copied_to_clipboard": "Bild-Daten-URI in die Zwischenablage kopiert",
 		"image_saved": "Bild gespeichert unter {{path}}",
@@ -184,12 +184,12 @@
 	},
 	"storage": {
 		"prompt_custom_path": "Gib den benutzerdefinierten Speicherpfad für den Gesprächsverlauf ein, leer lassen für Standardspeicherort",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "Bitte gib einen absoluten Pfad ein (z.B. D:\\KiloCodeStorage oder /home/user/storage)",
+		"path_placeholder": "D:\\ArcaneaStorage",
+		"enter_absolute_path": "Bitte gib einen absoluten Pfad ein (z.B. D:\\ArcaneaStorage oder /home/user/storage)",
 		"enter_valid_path": "Bitte gib einen gültigen Pfad ein"
 	},
 	"input": {
-		"task_prompt": "Was soll Kilo Code tun?",
+		"task_prompt": "Was soll Arcanea tun?",
 		"task_placeholder": "Gib deine Aufgabe hier ein"
 	},
 	"settings": {
@@ -205,8 +205,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": "Ungültiges YAML in .kilocodemodes-Datei in Zeile {{line}}. Bitte überprüfe:\n• Korrekte Einrückung (verwende Leerzeichen, keine Tabs)\n• Passende Anführungszeichen und Klammern\n• Gültige YAML-Syntax",
-			"schemaValidationError": "Ungültiges Format für benutzerdefinierte Modi in .kilocodemodes:\n{{issues}}",
+			"yamlParseError": "Ungültiges YAML in .arcaneamodes-Datei in Zeile {{line}}. Bitte überprüfe:\n• Korrekte Einrückung (verwende Leerzeichen, keine Tabs)\n• Passende Anführungszeichen und Klammern\n• Gültige YAML-Syntax",
+			"schemaValidationError": "Ungültiges Format für benutzerdefinierte Modi in .arcaneamodes:\n{{issues}}",
 			"invalidFormat": "Ungültiges Format für benutzerdefinierte Modi. Bitte stelle sicher, dass deine Einstellungen dem korrekten YAML-Format folgen.",
 			"updateFailed": "Fehler beim Aktualisieren des benutzerdefinierten Modus: {{error}}",
 			"deleteFailed": "Fehler beim Löschen des benutzerdefinierten Modus: {{error}}",
@@ -227,8 +227,8 @@
 	},
 	"mdm": {
 		"errors": {
-			"cloud_auth_required": "Deine Organisation erfordert eine Kilo Code Cloud-Authentifizierung. Bitte melde dich an, um fortzufahren.",
-			"organization_mismatch": "Du musst mit dem Kilo Code Cloud-Konto deiner Organisation authentifiziert sein.",
+			"cloud_auth_required": "Deine Organisation erfordert eine Arcanea Cloud-Authentifizierung. Bitte melde dich an, um fortzufahren.",
+			"organization_mismatch": "Du musst mit dem Arcanea Cloud-Konto deiner Organisation authentifiziert sein.",
 			"verification_failed": "Die Organisationsauthentifizierung konnte nicht verifiziert werden."
 		},
 		"info": {

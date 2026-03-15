@@ -49,25 +49,25 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code Commit 訊息產生器已啟用",
+		"activated": "Arcanea Commit 訊息產生器已啟用",
 		"gitNotFound": "⚠️找不到 Git 儲存庫或 Git 不可用",
 		"gitInitError": "⚠️ Git 初始化錯誤：{{error}}",
-		"generating": "Kilo：正在產生 Commit 訊息...",
-		"noChanges": "Kilo：找不到可供分析的變更",
-		"generated": "Kilo：Commit 訊息已產生！",
-		"generationFailed": "Kilo：產生 Commit 訊息失敗：{{errorMessage}}",
-		"generatingFromUnstaged": "Kilo：使用未暫存的變更產生訊息",
-		"activationFailed": "Kilo：啟用訊息產生器失敗：{{error}}",
-		"providerRegistered": "Kilo：Commit 訊息提供者已註冊"
+		"generating": "Arcanea：正在產生 Commit 訊息...",
+		"noChanges": "Arcanea：找不到可供分析的變更",
+		"generated": "Arcanea：Commit 訊息已產生！",
+		"generationFailed": "Arcanea：產生 Commit 訊息失敗：{{errorMessage}}",
+		"generatingFromUnstaged": "Arcanea：使用未暫存的變更產生訊息",
+		"activationFailed": "Arcanea：啟用訊息產生器失敗：{{error}}",
+		"providerRegistered": "Arcanea：Commit 訊息提供者已註冊"
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Kilo Code Autocomplete",
-			"disabled": "$(circle-slash) Kilo Code Autocomplete",
-			"warning": "$(warning) Kilo Code Autocomplete",
+			"enabled": "$(sparkle) Arcanea Autocomplete",
+			"disabled": "$(circle-slash) Arcanea Autocomplete",
+			"warning": "$(warning) Arcanea Autocomplete",
 			"tooltip": {
-				"basic": "Kilo Code Autocomplete",
-				"disabled": "Kilo Code Autocomplete（已停用）",
+				"basic": "Arcanea Autocomplete",
+				"disabled": "Arcanea Autocomplete（已停用）",
 				"tokenError": "必須設定有效 Token 才能使用 Autocomplete",
 				"lastCompletion": "最後建議:",
 				"sessionTotal": "工作階段總費用:",
@@ -78,49 +78,49 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"toggleMessage": "Arcanea Autocomplete {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Arcanea",
 			"analyzing": "正在分析你的程式碼...",
 			"generating": "正在產生建議編輯...",
 			"processing": "正在處理建議編輯...",
 			"showing": "正在顯示建議編輯..."
 		},
 		"input": {
-			"title": "Kilo Code: 快速工作",
+			"title": "Arcanea: 快速工作",
 			"placeholder": "例如：「重構這個函數使其更有效率」"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: 產生建議編輯",
+			"generateSuggestions": "Arcanea: 產生建議編輯",
 			"displaySuggestions": "顯示建議編輯",
 			"cancelSuggestions": "取消建議編輯",
 			"applyCurrentSuggestion": "套用目前建議編輯",
 			"applyAllSuggestions": "套用所有建議編輯",
 			"promptCodeSuggestion": "快速工作",
-			"category": "Kilo Code"
+			"category": "Arcanea"
 		},
 		"codeAction": {
-			"title": "Kilo Code: 建議編輯"
+			"title": "Arcanea: 建議編輯"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "Arcanea Agent",
 			"name": "Agent",
 			"description": "我可以協助你處理快速工作和建議編輯。"
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code Autocomplete 被與 GitHub Copilot 的衝突阻擋。要修正此問題，你必須停用 Copilot 的內嵌建議。",
+			"message": "Arcanea Autocomplete 被與 GitHub Copilot 的衝突阻擋。要修正此問題，你必須停用 Copilot 的內嵌建議。",
 			"disableCopilot": "停用 Copilot",
 			"disableInlineAssist": "停用 Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {
-		"tipMessage": "Kilo：按下 {{shortcut}} 產生終端機指令",
-		"noActiveTerminal": "Kilo: 找不到活動的終端機。請先開啟一個終端機",
-		"inputPrompt": "Kilo：描述您想要產生的指令",
+		"tipMessage": "Arcanea：按下 {{shortcut}} 產生終端機指令",
+		"noActiveTerminal": "Arcanea: 找不到活動的終端機。請先開啟一個終端機",
+		"inputPrompt": "Arcanea：描述您想要產生的指令",
 		"inputPlaceholder": "例如，結束在連接埠 3001 上執行的行程，尋找大檔案等",
-		"generatingProgress": "Kilo：正在產生終端機指令...",
-		"commandGenerated": "Kilo：產生的指令：{{command}}",
-		"generationFailed": "Kilo：指令產生失敗：{{error}}",
+		"generatingProgress": "Arcanea：正在產生終端機指令...",
+		"commandGenerated": "Arcanea：產生的指令：{{command}}",
+		"generationFailed": "Arcanea：指令產生失敗：{{error}}",
 		"warningDialog": {
 			"title": "終端機安全警告",
 			"okButton": "我明白",

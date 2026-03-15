@@ -1,4 +1,75 @@
 {
+	"welcome": {
+		"greeting": "Welcome to Arcanea",
+		"introText1": "Arcanea is your AI-powered coding companion with multi-model support.",
+		"introText2": "Bring your own API keys from any supported provider — OpenRouter, Anthropic, OpenAI, Google, and more.",
+		"introText3": "Set up your API key below to get started.",
+		"ctaButton": "Set Your API Key",
+		"manualModeButton": "Configure API Provider"
+	},
+	"settings": {
+		"provider": {
+			"account": "API Configuration",
+			"login": "Set Your API Key",
+			"logout": "Clear API Key",
+			"apiKey": "API Key",
+			"automaticFetch": "Models are fetched automatically from your configured provider.",
+			"providerRouting": {
+				"title": "Provider Routing",
+				"managedByOrganization": "Provider routing is managed by your organization.",
+				"sorting": {
+					"default": "Default",
+					"price": "Price",
+					"throughput": "Throughput",
+					"latency": "Latency"
+				},
+				"dataCollection": {
+					"default": "Default",
+					"allow": "Allow",
+					"deny": "Deny"
+				}
+			}
+		},
+		"modelInfo": {
+			"table": {
+				"provider": "Provider",
+				"context": "Context Window",
+				"inputPrice": "Input Price",
+				"outputPrice": "Output Price",
+				"cacheReadPrice": "Cache Read Price",
+				"cacheWritePrice": "Cache Write Price"
+			},
+			"contextWindow": "Context Window",
+			"averageKiloCodeCost": "Average cost per task",
+			"providerBreakdown": "Provider Breakdown"
+		},
+		"sections": {
+			"mcp": "MCP Servers"
+		},
+		"contextManagement": {
+			"allowVeryLargeReads": {
+				"label": "Allow very large file reads",
+				"description": "Enable reading files larger than the default limit. Use with caution as this may impact performance."
+			}
+		},
+		"systemNotifications": {
+			"label": "System Notifications",
+			"description": "Show system notifications for important events.",
+			"testButton": "Send Test Notification",
+			"testTitle": "Arcanea Test Notification",
+			"testMessage": "System notifications are working correctly."
+		},
+		"terminal": {
+			"commandGenerator": {
+				"provider": "Terminal Command Generator",
+				"apiConfigId": {
+					"label": "API Configuration",
+					"current": "Current configuration",
+					"description": "Select which API configuration to use for generating terminal commands."
+				}
+			}
+		}
+	},
 	"info": {
 		"settings_imported": "Settings imported successfully."
 	},
@@ -49,25 +120,25 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code commit message generator activated",
+		"activated": "Arcanea commit message generator activated",
 		"gitNotFound": "⚠️ Git repository not found or git not available",
 		"gitInitError": "⚠️ Git initialization error: {{error}}",
-		"generating": "Kilo: Generating commit message...",
-		"noChanges": "Kilo: No changes found to analyze",
-		"generated": "Kilo: Commit message generated!",
-		"generationFailed": "Kilo: Failed to generate commit message: {{errorMessage}}",
-		"generatingFromUnstaged": "Kilo: Generating message using unstaged changes",
-		"activationFailed": "Kilo: Failed to activate message generator: {{error}}",
-		"providerRegistered": "Kilo: Commit message provider registered"
+		"generating": "Arcanea: Generating commit message...",
+		"noChanges": "Arcanea: No changes found to analyze",
+		"generated": "Arcanea: Commit message generated!",
+		"generationFailed": "Arcanea: Failed to generate commit message: {{errorMessage}}",
+		"generatingFromUnstaged": "Arcanea: Generating message using unstaged changes",
+		"activationFailed": "Arcanea: Failed to activate message generator: {{error}}",
+		"providerRegistered": "Arcanea: Commit message provider registered"
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Kilo Code Autocomplete",
-			"disabled": "$(circle-slash) Kilo Code Autocomplete",
-			"warning": "$(warning) Kilo Code Autocomplete",
+			"enabled": "$(sparkle) Arcanea Autocomplete",
+			"disabled": "$(circle-slash) Arcanea Autocomplete",
+			"warning": "$(warning) Arcanea Autocomplete",
 			"tooltip": {
-				"basic": "Kilo Code Autocomplete",
-				"disabled": "Kilo Code Autocomplete (disabled)",
+				"basic": "Arcanea Autocomplete",
+				"disabled": "Arcanea Autocomplete (disabled)",
 				"tokenError": "A valid token must be set to use Autocomplete",
 				"lastCompletion": "Last suggestion:",
 				"sessionTotal": "Session total cost:",
@@ -78,37 +149,37 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"toggleMessage": "Arcanea Autocomplete {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Arcanea",
 			"analyzing": "Analyzing your code...",
 			"generating": "Generating suggested edits...",
 			"processing": "Processing suggested edits...",
 			"showing": "Displaying suggested edits..."
 		},
 		"input": {
-			"title": "Kilo Code: Quick Task",
+			"title": "Arcanea: Quick Task",
 			"placeholder": "e.g., 'refactor this function to be more efficient'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Generate Suggested Edits",
+			"generateSuggestions": "Arcanea: Generate Suggested Edits",
 			"displaySuggestions": "Display Suggested Edits",
 			"cancelSuggestions": "Cancel Suggested Edits",
 			"applyCurrentSuggestion": "Apply Current Suggested Edit",
 			"applyAllSuggestions": "Apply All Suggested Edits",
 			"promptCodeSuggestion": "Quick Task",
-			"category": "Kilo Code"
+			"category": "Arcanea"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Suggested Edits"
+			"title": "Arcanea: Suggested Edits"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "Arcanea Agent",
 			"name": "Agent",
 			"description": "I can help you with quick tasks and suggested edits."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "The Kilo Code Autocomplete is being blocked by a conflict with GitHub Copilot. To fix this, you must disable Copilot's inline suggestions.",
+			"message": "The Arcanea Autocomplete is being blocked by a conflict with GitHub Copilot. To fix this, you must disable Copilot's inline suggestions.",
 			"disableCopilot": "Disable Copilot",
 			"disableInlineAssist": "Disable Autocomplete"
 		}
@@ -120,13 +191,13 @@
 		"error": "Cannot show new changes, an error occured."
 	},
 	"terminalCommandGenerator": {
-		"tipMessage": "Kilo: Press {{shortcut}} to generate terminal commands",
-		"inputPrompt": "Kilo: Describe the command you want to generate",
+		"tipMessage": "Arcanea: Press {{shortcut}} to generate terminal commands",
+		"inputPrompt": "Arcanea: Describe the command you want to generate",
 		"inputPlaceholder": "e.g., kill the process running on port 3001, find large files, etc",
-		"noActiveTerminal": "Kilo: No active terminal found. Please open a terminal first.",
-		"generatingProgress": "Kilo: Generating terminal command...",
-		"commandGenerated": "Kilo: Generated command: {{command}}",
-		"generationFailed": "Kilo: Failed to generate command: {{error}}",
+		"noActiveTerminal": "Arcanea: No active terminal found. Please open a terminal first.",
+		"generatingProgress": "Arcanea: Generating terminal command...",
+		"commandGenerated": "Arcanea: Generated command: {{command}}",
+		"generationFailed": "Arcanea: Failed to generate command: {{error}}",
 		"warningDialog": {
 			"title": "Terminal Safety Warning",
 			"message": "Double-check all generated commands before running them. Terminal actions cannot always be undone— running unverified commands can result in irreversible data loss or system damage. Review and understand the command completely before proceeding!",

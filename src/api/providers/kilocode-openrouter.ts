@@ -1,3 +1,4 @@
+// ARCANEA: BYPASS - replaced by BYOK
 import { ApiHandlerOptions, ModelRecord } from "../../shared/api"
 import { CompletionUsage, OpenRouterHandler } from "./openrouter"
 import { getModelParams } from "../transform/model-params"

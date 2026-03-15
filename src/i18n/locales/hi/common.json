@@ -1,6 +1,6 @@
 {
 	"extension": {
-		"name": "Kilo Code",
+		"name": "Arcanea",
 		"description": "कोड की योजना बनाने, निर्माण करने और उसे ठीक करने के लिए ओपन सोर्स एआई कोडिंग सहायक।"
 	},
 	"number_format": {
@@ -94,7 +94,7 @@
 			"processExitedWithError": "Claude Code प्रक्रिया कोड {{exitCode}} के साथ समाप्त हुई। त्रुटि आउटपुट: {{output}}",
 			"stoppedWithReason": "Claude Code इस कारण से रुका: {{reason}}",
 			"apiKeyModelPlanMismatch": "API keys and subscription plans allow different models. Make sure the selected model is included in your plan.",
-			"notFound": "Claude Code executable '{{claudePath}}' not found.\n\nPlease install Claude Code CLI:\n1. Visit {{installationUrl}} to download Claude Code\n2. Follow the installation instructions for your operating system\n3. Ensure the 'claude' command is available in your PATH\n4. Alternatively, configure a custom path in Kilo Code settings under 'Claude Code Path'\n\nOriginal error: {{originalError}}"
+			"notFound": "Claude Code executable '{{claudePath}}' not found.\n\nPlease install Claude Code CLI:\n1. Visit {{installationUrl}} to download Claude Code\n2. Follow the installation instructions for your operating system\n3. Ensure the 'claude' command is available in your PATH\n4. Alternatively, configure a custom path in Arcanea settings under 'Claude Code Path'\n\nOriginal error: {{originalError}}"
 		},
 		"geminiCli": {
 			"oauthLoadFailed": "OAuth क्रेडेंशियल लोड करने में विफल। कृपया पहले प्रमाणीकरण करें: {{error}}",
@@ -147,7 +147,7 @@
 	"warnings": {
 		"no_terminal_content": "कोई टर्मिनल सामग्री चयनित नहीं",
 		"missing_task_files": "इस टास्क की फाइलें गायब हैं। क्या आप इसे टास्क सूची से हटाना चाहते हैं?",
-		"auto_import_failed": "Kilo Code सेटिंग्स का स्वचालित आयात विफल: {{error}}"
+		"auto_import_failed": "Arcanea सेटिंग्स का स्वचालित आयात विफल: {{error}}"
 	},
 	"info": {
 		"no_changes": "कोई परिवर्तन नहीं मिला।",
@@ -156,7 +156,7 @@
 		"custom_storage_path_set": "कस्टम स्टोरेज पाथ सेट किया गया: {{path}}",
 		"default_storage_path": "डिफ़ॉल्ट स्टोरेज पाथ का उपयोग पुनः शुरू किया गया",
 		"settings_imported": "सेटिंग्स सफलतापूर्वक इम्पोर्ट की गईं।",
-		"auto_import_success": "Kilo Code सेटिंग्स {{filename}} से स्वचालित रूप से आयात की गईं",
+		"auto_import_success": "Arcanea सेटिंग्स {{filename}} से स्वचालित रूप से आयात की गईं",
 		"share_link_copied": "साझा लिंक क्लिपबोर्ड पर कॉपी किया गया",
 		"image_copied_to_clipboard": "छवि डेटा URI क्लिपबोर्ड में कॉपी की गई",
 		"image_saved": "छवि {{path}} में सहेजी गई",
@@ -184,12 +184,12 @@
 	},
 	"storage": {
 		"prompt_custom_path": "वार्तालाप इतिहास के लिए कस्टम स्टोरेज पाथ दर्ज करें, डिफ़ॉल्ट स्थान का उपयोग करने के लिए खाली छोड़ दें",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "कृपया एक पूर्ण पाथ दर्ज करें (उदाहरण: D:\\KiloCodeStorage या /home/user/storage)",
+		"path_placeholder": "D:\\ArcaneaStorage",
+		"enter_absolute_path": "कृपया एक पूर्ण पाथ दर्ज करें (उदाहरण: D:\\ArcaneaStorage या /home/user/storage)",
 		"enter_valid_path": "कृपया एक वैध पाथ दर्ज करें"
 	},
 	"input": {
-		"task_prompt": "Kilo Code को क्या करना है?",
+		"task_prompt": "Arcanea को क्या करना है?",
 		"task_placeholder": "अपना कार्य यहाँ लिखें"
 	},
 	"settings": {
@@ -205,8 +205,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": ".kilocodemodes फ़ाइल में लाइन {{line}} पर अमान्य YAML। कृपया जांचें:\n• सही इंडेंटेशन (टैब नहीं, स्पेस का उपयोग करें)\n• मैचिंग कोट्स और ब्रैकेट्स\n• वैध YAML सिंटैक्स",
-			"schemaValidationError": ".kilocodemodes में अमान्य कस्टम मोड फॉर्मेट:\n{{issues}}",
+			"yamlParseError": ".arcaneamodes फ़ाइल में लाइन {{line}} पर अमान्य YAML। कृपया जांचें:\n• सही इंडेंटेशन (टैब नहीं, स्पेस का उपयोग करें)\n• मैचिंग कोट्स और ब्रैकेट्स\n• वैध YAML सिंटैक्स",
+			"schemaValidationError": ".arcaneamodes में अमान्य कस्टम मोड फॉर्मेट:\n{{issues}}",
 			"invalidFormat": "अमान्य कस्टम मोड फॉर्मेट। कृपया सुनिश्चित करें कि आपकी सेटिंग्स सही YAML फॉर्मेट का पालन करती हैं।",
 			"updateFailed": "कस्टम मोड अपडेट विफल: {{error}}",
 			"deleteFailed": "कस्टम मोड डिलीट विफल: {{error}}",

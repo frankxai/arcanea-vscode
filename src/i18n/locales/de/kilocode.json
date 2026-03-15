@@ -49,25 +49,25 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code Commit-Nachrichten-Generator aktiviert",
+		"activated": "Arcanea Commit-Nachrichten-Generator aktiviert",
 		"gitNotFound": "⚠️ Git-Repository nicht gefunden oder Git nicht verfügbar",
 		"gitInitError": "⚠️ Git-Initialisierungsfehler: {{error}}",
-		"generating": "Kilo: Generiere Commit-Nachricht...",
-		"noChanges": "Kilo: Keine Änderungen zum Analysieren gefunden",
-		"generated": "Kilo: Commit-Nachricht generiert!",
-		"generationFailed": "Kilo: Fehler beim Generieren der Commit-Nachricht: {{errorMessage}}",
-		"generatingFromUnstaged": "Kilo: Nachricht mit nicht bereitgestellten Änderungen generieren",
-		"activationFailed": "Kilo: Der Nachrichtengenerator konnte nicht aktiviert werden: {{error}}",
-		"providerRegistered": "Kilo: Commit-Nachrichtenanbieter registriert"
+		"generating": "Arcanea: Generiere Commit-Nachricht...",
+		"noChanges": "Arcanea: Keine Änderungen zum Analysieren gefunden",
+		"generated": "Arcanea: Commit-Nachricht generiert!",
+		"generationFailed": "Arcanea: Fehler beim Generieren der Commit-Nachricht: {{errorMessage}}",
+		"generatingFromUnstaged": "Arcanea: Nachricht mit nicht bereitgestellten Änderungen generieren",
+		"activationFailed": "Arcanea: Der Nachrichtengenerator konnte nicht aktiviert werden: {{error}}",
+		"providerRegistered": "Arcanea: Commit-Nachrichtenanbieter registriert"
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Kilo Code Autocomplete",
-			"disabled": "$(circle-slash) Kilo Code Autocomplete",
-			"warning": "$(warning) Kilo Code Autocomplete",
+			"enabled": "$(sparkle) Arcanea Autocomplete",
+			"disabled": "$(circle-slash) Arcanea Autocomplete",
+			"warning": "$(warning) Arcanea Autocomplete",
 			"tooltip": {
-				"basic": "Kilo Code Autocomplete",
-				"disabled": "Kilo Code Autocomplete (deaktiviert)",
+				"basic": "Arcanea Autocomplete",
+				"disabled": "Arcanea Autocomplete (deaktiviert)",
 				"tokenError": "Ein gültiger Token muss gesetzt werden, um Autocomplete zu verwenden",
 				"lastCompletion": "Letzter Vorschlag:",
 				"sessionTotal": "Sitzungsgesamtkosten:",
@@ -78,55 +78,55 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"toggleMessage": "Arcanea Autocomplete {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Arcanea",
 			"analyzing": "Analysiere deinen Code...",
 			"generating": "Generiere Bearbeitungsvorschläge...",
 			"processing": "Verarbeite Bearbeitungsvorschläge...",
 			"showing": "Zeige Bearbeitungsvorschläge..."
 		},
 		"input": {
-			"title": "Kilo Code: Schnellaufgabe",
+			"title": "Arcanea: Schnellaufgabe",
 			"placeholder": "z.B. 'refaktoriere diese Funktion für mehr Effizienz'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Bearbeitungsvorschläge generieren",
+			"generateSuggestions": "Arcanea: Bearbeitungsvorschläge generieren",
 			"displaySuggestions": "Bearbeitungsvorschläge anzeigen",
 			"cancelSuggestions": "Bearbeitungsvorschläge abbrechen",
 			"applyCurrentSuggestion": "Aktuellen Bearbeitungsvorschlag anwenden",
 			"applyAllSuggestions": "Alle Bearbeitungsvorschläge anwenden",
 			"promptCodeSuggestion": "Schnellaufgabe",
-			"category": "Kilo Code"
+			"category": "Arcanea"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Bearbeitungsvorschläge"
+			"title": "Arcanea: Bearbeitungsvorschläge"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "Arcanea Agent",
 			"name": "Agent",
 			"description": "Ich kann dir bei Schnellaufgaben und Bearbeitungsvorschlägen helfen."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Das Kilo Code Autocomplete wird durch einen Konflikt mit GitHub Copilot blockiert. Um dies zu beheben, musst du Copilots Inline-Vorschläge deaktivieren.",
+			"message": "Das Arcanea Autocomplete wird durch einen Konflikt mit GitHub Copilot blockiert. Um dies zu beheben, musst du Copilots Inline-Vorschläge deaktivieren.",
 			"disableCopilot": "Copilot deaktivieren",
 			"disableInlineAssist": "Autocomplete deaktivieren"
 		}
 	},
 	"terminalCommandGenerator": {
-		"inputPrompt": "Kilo: Beschreibe den Befehl, den du generieren möchtest",
-		"generatingProgress": "Kilo: Terminal-Befehl wird generiert...",
-		"noActiveTerminal": "Kilo: Kein aktives Terminal gefunden. Bitte öffne zuerst ein Terminal.",
+		"inputPrompt": "Arcanea: Beschreibe den Befehl, den du generieren möchtest",
+		"generatingProgress": "Arcanea: Terminal-Befehl wird generiert...",
+		"noActiveTerminal": "Arcanea: Kein aktives Terminal gefunden. Bitte öffne zuerst ein Terminal.",
 		"inputPlaceholder": "z.B. den Prozess beenden, der auf Port 3001 läuft, große Dateien finden, usw.",
-		"generationFailed": "Kilo: Fehler beim Generieren des Befehls: {{error}}",
-		"commandGenerated": "Kilo: Generierter Befehl: {{command}}",
+		"generationFailed": "Arcanea: Fehler beim Generieren des Befehls: {{error}}",
+		"commandGenerated": "Arcanea: Generierter Befehl: {{command}}",
 		"warningDialog": {
 			"okButton": "Ich verstehe",
 			"title": "Sicherheitswarnung für das Terminal",
 			"message": "Überprüfe alle generierten Befehle doppelt, bevor du sie ausführst. Terminal-Aktionen können nicht immer rückgängig gemacht werden - das Ausführen ungeprüfter Befehle kann zu irreversiblem Datenverlust oder Systemschäden führen. Überprüfe und verstehe den Befehl vollständig, bevor du fortfährst!",
 			"cancelButton": "Abbrechen"
 		},
-		"tipMessage": "Kilo: Drücke {{shortcut}}, um Terminal-Befehle zu generieren"
+		"tipMessage": "Arcanea: Drücke {{shortcut}}, um Terminal-Befehle zu generieren"
 	},
 	"seeNewChanges": {
 		"title": "Zeige neue Änderungen",

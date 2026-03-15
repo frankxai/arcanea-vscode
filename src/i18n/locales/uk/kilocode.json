@@ -49,25 +49,25 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Генератор повідомлень коммітів Kilo Code активовано",
+		"activated": "Генератор повідомлень коммітів Arcanea активовано",
 		"gitNotFound": "⚠️ Репозиторій Git не знайдено або git недоступний",
 		"gitInitError": "⚠️ Помилка ініціалізації Git: {{error}}",
-		"generating": "Kilo: Генерування повідомлення комміту...",
-		"noChanges": "Kilo: Змін для аналізу не знайдено",
-		"generated": "Kilo: Повідомлення комміту згенеровано!",
-		"generationFailed": "Kilo: Помилка генерації повідомлення комміту: {{errorMessage}}",
-		"generatingFromUnstaged": "Kilo: Генерація повідомлення з використанням незафіксованих змін",
-		"activationFailed": "Kilo: Не вдалося активувати генератор повідомлень: {{error}}",
-		"providerRegistered": "Kilo: Постачальник повідомлень коммітів зареєстровано"
+		"generating": "Arcanea: Генерування повідомлення комміту...",
+		"noChanges": "Arcanea: Змін для аналізу не знайдено",
+		"generated": "Arcanea: Повідомлення комміту згенеровано!",
+		"generationFailed": "Arcanea: Помилка генерації повідомлення комміту: {{errorMessage}}",
+		"generatingFromUnstaged": "Arcanea: Генерація повідомлення з використанням незафіксованих змін",
+		"activationFailed": "Arcanea: Не вдалося активувати генератор повідомлень: {{error}}",
+		"providerRegistered": "Arcanea: Постачальник повідомлень коммітів зареєстровано"
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Kilo Code Autocomplete",
-			"disabled": "$(circle-slash) Kilo Code Autocomplete",
-			"warning": "$(warning) Kilo Code Autocomplete",
+			"enabled": "$(sparkle) Arcanea Autocomplete",
+			"disabled": "$(circle-slash) Arcanea Autocomplete",
+			"warning": "$(warning) Arcanea Autocomplete",
 			"tooltip": {
-				"basic": "Kilo Code Autocomplete",
-				"disabled": "Kilo Code Autocomplete (вимкнено)",
+				"basic": "Arcanea Autocomplete",
+				"disabled": "Arcanea Autocomplete (вимкнено)",
 				"tokenError": "Для використання Autocomplete потрібно встановити дійсний токен",
 				"lastCompletion": "Остання пропозиція:",
 				"sessionTotal": "Загальна вартість сесії:",
@@ -78,55 +78,55 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"toggleMessage": "Arcanea Autocomplete {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Arcanea",
 			"analyzing": "Аналізую твій код...",
 			"generating": "Генерую запропоновані правки...",
 			"processing": "Обробляю запропоновані правки...",
 			"showing": "Показую запропоновані правки..."
 		},
 		"input": {
-			"title": "Kilo Code: Швидке Завдання",
+			"title": "Arcanea: Швидке Завдання",
 			"placeholder": "напр., 'рефактори цю функцію для більшої ефективності'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: Генерувати Запропоновані Правки",
+			"generateSuggestions": "Arcanea: Генерувати Запропоновані Правки",
 			"displaySuggestions": "Показати Запропоновані Правки",
 			"cancelSuggestions": "Скасувати Запропоновані Правки",
 			"applyCurrentSuggestion": "Застосувати Поточну Запропоновану Правку",
 			"applyAllSuggestions": "Застосувати Всі Запропоновані Правки",
 			"promptCodeSuggestion": "Швидке Завдання",
-			"category": "Kilo Code"
+			"category": "Arcanea"
 		},
 		"codeAction": {
-			"title": "Kilo Code: Запропоновані Правки"
+			"title": "Arcanea: Запропоновані Правки"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "Arcanea Agent",
 			"name": "Agent",
 			"description": "Я можу допомогти тобі зі швидкими завданнями та запропонованими правками."
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code Autocomplete блокується конфліктом з GitHub Copilot. Щоб виправити це, ти повинен вимкнути вбудовані пропозиції Copilot.",
+			"message": "Arcanea Autocomplete блокується конфліктом з GitHub Copilot. Щоб виправити це, ти повинен вимкнути вбудовані пропозиції Copilot.",
 			"disableCopilot": "Вимкнути Copilot",
 			"disableInlineAssist": "Вимкнути Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {
-		"inputPrompt": "Kilo: Опишіть команду, яку ви хочете згенерувати",
+		"inputPrompt": "Arcanea: Опишіть команду, яку ви хочете згенерувати",
 		"inputPlaceholder": "напр., завершити процес на порту 3001, знайти великі файли і т.д.",
-		"noActiveTerminal": "Kilo: Не знайдено активного терміналу. Будь ласка, спочатку відкрийте термінал.",
-		"generatingProgress": "Kilo: Генерування команди терміналу...",
-		"commandGenerated": "Kilo: Згенерована команда: {{command}}",
-		"generationFailed": "Kilo: Не вдалося згенерувати команду: {{error}}",
+		"noActiveTerminal": "Arcanea: Не знайдено активного терміналу. Будь ласка, спочатку відкрийте термінал.",
+		"generatingProgress": "Arcanea: Генерування команди терміналу...",
+		"commandGenerated": "Arcanea: Згенерована команда: {{command}}",
+		"generationFailed": "Arcanea: Не вдалося згенерувати команду: {{error}}",
 		"warningDialog": {
 			"title": "Попередження щодо Безпеки Терміналу",
 			"okButton": "Я розумію",
 			"message": "Перевіряйте двічі всі згенеровані команди перед їх запуском. Дії в терміналі не завжди можна скасувати — запуск неперевірених команд може призвести до незворотної втрати даних або пошкодження системи. Перегляньте та повністю зрозумійте команду перед тим, як продовжити!",
 			"cancelButton": "Скасувати"
 		},
-		"tipMessage": "Kilo: Натисніть {{shortcut}}, щоб генерувати команди терміналу"
+		"tipMessage": "Arcanea: Натисніть {{shortcut}}, щоб генерувати команди терміналу"
 	},
 	"seeNewChanges": {
 		"title": "Показ нових змін",

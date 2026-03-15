@@ -49,16 +49,16 @@
 		}
 	},
 	"commitMessage": {
-		"activated": "Kilo Code: 提交信息生成器已启动",
+		"activated": "Arcanea: 提交信息生成器已启动",
 		"gitNotFound": "⚠️ Git 仓库未找到或 git 不可用",
 		"gitInitError": "⚠️ Git 初始化错误：{{error}}",
-		"generating": "Kilo: 正在生成提交信息...",
-		"noChanges": "Kilo: 未发现可分析的更改",
-		"generated": "Kilo: 已生成提交信息！",
-		"generationFailed": "Kilo：生成提交信息失败：{{errorMessage}}",
-		"generatingFromUnstaged": "Kilo：使用未暂存的更改生成消息",
-		"providerRegistered": "Kilo：提交消息提供程序已注册",
-		"activationFailed": "Kilo：消息生成器激活失败：{{error}}"
+		"generating": "Arcanea: 正在生成提交信息...",
+		"noChanges": "Arcanea: 未发现可分析的更改",
+		"generated": "Arcanea: 已生成提交信息！",
+		"generationFailed": "Arcanea：生成提交信息失败：{{errorMessage}}",
+		"generatingFromUnstaged": "Arcanea：使用未暂存的更改生成消息",
+		"providerRegistered": "Arcanea：提交消息提供程序已注册",
+		"activationFailed": "Arcanea：消息生成器激活失败：{{error}}"
 	},
 	"seeNewChanges": {
 		"title": "显示新更改",
@@ -68,12 +68,12 @@
 	},
 	"ghost": {
 		"statusBar": {
-			"enabled": "$(sparkle) Kilo Code Autocomplete",
-			"disabled": "$(circle-slash) Kilo Code Autocomplete",
-			"warning": "$(warning) Kilo Code Autocomplete",
+			"enabled": "$(sparkle) Arcanea Autocomplete",
+			"disabled": "$(circle-slash) Arcanea Autocomplete",
+			"warning": "$(warning) Arcanea Autocomplete",
 			"tooltip": {
-				"basic": "Kilo Code Autocomplete",
-				"disabled": "Kilo Code Autocomplete（已禁用）",
+				"basic": "Arcanea Autocomplete",
+				"disabled": "Arcanea Autocomplete（已禁用）",
 				"tokenError": "必须设置有效 Token 才能使用 Autocomplete",
 				"lastCompletion": "最后建议:",
 				"sessionTotal": "会话总费用:",
@@ -84,54 +84,54 @@
 				"lessThanCent": "<$0.01"
 			}
 		},
-		"toggleMessage": "Kilo Code Autocomplete {{status}}",
+		"toggleMessage": "Arcanea Autocomplete {{status}}",
 		"progress": {
-			"title": "Kilo Code",
+			"title": "Arcanea",
 			"analyzing": "正在分析你的代码...",
 			"generating": "正在生成建议编辑...",
 			"processing": "正在处理建议编辑...",
 			"showing": "正在显示建议编辑..."
 		},
 		"input": {
-			"title": "Kilo Code: 快速任务",
+			"title": "Arcanea: 快速任务",
 			"placeholder": "例如：'重构这个函数使其更高效'"
 		},
 		"commands": {
-			"generateSuggestions": "Kilo Code: 生成建议编辑",
+			"generateSuggestions": "Arcanea: 生成建议编辑",
 			"displaySuggestions": "显示建议编辑",
 			"cancelSuggestions": "取消建议编辑",
 			"applyCurrentSuggestion": "应用当前建议编辑",
 			"applyAllSuggestions": "应用所有建议编辑",
 			"promptCodeSuggestion": "快速任务",
-			"category": "Kilo Code"
+			"category": "Arcanea"
 		},
 		"codeAction": {
-			"title": "Kilo Code: 建议编辑"
+			"title": "Arcanea: 建议编辑"
 		},
 		"chatParticipant": {
-			"fullName": "Kilo Code Agent",
+			"fullName": "Arcanea Agent",
 			"name": "Agent",
 			"description": "我可以帮助你完成快速任务和建议编辑。"
 		},
 		"incompatibilityExtensionPopup": {
-			"message": "Kilo Code Autocomplete 被与 GitHub Copilot 的冲突阻止。要解决此问题，你必须禁用 Copilot 的内联建议。",
+			"message": "Arcanea Autocomplete 被与 GitHub Copilot 的冲突阻止。要解决此问题，你必须禁用 Copilot 的内联建议。",
 			"disableCopilot": "禁用 Copilot",
 			"disableInlineAssist": "禁用 Autocomplete"
 		}
 	},
 	"terminalCommandGenerator": {
-		"inputPrompt": "Kilo：描述您想要生成的命令",
+		"inputPrompt": "Arcanea：描述您想要生成的命令",
 		"inputPlaceholder": "例如，终止在3001端口上运行的进程，查找大文件等",
-		"noActiveTerminal": "Kilo：未找到活动终端。请先打开一个终端。",
-		"generatingProgress": "Kilo：正在生成终端命令...",
-		"commandGenerated": "Kilo：生成的命令：{{command}}",
-		"generationFailed": "Kilo：命令生成失败：{{error}}",
+		"noActiveTerminal": "Arcanea：未找到活动终端。请先打开一个终端。",
+		"generatingProgress": "Arcanea：正在生成终端命令...",
+		"commandGenerated": "Arcanea：生成的命令：{{command}}",
+		"generationFailed": "Arcanea：命令生成失败：{{error}}",
 		"warningDialog": {
 			"title": "终端安全警告",
 			"message": "在运行生成的命令之前请再次检查。终端操作并非总是可以撤销——运行未经验证的命令可能导致不可逆转的数据丢失或系统损坏。在继续操作前，请完全理解并检查命令！",
 			"okButton": "我明白",
 			"cancelButton": "取消"
 		},
-		"tipMessage": "Kilo Code: 按下 {{shortcut}} 生成终端命令"
+		"tipMessage": "Arcanea: 按下 {{shortcut}} 生成终端命令"
 	}
 }

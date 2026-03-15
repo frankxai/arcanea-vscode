@@ -1,6 +1,6 @@
 {
 	"extension": {
-		"name": "Kilo Code",
+		"name": "Arcanea",
 		"description": "Assistant de codage d'IA Open Source pour la planification, la création et la correction de code."
 	},
 	"number_format": {
@@ -94,7 +94,7 @@
 			"processExitedWithError": "Le processus Claude Code s'est terminé avec le code {{exitCode}}. Sortie d'erreur : {{output}}",
 			"stoppedWithReason": "Claude Code s'est arrêté pour la raison : {{reason}}",
 			"apiKeyModelPlanMismatch": "Les clés API et les plans d'abonnement permettent différents modèles. Assurez-vous que le modèle sélectionné est inclus dans votre plan.",
-			"notFound": "Exécutable Claude Code '{{claudePath}}' introuvable.\n\nVeuillez installer Claude Code CLI :\n1. Visitez {{installationUrl}} pour télécharger Claude Code\n2. Suivez les instructions d'installation pour votre système d'exploitation\n3. Assurez-vous que la commande 'claude' est disponible dans votre PATH\n4. Alternativement, configurez un chemin personnalisé dans les paramètres Kilo Code sous 'Chemin de Claude Code'\n\nErreur originale : {{originalError}}"
+			"notFound": "Exécutable Claude Code '{{claudePath}}' introuvable.\n\nVeuillez installer Claude Code CLI :\n1. Visitez {{installationUrl}} pour télécharger Claude Code\n2. Suivez les instructions d'installation pour votre système d'exploitation\n3. Assurez-vous que la commande 'claude' est disponible dans votre PATH\n4. Alternativement, configurez un chemin personnalisé dans les paramètres Arcanea sous 'Chemin de Claude Code'\n\nErreur originale : {{originalError}}"
 		},
 		"geminiCli": {
 			"oauthLoadFailed": "Échec du chargement des identifiants OAuth. Veuillez vous authentifier d'abord : {{error}}",
@@ -147,7 +147,7 @@
 	"warnings": {
 		"no_terminal_content": "Aucun contenu de terminal sélectionné",
 		"missing_task_files": "Les fichiers de cette tâche sont introuvables. Souhaitez-vous la supprimer de la liste des tâches ?",
-		"auto_import_failed": "Échec de l'importation automatique des paramètres Kilo Code : {{error}}"
+		"auto_import_failed": "Échec de l'importation automatique des paramètres Arcanea : {{error}}"
 	},
 	"info": {
 		"no_changes": "Aucun changement trouvé.",
@@ -156,7 +156,7 @@
 		"custom_storage_path_set": "Chemin de stockage personnalisé défini : {{path}}",
 		"default_storage_path": "Retour au chemin de stockage par défaut",
 		"settings_imported": "Paramètres importés avec succès.",
-		"auto_import_success": "Paramètres Kilo Code importés automatiquement depuis {{filename}}",
+		"auto_import_success": "Paramètres Arcanea importés automatiquement depuis {{filename}}",
 		"share_link_copied": "Lien de partage copié dans le presse-papiers",
 		"image_copied_to_clipboard": "URI de données d'image copiée dans le presse-papiers",
 		"image_saved": "Image enregistrée dans {{path}}",
@@ -184,12 +184,12 @@
 	},
 	"storage": {
 		"prompt_custom_path": "Entrez le chemin de stockage personnalisé pour l'historique des conversations, laissez vide pour utiliser l'emplacement par défaut",
-		"path_placeholder": "D:\\KiloCodeStorage",
-		"enter_absolute_path": "Veuillez entrer un chemin absolu (ex. D:\\KiloCodeStorage ou /home/user/storage)",
+		"path_placeholder": "D:\\ArcaneaStorage",
+		"enter_absolute_path": "Veuillez entrer un chemin absolu (ex. D:\\ArcaneaStorage ou /home/user/storage)",
 		"enter_valid_path": "Veuillez entrer un chemin valide"
 	},
 	"input": {
-		"task_prompt": "Que doit faire Kilo Code?",
+		"task_prompt": "Que doit faire Arcanea?",
 		"task_placeholder": "Écrivez votre tâche ici"
 	},
 	"settings": {
@@ -205,8 +205,8 @@
 	},
 	"customModes": {
 		"errors": {
-			"yamlParseError": "YAML invalide dans le fichier .kilocodemodes à la ligne {{line}}. Vérifier :\n• L'indentation correcte (utilise des espaces, pas de tabulations)\n• Les guillemets et crochets correspondants\n• La syntaxe YAML valide",
-			"schemaValidationError": "Format invalide des modes personnalisés dans .kilocodemodes :\n{{issues}}",
+			"yamlParseError": "YAML invalide dans le fichier .arcaneamodes à la ligne {{line}}. Vérifier :\n• L'indentation correcte (utilise des espaces, pas de tabulations)\n• Les guillemets et crochets correspondants\n• La syntaxe YAML valide",
+			"schemaValidationError": "Format invalide des modes personnalisés dans .arcaneamodes :\n{{issues}}",
 			"invalidFormat": "Format invalide des modes personnalisés. Assurez-vous que vos paramètres suivent le format YAML correct.",
 			"updateFailed": "Échec de la mise à jour du mode personnalisé : {{error}}",
 			"deleteFailed": "Échec de la suppression du mode personnalisé : {{error}}",

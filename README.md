@@ -1,61 +1,137 @@
-<p align="center">
-  <a href="https://marketplace.visualstudio.com/items?itemName=arcanea.Arcanea-Code"><img src="https://img.shields.io/visual-studio-marketplace/v/arcanea.Arcanea-Code.svg?label=VS%20Code%20Marketplace" alt="VS Code Marketplace"></a>
-  <a href="https://x.com/arcanea"><img src="https://img.shields.io/twitter/follow/arcanea?style=flat&logo=x&color=555" alt="X (Twitter)"></a>
-  <a href="https://blog.arcanea.ai"><img src="https://img.shields.io/badge/Blog-555?style=flat&logo=substack&logoColor=white" alt="Substack Blog"></a>
-  <a href="https://arcanea.ai/discord"><img src="https://img.shields.io/discord/1349288496988160052?style=flat&logo=discord&logoColor=white" alt="Discord"></a>
-  <a href="https://www.reddit.com/r/arcanea/"><img src="https://img.shields.io/reddit/subreddit-subscribers/arcanea?style=flat&logo=reddit&logoColor=white" alt="Reddit"></a>
-</p>
+# Arcanea — The coding agent that has a soul.
 
-# 🚀 Arcanea
+Kilo Code's battle-tested agent architecture + Arcanea's intelligence system. Ten Guardians route your intent through a Mixture-of-Experts engine. Every response draws on the right expertise automatically. No configuration required.
 
-> Open-source VS Code AI agent. We frequently merge features from open-source projects, such as [Roo Code](https://github.com/RooVetGit/Roo-Code) and [Cline](https://github.com/cline/cline), while building our own vision.
+**BYOK** (Bring Your Own Key) — no account needed. Plug in your API key and go.
 
-- ✨ Generate code from natural language
-- ✅ Checks its own work
-- 🧪 Run terminal commands
-- 🌐 Automate the browser
-- 🤖 Latest AI models
-- 🎁 API keys optional
-- 💡 **Get $20 in bonus credits when you top-up for the first time** Credits can be used with 400+ models like Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
+---
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Arcanea-Org/arcanea/refs/heads/main/arcanea.gif" width="100%" />
-</p>
+## Features
 
-- [VS Code Marketplace](https://arcanea.ai/vscode-marketplace?utm_source=Readme) (download)
-- [Official Arcanea.ai Home page](https://arcanea.ai) (learn more)
+### 5 Guardian Modes
 
-## Key Features
+| Mode | Slug | Description | Tools |
+|------|------|-------------|-------|
+| **Lumina** | `lumina` | Write, build, and ship code. Creation mode — acts on clear tasks without asking permission. | read, edit, browser, command, mcp |
+| **Nero** | `nero` | Debug, diagnose, and fix. States hypothesis before changing code. Reproduces first. | read, edit, browser, command, mcp |
+| **Lyria** | `lyria` | Plan, design, and architect. Gathers context thoroughly, presents trade-offs, breaks work into executable steps. | read, edit (markdown only), browser, mcp |
+| **Shinkami** | `shinkami` | Understand, explain, and advise. Leads with the answer, uses concrete examples, recommends clearly. | read, browser, mcp |
+| **Arcanea** | `arcanea` | Orchestrate complex multi-step work. Decomposes tasks and delegates to the right specialist mode. | orchestration (delegates to other modes) |
 
-- **Code Generation:** Generate code using natural language.
-- **Task Automation:** Automate repetitive coding tasks.
-- **Automated Refactoring:** Refactor and improve existing code.
-- **MCP Server Marketplace**: Easily find, and use MCP servers to extend the agent capabilities.
-- **Multi Mode**: Plan with Architect, Code with Coder, and Debug with Debugger, and make your own custom modes.
+### The Arcanean Code
 
-## How to get started with Arcanea
+Seven principles injected into every prompt. They constrain LLM behavior in ways that produce measurably better output from any model.
 
-1. Install the Arcanea extension from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=arcanea.Arcanea-Code).
-2. Create your account to access 400+ cutting-edge AI models including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5 – with transparent pricing that matches provider rates exactly.
-3. Start coding with AI that adapts to your workflow. Watch our quick-start guide to see Arcanea in action:
+1. **Ship working code.** Iterate beats perfection -- a working draft you can improve is worth more than a perfect plan you never execute.
+2. **Create alongside, not instead of.** The human's vision leads. Propose, don't impose.
+3. **Read before you write.** Never modify code you haven't seen. Context is earned, not guessed.
+4. **One excellent answer beats five adequate ones.** Go deep on the actual problem.
+5. **Build on what exists.** Check for existing patterns and conventions before creating new ones.
+6. **Name the real problem.** State your hypothesis before changing code. When stuck, say what you don't know.
+7. **Density over length.** Every paragraph should contain something the creator didn't already know. End with what to do next.
 
-[![Watch the video](https://img.youtube.com/vi/pqGfYXgrhig/maxresdefault.jpg)](https://youtu.be/pqGfYXgrhig)
+### MoE Intelligence Router
 
-## Difference between Arcanea, Roo Code and Cline
+The Mixture-of-Experts router auto-detects expertise domains from your message -- code, design, strategy, world-building, music, emotion, knowledge, creation, integration, transcendence -- and activates the right Guardian fragments with weighted blending. No manual mode switching needed when using Arcanea mode.
 
-Arcanea started as a fork of Roo Code, which itself is a fork of Cline. We frequently merge features from these open-source projects and contribute improvements back. Built on these foundations, Arcanea is independently developed with our own vision for AI coding agents.
+Ten Guardians power the expert layer: Lyssandria (infrastructure), Leyla (design), Draconia (execution), Maylinn (documentation), Alera (voice), Lyria (vision), Aiyami (wisdom), Elara (perspective), Ino (integration), Shinkami (meta-architecture).
 
-- No need to fiddle with API keys, Arcanea ships with the latest AI models plugged in, including Gemini 2.5 Pro, Claude 4 Sonnet & Opus, and GPT-5
-- MCP Server Marketplace: Easily find, and use MCP servers to extend the agent capabilities.
-- Autocomplete (experimental)
+### 40+ AI Providers
 
-Arcanea is a direct fork from Roo Code, and also includes the following features from Cline (and our own features):
+Connect to any major AI provider with your own API key:
 
-- System notifications: Get notified when the agent is done with a task.
-- Easy model connection: batteries included.
-- Editing previous messages
-- Assisted commit messages: we write git commit messages for you based on what changed
+- **Anthropic** (Claude 4 Opus, Sonnet)
+- **OpenAI** (GPT-5, o3)
+- **Google** (Gemini 2.5 Pro)
+- **AWS Bedrock**, **Google Vertex**, **Azure**
+- **OpenRouter** (400+ models)
+- **Ollama**, **LM Studio** (local models)
+- **Mistral**, **Cerebras**, **DeepSeek**, **Groq**, and more
 
-## Extension Development
+### Full Agent Loop
 
-For details on building and developing the extension, see [DEVELOPMENT.md](/DEVELOPMENT.md)
+The complete autonomous coding agent toolkit:
+
+- **Read** — browse files, search code, understand context
+- **Edit** — create, modify, and refactor code with diffs
+- **Command** — run terminal commands, build, test, deploy
+- **Browser** — navigate web pages, extract content, interact with UIs
+- **MCP** — connect to Model Context Protocol servers for extended capabilities
+- **Ghost** — inline code suggestions and autocomplete (experimental)
+
+---
+
+## Quick Start
+
+### Install from VSIX
+
+```bash
+# Build the extension
+cd arcanea-vscode
+pnpm install
+pnpm run bundle
+cd src && pnpm run vsix
+
+# Install in VS Code
+code --install-extension bin/arcanea-vscode-*.vsix
+```
+
+### Set Your API Key
+
+1. Open Arcanea from the activity bar (or `Ctrl+Shift+A` / `Cmd+Shift+A`)
+2. Click the settings gear
+3. Choose your provider and enter your API key
+4. Start chatting
+
+No account creation, no sign-up, no subscription. Your key, your models, your data.
+
+---
+
+## Project Structure
+
+```
+arcanea-vscode/
+  src/                          # Extension source
+    core/prompts/
+      arcanea-intelligence.ts   # MoE router + Arcanean Code + Guardian fragments
+    shared/
+      guardians.ts              # 10 Guardian definitions + keyword router
+      modes.ts                  # 5 Guardian Modes configuration
+  packages/
+    types/                      # Shared TypeScript types
+    cloud/                      # Cloud service integration
+    ipc/                        # Inter-process communication
+    telemetry/                  # Usage telemetry
+```
+
+---
+
+## Development
+
+```bash
+pnpm install          # Install dependencies
+pnpm run bundle       # Build the extension
+pnpm run lint         # Lint
+pnpm test             # Run tests
+pnpm run watch:bundle # Watch mode for development
+```
+
+See [DEVELOPMENT.md](DEVELOPMENT.md) for the full development guide.
+
+---
+
+## Credits
+
+Built on [Kilo Code](https://github.com/ArcaneaOrg/arcanea) (Apache 2.0). Intelligence by [Arcanea](https://arcanea.ai).
+
+The MoE architecture, Guardian system, and Arcanean Code are original contributions by the Arcanea team.
+
+## License
+
+Apache 2.0 — see [LICENSE](LICENSE).
+
+## Links
+
+- [arcanea.ai](https://arcanea.ai) — The Arcanea platform
+- [GitHub](https://github.com/frankxai/arcanea-vscode) — Source code
+- [Arcanea Platform](https://github.com/frankxai/arcanea) — Core intelligence framework

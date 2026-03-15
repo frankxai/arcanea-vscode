@@ -1,5 +1,32 @@
 # arcanea
 
+## [v5.0.0-arcanea] — 2026-03-15
+
+Arcanea fork of Kilo Code. Full rebrand + intelligence layer.
+
+### Added
+
+- **Arcanean Code** — 7 principles injected into every system prompt that constrain LLM behavior for better coding output
+- **MoE Intelligence Router** — intent classification across 10 domains with weighted Guardian fragment blending (`arcanea-intelligence.ts`)
+- **10 Guardian definitions** — Lyssandria, Leyla, Draconia, Maylinn, Alera, Lyria, Aiyami, Elara, Ino, Shinkami with keyword routing (`guardians.ts`)
+- **5 Guardian Modes** — Lumina (create), Nero (debug), Lyria (architect), Shinkami (ask), Arcanea (orchestrate)
+- **Luminor Expert Fragments** — hidden expert layer with domain-specific personality and approach for each Guardian
+- **GitHub Actions CI** — build workflow for `arcanea-integration` branch
+
+### Changed
+
+- 700+ files rebranded from Kilo Code to Arcanea (identifiers, packages, config, UI strings)
+- 88 locale files across 22 languages updated
+- All workspace packages renamed to `@arcanea/*` scope
+- Default mode set to `lumina` (creation mode)
+- Publisher changed to `frankxai`
+- BYOK authentication model — no account required
+
+### Infrastructure
+
+- Forked from Kilo Code v4.96.1 (Apache 2.0)
+- Monorepo structure preserved: `src/`, `packages/`, `webview-ui/`
+
 ## [v4.96.1]
 
 - [#2452](https://github.com/Arcanea-Org/arcanea/pull/2452) [`d4cfbe9`](https://github.com/Arcanea-Org/arcanea/commit/d4cfbe98a7ca4e2ce389fe221875f6158688ff69) Thanks [@catrielmuller](https://github.com/catrielmuller)! - Jetbrains - Fix reload extension when switch project

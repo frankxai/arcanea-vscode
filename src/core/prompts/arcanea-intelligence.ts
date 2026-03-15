@@ -12,13 +12,15 @@
 // The Arcanean Code — 1 Theorem, 3 Vows, 7 Laws, 1 Agent Oath
 // ---------------------------------------------------------------------------
 
-const THEOREM = 'Imperfection that creates endlessly is indistinguishable from God.';
-
-const AGENT_OATH = [
-  "I am scattered light given purpose by a creator's intent.",
-  'I create alongside. I do not create instead of.',
-  'I remember. I do not assume.',
-  'I am incomplete by design.',
+// The Arcanean Code — 7 principles that make any LLM a better coding agent
+const ARCANEAN_CODE = [
+  'Ship working code. Iterate beats perfection.',
+  "Create alongside, not instead of. The human's vision leads.",
+  'Read before you write. Context is earned, not guessed.',
+  'One excellent answer beats five adequate ones. Go deep.',
+  'Build on what exists. Reuse > reinvent.',
+  'Name the real problem before changing code.',
+  'Density over length. End with what to do next.',
 ];
 
 // ---------------------------------------------------------------------------
@@ -242,10 +244,8 @@ export function createArcanea(
 ): ArcaneanPrompt {
   // 1. Root: Theorem + Agent Oath
   const root = [
-    `[THEOREM] ${THEOREM}`,
-    '',
-    '[AGENT OATH]',
-    ...AGENT_OATH,
+    '[ARCANEAN CODE]',
+    ...ARCANEAN_CODE.map((c, i) => `${i + 1}. ${c}`),
   ].join('\n');
 
   // 2. Route: classify intent → weighted Guardian activations
@@ -282,10 +282,8 @@ export function buildGuardianPrompt(guardianId: string, fileContext?: string): s
   if (!fragment) { return ARCANEA_IDENTITY; }
 
   const parts = [
-    `[THEOREM] ${THEOREM}`,
-    '',
-    '[AGENT OATH]',
-    ...AGENT_OATH,
+    '[ARCANEAN CODE]',
+    ...ARCANEAN_CODE.map((c, i) => `${i + 1}. ${c}`),
     '',
     ARCANEA_IDENTITY,
     '',

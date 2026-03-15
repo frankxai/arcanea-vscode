@@ -35,9 +35,9 @@ import {
 	isInteractiveAsk,
 	isResumableAsk,
 	QueuedMessage,
-} from "@roo-code/types"
-import { TelemetryService } from "@roo-code/telemetry"
-import { CloudService, BridgeOrchestrator } from "@roo-code/cloud"
+} from "@arcanea/types"
+import { TelemetryService } from "@arcanea/telemetry"
+import { CloudService, BridgeOrchestrator } from "@arcanea/cloud"
 
 // api
 import { ApiHandler, ApiHandlerCreateMessageMetadata, buildApiHandler } from "../../api"
@@ -77,6 +77,7 @@ import { getWorkspacePath } from "../../utils/path"
 // prompts
 import { formatResponse } from "../prompts/responses"
 import { SYSTEM_PROMPT } from "../prompts/system"
+import { getArcaneanExpertise } from "../prompts/sections/arcanea-expertise" // arcanea_change: MoE router
 
 // core modules
 import { ToolRepetitionDetector } from "../tools/ToolRepetitionDetector"
@@ -108,18 +109,18 @@ import {
 	checkpointRestore,
 	checkpointDiff,
 } from "../checkpoints"
-import { processKiloUserContentMentions } from "../mentions/processKiloUserContentMentions" // kilocode_change
-import { refreshWorkflowToggles } from "../context/instructions/workflows" // kilocode_change
-import { parseMentions } from "../mentions" // kilocode_change
-import { parseKiloSlashCommands } from "../slash-commands/kilo" // kilocode_change
-import { GlobalFileNames } from "../../shared/globalFileNames" // kilocode_change
-import { ensureLocalKilorulesDirExists } from "../context/instructions/kilo-rules" // kilocode_change
+import { processArcaneaUserContentMentions } from "../mentions/processArcaneaUserContentMentions" // arcanea_change
+import { refreshWorkflowToggles } from "../context/instructions/workflows" // arcanea_change
+import { parseMentions } from "../mentions" // arcanea_change
+import { parseArcaneaSlashCommands } from "../slash-commands/arcanea" // arcanea_change
+import { GlobalFileNames } from "../../shared/globalFileNames" // arcanea_change
+import { ensureLocalArcanearulesDirExists } from "../context/instructions/arcanea-rules" // arcanea_change
 import { getMessagesSinceLastSummary, summarizeConversation } from "../condense"
 import { Gpt5Metadata, ClineMessageWithMetadata } from "./types"
 import { MessageQueueService } from "../message-queue/MessageQueueService"
 
 import { AutoApprovalHandler } from "./AutoApprovalHandler"
-import { isAnyRecognizedKiloCodeError, isPaymentRequiredError } from "../../shared/kilocode/errorUtils"
+import { isAnyRecognizedArcaneaError, isPaymentRequiredError } from "../../shared/arcanea/errorUtils"
 
 const MAX_EXPONENTIAL_BACKOFF_SECONDS = 600 // 10 minutes
 const DEFAULT_USAGE_COLLECTION_TIMEOUT_MS = 5000 // 5 seconds
@@ -127,7 +128,7 @@ const FORCED_CONTEXT_REDUCTION_PERCENT = 75 // Keep 75% of context (remove 25%) 
 const MAX_CONTEXT_WINDOW_RETRIES = 3 // Maximum retries for context window errors
 
 export interface TaskOptions extends CreateTaskOptions {
-	context: vscode.ExtensionContext // kilocode_change
+	context: vscode.ExtensionContext // arcanea_change
 	provider: ClineProvider
 	apiConfiguration: ProviderSettings
 	enableDiff?: boolean
@@ -148,13 +149,13 @@ export interface TaskOptions extends CreateTaskOptions {
 	workspacePath?: string
 }
 
-type UserContent = Array<Anthropic.ContentBlockParam> // kilocode_change
+type UserContent = Array<Anthropic.ContentBlockParam> // arcanea_change
 
 export class Task extends EventEmitter<TaskEvents> implements TaskLike {
-	private context: vscode.ExtensionContext // kilocode_change
+	private context: vscode.ExtensionContext // arcanea_change
 
 	readonly taskId: string
-	private taskIsFavorited?: boolean // kilocode_change
+	private taskIsFavorited?: boolean // arcanea_change
 	readonly rootTaskId?: string
 	readonly parentTaskId?: string
 	childTaskId?: string
@@ -310,7 +311,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	private tokenUsageSnapshotAt?: number
 
 	constructor({
-		context, // kilocode_change
+		context, // arcanea_change
 		provider,
 		apiConfiguration,
 		enableDiff = false,
@@ -330,14 +331,14 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		workspacePath,
 	}: TaskOptions) {
 		super()
-		this.context = context // kilocode_change
+		this.context = context // arcanea_change
 
 		if (startTask && !task && !images && !historyItem) {
 			throw new Error("Either historyItem or task/images must be provided")
 		}
 
 		this.taskId = historyItem ? historyItem.id : crypto.randomUUID()
-		this.taskIsFavorited = historyItem?.isFavorited // kilocode_change
+		this.taskIsFavorited = historyItem?.isFavorited // arcanea_change
 		this.rootTaskId = historyItem ? historyItem.rootTaskId : rootTask?.taskId
 		this.parentTaskId = historyItem ? historyItem.parentTaskId : parentTask?.taskId
 		this.childTaskId = undefined
@@ -350,7 +351,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		// Normal use-case is usually retry similar history task with new workspace.
 		this.workspacePath = parentTask
 			? parentTask.workspacePath
-			: (workspacePath ?? getWorkspacePath(path.join(os.homedir(), "Documents"))) // kilocode_change: use Documents instead of Desktop as default
+			: (workspacePath ?? getWorkspacePath(path.join(os.homedir(), "Documents"))) // arcanea_change: use Documents instead of Desktop as default
 
 		this.instanceId = crypto.randomUUID().slice(0, 8)
 		this.taskNumber = -1
@@ -445,7 +446,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		}
 	}
 
-	// kilocode_change start
+	// arcanea_change start
 	private getContext(): vscode.ExtensionContext {
 		const context = this.context
 		if (!context) {
@@ -453,7 +454,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		}
 		return context
 	}
-	// kilocode_change end
+	// arcanea_change end
 	/**
 	 * Initialize the task mode from the provider state.
 	 * This method handles async initialization with proper error handling.
@@ -637,7 +638,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		this.emit(RooCodeEventName.Message, { action: "created", message })
 		await this.saveClineMessages()
 
-		// kilocode_change start: no cloud service
+		// arcanea_change start: no cloud service
 		// const shouldCaptureMessage = message.partial !== true && CloudService.isEnabled()
 
 		// if (shouldCaptureMessage) {
@@ -646,7 +647,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		// 		properties: { taskId: this.taskId, message },
 		// 	})
 		// }
-		// kilocode_change end
+		// arcanea_change end
 	}
 
 	public async overwriteClineMessages(newMessages: ClineMessage[]) {
@@ -674,14 +675,14 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 
 		const shouldCaptureMessage = message.partial !== true && CloudService.isEnabled()
 
-		// kilocode_change start: no cloud service
+		// arcanea_change start: no cloud service
 		// if (shouldCaptureMessage) {
 		// 	CloudService.instance.captureEvent({
 		// 		event: TelemetryEventName.TASK_MESSAGE,
 		// 		properties: { taskId: this.taskId, message },
 		// 	})
 		// }
-		// kilocode_change end
+		// arcanea_change end
 	}
 
 	private async saveClineMessages() {
@@ -744,7 +745,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		// simply removes the reference to this instance, but the instance is
 		// still alive until this promise resolves or rejects.)
 		if (this.abort) {
-			throw new Error(`[KiloCode#ask] task ${this.taskId}.${this.instanceId} aborted`)
+			throw new Error(`[Arcanea#ask] task ${this.taskId}.${this.instanceId} aborted`)
 		}
 
 		let askTs: number
@@ -924,15 +925,15 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 	}
 
 	handleWebviewAskResponse(askResponse: ClineAskResponse, text?: string, images?: string[]) {
-		// this.askResponse = askResponse kilocode_change
+		// this.askResponse = askResponse arcanea_change
 		this.askResponseText = text
 		this.askResponseImages = images
 
-		// kilocode_change start
+		// arcanea_change start
 		// the askResponse assignment needs to happen last to avoid the async
 		// callbacks triggering before we assign the data above
 		this.askResponse = askResponse // this triggers async callbacks
-		// kilocode_change end
+		// arcanea_change end
 
 		// Create a checkpoint whenever the user sends a message.
 		// Use allowEmpty=true to ensure a checkpoint is recorded even if there are no file changes.
@@ -1756,7 +1757,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 
 			if (this.abort) {
 				throw new Error(
-					`[KiloCode#recursivelyMakeClineRequests] task ${this.taskId}.${this.instanceId} aborted`,
+					`[Arcanea#recursivelyMakeClineRequests] task ${this.taskId}.${this.instanceId} aborted`,
 				)
 			}
 
@@ -1832,8 +1833,8 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				maxReadFileLine = -1,
 			} = (await this.providerRef.deref()?.getState()) ?? {}
 
-			// kilocode_change start
-			const [parsedUserContent, needsRulesFileCheck] = await processKiloUserContentMentions({
+			// arcanea_change start
+			const [parsedUserContent, needsRulesFileCheck] = await processArcaneaUserContentMentions({
 				context: this.getContext(),
 				userContent: currentUserContent,
 				cwd: this.cwd,
@@ -1852,7 +1853,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 					"Issue with processing the /newrule command. Double check that, if '.arcanea/rules' already exists, it's a directory and not a file. Otherwise there was an issue referencing this file/directory",
 				)
 			}
-			// kilocode_change end
+			// arcanea_change end
 
 			const environmentDetails = await getEnvironmentDetails(this, currentIncludeFileDetails)
 
@@ -1884,10 +1885,10 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				let outputTokens = 0
 				let totalCost: number | undefined
 
-				// kilocode_change start
+				// arcanea_change start
 				let usageMissing = false
 				const apiRequestStartTime = performance.now()
-				// kilocode_change end
+				// arcanea_change end
 
 				// We can't use `api_req_finished` anymore since it's a unique case
 				// where it could come after a streaming message (i.e. in the middle
@@ -1917,7 +1918,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 								cacheWriteTokens,
 								cacheReadTokens,
 							),
-						usageMissing, // kilocode_change
+						usageMissing, // arcanea_change
 						cancelReason,
 						streamingFailedMessage,
 					} satisfies ClineApiReqInfo)
@@ -2093,7 +2094,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 						let bgCacheReadTokens = currentTokens.cacheRead
 						let bgTotalCost = currentTokens.total
 
-						// kilocode_change start
+						// arcanea_change start
 						const refreshApiReqMsg = async (messageIndex: number) => {
 							// Update the API request message with the latest usage data
 							updateApiReqMsg()
@@ -2105,7 +2106,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 								await this.updateClineMessage(apiReqMessage)
 							}
 						}
-						// kilocode_change end
+						// arcanea_change end
 
 						// Helper function to capture telemetry and update messages
 						const captureUsageData = async (
@@ -2156,7 +2157,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 											tokens.cacheWrite,
 											tokens.cacheRead,
 										),
-									completionTime: performance.now() - apiRequestStartTime, // kilocode_change
+									completionTime: performance.now() - apiRequestStartTime, // arcanea_change
 								})
 							}
 						}
@@ -2216,10 +2217,10 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 								console.warn(
 									`[Background Usage Collection] Suspicious: request ${apiReqIndex} is complete, but no usage info was found. Model: ${modelId}`,
 								)
-								// kilocode_change start
+								// arcanea_change start
 								usageMissing = true
 								await refreshApiReqMsg(apiReqIndex)
-								// kilocode_change end
+								// arcanea_change end
 							}
 						} catch (error) {
 							console.error("Error draining stream for usage data:", error)
@@ -2240,11 +2241,11 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 									},
 									lastApiReqIndex,
 								)
-								// kilocode_change start
+								// arcanea_change start
 							} else {
 								usageMissing = true
 								await refreshApiReqMsg(apiReqIndex)
-								// kilocode_change end
+								// arcanea_change end
 							}
 						}
 					}
@@ -2289,7 +2290,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				// Need to call here in case the stream was aborted.
 				if (this.abort || this.abandoned) {
 					throw new Error(
-						`[KiloCode#recursivelyMakeClineRequests] task ${this.taskId}.${this.instanceId} aborted`,
+						`[Arcanea#recursivelyMakeClineRequests] task ${this.taskId}.${this.instanceId} aborted`,
 					)
 				}
 
@@ -2399,12 +2400,12 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 					// an error.
 					await this.say(
 						"error",
-						t("kilocode:task.noAssistantMessages"), // kilocode_change
+						t("arcanea:task.noAssistantMessages"), // arcanea_change
 					)
 
-					// kilocode_change start
+					// arcanea_change start
 					TelemetryService.instance.captureEvent(TelemetryEventName.NO_ASSISTANT_MESSAGES)
-					// kilocode_change end
+					// arcanea_change end
 
 					await this.addToApiConversationHistory({
 						role: "assistant",
@@ -2429,7 +2430,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		return false
 	}
 
-	// kilocode_change start
+	// arcanea_change start
 	async loadContext(
 		userContent: UserContent,
 		includeFileDetails: boolean = false,
@@ -2465,7 +2466,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 							)
 
 							// when parsing slash commands, we still want to allow the user to provide their desired context
-							const { processedText, needsRulesFileCheck: needsCheck } = await parseKiloSlashCommands(
+							const { processedText, needsRulesFileCheck: needsCheck } = await parseArcaneaSlashCommands(
 								parsedText,
 								localWorkflowToggles,
 								globalWorkflowToggles,
@@ -2499,15 +2500,15 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 		// After processing content, check clinerulesData if needed
 		let clinerulesError = false
 		if (needsClinerulesFileCheck) {
-			clinerulesError = await ensureLocalKilorulesDirExists(this.cwd, GlobalFileNames.kiloRules)
+			clinerulesError = await ensureLocalArcanearulesDirExists(this.cwd, GlobalFileNames.arcaneaRules)
 		}
 
 		// Return all results
 		return [processedUserContent, environmentDetails, clinerulesError]
 	}
-	// kilocode_change end
+	// arcanea_change end
 
-	/*private kilocode_change*/ async getSystemPrompt(): Promise<string> {
+	/*private arcanea_change*/ async getSystemPrompt(): Promise<string> {
 		const { mcpEnabled } = (await this.providerRef.deref()?.getState()) ?? {}
 		let mcpHub: McpHub | undefined
 		if (mcpEnabled ?? true) {
@@ -2556,10 +2557,10 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				throw new Error("Provider not available")
 			}
 
-			return SYSTEM_PROMPT(
+			const basePrompt = await SYSTEM_PROMPT(
 				provider.context,
 				this.cwd,
-				// kilocode_change: supports images => supports browser
+				// arcanea_change: supports images => supports browser
 				(this.api.getModel().info.supportsImages ?? false) && (browserToolEnabled ?? true),
 				mcpHub,
 				this.diffStrategy,
@@ -2577,16 +2578,44 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				{
 					maxConcurrentFileReads: maxConcurrentFileReads ?? 5,
 					todoListEnabled: apiConfiguration?.todoListEnabled ?? true,
-					useAgentRules: vscode.workspace.getConfiguration("kilo-code").get<boolean>("useAgentRules") ?? true,
+					useAgentRules: vscode.workspace.getConfiguration("arcanea").get<boolean>("useAgentRules") ?? true,
 					newTaskRequireTodos: vscode.workspace
-						.getConfiguration("kilo-code")
+						.getConfiguration("arcanea")
 						.get<boolean>("newTaskRequireTodos", false),
 				},
 				undefined, // todoList
 				this.api.getModel().id,
-				await provider.getState(), // kilocode_change
+				await provider.getState(), // arcanea_change
 			)
+
+			// arcanea_change: MoE intelligence router — classify the latest user
+			// message and append domain expertise hints to the system prompt.
+			const lastUserMsg = this.getLastUserMessageText()
+			const expertise = getArcaneanExpertise(lastUserMsg)
+
+			return expertise ? `${basePrompt}\n\n${expertise}` : basePrompt
 		})()
+	}
+
+	// arcanea_change: Extract the text of the most recent user message from the
+	// API conversation history, used by the MoE intelligence router.
+	private getLastUserMessageText(): string | undefined {
+		for (let i = this.apiConversationHistory.length - 1; i >= 0; i--) {
+			const msg = this.apiConversationHistory[i]
+			if (msg.role === "user") {
+				if (typeof msg.content === "string") {
+					return msg.content
+				}
+				if (Array.isArray(msg.content)) {
+					const textParts = msg.content
+						.filter((block): block is Anthropic.TextBlock => block.type === "text")
+						.map((block) => block.text)
+					return textParts.length > 0 ? textParts.join("\n") : undefined
+				}
+				return undefined
+			}
+		}
+		return undefined
 	}
 
 	private getCurrentProfileId(state: any): string {
@@ -2846,22 +2875,22 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 			this.isWaitingForFirstChunk = false
 		} catch (error) {
 			this.isWaitingForFirstChunk = false
-			// kilocode_change start
-			if (apiConfiguration?.apiProvider === "kilocode" && isAnyRecognizedKiloCodeError(error)) {
+			// arcanea_change start
+			if (apiConfiguration?.apiProvider === "arcanea" && isAnyRecognizedArcaneaError(error)) {
 				const { response } = await (isPaymentRequiredError(error)
 					? this.ask(
 							"payment_required_prompt",
 							JSON.stringify({
-								title: t("kilocode:lowCreditWarning.title"),
-								message: t("kilocode:lowCreditWarning.message"),
+								title: t("arcanea:lowCreditWarning.title"),
+								message: t("arcanea:lowCreditWarning.message"),
 								balance: (error as any).balance ?? "0.00",
-								buyCreditsUrl: (error as any).buyCreditsUrl ?? "https://kilocode.ai/profile",
+								buyCreditsUrl: (error as any).buyCreditsUrl ?? "https://arcanea.ai/profile",
 							}),
 						)
 					: this.ask(
 							"invalid_model",
 							JSON.stringify({
-								modelId: apiConfiguration.kilocodeModel,
+								modelId: apiConfiguration.arcaneaModel,
 								error: {
 									status: error.status,
 									message: error.message,
@@ -2878,7 +2907,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 				}
 				return
 			}
-			// kilocode_change end
+			// arcanea_change end
 			// note that this api_req_failed ask is unique in that we only present this option if the api hasn't streamed any content yet (ie it fails on the first chunk due), as it would allow them to hit a retry button. However if the api failed mid-stream, it could be in any arbitrary state where some tools may have executed, so that error is handled differently and requires cancelling the task entirely.
 			if (autoApprovalEnabled && alwaysApproveResubmit) {
 				let errorMsg
@@ -3008,7 +3037,7 @@ export class Task extends EventEmitter<TaskEvents> implements TaskLike {
 
 		if (error) {
 			this.emit(RooCodeEventName.TaskToolFailed, this.taskId, toolName, error)
-			TelemetryService.instance.captureEvent(TelemetryEventName.TOOL_ERROR, { toolName, error }) // kilocode_change
+			TelemetryService.instance.captureEvent(TelemetryEventName.TOOL_ERROR, { toolName, error }) // arcanea_change
 		}
 	}
 

@@ -1,3 +1,4 @@
+// ARCANEA: BYPASS - replaced by BYOK
 import { JETBRAIN_PRODUCTS, KiloCodeWrapperProperties } from "../../../../src/shared/kilocode/wrapper"
 
 const getJetbrainsUrlScheme = (code: string) => {

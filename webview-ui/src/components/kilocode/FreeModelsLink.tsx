@@ -1,3 +1,4 @@
+// ARCANEA: BYPASS - replaced by BYOK
 import { VSCodeButtonLink } from "../common/VSCodeButtonLink"
 import { telemetryClient } from "@/utils/TelemetryClient"
 import { useAppTranslation } from "@/i18n/TranslationContext"

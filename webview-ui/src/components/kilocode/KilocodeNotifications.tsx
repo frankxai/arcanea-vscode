@@ -1,3 +1,4 @@
+// ARCANEA: BYPASS - replaced by BYOK
 import React, { useEffect, useState } from "react"
 import { useExtensionState } from "@/context/ExtensionStateContext"
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react"

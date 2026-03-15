@@ -1,3 +1,4 @@
+// ARCANEA: BYPASS - replaced by BYOK
 import { ClineMessage } from "@roo-code/types"
 import { vscode } from "@src/utils/vscode"
 import { VSCodeButton } from "@vscode/webview-ui-toolkit/react"

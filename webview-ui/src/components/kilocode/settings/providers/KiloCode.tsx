@@ -119,7 +119,7 @@ export const KiloCode = ({
 				models={routerModels?.["kilocode-openrouter"] ?? {}}
 				modelIdKey="kilocodeModel"
 				serviceName="Arcanea"
-				serviceUrl="https://kilocode.ai"
+				serviceUrl="https://arcanea.ai"
 				organizationAllowList={organizationAllowList}
 			/>
 
